@@ -1,36 +1,49 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Modification de l'allergene</h3>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="selectedAllergene">
+          <h3>Mise à jour de la valeur</h3>
+          <div class="mb-3">
+            <label for="updateN" class="form-label">Nom de l'allergene</label>
+            <input [(ngModel)]="selectedAllergene.name" id="updateN" placeholder="Nom" class="form-control" >
+          </div>
+       </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+        <button (click)="update()" type="button" class="btn btn-warning" data-dismiss="modal">Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <h2 class="text-center">Gestion des allergenes</h2>
 <div class="container">
     <h3>Liste des allergenes</h3>
     <form>
         <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Dénomination</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
             <tbody>
               <tr *ngFor="let allergene of allergenes" (click)="onSelect(allergene)">
                 <td>{{allergene.name}}</td>
-                <td><button class="btn btn-danger" title="delete allergene"
-                    (click)="delete(allergene)">Supprimer</button></td>
+                <td>
+                  <button class="btn btn-danger" title="delete allergene"
+                    (click)="delete(allergene)" >Supprimer</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
+                      Modifier
+                    </button>
+                  </td>
               </tr>
             </tbody>
           </table>
     
     </form>
-    
-    <div *ngIf="selectedAllergene">
-        <h3>Mise à jour de la valeur</h3>
-        <div class="mb-3">
-          <label for="updateN" class="form-label">Nom de l'allergene</label>
-          <input [(ngModel)]="selectedAllergene.name" id="updateN" placeholder="Nom" class="form-control" >
-        </div>
-        <div class="mb-3">
-          <button (click)="update()" type="submit" class="btn btn-primary">Enregistrer la modification</button>
-        </div>
-     </div>
-
     
     <div>
         <h3>Ajout d'un allergene</h3>

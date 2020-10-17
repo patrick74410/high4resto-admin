@@ -1,21 +1,13 @@
-.example-list {
-    width: 500px;
-    max-width: 100%;
-    border: solid 1px #ccc;
-    min-height: 60px;
-    display: block;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-  }
+.cdk-list {
+
+   }
   
-  .example-box {
+  .cdk-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
     align-items: center;
+    display: flex;
     justify-content: space-between;
     box-sizing: border-box;
     cursor: move;
@@ -39,10 +31,10 @@
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
   
-  .example-box:last-child {
+  .cdk_box:last-child {
     border: none;
   }
   
-  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  .cdk-list.cdk-drop-list-dragging .cdk-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }

@@ -1,3 +1,31 @@
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Modification de la catégorie</h3>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="selectedImage" for="updateIG">
+          <h3>Mise à jour de la valeur</h3>
+          <div class="mb-3">
+            <label class="form-label" for="updateIG">Nom du groupe:</label>
+            <input [(ngModel)]="selectedImage.group" placeholder="Nom" class="form-control" id="updateIG">
+            <label class="form-label" for="updateID">Description de l'image:</label>
+            <input [(ngModel)]="selectedImage.description" placeholder="Description" id="updateID" class="form-control" >
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+        <button (click)="update()" type="button" class="btn btn-warning" data-dismiss="modal">Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <h2 class="text-center">Gestion des images</h2>
     <h3>Liste des images</h3>
@@ -18,26 +46,18 @@
                 <td>{{image.group}}</td>
                 <td>{{image.description}}</td>
                 <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80"/></td>
-                <td><button class="btn btn-danger" title="delete categorie"
-                  (click)="deleteImage(image)">Supprimer</button></td>
+                <td>
+                  <button class="btn btn-danger" title="delete categorie"
+                  (click)="deleteImage(image)">Supprimer</button>
+                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
+                    Modifier
+                  </button>
+              
+                </td>
               </tr>
             </tbody>
           </table>
     </form>
-
-  
-    <div *ngIf="selectedImage" for="updateIG">
-      <h3>Mise à jour de la valeur</h3>
-      <div class="mb-3">
-        <label class="form-label" for="updateIG">Nom du groupe:</label>
-        <input [(ngModel)]="selectedImage.group" placeholder="Nom" class="form-control" id="updateIG">
-        <label class="form-label" for="updateID">Description de l'image:</label>
-        <input [(ngModel)]="selectedImage.description" placeholder="Description" id="updateID" class="form-control" >
-      </div>
-      <div class="mb-3">
-        <button (click)="update()" type="submit" class="btn btn-primary">Enregistrer la modification</button>
-      </div>
-    </div>
 
     <h3>Ajouter une image</h3>
     <div>
