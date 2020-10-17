@@ -1,0 +1,130 @@
+<div class="modal fade" id="selectImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Choix de l'image</h2>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Liste des images</h3>
+                <form>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nom du fichier</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Visualisation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let image of images" (click)="onSelect(image)">
+                                <td>{{image.fileName}}</td>
+                                <td>{{image.description}}</td>
+                                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="mb-3" *ngIf="selectedImage">
+                    <label>Image sélectionnée:</label>
+                    <div class="mb-3">
+                        <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center" width="80" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="text-center">Gestion du menu</h2>
+    <h3>Liste des éléments de menu</h3>
+    <form>
+        <div class="row">
+            <div *ngFor="let itemMenu of itemsMenu" class="card col-md-3" style="margin: 5px;" (click)="selectItem(itemMenu)">
+                <div class="card-header">
+                    <img src="{{urlDownload}}{{itemMenu.sourceImage.gridId}}" class="card-img-top" alt="{{itemMenu.sourceImage.description}}">
+                </div>
+                <div class="card-body">
+                  <h2 class="card-title">{{itemMenu.name}}</h2>
+                  <h3 class="card-subtitle mb-2 text-muted">{{itemMenu.categorie.name}}</h3>
+                  <p class="card-text">{{itemMenu.description}}</p>
+              </div>
+                <div class="card-footer text-center" style="height: 150px;">
+                    <h3 class="text-center">{{itemMenu.price}}€</h3>
+                    <small>
+                        <span><b>Allergene: </b></span>
+                        <span *ngFor="let allergene of itemMenu.allergenes">{{allergene.name}} </span>
+                    </small>
+                </div>
+                <button (click)="delete(itemMenu)" class="btn btn-danger">Suprimer</button>
+            </div>        
+        </div>
+    </form>
+
+    <h3>Ajouter un élément au menu</h3>
+    <div>
+        <div class="mb-3">
+            <label class="form-label" for="addNam">Nom:</label>
+            <input id="addNam" #name type="text" class="form-control" placeholder="Nom" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="addDes">Description:</label>
+            <input id="addDes" #description type="text" class="form-control" placeholder="Description" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="addOrder">Z-Index:</label>
+            <input id="addOrder" #order type="number" class="form-control" placeholder="Priorité de l'affichage" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="addP">Prix:</label>
+            <div class="input-group mb-3" style="max-width: 200px;">
+                <input id="addP" #price type="number" min="0.1" step="0.01" class="form-control" placeholder="Montant"
+                    aria-label="Montant" aria-describedby="basic-addon1">
+                <span class="input-group-text" id="basic-addon1">€</span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="addC">Choix de la categorie:</label>
+            <select #selectedCategorie id="addC" class="form-select" aria-label="Default select">
+                <option *ngFor="let categorie of categories;let idx=index" [selected]=" idx == 0 ? true : false"
+                    [value]="idx">{{categorie.name}}</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectImageModal">
+                Choisir une image ...
+            </button>
+        </div>
+ 
+        <div class="mb-3" *ngIf="selectedImage">
+            <label>Image sélectionnée:</label>
+            <div class="mb-3">
+                <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center" width="80" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="addA">Choix des alergenes:</label>
+            <select #selectedAllergenes id="addA" class="form-select" aria-label="Default select" multiple size=10>
+                <option *ngFor="let allergene of allergenes;let idx=index" [selected]=" idx == 0 ? true : false"
+                    [value]="idx">{{allergene.name}}</option>
+            </select>
+        </div>
+
+
+        <div class="mb-3">
+            <button (click)="addItem(name,description,price,selectedCategorie,selectedAllergenes,order)" class="btn btn-primary">
+                Ajouter cet item au menu
+            </button>
+        </div>
+    </div>
+</div>

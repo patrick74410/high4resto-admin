@@ -1,0 +1,59 @@
+<h2 class="text-center">Gestion des categories</h2>
+<div class="container">
+    <h3>Liste des categories</h3>
+    <form>
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Dénomination</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+              <tr *ngFor="let categorie of categories" cdkDrag cdkDragLockAxis="y" (click)="onSelect(categorie)">
+                <th>
+                  <div class="drag-handle">
+                    <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
+                    {{ categorie.order }}
+                  </div>
+                </th>
+                <td>{{categorie.name}}</td>
+                <td><button class="btn btn-danger" title="delete categorie"
+                    (click)="delete(categorie)">Supprimer</button></td>
+              </tr>
+            </tbody>
+          </table>
+    </form>
+    
+    <div *ngIf="selectedCategorie">
+        <h3>Mise à jour de la valeur</h3>
+        <div class="mb-3">
+          <label class="form-label" for="updateN">Nom de la categorie</label>
+          <input [(ngModel)]="selectedCategorie.name" id="updateN" placeholder="Nom" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <button (click)="update()" type="submit" class="btn btn-primary">Enregistrer la modification</button>
+        </div>
+    </div>
+
+    <div>
+      <h3>Ajout d'un categorie</h3>
+      <div class="mb-3">
+          <label class="form-label" for="inputNameCategorie">Nom de la categorie</label>
+          <input  #categorieName class="form-control" id="inputNameCategorie" placeholder="Taper la dénomination">
+      </div>
+      <div class="mb-3">
+        <button (click)="add(categorieName.value); categorieName.value=''" type="submit" class="btn btn-primary">Ajouter</button>
+      </div>  
+  
+    </div>
+
+
+</div>    
+
+<ng-template #dragHandleTmpl>
+  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-move" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"/>
+  </svg>
+</ng-template>
