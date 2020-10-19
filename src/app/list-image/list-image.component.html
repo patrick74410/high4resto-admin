@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="staticBackdropLabel">Modification de la catégorie</h3>
@@ -26,10 +26,76 @@
   </div>
 </div>
 
+<!-- Modal add-->
+<div class="modal fade" id="staticBackdropAdd" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Ajout d'une image</h3>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label" for="addDes">Description de l'image:</label>
+          <input id="addDes" #description type="text" class="form-control" placeholder="Description"/>
+        </div>
+    
+        <div class="mb-3">
+          <label class="form-label" for="addN">Nom du groupe:</label>
+          <input #group type="text" class="form-control" id="addN" placeholder="Nom"/>
+        </div>
+    
+        <div class="mb-3">
+          <label class="form-label" for="addW">Largeur de l'image:</label>
+          <input [(ngModel)]="width" id="addW" type="number" class="form-control"/> 
+        </div>
+    
+        <div class="mb-3">
+          <label class="form-label" for="addH">Hauteur de l'image:</label>
+          <input [(ngModel)]="heigth" id="addH" type="number" class="form-control"/> 
+        </div>
+    
+        <div class="mb-3">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" [(ngModel)]="keepRatio" class="form-check-input" value="">Maintenir le ratio
+            </label>
+          </div>    
+        </div>
+    
+        <div class="mb-3">    
+          <label class="form-label">Choix du fichier:</label>
+          <div class="form-file">
+            <input type="file" class="form-file-input" id="customFile"  accept="image/png, image/jpeg" type="file" (change)="handleFiles($event)">
+            <label class="form-file-label" for="customFile">
+              <span class="form-file-text">{{name}}</span>
+              <span class="form-file-button">Parcourir...</span>
+            </label>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <img [src]="imgURL" *ngIf="imgURL && !keepRatio" [width]="width" [height]="heigth">
+          <img [src]="imgURL" *ngIf="imgURL && keepRatio" [width]="width">
+        </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button *ngIf="imgURL" data-dismiss="modal" (click)="upload(description.value,group.value);description.value='';group.value=''" type="submit" class="btn btn-primary">
+            Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
     <h2 class="text-center">Gestion des images</h2>
-    <h3>Liste des images</h3>
-    <form>
+    <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal" data-target="#staticBackdropAdd">
+      +
+    </button>
+      <form>
         <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -49,6 +115,7 @@
                 <td>
                   <button class="btn btn-danger" title="delete categorie"
                   (click)="deleteImage(image)">Supprimer</button>
+                  <span style="margin: 10px;"> </span>
                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
                     Modifier
                   </button>
@@ -59,57 +126,6 @@
           </table>
     </form>
 
-    <h3>Ajouter une image</h3>
-    <div>
-      <div class="mb-3">
-        <label class="form-label" for="addDes">Description de l'image:</label>
-        <input id="addDes" #description type="text" class="form-control" placeholder="Description"/>
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label" for="addN">Nom du groupe:</label>
-        <input #group type="text" class="form-control" id="addN" placeholder="Nom"/>
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label" for="addW">Largeur de l'image:</label>
-        <input [(ngModel)]="width" id="addW" type="number" class="form-control"/> 
-      </div>
-  
-      <div class="mb-3">
-        <label class="form-label" for="addH">Hauteur de l'image:</label>
-        <input [(ngModel)]="heigth" id="addH" type="number" class="form-control"/> 
-      </div>
-  
-      <div class="mb-3">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input type="checkbox" [(ngModel)]="keepRatio" class="form-check-input" value="">Maintenir le ratio
-          </label>
-        </div>    
-      </div>
-  
-      <div class="mb-3">    
-        <label class="form-label">Choix du fichier:</label>
-        <div class="form-file">
-          <input type="file" class="form-file-input" id="customFile"  accept="image/png, image/jpeg" type="file" (change)="handleFiles($event)">
-          <label class="form-file-label" for="customFile">
-            <span class="form-file-text">{{name}}</span>
-            <span class="form-file-button">Parcourir...</span>
-          </label>
-        </div>
-      </div>
-    
-      <div class="mb-3">    
-        <button *ngIf="imgURL" (click)="upload(description.value,group.value);description.value='';group.value=''" type="submit" class="btn btn-primary">Ajouter</button>
-      </div>
-
-      <div class="mb-3">
-        <img [src]="imgURL" *ngIf="imgURL && !keepRatio" [width]="width" [height]="heigth">
-        <img [src]="imgURL" *ngIf="imgURL && keepRatio" [width]="width">
-      </div>
-    
-    </div>
 
 
 </div>

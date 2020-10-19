@@ -1,6 +1,6 @@
-<!-- Modal -->
+<!-- Modal update-->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="staticBackdropLabel">Modification de l'allergene</h3>
@@ -23,11 +23,35 @@
   </div>
 </div>
 
+<!-- Modal add-->
+<div class="modal fade" id="staticBackdropAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="staticBackdropLabel">Ajout d'un allergene</h3>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label" for="inputNameAllergene">Nom de l'allergene</label>
+          <input  #allergeneName class="form-control" id="inputNameAllergene" placeholder="Taper la dénomination">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+        <button (click)="add(allergeneName.value); allergeneName.value=''" type="submit"  data-dismiss="modal" class="btn btn-primary">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Modal allergene-->
 <h2 class="text-center">Gestion des allergenes</h2>
 <div class="container">
-    <h3>Liste des allergenes</h3>
-    <form>
+      <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal" data-target="#staticBackdropAdd">
+        +
+      </button>
+        <form>
         <table class="table">
             <tbody>
               <tr *ngFor="let allergene of allergenes" (click)="onSelect(allergene)">
@@ -35,29 +59,17 @@
                 <td>
                   <button class="btn btn-danger" title="delete allergene"
                     (click)="delete(allergene)" >Supprimer</button>
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
-                      Modifier
-                    </button>
+                  <span style="margin: 10px;"> </span>
+                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
+                    Modifier
+                  </button>
                   </td>
               </tr>
             </tbody>
           </table>
-    
     </form>
-    
-    <div>
-        <h3>Ajout d'un allergene</h3>
-        <div class="mb-3">
-          <label class="form-label" for="inputNameAllergene">Nom de l'allergene</label>
-          <input  #allergeneName class="form-control" id="inputNameAllergene" placeholder="Taper la dénomination">
-        </div>
-        <div class="mb-3">
-          <button (click)="add(allergeneName.value); allergeneName.value=''" type="submit" class="btn btn-primary">Ajouter</button>
-        </div>
-    </div>  
-
-
+  
 </div>    
-    
+
     
     

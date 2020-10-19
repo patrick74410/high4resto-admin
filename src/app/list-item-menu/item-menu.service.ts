@@ -29,6 +29,10 @@ export class ItemMenuService {
     var finalUrl=this.itemMenuDeleteUrl+itemMenu.id;
     return this.http.delete(finalUrl);
   }
+ 
+  updateItem(itemMenu:itemMenuI): Observable<any> {
+    return this.http.put(this.itemMenusUpdateUrl,itemMenu,this.httpOptionsUpdate);
+  }
 
   constructor(private http: HttpClient) { }
 }

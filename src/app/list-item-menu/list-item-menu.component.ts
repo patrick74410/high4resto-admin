@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CdkDragDrop, CDK_DRAG_CONFIG, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { CategorieService } from '../list-categorie/categorie.service'
 import { ImageService } from '../list-image/image.service'
 import { AllergeneService } from '../list-allergene/allergene.service'
@@ -26,7 +27,9 @@ export class ListItemMenuComponent implements OnInit {
   categories:categorieI[];
   images:imageI[];
   allergenes:allergeneI[];
-  image:imageI;
+  allergenesAdd:allergeneI[]=[];
+  allergenesUpdate:allergeneI[]=[];
+
   selectedImage:imageI;
   urlDownload:String="http://localhost:8080/images/download/";
 
@@ -35,8 +38,15 @@ export class ListItemMenuComponent implements OnInit {
     this.selectedItem=itemMenu;
   }
 
+  update():void {
+    this.itemMenuService.updateItem(this.selectedItem).subscribe(item=>{
+      const message:messageI={content:'L\'item a été mis à jour',level:'Info'};
+      this.messageService.add(message);
+    })
+  }
+
   delete(itemMenu:itemMenuI):void {
-    const message:messageI={content:'L\'élément à été supprimé',level:'Attention'}
+    const message:messageI={content:'L\'élément à été supprimé',level:'Attention'};
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'item de menu ?",function(){
@@ -53,9 +63,8 @@ export class ListItemMenuComponent implements OnInit {
     });
   }
 
-  addItem(name:HTMLInputElement,description:HTMLInputElement,price:HTMLInputElement,selectedCategorie:HTMLSelectElement,selectedAllergene:HTMLSelectElement,order:HTMLInputElement)
+  addItem(name:HTMLInputElement,description:HTMLInputElement,price:HTMLInputElement,selectedCategorie:HTMLSelectElement,order:HTMLInputElement)
   {
-    var addAllergenes:allergeneI[]=[];
     var addCategorie:categorieI;
 
     for(var i=0;i<selectedCategorie.options.length;i++)
@@ -67,24 +76,14 @@ export class ListItemMenuComponent implements OnInit {
       }
     }
 
-    console.log("Allergènes:")
     
-    for(var i=0;i<selectedAllergene.options.length;i++)
-    {
-      if(selectedAllergene.options[i].selected)
-      {
-        addAllergenes.push(this.allergenes[i]);
-        console.log(this.allergenes[i])
-      }
-    }
-
     const itemAdd:itemMenuI={
       id:'',
       name:name.value,
       description:description.value,
       price:Number(price.value),
       categorie:addCategorie,
-      allergenes:addAllergenes,
+      allergenes:this.allergenesAdd,
       order:Number(order.value),
       sourceImage:this.selectedImage
     }
@@ -93,8 +92,22 @@ export class ListItemMenuComponent implements OnInit {
       this.itemsMenu.push(itemAdd);
       const message:messageI={content:'L\'item a bien été ajouté',level:'Info'};
       this.messageService.add(message);
+      this.allergenes=[];
+      this.allergenesAdd=[];
+      this.allergeneService.getAllergenes().subscribe(allergenes=>this.allergenes=allergenes);
     });
 
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
   }
 
   constructor(private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemMenuService:ItemMenuService,private messageService:MessageService) { }
