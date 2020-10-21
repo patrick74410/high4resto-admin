@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NgxPicaService,NgxPicaErrorInterface,NgxPicaResizeOptionsInterface } from '@digitalascetic/ngx-pica';
 import { AspectRatioOptions, ExifOptions } from '@digitalascetic/ngx-pica/lib/ngx-pica-resize-options.interface';
-import {imageI} from '../interfaces/imageI'
+import {ImageI} from '../interfaces/imageI'
 import { ImageService} from './image.service'
 import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService } from '../message.service';
-import { messageI } from '../interfaces/messageI';
+import { MessageI } from '../interfaces/messageI';
 
 @Component({
   selector: 'app-list-image',
@@ -16,9 +16,9 @@ import { messageI } from '../interfaces/messageI';
 export class ListImageComponent implements OnInit {
   imgURL: any;
   tpFile: File;
-  images:imageI[];
-  addImage:imageI;
-  selectedImage:imageI;
+  images:ImageI[];
+  addImage:ImageI;
+  selectedImage:ImageI;
   name:String;
   urlDownload:String="http://localhost:8080/images/download/";
 
@@ -26,7 +26,7 @@ export class ListImageComponent implements OnInit {
   width=800;
   heigth=600;
 
-  onSelect(image:imageI)
+  onSelect(image:ImageI)
   {
     this.selectedImage=image;
   }
@@ -50,12 +50,12 @@ export class ListImageComponent implements OnInit {
                 this.imgURL="";
                 this.name="";
                 this.getImages();
-                const message:messageI={content:'L\'image a bien été rajoutée',level:'Info'}
+                const message:MessageI={content:'L\'image a bien été rajoutée',level:'Info'}
                 this.messageService.add(message);
                     
               });
         }, (err: NgxPicaErrorInterface) => {
-            const message:messageI={content:'Il y a eu une erreux lors de l\'importation de l\'image',level:'Erreur'}
+            const message:MessageI={content:'Il y a eu une erreux lors de l\'importation de l\'image',level:'Erreur'}
             this.messageService.add(message);
             throw err.err;
         });
@@ -76,7 +76,7 @@ export class ListImageComponent implements OnInit {
     }));
   }
 
-  deleteImage(image:imageI): void {
+  deleteImage(image:ImageI): void {
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'image ?",function(){
       that.selectedImage=null;
@@ -85,7 +85,7 @@ export class ListImageComponent implements OnInit {
         {
           var index = that.images.indexOf(image);
           that.images.splice(index, 1);        
-          const message:messageI={content:'l\'image à bien été supprimée',level:'Attention'}
+          const message:MessageI={content:'l\'image à bien été supprimée',level:'Attention'}
           that.messageService.add(message);
         }
         );  
@@ -96,7 +96,7 @@ export class ListImageComponent implements OnInit {
 
 
   update():void{
-    const message:messageI={content:'La modification a bien été effectuée',level:'info'}
+    const message:MessageI={content:'La modification a bien été effectuée',level:'info'}
 
     this.imageService.updateImage(this.selectedImage).subscribe(item=>this.messageService.add(message));
   }

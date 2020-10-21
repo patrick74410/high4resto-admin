@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AllergeneService } from './allergene.service'
-import { allergeneI} from '../interfaces/allergeneI'
+import { AllergeneI} from '../interfaces/allergeneI'
 import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService } from '../message.service'
-import { messageI } from '../interfaces/messageI'
+import { MessageI } from '../interfaces/messageI'
 
 @Component({
   selector: 'app-list-allergene',
@@ -13,28 +13,28 @@ import { messageI } from '../interfaces/messageI'
 })
 
 export class ListAllergeneComponent implements OnInit {
-  allergenes: allergeneI[];
-  selectedAllergene: allergeneI;
+  allergenes: AllergeneI[];
+  selectedAllergene: AllergeneI;
   
 
-  onSelect(allergene:allergeneI)
+  onSelect(allergene:AllergeneI)
   {
     this.selectedAllergene=allergene;
   }
  
   add(name:String): void{
-    const message:messageI={content:'L\'allergene à été rajouté',level:'Info'}
+    const message:MessageI={content:'L\'allergene à été rajouté',level:'Info'}
     name = name.trim();
     if (!name) { return; }
-    this.allergeneService.addAllergene({ name } as allergeneI)
+    this.allergeneService.addAllergene({ name } as AllergeneI)
       .subscribe(allergene => {
         this.allergenes.push(allergene);
         this.messageService.add(message);
       });    
   }
 
-  delete(allergene:allergeneI):void {
-    const message:messageI={content:'L\'élément à été supprimé',level:'Attention'}
+  delete(allergene:AllergeneI):void {
+    const message:MessageI={content:'L\'élément à été supprimé',level:'Attention'}
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'allergene ?",function(){
     that.allergeneService.deleteAllergene(allergene).subscribe( test=>
@@ -52,7 +52,7 @@ export class ListAllergeneComponent implements OnInit {
   }
 
   update(): void {
-    const message:messageI={content:'La modification a été enregistrée',level:'Info'}
+    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
     this.allergeneService.updateAllergene(this.selectedAllergene)
       .subscribe(item=>{this.messageService.add(message);});
   }

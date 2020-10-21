@@ -7,12 +7,12 @@ import { ItemMenuService } from './item-menu.service'
 import { MessageService } from '../message.service'
 import { AlertService } from '../comfirm-dialog/alert.service';
 
-import {categorieI} from '../interfaces/categorieI'
-import {imageI} from '../interfaces/imageI'
-import {allergeneI} from '../interfaces/allergeneI'
-import {itemMenuI} from '../interfaces/itemMenuI'
+import {CategorieI} from '../interfaces/categorieI'
+import {ImageI} from '../interfaces/imageI'
+import {AllergeneI} from '../interfaces/allergeneI'
+import {ItemMenuI} from '../interfaces/itemMenuI'
 import { from } from 'rxjs';
-import { messageI } from '../interfaces/messageI';
+import { MessageI } from '../interfaces/messageI';
 
 @Component({
   selector: 'app-list-item-menu',
@@ -21,32 +21,32 @@ import { messageI } from '../interfaces/messageI';
 })
 
 export class ListItemMenuComponent implements OnInit {
-  itemMenu:itemMenuI;
-  selectedItem:itemMenuI;
-  itemsMenu:itemMenuI[];
-  categories:categorieI[];
-  images:imageI[];
-  allergenes:allergeneI[];
-  allergenesAdd:allergeneI[]=[];
-  allergenesUpdate:allergeneI[]=[];
+  itemMenu:ItemMenuI;
+  selectedItem:ItemMenuI;
+  itemsMenu:ItemMenuI[];
+  categories:CategorieI[];
+  images:ImageI[];
+  allergenes:AllergeneI[];
+  allergenesAdd:AllergeneI[]=[];
+  allergenesUpdate:AllergeneI[]=[];
 
-  selectedImage:imageI;
+  selectedImage:ImageI;
   urlDownload:String="http://localhost:8080/images/download/";
 
-  selectItem(itemMenu:itemMenuI):void
+  selectItem(itemMenu:ItemMenuI):void
   {
     this.selectedItem=itemMenu;
   }
 
   update():void {
     this.itemMenuService.updateItem(this.selectedItem).subscribe(item=>{
-      const message:messageI={content:'L\'item a été mis à jour',level:'Info'};
+      const message:MessageI={content:'L\'item a été mis à jour',level:'Info'};
       this.messageService.add(message);
     })
   }
 
-  delete(itemMenu:itemMenuI):void {
-    const message:messageI={content:'L\'élément à été supprimé',level:'Attention'};
+  delete(itemMenu:ItemMenuI):void {
+    const message:MessageI={content:'L\'élément à été supprimé',level:'Attention'};
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'item de menu ?",function(){
@@ -65,7 +65,7 @@ export class ListItemMenuComponent implements OnInit {
 
   addItem(name:HTMLInputElement,description:HTMLInputElement,price:HTMLInputElement,selectedCategorie:HTMLSelectElement,order:HTMLInputElement)
   {
-    var addCategorie:categorieI;
+    var addCategorie:CategorieI;
 
     for(var i=0;i<selectedCategorie.options.length;i++)
     {
@@ -77,7 +77,7 @@ export class ListItemMenuComponent implements OnInit {
     }
 
     
-    const itemAdd:itemMenuI={
+    const itemAdd:ItemMenuI={
       id:'',
       name:name.value,
       description:description.value,
@@ -90,7 +90,7 @@ export class ListItemMenuComponent implements OnInit {
   
     this.itemMenuService.addItemMenu(itemAdd).subscribe(test=>{
       this.itemsMenu.push(itemAdd);
-      const message:messageI={content:'L\'item a bien été ajouté',level:'Info'};
+      const message:MessageI={content:'L\'item a bien été ajouté',level:'Info'};
       this.messageService.add(message);
       this.allergenes=[];
       this.allergenesAdd=[];
@@ -112,7 +112,7 @@ export class ListItemMenuComponent implements OnInit {
 
   constructor(private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemMenuService:ItemMenuService,private messageService:MessageService) { }
 
-  onSelect(image:imageI)
+  onSelect(image:ImageI)
   {
     this.selectedImage=image;
   }

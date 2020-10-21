@@ -1,14 +1,14 @@
-import { categorieI } from './categorieI';
-import {allergeneI} from './allergeneI'
-import { imageI } from './imageI';
+import { CategorieI } from './categorieI';
+import {AllergeneI} from './allergeneI'
+import { ImageI } from './imageI';
 
-export interface itemMenuI {
+export interface ItemMenuI {
     id: String;
     name: String; 
     description: String;
     price: Number;
     order: Number;
-    sourceImage: imageI;
-    categorie: categorieI;
-    allergenes: allergeneI[];
+    sourceImage: ImageI;
+    categorie: CategorieI;
+    allergenes: AllergeneI[];
  }

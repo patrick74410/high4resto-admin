@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
-import { categorieI } from '../interfaces/categorieI'
+import { CategorieI } from '../interfaces/categorieI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
@@ -16,22 +16,23 @@ export class CategorieService {
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  getCategories(): Observable<categorieI[]>{
-    return this.http.get<categorieI[]>(this.categoriesFindUrl);
+
+  getCategories(): Observable<CategorieI[]>{
+    return this.http.get<CategorieI[]>(this.categoriesFindUrl);
   }
 
-  updateCategorie(categorie:categorieI): Observable<any> {
+  updateCategorie(categorie:CategorieI): Observable<any> {
    return this.http.put(this.categoriesUpdateUrl,categorie,this.httpOptionsUpdate);
   }
 
-  deleteCategorie(categorie:categorieI): Observable<any> {
+  deleteCategorie(categorie:CategorieI): Observable<any> {
     var finalUrl=this.categorieDeleteUrl+categorie.id;
     console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 
-  addCategorie(categorie:categorieI):Observable<categorieI> {
-    return this.http.put<categorieI>(this.categorieAddUrl,categorie,this.httpOptionsUpdate);
+  addCategorie(categorie:CategorieI):Observable<CategorieI> {
+    return this.http.put<CategorieI>(this.categorieAddUrl,categorie,this.httpOptionsUpdate);
   }
 
   constructor(private http: HttpClient) { }

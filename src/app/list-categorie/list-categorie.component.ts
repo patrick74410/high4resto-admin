@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CategorieService } from './categorie.service'
-import { categorieI} from '../interfaces/categorieI'
+import { CategorieI} from '../interfaces/categorieI'
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService} from '../message.service'
-import { messageI } from '../interfaces/messageI';
+import { MessageI } from '../interfaces/messageI';
 
 @Component({
   selector: 'app-list-categorie',
@@ -13,28 +13,28 @@ import { messageI } from '../interfaces/messageI';
 })
 
 export class ListCategorieComponent implements OnInit {
-  categories: categorieI[];
-  selectedCategorie: categorieI;
+  categories: CategorieI[];
+  selectedCategorie: CategorieI;
 
-  onSelect(categorie:categorieI)
+  onSelect(categorie:CategorieI)
   {
     this.selectedCategorie=categorie;
   }
  
   add(name:String): void{
-    const message:messageI={content:'La catégorie a été rajoutée',level:'Info'}
+    const message:MessageI={content:'La catégorie a été rajoutée',level:'Info'}
     name = name.trim();
     var order:Number = this.categories.length+1;
     if (!name) { return; }
-    this.categorieService.addCategorie({ name,order } as categorieI)
+    this.categorieService.addCategorie({ name,order } as CategorieI)
       .subscribe(categorie => {
         this.categories.push(categorie);
         this.messageService.add(message);
       });    
   }
 
-  delete(categorie:categorieI):void {
-    const message:messageI={content:'L\'élément à été supprimé',level:'Attention'}
+  delete(categorie:CategorieI):void {
+    const message:MessageI={content:'L\'élément à été supprimé',level:'Attention'}
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer la catégorie ?",function(){
@@ -56,7 +56,7 @@ export class ListCategorieComponent implements OnInit {
   }
 
   update(): void {
-    const message:messageI={content:'La modification a été enregistrée',level:'Info'}
+    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
 
     this.categorieService.updateCategorie(this.selectedCategorie)
       .subscribe(item=>this.messageService.add(message));
@@ -78,7 +78,7 @@ export class ListCategorieComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const message:messageI={content:'Les éléments ont été triés',level:'Info'}
+    const message:MessageI={content:'Les éléments ont été triés',level:'Info'}
 
     moveItemInArray(this.categories, event.previousIndex, event.currentIndex);
     this.categories.forEach((categorie, idx) => {

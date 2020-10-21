@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { messageI } from './interfaces/messageI'
+import { MessageI } from './interfaces/messageI'
 
 declare var bootstrap:any;
 
@@ -8,9 +8,9 @@ declare var bootstrap:any;
 })
 
 export class MessageService {
-  messages: messageI[]=[];
+  messages: MessageI[]=[];
 
-  async add(message: messageI) {
+  async add(message: MessageI) {
     this.messages.push(message);
     await new Promise(resolve => setTimeout(()=>resolve(), 1000)).then(()=>{
       var toastElList = [].slice.call(document.querySelectorAll('.toast'))
@@ -21,7 +21,7 @@ export class MessageService {
     });
   }
 
-  delMessage(message:messageI) {
+  delMessage(message:MessageI) {
     var index = this.messages.indexOf(message);
     this.messages.splice(index, 1);         
   }

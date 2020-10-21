@@ -1,4 +1,4 @@
-export interface ingredientI {
+export interface IngredientI {
     id: String;
     name: String; 
  }

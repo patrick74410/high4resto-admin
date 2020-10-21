@@ -1,4 +1,4 @@
-export interface allergeneI {
+export interface AllergeneI {
    id: String;
    name: String; 
 }

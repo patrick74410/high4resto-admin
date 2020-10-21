@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
-import { imageI } from '../interfaces/imageI'
+import { ImageI } from '../interfaces/imageI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders, HttpParameterCodec, HttpParams, HttpRequest } from '@angular/common/http'
 
@@ -31,19 +31,19 @@ export class ImageService {
     return this.http.post(this.imageUploadUrl,paramsFile,options);
   }
 
-  getImages():Observable<imageI[]>{
-    return this.http.get<imageI[]>(this.imagesFindUrl);
+  getImages():Observable<ImageI[]>{
+    return this.http.get<ImageI[]>(this.imagesFindUrl);
   }
 
-  updateImage(image:imageI): Observable<any> {
+  updateImage(image:ImageI): Observable<any> {
     return this.http.put(this.imageUpdateUrl,image,this.httpOptionsUpdate);
    }
  
-   deleteImage(image:imageI): Observable<any> {
+   deleteImage(image:ImageI): Observable<any> {
     var finalUrl=this.imageDeleteUrl+image.id;
     return this.http.delete(finalUrl);
   }
-  deleteImageGrid(image:imageI): Observable<any> {
+  deleteImageGrid(image:ImageI): Observable<any> {
     var finalUrl=this.imageDeleteGridUrl+image.gridId;
     return this.http.delete(finalUrl);
   }

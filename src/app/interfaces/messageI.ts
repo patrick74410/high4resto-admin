@@ -1,6 +1,6 @@
 import { ContentChild } from "@angular/core"
 
-export interface messageI{
+export interface MessageI{
     content:string;
     level:string;
 }

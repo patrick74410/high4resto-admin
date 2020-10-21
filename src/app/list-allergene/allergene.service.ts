@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
-import { allergeneI } from '../interfaces/allergeneI'
+import { AllergeneI } from '../interfaces/allergeneI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
@@ -18,22 +18,22 @@ export class AllergeneService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getAllergenes(): Observable<allergeneI[]>{
-    return this.http.get<allergeneI[]>(this.allergenesFindUrl);
+  getAllergenes(): Observable<AllergeneI[]>{
+    return this.http.get<AllergeneI[]>(this.allergenesFindUrl);
   }
 
-  updateAllergene(allergene:allergeneI): Observable<any> {
+  updateAllergene(allergene:AllergeneI): Observable<any> {
    return this.http.put(this.allergenesUpdateUrl,allergene,this.httpOptionsUpdate);
   }
 
-  deleteAllergene(allergene:allergeneI): Observable<any> {
+  deleteAllergene(allergene:AllergeneI): Observable<any> {
     var finalUrl=this.allergeneDeleteUrl+allergene.id;
     console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 
-  addAllergene(allergene:allergeneI):Observable<allergeneI> {
-    return this.http.put<allergeneI>(this.allergeneAddUrl,allergene,this.httpOptionsUpdate);
+  addAllergene(allergene:AllergeneI):Observable<AllergeneI> {
+    return this.http.put<AllergeneI>(this.allergeneAddUrl,allergene,this.httpOptionsUpdate);
   }
 
   constructor(private http: HttpClient) { }

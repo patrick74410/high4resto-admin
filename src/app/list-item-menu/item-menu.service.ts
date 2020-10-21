@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
-import { itemMenuI } from '../interfaces/itemMenuI'
+import { ItemMenuI } from '../interfaces/itemMenuI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
@@ -17,20 +17,20 @@ export class ItemMenuService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getItemMenus(): Observable<itemMenuI[]>{
-    return this.http.get<itemMenuI[]>(this.itemMenusFindUrl);
+  getItemMenus(): Observable<ItemMenuI[]>{
+    return this.http.get<ItemMenuI[]>(this.itemMenusFindUrl);
   }
 
-  addItemMenu(itemMenu:itemMenuI):Observable<itemMenuI> {
-    return this.http.put<itemMenuI>(this.itemMenuAddUrl,itemMenu,this.httpOptionsUpdate);
+  addItemMenu(itemMenu:ItemMenuI):Observable<ItemMenuI> {
+    return this.http.put<ItemMenuI>(this.itemMenuAddUrl,itemMenu,this.httpOptionsUpdate);
   }
 
-  deleteItem(itemMenu:itemMenuI): Observable<any> {
+  deleteItem(itemMenu:ItemMenuI): Observable<any> {
     var finalUrl=this.itemMenuDeleteUrl+itemMenu.id;
     return this.http.delete(finalUrl);
   }
  
-  updateItem(itemMenu:itemMenuI): Observable<any> {
+  updateItem(itemMenu:ItemMenuI): Observable<any> {
     return this.http.put(this.itemMenusUpdateUrl,itemMenu,this.httpOptionsUpdate);
   }
 

@@ -1,4 +1,4 @@
-export interface imageI {
+export interface ImageI {
     id: String;
     description: String;
     gridId: String;
