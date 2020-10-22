@@ -14,7 +14,7 @@ import { ListAllergeneComponent } from './list-allergene/list-allergene.componen
 import { ComfirmDialogComponent } from './comfirm-dialog/comfirm-dialog.component';
 import { AlertService} from './comfirm-dialog/alert.service';
 import { MessagesComponent } from './messages/messages.component';
-import { ListItemMenuComponent } from './list-item-menu/list-item-menu.component';
+import { ListItemCarteComponent } from './list-item-carte/list-item-carte.component';
 import { LoginComponent } from './login/login.component'
 
 import { ErrorInterceptor } from './Auth/error-interceptor.service';
@@ -34,7 +34,7 @@ const DragConfig = {
     ListImageComponent,
     ComfirmDialogComponent,
     MessagesComponent,
-    ListItemMenuComponent,
+    ListItemCarteComponent,
     LoginComponent
   ],
   imports: [

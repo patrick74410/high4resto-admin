@@ -336,7 +336,7 @@
 
 
 <div class="container">
-    <h2 class="text-center">Gestion du menu</h2>
+    <h2 class="text-center">Gestion des éléments de la carte</h2>
     <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
         data-target="#staticBackdropAdd">
         +
@@ -344,27 +344,27 @@
 
     <form>
         <div class="row">
-            <div *ngFor="let itemMenu of itemsMenu" class="card col-md-3" style="margin: 5px;"
-                (click)="selectItem(itemMenu)">
+            <div *ngFor="let itemCarte of itemsCarte" class="card col-md-3" style="margin: 5px;"
+                (click)="selectItem(itemCarte)">
                 <div class="card-header">
-                    <img src="{{urlDownload}}{{itemMenu.sourceImage.gridId}}" class="card-img-top"
-                        alt="{{itemMenu.sourceImage.description}}">
+                    <img src="{{urlDownload}}{{itemCarte.sourceImage.gridId}}" class="card-img-top"
+                        alt="{{itemCarte.sourceImage.description}}">
                 </div>
                 <div class="card-body">
-                    <h2 class="card-title">{{itemMenu.name}}</h2>
-                    <h3 class="card-subtitle mb-2 text-muted">{{itemMenu.categorie.name}}</h3>
-                    <p class="card-text">{{itemMenu.description}}</p>
+                    <h2 class="card-title">{{itemCarte.name}}</h2>
+                    <h3 class="card-subtitle mb-2 text-muted">{{itemCarte.categorie.name}}</h3>
+                    <p class="card-text">{{itemCarte.description}}</p>
                 </div>
                 <div class="card-footer text-center" style="height: 150px;">
-                    <h3 class="text-center">{{itemMenu.price}}€</h3>
+                    <h3 class="text-center">{{itemCarte.price}}€</h3>
                     <small>
                         <span><b>Allergene(s): </b></span>
-                        <span *ngFor="let allergene of itemMenu.allergenes">{{allergene.name}} </span>
+                        <span *ngFor="let allergene of itemCarte.allergenes">{{allergene.name}} </span>
                     </small>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <button (click)="delete(itemMenu)" style="display: inline-block; width:120px;margin:auto" class="btn btn-danger">Suprimer</button>
+                        <button (click)="delete(itemCarte)" style="display: inline-block; width:120px;margin:auto" class="btn btn-danger">Suprimer</button>
                     </div>
                     <div class="col-6">
                         <button type="button" style="display: inline-block; width:120px;margin:auto" class="btn btn-warning" data-toggle="modal" data-target="#modal-update">

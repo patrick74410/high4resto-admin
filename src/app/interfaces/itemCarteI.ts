@@ -2,7 +2,7 @@ import { CategorieI } from './categorieI';
 import {AllergeneI} from './allergeneI'
 import { ImageI } from './imageI';
 
-export interface ItemMenuI {
+export interface ItemCarteI {
     id: String;
     name: String; 
     description: String;
