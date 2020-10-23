@@ -3,16 +3,16 @@ import { from } from 'rxjs';
 import { AllergeneI } from '../interfaces/allergeneI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-
+import {environment} from '../environement/environement'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllergeneService {
-  private allergenesFindUrl = 'http://localhost:8080/allergene/find/';
-  private allergenesUpdateUrl = 'http://localhost:8080/allergene/update/';
-  private allergeneDeleteUrl= 'http://localhost:8080/allergene/delete/';
-  private allergeneAddUrl='http://localhost:8080/allergene/insert/';
+  private allergenesFindUrl = environment.apiUrl+'/allergene/find/';
+  private allergenesUpdateUrl = environment.apiUrl+'/allergene/update/';
+  private allergeneDeleteUrl= environment.apiUrl+'/allergene/delete/';
+  private allergeneAddUrl= environment.apiUrl+'/allergene/insert/';
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

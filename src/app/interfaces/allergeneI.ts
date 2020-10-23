@@ -1,4 +1,4 @@
 export interface AllergeneI {
-   id: String;
+   id?: String;
    name: String; 
 }

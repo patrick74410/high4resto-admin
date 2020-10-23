@@ -1,7 +1,7 @@
 <!--modal image-->
 <div class="modal fade" id="selectImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content modal-dialog-scrollable">
+    <div class="modal-dialog  modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="exampleModalLabel">Choix de l'image</h2>
                 <button type="button" class="btn-close" data-toggle="modal" data-target="#staticBackdropAdd"
@@ -45,8 +45,8 @@
 <!--modal image update-->
 <div class="modal fade" id="selectImageModalUpdate" tabindex="-1" aria-labelledby="selectImageModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" *ngIf='selectedItem'>
-        <div class="modal-content modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" *ngIf='selectedItem'>
+        <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title" id="exampleModalLabel">Choix de l'image</h2>
                 <button type="button" class="btn-close" data-toggle="modal" data-target="#modal-update"
@@ -193,12 +193,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="addOrder">Z-Index:</label>
-                        <input id="addOrder" #order type="number" class="form-control"
-                            placeholder="Priorité de l'affichage" />
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label" for="addP">Prix:</label>
                         <div class="input-group mb-3" style="max-width: 200px;">
                             <input id="addP" #price type="number" min="0.1" step="0.01" class="form-control"
@@ -206,6 +200,15 @@
                             <span class="input-group-text" id="basic-addon1">€</span>
                         </div>
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="addC">Choix du taux TVA:</label>
+                        <select #selectedTva id="addC" class="form-select" aria-label="Default select">
+                            <option *ngFor="let tva of tvas;let idx=index" [selected]=" idx == 0 ? true : false"
+                                [value]="idx">{{tva.taux}}%</option>
+                        </select>
+                    </div>
+
 
                     <div class="mb-3">
                         <label class="form-label" for="addC">Choix de la categorie:</label>
@@ -242,7 +245,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
                 <button data-dismiss="modal"
-                    (click)="addItem(name,description,price,selectedCategorie,order);name.value='';description.value='';price.value='0';order.value='0';"
+                    (click)="addItem(name,description,price,selectedTva,selectedCategorie);name.value='';description.value='';price.value='0';"
                     type="submit" class="btn btn-primary">
                     Ajouter
                 </button>
@@ -275,12 +278,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="addOrder">Z-Index:</label>
-                        <input id="addOrder" [(ngModel)]="selectedItem.order" type="number" class="form-control"
-                            placeholder="Priorité de l'affichage" />
-                    </div>
-
-                    <div class="mb-3">
                         <label class="form-label" for="addP">Prix:</label>
                         <div class="input-group mb-3" style="max-width: 200px;">
                             <input id="addP" [(ngModel)]="selectedItem.price" type="number" min="0.1" step="0.01"
@@ -291,12 +288,19 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="addC">Choix de la categorie:</label>
-                        <select [(ngModel)]="selectedItem.categorie.name" id="addC" class="form-select"
+                        <label class="form-label" for="addC">Choix du taux TVA:</label>
+                        <select [compareWith]="compareFn" [(ngModel)]="selectedItem.tva" id="addC" class="form-select"
                             aria-label="Default select">
-                            <option *ngFor="let categorie of categories;let idx=index"
-                                [selected]=" selectedItem.categorie.name == categorie.name ? true : false"
-                                [value]="idx">{{categorie.name}}</option>
+                            <option *ngFor="let tva of tvas;let idx=index" [ngValue]="tva">{{tva.taux}}%</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="addC">Choix de la categorie:</label>
+                        <select [compareWith]="compareFn" [(ngModel)]="selectedItem.categorie" id="addC"
+                            class="form-select" aria-label="Default select">
+                            <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
+                                {{categorie.name}}</option>
                         </select>
                     </div>
 
@@ -337,43 +341,56 @@
 
 <div class="container">
     <h2 class="text-center">Gestion des éléments de la carte</h2>
+
+    <div class="mb-3">
+        <label class="form-label" for="addC">Filtrer par:</label>
+        <select (change)="filter()" [compareWith]="compareFn" [(ngModel)]="filterCategorie" id="addCa"
+            class="form-select" aria-label="Default select">
+            <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
+                {{categorie.name}}</option>
+        </select>
+    </div>
+
     <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
         data-target="#staticBackdropAdd">
         +
     </button>
 
     <form>
-        <div class="row">
-            <div *ngFor="let itemCarte of itemsCarte" class="card col-md-3" style="margin: 5px;"
-                (click)="selectItem(itemCarte)">
-                <div class="card-header">
-                    <img src="{{urlDownload}}{{itemCarte.sourceImage.gridId}}" class="card-img-top"
-                        alt="{{itemCarte.sourceImage.description}}">
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title">{{itemCarte.name}}</h2>
-                    <h3 class="card-subtitle mb-2 text-muted">{{itemCarte.categorie.name}}</h3>
-                    <p class="card-text">{{itemCarte.description}}</p>
-                </div>
-                <div class="card-footer text-center" style="height: 150px;">
-                    <h3 class="text-center">{{itemCarte.price}}€</h3>
-                    <small>
-                        <span><b>Allergene(s): </b></span>
-                        <span *ngFor="let allergene of itemCarte.allergenes">{{allergene.name}} </span>
-                    </small>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <button (click)="delete(itemCarte)" style="display: inline-block; width:120px;margin:auto" class="btn btn-danger">Suprimer</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="button" style="display: inline-block; width:120px;margin:auto" class="btn btn-warning" data-toggle="modal" data-target="#modal-update">
+        <table class="table">
+            <tbody cdkDropList (cdkDropListDropped)="dropC($event)" class="cdk-list">
+                <tr *ngFor="let item of itemsCarte" class="cdk-box" cdkDrag cdkDragLockAxis="y"
+                    (click)="selectItem(item)">
+                    <th>
+                        <div class="drag-handle">
+                            <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
+                            {{ item.order }}
+                        </div>
+                    </th>
+                    <td><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail" width="120px"
+                            alt="{{item.sourceImage.description}}" /></td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.price}}€</td>
+                    <td>
+                        <button (click)="delete(item)" style="display: inline-block; width:120px;margin:auto"
+                            class="btn btn-danger">Suprimer</button>
+                        <span style="margin: 10px;"> </span>
+                        <button type="button" style="display: inline-block; width:120px;margin:auto"
+                            class="btn btn-warning" data-toggle="modal" data-target="#modal-update">
                             Modifier
                         </button>
-    
-                    </div>    
-                </div>
-            </div>
-        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </form>
 </div>
+
+<ng-template #dragHandleTmpl>
+    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-up" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+            d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+    </svg>
+</ng-template>

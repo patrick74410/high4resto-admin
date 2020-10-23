@@ -15,17 +15,34 @@
     </button>
     <div class="collapse navbar-collapse" id="menu_admin">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="./allergene">Gestion des allergenes</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="carte" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Carte
+                </a>
+                <div class="dropdown-menu" aria-labelledby="carte">
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./allergene">Allergenes</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./categorie">Catégories</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./itemCarte">Eléments de la carte</a>
+                    </li>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./categorie">Gestion des catégories</a>
+                <a class="nav-link" href="./image">Images</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./image">Gestion des images</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./itemCarte">Gestion des éléments de la carte</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="facture" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Facture
+                </a>
+                <div class="dropdown-menu" aria-labelledby="facture">
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./tva">Gestion des taux de TVA</a>
+                    </li>                    
+                </div>
             </li>
         </ul>
     </div>

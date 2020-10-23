@@ -1,0 +1,71 @@
+<!-- Modal update-->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropLabel">Modification de l'tva</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="selectedTva">
+            <h3>Mise à jour de la valeur</h3>
+            <div class="mb-3">
+              <label for="updateN" class="form-label">Taux de la tva</label>
+              <input [(ngModel)]="selectedTva.taux" type="number" id="updateN" placeholder="Taux" class="form-control" >
+            </div>
+         </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button (click)="update()" type="button" class="btn btn-warning" data-dismiss="modal">Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal add-->
+  <div class="modal fade" id="staticBackdropAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="staticBackdropLabel">Ajout d'un taux tva</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="inputTauxTva">Taux de la tva</label>
+            <input  #tvaTaux type="number" class="form-control" id="inputTauxTva" placeholder="Taper le taux en %">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button (click)="add(tvaTaux.value); tvaTaux.value=''" type="submit"  data-dismiss="modal" class="btn btn-primary">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <h2 class="text-center">Gestion des taux TVA</h2>
+  <div class="container">
+        <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal" data-target="#staticBackdropAdd">
+          +
+        </button>
+          <form>
+          <table class="table">
+              <tbody>
+                <tr *ngFor="let tva of tvas" (click)="onSelect(tva)">
+                  <td>{{tva.taux}}%</td>
+                  <td>
+                    <button class="btn btn-danger" title="delete tva"
+                      (click)="delete(tva)" >Supprimer</button>
+                    <span style="margin: 10px;"> </span>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
+                      Modifier
+                    </button>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+      </form>
+    
+  </div>

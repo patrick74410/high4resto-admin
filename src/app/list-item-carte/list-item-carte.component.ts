@@ -13,6 +13,9 @@ import {AllergeneI} from '../interfaces/allergeneI'
 import {ItemCarteI} from '../interfaces/itemCarteI'
 import { from } from 'rxjs';
 import { MessageI } from '../interfaces/messageI';
+import { ExpireService } from '../expire.service';
+import { TvaService } from '../list-tva/tva.service';
+import { TvaI } from '../interfaces/TvaI';
 
 @Component({
   selector: 'app-list-item-carte',
@@ -23,15 +26,58 @@ import { MessageI } from '../interfaces/messageI';
 export class ListItemCarteComponent implements OnInit {
   itemCarte:ItemCarteI;
   selectedItem:ItemCarteI;
+  filterCategorie:CategorieI;
   itemsCarte:ItemCarteI[];
   categories:CategorieI[];
   images:ImageI[];
   allergenes:AllergeneI[];
   allergenesAdd:AllergeneI[]=[];
   allergenesUpdate:AllergeneI[]=[];
+  tvas:TvaI[]=[];
+  categorieUpdate:string='';
+  tvaUpdate:string='';
 
   selectedImage:ImageI;
   urlDownload:String="http://localhost:8080/images/download/";
+
+  compareFn = this._compareFn.bind(this);
+ 
+  dropC(event: CdkDragDrop<string[]>) {
+    const message:MessageI={content:'Les éléments ont été triés',level:'Info'}
+
+    moveItemInArray(this.itemsCarte, event.previousIndex, event.currentIndex);
+    this.itemsCarte.forEach((item, idx) => {
+      item.order = idx + 1;
+      this.itemCarteService.updateItem(item).subscribe();
+    });
+
+    this.messageService.add(message);
+  } 
+
+  _compareFn(a, b) {
+      try
+      {
+        return a.id === b.id;
+      }
+      catch(Err)
+      {
+        return 0;
+      }
+ }
+
+  filter():void {
+    this.itemCarteService.getItemCartes().subscribe(items=>{this.itemsCarte=items.filter(a=>a.categorie.name==this.filterCategorie.name)
+      .sort((a,b)=>{
+        if(a.order>b.order)
+          return 1;
+        else if(a.order<b.order)
+          return -1;
+        else
+          return 0;
+      });
+    });
+
+  }
 
   selectItem(itemCarte:ItemCarteI):void
   {
@@ -39,8 +85,6 @@ export class ListItemCarteComponent implements OnInit {
   }
 
   update():void {
-    this.selectedItem.categorie.name=this.categories[Number(this.selectedItem.categorie.name)].name;
-
     this.itemCarteService.updateItem(this.selectedItem).subscribe(item=>{
       const message:MessageI={content:'L\'item a été mis à jour',level:'Info'};
       this.messageService.add(message);
@@ -65,19 +109,26 @@ export class ListItemCarteComponent implements OnInit {
     });
   }
 
-  addItem(name:HTMLInputElement,description:HTMLInputElement,price:HTMLInputElement,selectedCategorie:HTMLSelectElement,order:HTMLInputElement)
+  addItem(name:HTMLInputElement,description:HTMLInputElement,price:HTMLInputElement,selectedTva:HTMLSelectElement,selectedCategorie:HTMLSelectElement)
   {
     var addCategorie:CategorieI;
+    var addTva:TvaI;
 
     for(var i=0;i<selectedCategorie.options.length;i++)
     {
       if(selectedCategorie.options[i].selected)
       {
         addCategorie=this.categories[i];
-        console.log(this.categories[i]);
       }
     }
 
+    for(var i=0;i<selectedTva.options.length;i++)
+    {
+      if(selectedTva.options[i].selected)
+      {
+        addTva=this.tvas[i];
+      }
+    }
     
     const itemAdd:ItemCarteI={
       id:'',
@@ -85,8 +136,9 @@ export class ListItemCarteComponent implements OnInit {
       description:description.value,
       price:Number(price.value),
       categorie:addCategorie,
+      tva:addTva,
       allergenes:this.allergenesAdd,
-      order:Number(order.value),
+      order:this.itemsCarte.length,
       sourceImage:this.selectedImage
     }
   
@@ -112,20 +164,32 @@ export class ListItemCarteComponent implements OnInit {
     }
   }
 
-  constructor(private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemCarteService:ItemCarteService,private messageService:MessageService) { }
+  constructor(private tvaService:TvaService,private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemCarteService:ItemCarteService,private messageService:MessageService, private expireService:ExpireService) { }
 
   onSelect(image:ImageI)
   {
     this.selectedImage=image;
+    this.expireService.check;
   }
 
   ngOnInit(): void {
-    this.itemCarteService.getItemCartes().subscribe(itemsCarte=>this.itemsCarte=itemsCarte);
-    this.categorieService.getCategories().subscribe(categories=>this.categories=categories);
+
+    this.categorieService.getCategories().subscribe(categories=>{this.categories=categories.sort((a,b)=>{
+      if(a.order>b.order)
+        return 1;
+      else if(a.order<b.order)
+        return -1;
+      else
+        return 0
+    });
+    });
     this.imageService.getImages().subscribe(images=>this.images=images);
     this.allergeneService.getAllergenes().subscribe(allergenes=>{
     this.allergenes=allergenes;
     });
-  }
+    this.tvaService.getTvas().subscribe(tvas=>{
+      this.tvas=tvas;
+    })
+   }
 
 }

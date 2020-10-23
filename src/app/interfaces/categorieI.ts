@@ -1,5 +1,5 @@
 export interface CategorieI {
-    id: String;
+    id?: String;
     name: String; 
     order: Number;
  }

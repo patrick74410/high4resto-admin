@@ -1,6 +1,6 @@
-.cdk-list {
-
-   }
+td,th{
+  border:none!important;
+}
   
   .cdk-box {
     padding: 20px 10px;

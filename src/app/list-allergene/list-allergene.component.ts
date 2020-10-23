@@ -5,6 +5,7 @@ import Bootstrap from 'bootstrap/dist/js/bootstrap';
 import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService } from '../message.service'
 import { MessageI } from '../interfaces/messageI'
+import { ExpireService } from '../expire.service';
 
 @Component({
   selector: 'app-list-allergene',
@@ -61,10 +62,11 @@ export class ListAllergeneComponent implements OnInit {
     this.allergeneService.getAllergenes().subscribe(allergenes => this.allergenes=allergenes);
   }
 
-  constructor(private allergeneService:AllergeneService, private alertService: AlertService, private messageService:MessageService) { }
+  constructor(private allergeneService:AllergeneService, private alertService: AlertService, private messageService:MessageService,private expireService:ExpireService) { }
 
   ngOnInit(): void {
     this.getAllergenes();
+    this.expireService.check();
   }
 
 }

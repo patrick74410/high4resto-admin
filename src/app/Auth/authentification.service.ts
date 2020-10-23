@@ -26,6 +26,9 @@ export class AuthentificationService {
   login(username: string, password: string) {
       return this.http.post<any>(`${environment.apiUrl}/users/login`, { username, password })
           .pipe(map(connexion => {
+              var oneday = new Date();
+              oneday.setHours(oneday.getHours() + 9);
+              localStorage.setItem('connexionExpire',JSON.stringify(oneday));
               localStorage.setItem('currentConnexionI', JSON.stringify(connexion));
               this.currentConnexionISubject.next(connexion);
               return connexion;

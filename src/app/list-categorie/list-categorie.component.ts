@@ -5,6 +5,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService} from '../message.service'
 import { MessageI } from '../interfaces/messageI';
+import { ExpireService } from '../expire.service';
 
 @Component({
   selector: 'app-list-categorie',
@@ -90,10 +91,11 @@ export class ListCategorieComponent implements OnInit {
   }
 
 
-  constructor(private categorieService:CategorieService, private alertService: AlertService,private messageService:MessageService) { }
+  constructor(private categorieService:CategorieService, private alertService: AlertService,private messageService:MessageService,private expireService:ExpireService) { }
 
   ngOnInit(): void {
     this.getCategories();
+    this.expireService.check();
   }
 
 }

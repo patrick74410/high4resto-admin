@@ -6,6 +6,7 @@ import { ImageService} from './image.service'
 import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService } from '../message.service';
 import { MessageI } from '../interfaces/messageI';
+import { ExpireService } from '../expire.service';
 
 @Component({
   selector: 'app-list-image',
@@ -112,10 +113,11 @@ export class ListImageComponent implements OnInit {
     this.name=files[0].name; 
   }  
 
-  constructor(private messageService:MessageService,private _ngxPicaService: NgxPicaService, private imageService:ImageService, private alertService: AlertService) { }
+  constructor(private messageService:MessageService,private _ngxPicaService: NgxPicaService, private imageService:ImageService, private alertService: AlertService,private expireService:ExpireService) { }
 
   ngOnInit(): void {
     this.getImages();
+    this.expireService.check();
   }
 
 }
