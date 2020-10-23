@@ -3,15 +3,16 @@ import { from } from 'rxjs';
 import { CategorieI } from '../interfaces/categorieI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { environment} from '../environement/environement'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategorieService {
-  private categoriesFindUrl = 'http://localhost:8080/categorie/find/';
-  private categoriesUpdateUrl = 'http://localhost:8080/categorie/update/';
-  private categorieDeleteUrl= 'http://localhost:8080/categorie/delete/';
-  private categorieAddUrl='http://localhost:8080/categorie/insert/';
+  private categoriesFindUrl = environment.apiUrl+'/categorie/find/';
+  private categoriesUpdateUrl = environment.apiUrl+'/categorie/update/';
+  private categorieDeleteUrl= environment.apiUrl+'/categorie/delete/';
+  private categorieAddUrl=environment.apiUrl+'/categorie/insert/';
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

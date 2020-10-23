@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component'
 import { ErrorInterceptor } from './Auth/error-interceptor.service';
 import { JwtInterceptor} from './Auth/jwt-interceptor.service';
 import { ListTvaComponent } from './list-tva/list-tva.component';
+import { ListOptionsItemComponent } from './list-options-item/list-options-item.component';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -37,7 +38,8 @@ const DragConfig = {
     MessagesComponent,
     ListItemCarteComponent,
     LoginComponent,
-    ListTvaComponent
+    ListTvaComponent,
+    ListOptionsItemComponent
   ],
   imports: [
     BrowserModule,

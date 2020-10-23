@@ -10,7 +10,8 @@ td,th{
  color: rgba(0, 0, 0, 0.87);
  align-items: center;
  display: flex;
- justify-content: space-between;
+ flex-direction: row;
+ justify-content:center;
  box-sizing: border-box;
  cursor: move;
  background: white;

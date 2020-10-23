@@ -361,18 +361,18 @@
             <tbody cdkDropList (cdkDropListDropped)="dropC($event)" class="cdk-list">
                 <tr *ngFor="let item of itemsCarte" class="cdk-box" cdkDrag cdkDragLockAxis="y"
                     (click)="selectItem(item)">
-                    <th>
+                    <th style="width:50px">
                         <div class="drag-handle">
                             <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
                             {{ item.order }}
                         </div>
                     </th>
-                    <td><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail" width="120px"
+                    <td  style="width:140px"><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail" width="120px"
                             alt="{{item.sourceImage.description}}" /></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.price}}€</td>
-                    <td>
+                    <td  style="width:180px" >{{item.name}}</td>
+                    <td  style="width:200px">{{item.description}}</td>
+                    <td  style="width:50px">{{item.price}}€</td>
+                    <td  style="width:300px">
                         <button (click)="delete(item)" style="display: inline-block; width:120px;margin:auto"
                             class="btn btn-danger">Suprimer</button>
                         <span style="margin: 10px;"> </span>
