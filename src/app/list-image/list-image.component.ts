@@ -7,6 +7,11 @@ import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService } from '../message.service';
 import { MessageI } from '../interfaces/messageI';
 import { ExpireService } from '../expire.service';
+import { environment } from '../environement/environement';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
+
+declare var bootstrap:any;
 
 @Component({
   selector: 'app-list-image',
@@ -18,41 +23,53 @@ export class ListImageComponent implements OnInit {
   imgURL: any;
   tpFile: File;
   images:ImageI[];
-  addImage:ImageI;
   selectedImage:ImageI;
   name:String;
-  urlDownload:String="http://localhost:8080/images/download/";
+  
+  urlDownload:String=environment.apiUrl+"/images/download/";
 
-  keepRatio:boolean=true;
-  width=800;
-  heigth=600;
+  addForm= new FormGroup(
+    {
+      description:new FormControl('',Validators.required),
+      groupName:new FormControl('',Validators.required),
+      widht:new FormControl('',Validators.required),
+      heigth:new FormControl('',Validators.required),
+      keepRatio:new FormControl('',Validators.required)
+    }
+  )
 
-  onSelect(image:ImageI)
-  {
-    this.selectedImage=image;
-  }
+  updateForm = new FormGroup({
+    description:new FormControl('',Validators.required),
+    groupName:new FormControl('',Validators.required)
+})
 
-  upload(description:string,group:string): void { 
+  updateModal:any;
+  addModal:any;
+
+  addData(): void { 
     var fileImages:File;
-    
-    this._ngxPicaService.resizeImage(this.tpFile, this.width,this.heigth,new ImageResizeOptions(this.keepRatio))
-        .subscribe((imageResized: File) => {
+    var description=this.addForm.get("description").value;
+    var group=this.addForm.get("groupName").value;
+
+    this._ngxPicaService.resizeImage(this.tpFile, this.addForm.get("widht").value,this.addForm.get("heigth").value,new ImageResizeOptions(this.addForm.get("keepRatio").value))
+        .pipe(take(1)).subscribe((imageResized: File) => {
             let reader: FileReader = new FileReader();
             
             reader.addEventListener('load', (event: any) => {
                 fileImages=event.target.result;
               }, false);
             reader.readAsArrayBuffer(imageResized);
-            this.imageService.uploadImage(new File([imageResized],this.tpFile.name),description,group).subscribe(test=> 
+            this.imageService.uploadImage(new File([imageResized],this.tpFile.name),description,group).pipe(take(1)).subscribe(test=> 
               {
                 
-                this.width=800;
-                this.heigth=600;
+                this.addForm.patchValue({widht:800,height:600})
                 this.imgURL="";
                 this.name="";
                 this.getImages();
                 const message:MessageI={content:'L\'image a bien été rajoutée',level:'Info'}
                 this.messageService.add(message);
+                this.addForm.reset();
+                this.addModal.hide();
                     
               });
         }, (err: NgxPicaErrorInterface) => {
@@ -60,11 +77,27 @@ export class ListImageComponent implements OnInit {
             this.messageService.add(message);
             throw err.err;
         });
-    
    }
 
+   updateDataForm(selectedImage:ImageI):void{
+     this.updateForm.patchValue({description:selectedImage.description,groupName:selectedImage.group});
+     this.updateModal.show();
+     this.selectedImage=selectedImage;
+   }
+
+   onUpdate():void{
+    const message:MessageI={content:'La modification a bien été effectuée',level:'info'}
+    this.selectedImage.description=this.updateForm.get("description").value;
+    this.selectedImage.group=this.updateForm.get("groupName").value;
+    this.imageService.updateImage(this.selectedImage).pipe(take(1)).subscribe(item=>
+      {this.messageService.add(message);
+      this.updateModal.hide()});
+  }
+
+
+
   getImages(): void {
-    this.imageService.getImages().subscribe(images => this.images=images.sort((n1,n2)=>{
+    this.imageService.getImages().pipe(take(1)).subscribe(images => this.images=images.sort((n1,n2)=>{
       if(n1.group>n2.group)
       {
         return 1;
@@ -81,8 +114,8 @@ export class ListImageComponent implements OnInit {
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'image ?",function(){
       that.selectedImage=null;
-      that.imageService.deleteImageGrid(image).subscribe();
-      that.imageService.deleteImage(image).subscribe( test=>
+      that.imageService.deleteImageGrid(image).pipe(take(1)).subscribe();
+      that.imageService.deleteImage(image).pipe(take(1)).subscribe( test=>
         {
           var index = that.images.indexOf(image);
           that.images.splice(index, 1);        
@@ -93,13 +126,6 @@ export class ListImageComponent implements OnInit {
     },function(){
 
     });
-  }
-
-
-  update():void{
-    const message:MessageI={content:'La modification a bien été effectuée',level:'info'}
-
-    this.imageService.updateImage(this.selectedImage).subscribe(item=>this.messageService.add(message));
   }
 
   public handleFiles(event: any) {
@@ -118,6 +144,10 @@ export class ListImageComponent implements OnInit {
   ngOnInit(): void {
     this.getImages();
     this.expireService.check();
+    this.addForm.patchValue({widht:800,heigth:600})
+    this.updateModal = new bootstrap.Modal(document.getElementById('updateImage'), {});
+    this.addModal = new bootstrap.Modal(document.getElementById('addImage'), {});
+
   }
 
 }

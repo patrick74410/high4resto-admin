@@ -3,15 +3,16 @@ import { from } from 'rxjs';
 import { ItemCarteI } from '../interfaces/itemCarteI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { environment } from '../environement/environement';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemCarteService {
-  private itemCarteFindUrl = 'http://localhost:8080/itemCarte/find/';
-  private itemCarteUpdateUrl = 'http://localhost:8080/itemCarte/update/';
-  private itemCarteDeleteUrl= 'http://localhost:8080/itemCarte/delete/';
-  private itemCarteAddUrl='http://localhost:8080/itemCarte/insert/';
+  private itemCarteFindUrl = environment.apiUrl+'/itemCarte/find/';
+  private itemCarteUpdateUrl = environment.apiUrl+'/itemCarte/update/';
+  private itemCarteDeleteUrl= environment.apiUrl+'/itemCarte/delete/';
+  private itemCarteAddUrl=environment.apiUrl+'/itemCarte/insert/';
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

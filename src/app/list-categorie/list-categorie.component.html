@@ -1,49 +1,52 @@
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="staticBackdropLabel">Modification de la catégorie</h3>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="selectedCategorie">
-          <h3>Mise à jour de la valeur</h3>
-          <div class="mb-3">
-            <label class="form-label" for="updateN">Nom de la catégorie</label>
-            <input [(ngModel)]="selectedCategorie.name" id="updateN" placeholder="Nom" class="form-control" />
+<!-- Modal update -->
+<div class="modal fade" id="updateCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateCategorieLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal-dialog-scrollable">
+      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+        <div class="modal-header">
+          <h3 class="modal-title" id="updateCategorieLabel">Modification de la catégorie</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="selectedCategorie">
+            <h3>Mise à jour de la valeur</h3>
+            <div class="mb-3">
+              <label class="form-label" for="updateN">Nom de la catégorie</label>
+              <input required formControlName="name" id="updateN" placeholder="Nom" class="form-control" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-        <button (click)="update()" type="button" class="btn btn-warning" data-dismiss="modal">Sauvegarder</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-warning" >Modifier</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <!-- Modal add-->
-<div class="modal fade" id="staticBackdropAdd" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="staticBackdropLabel">Ajout d'une categorie</h3>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label" for="inputNameCategorie">Nom de la categorie</label>
-          <input #categorieName class="form-control" id="inputNameCategorie" placeholder="Taper la dénomination">
+<div class="modal fade" id="addCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="addCategorieel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal-dialog-scrollable">
+      <form [formGroup]="addForm" (ngSubmit)="addData()">
+        <div class="modal-header">
+          <h3 class="modal-title" id="addCategorieel">Ajout d'une categorie</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-        <button (click)="add(categorieName.value); categorieName.value=''" type="submit" data-dismiss="modal"
-          class="btn btn-primary">Ajouter</button>
-      </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="inputNameCategorie">Nom de la categorie</label>
+            <input required formControlName="name" class="form-control" id="inputNameCategorie" placeholder="Taper la dénomination">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -51,14 +54,13 @@
 <h2 class="text-center">Gestion des categories</h2>
 <div class="container">
   <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
-    data-target="#staticBackdropAdd">
+    data-target="#addCategorie">
     +
   </button>
   <form>
     <table class="table">
       <tbody cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list">
-        <tr *ngFor="let categorie of categories" class="cdk-box" cdkDrag cdkDragLockAxis="y"
-          (click)="onSelect(categorie)">
+        <tr *ngFor="let categorie of categories" class="cdk-box" cdkDrag cdkDragLockAxis="y">
           <th>
             <div class="drag-handle">
               <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
@@ -69,10 +71,9 @@
           <td>
             <button class="btn btn-danger" title="delete categorie" (click)="delete(categorie)">Supprimer</button>
             <span style="margin: 10px;"> </span>
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
+            <button (click)="updateDataForm(categorie)" type="button" class="btn btn-warning">
               Modifier
             </button>
-
           </td>
         </tr>
       </tbody>

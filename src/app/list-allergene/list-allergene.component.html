@@ -1,73 +1,75 @@
 <!-- Modal update-->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="staticBackdropLabel">Modification de l'allergene</h3>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="selectedAllergene">
-          <h3>Mise à jour de la valeur</h3>
-          <div class="mb-3">
-            <label for="updateN" class="form-label">Nom de l'allergene</label>
-            <input [(ngModel)]="selectedAllergene.name" id="updateN" placeholder="Nom" class="form-control" >
-          </div>
-       </div>
+<div class="modal fade" id="updateAllergene" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateAllergeneLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal-dialog-scrollable">
+      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+        <div class="modal-header">
+          <h3 class="modal-title" id="updateAllergeneLabel">Modification de l'allergene</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-        <button (click)="update()" type="button" class="btn btn-warning" data-dismiss="modal">Sauvegarder</button>
-      </div>
+        <div class="modal-body">
+            <h3>Mise à jour de la valeur</h3>
+            <div class="mb-3">
+              <label for="updateN" class="form-label">Nom de l'allergene</label>
+              <input formControlName="name" required id="updateN" placeholder="Nom" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-warning">Modifier</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <!-- Modal add-->
-<div class="modal fade" id="staticBackdropAdd" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="staticBackdropLabel">Ajout d'un allergene</h3>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label" for="inputNameAllergene">Nom de l'allergene</label>
-          <input  #allergeneName class="form-control" id="inputNameAllergene" placeholder="Taper la dénomination">
+<div class="modal fade" id="addAllergene" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="allergeneLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal-dialog-scrollable">
+      <form [formGroup]="addForm" (ngSubmit)="addData()">
+        <div class="modal-header">
+          <h3 class="modal-title" id="allergeneLabel">Ajout d'un allergene</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-        <button (click)="add(allergeneName.value); allergeneName.value=''" type="submit"  data-dismiss="modal" class="btn btn-primary">Ajouter</button>
-      </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="inputNameAllergene">Nom de l'allergene</label>
+            <input formControlName="name" required class="form-control" id="inputNameAllergene"
+              placeholder="Taper la dénomination">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
 <h2 class="text-center">Gestion des allergenes</h2>
 <div class="container">
-      <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal" data-target="#staticBackdropAdd">
-        +
-      </button>
-        <form>
-        <table class="table">
-            <tbody>
-              <tr *ngFor="let allergene of allergenes" (click)="onSelect(allergene)">
-                <td>{{allergene.name}}</td>
-                <td>
-                  <button class="btn btn-danger" title="delete allergene"
-                    (click)="delete(allergene)" >Supprimer</button>
-                  <span style="margin: 10px;"> </span>
-                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">
-                    Modifier
-                  </button>
-                  </td>
-              </tr>
-            </tbody>
-          </table>
-    </form>
-</div>    
-
-    
-    
+  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+    data-target="#addAllergene">
+    +
+  </button>
+  <form>
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let allergene of allergenes">
+          <td>{{allergene.name}}</td>
+          <td>
+            <button class="btn btn-danger" title="delete allergene" (click)="delete(allergene)">Supprimer</button>
+            <span style="margin: 10px;"> </span>
+            <button (click)="updateDataForm(allergene)" type="button" class="btn btn-warning">
+              Modifier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

@@ -1,10 +1,10 @@
 <!--modal image-->
-<div class="modal fade" id="selectImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-scrollable modal-xl">
-        <div class="modal-content">
+<div class="modal fade" id="addImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl modal-dialog-scrollable">
+        <div class="modal-content ">
             <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLabel">Choix de l'image</h2>
-                <button type="button" class="btn-close" data-toggle="modal" data-target="#staticBackdropAdd"
+                <h2 class="modal-title" id="selectImageModalLabel">Choix de l'image</h2>
+                <button type="button" class="btn-close" data-toggle="modal" data-target="#addModal"
                     data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -36,20 +36,21 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#staticBackdropAdd"
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
                     data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
 </div>
+
 <!--modal image update-->
-<div class="modal fade" id="selectImageModalUpdate" tabindex="-1" aria-labelledby="selectImageModalLabel"
+<div class="modal fade" id="updateImageModal" tabindex="-1" aria-labelledby="updateModalImageLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-xl" *ngIf='selectedItem'>
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" *ngIf='selectedItem'>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLabel">Choix de l'image</h2>
-                <button type="button" class="btn-close" data-toggle="modal" data-target="#modal-update"
+                <h2 class="modal-title" id="updateModalImageLabel">Choix de l'image</h2>
+                <button type="button" class="btn-close" data-toggle="modal" data-target="#updateModal"
                     data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -81,7 +82,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-update"
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal"
                     data-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -89,13 +90,13 @@
 </div>
 
 <!-- modal allergene-->
-<div class="modal fade" id="selectAllergenesModal" aria-labelledby="selectImageModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModalAllergene" aria-labelledby="addModalAllergeneLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
-        <div class="modal-content">
+        <div class="modal-content ">
             <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLabel">Choix des allergenes</h2>
+                <h2 class="modal-title" id="addModalAllergeneLabel">Choix des allergenes</h2>
                 <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal"
-                    data-target="#staticBackdropAdd" aria-label="Close"></button>
+                    data-target="#addModal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div cdkDropListGroup>
@@ -122,7 +123,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#staticBackdropAdd"
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
                     data-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -130,13 +131,13 @@
 </div>
 
 <!-- modal allergene update-->
-<div class="modal fade" id="selectAllergenesModalUpdate" aria-labelledby="selectImageModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateModalAllergene" aria-labelledby="updateModalAllergeneLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
         <div class="modal-content" *ngIf="selectedItem">
             <div class="modal-header">
-                <h2 class="modal-title" id="exampleModalLabel">Choix des allergenes</h2>
+                <h2 class="modal-title" id="updateModalAllergeneLabel">Choix des allergenes</h2>
                 <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal"
-                    data-target="#modal-update" aria-label="Close"></button>
+                    data-target="#updateModal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div cdkDropListGroup>
@@ -164,7 +165,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-update"
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal"
                     data-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -172,187 +173,184 @@
 </div>
 
 <!-- Modal add-->
-<div class="modal fade" id="staticBackdropAdd" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content modal-dialog-scrollable">
-            <div class="modal-header">
-                <h3 class="modal-title" id="staticBackdropLabel">Ajout d'un item</h3>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <div class="mb-3">
-                        <label class="form-label" for="addNam">Nom:</label>
-                        <input id="addNam" #name type="text" class="form-control" placeholder="Nom" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addDes">Description:</label>
-                        <input id="addDes" #description type="text" class="form-control" placeholder="Description" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addP">Prix:</label>
-                        <div class="input-group mb-3" style="max-width: 200px;">
-                            <input id="addP" #price type="number" min="0.1" step="0.01" class="form-control"
-                                placeholder="Montant" aria-label="Montant" aria-describedby="basic-addon1">
-                            <span class="input-group-text" id="basic-addon1">€</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addC">Choix du taux TVA:</label>
-                        <select #selectedTva id="addC" class="form-select" aria-label="Default select">
-                            <option *ngFor="let tva of tvas;let idx=index" [selected]=" idx == 0 ? true : false"
-                                [value]="idx">{{tva.taux}}%</option>
-                        </select>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addC">Choix de la categorie:</label>
-                        <select #selectedCategorie id="addC" class="form-select" aria-label="Default select">
-                            <option *ngFor="let categorie of categories;let idx=index"
-                                [selected]=" idx == 0 ? true : false" [value]="idx">{{categorie.name}}</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
-                            data-target="#selectImageModal">
-                            Choisir une image ...
-                        </button>
-                    </div>
-
-                    <div class="mb-3" *ngIf="selectedImage">
-                        <label>Image sélectionnée:</label>
-                        <div class="mb-3">
-                            <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center"
-                                width="80" />
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
-                            data-target="#selectAllergenesModal">
-                            Choix des allergenes ...
-                        </button>
-                    </div>
-
+<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="addModaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <form [formGroup]="addForm" (ngSubmit)="addData()">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="addModaLabel">Ajout d'un item</h3>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-                <button data-dismiss="modal"
-                    (click)="addItem(name,description,price,selectedTva,selectedCategorie);name.value='';description.value='';price.value='0';"
-                    type="submit" class="btn btn-primary">
-                    Ajouter
-                </button>
-            </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="mb-3">
+                            <label class="form-label" for="addNam">Nom:</label>
+                            <input id="addNam" formControlName="name" required type="text" class="form-control" placeholder="Nom" />
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addDes">Description:</label>
+                            <input id="addDes" formControlName="description" type="text" class="form-control" placeholder="Description" />
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addP">Prix:</label>
+                            <div class="input-group mb-3" style="max-width: 200px;">
+                                <input id="addP" formControlName="price" type="number" min="0.1" step="0.01" class="form-control"
+                                    placeholder="Montant" aria-label="Montant" aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1">€</span>
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addC">Choix du taux TVA:</label>
+                            <select formControlName="tva" id="addC" class="form-select" aria-label="Default select">
+                                <option *ngFor="let tva of tvas;let idx=index" [selected]=" idx == 0 ? true : false"
+                                    [ngValue]="tva">{{tva.taux}}%</option>
+                            </select>
+                        </div>
+    
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addC">Choix de la categorie:</label>
+                            <select formControlName="categorie" id="addC" class="form-select" aria-label="Default select">
+                                <option *ngFor="let categorie of categories;let idx=index"
+                                    [selected]=" idx == 0 ? true : false" [ngValue]="categorie">{{categorie.name}}</option>
+                            </select>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-info" (click)="addSelectImage()">
+                                Choisir une image ...
+                            </button>
+                        </div>
+    
+                        <div class="mb-3" *ngIf="selectedImage">
+                            <label>Image sélectionnée:</label>
+                            <div class="mb-3">
+                                <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center"
+                                    width="80" />
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-info" (click)="addSelectAllergene()">
+                                Choix des allergenes ...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                    <button type="submit" class="btn btn-primary">
+                        Ajouter
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- Modal update-->
-<div class="modal fade" id="modal-update" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content modal-dialog-scrollable">
-            <div class="modal-header">
-                <h3 class="modal-title" id="staticBackdropLabel">Modification de l'item</h3>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div *ngIf="selectedItem">
-                    <div class="mb-3">
-                        <label class="form-label" for="addNam">Nom:</label>
-                        <input id="addNam" [(ngModel)]="selectedItem.name" type="text" class="form-control"
-                            placeholder="Nom" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addDes">Description:</label>
-                        <input id="addDes" [(ngModel)]="selectedItem.description" type="text" class="form-control"
-                            placeholder="Description" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addP">Prix:</label>
-                        <div class="input-group mb-3" style="max-width: 200px;">
-                            <input id="addP" [(ngModel)]="selectedItem.price" type="number" min="0.1" step="0.01"
-                                class="form-control" placeholder="Montant" aria-label="Montant"
-                                aria-describedby="basic-addon1">
-                            <span class="input-group-text" id="basic-addon1">€</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addC">Choix du taux TVA:</label>
-                        <select [compareWith]="compareFn" [(ngModel)]="selectedItem.tva" id="addC" class="form-select"
-                            aria-label="Default select">
-                            <option *ngFor="let tva of tvas;let idx=index" [ngValue]="tva">{{tva.taux}}%</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="addC">Choix de la categorie:</label>
-                        <select [compareWith]="compareFn" [(ngModel)]="selectedItem.categorie" id="addC"
-                            class="form-select" aria-label="Default select">
-                            <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
-                                {{categorie.name}}</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
-                            data-target="#selectImageModalUpdate">
-                            Choisir une image ...
-                        </button>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Image sélectionnée:</label>
-                        <div class="mb-3">
-                            <img src="{{urlDownload}}{{selectedItem.sourceImage.gridId}}"
-                                class="img-thumbnail text-center" width="80" />
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
-                            data-target="#selectAllergenesModalUpdate">
-                            Choix des allergenes ...
-                        </button>
-                    </div>
-
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content ">
+            <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="updateModalLabel">Modification de l'item</h3>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-                <button data-dismiss="modal" (click)="update();" type="submit" class="btn btn-primary">
-                    Modifier
-                </button>
-            </div>
+                <div class="modal-body">
+                    <div *ngIf="selectedItem">
+                        <div class="mb-3">
+                            <label class="form-label" for="addNam">Nom:</label>
+                            <input id="addNam" required formControlName="name" type="text" class="form-control"
+                                placeholder="Nom" />
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addDes">Description:</label>
+                            <input id="addDes" required formControlName="description" type="text" class="form-control"
+                                placeholder="Description" />
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addP">Prix:</label>
+                            <div class="input-group mb-3" style="max-width: 200px;">
+                                <input id="addP" required formControlName="price" type="number" min="0.1" step="0.01"
+                                    class="form-control" placeholder="Montant" aria-label="Montant"
+                                    aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1">€</span>
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addC">Choix du taux TVA:</label>
+                            <select [compareWith]="compareFn" formControlName="tva" id="addC" class="form-select"
+                                aria-label="Default select">
+                                <option *ngFor="let tva of tvas;let idx=index" [ngValue]="tva">{{tva.taux}}%</option>
+                            </select>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label class="form-label" for="addC">Choix de la categorie:</label>
+                            <select [compareWith]="compareFn" formControlName="categorie" id="addC"
+                                class="form-select" aria-label="Default select">
+                                <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
+                                    {{categorie.name}}</option>
+                            </select>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-info" (click)="updateSelectImage()">
+                                Choisir une image ...
+                            </button>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label>Image sélectionnée:</label>
+                            <div class="mb-3">
+                                <img src="{{urlDownload}}{{selectedItem.sourceImage.gridId}}"
+                                    class="img-thumbnail text-center" width="80" />
+                            </div>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-info" (click)="updateSelectAllergene()">
+                                Choix des allergenes ...
+                            </button>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                    <button type="submit" class="btn btn-primary">
+                        Modifier
+                    </button>
+                </div>    
+            </form>
         </div>
     </div>
 </div>
 
-
 <div class="container">
     <h2 class="text-center">Gestion des éléments de la carte</h2>
-
-    <div class="mb-3">
-        <label class="form-label" for="addC">Filtrer par:</label>
-        <select (change)="filter()" [compareWith]="compareFn" [(ngModel)]="filterCategorie" id="addCa"
-            class="form-select" aria-label="Default select">
-            <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
-                {{categorie.name}}</option>
-        </select>
-    </div>
+    <form [formGroup]="filterForm">
+        <div class="mb-3">
+            <label class="form-label" for="addC">Filtrer par:</label>
+            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
+                class="form-select" aria-label="Default select">
+                <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
+                    {{categorie.name}}</option>
+            </select>
+        </div>    
+    </form>
 
     <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
-        data-target="#staticBackdropAdd">
+        data-target="#addModal">
         +
     </button>
 
@@ -377,7 +375,7 @@
                             class="btn btn-danger">Suprimer</button>
                         <span style="margin: 10px;"> </span>
                         <button type="button" style="display: inline-block; width:120px;margin:auto"
-                            class="btn btn-warning" data-toggle="modal" data-target="#modal-update">
+                            class="btn btn-warning" (click)="updateDataForm(item)">
                             Modifier
                         </button>
                     </td>

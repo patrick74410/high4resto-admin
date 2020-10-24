@@ -3,17 +3,18 @@ import { from } from 'rxjs';
 import { ImageI } from '../interfaces/imageI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders, HttpParameterCodec, HttpParams, HttpRequest } from '@angular/common/http'
+import { environment } from '../environement/environement';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
-  private imagesFindUrl = 'http://localhost:8080/images/find/';
-  private imageDeleteUrl= 'http://localhost:8080/images/delete/';
-  private imageDeleteGridUrl= 'http://localhost:8080/images/deleteGrid/';
-  private imageUploadUrl='http://localhost:8080/images/upload/';
-  private imageUpdateUrl='http://localhost:8080/images/update/';
+  private imagesFindUrl = environment.apiUrl+'/images/find/';
+  private imageDeleteUrl= environment.apiUrl+'/images/delete/';
+  private imageDeleteGridUrl= environment.apiUrl+'/images/deleteGrid/';
+  private imageUploadUrl=environment.apiUrl+'/images/upload/';
+  private imageUpdateUrl=environment.apiUrl+'/images/update/';
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

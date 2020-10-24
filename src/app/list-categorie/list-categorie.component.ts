@@ -6,6 +6,10 @@ import { AlertService } from '../comfirm-dialog/alert.service';
 import { MessageService} from '../message.service'
 import { MessageI } from '../interfaces/messageI';
 import { ExpireService } from '../expire.service';
+import { take } from 'rxjs/operators';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+declare var bootstrap:any;
 
 @Component({
   selector: 'app-list-categorie',
@@ -17,38 +21,60 @@ export class ListCategorieComponent implements OnInit {
   categories: CategorieI[];
   selectedCategorie: CategorieI;
 
-  onSelect(categorie:CategorieI)
-  {
-    this.selectedCategorie=categorie;
-  }
- 
-  add(name:String): void{
+  addForm= new FormGroup(
+    {name:new FormControl('',Validators.required)}
+  )
+
+  updateForm = new FormGroup({
+    name:new FormControl('',Validators.required)
+  })
+
+  updateModal:any;
+  addModal:any;
+
+
+  addData(): void{
     const message:MessageI={content:'La catégorie a été rajoutée',level:'Info'}
-    name = name.trim();
+    var name = this.addForm.get("name").value.trim();
     var order:Number = this.categories.length+1;
     if (!name) { return; }
-    this.categorieService.addCategorie({ name,order } as CategorieI)
+    this.categorieService.addCategorie({ name,order } as CategorieI).pipe(take(1))
       .subscribe(categorie => {
         this.categories.push(categorie);
         this.messageService.add(message);
+        this.addForm.reset();
+        this.addModal.hide();
       });    
   }
 
+  updateDataForm(selectedCategorie:CategorieI):void{
+    this.updateForm.patchValue({name:selectedCategorie.name});
+    this.updateModal.show();
+    this.selectedCategorie=selectedCategorie;
+  }
+
+  onUpdate(): void {
+    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
+    this.selectedCategorie.name=this.updateForm.get("name").value;
+    this.categorieService.updateCategorie(this.selectedCategorie)
+      .pipe(take(1)).subscribe(item=>{this.messageService.add(message),this.updateModal.hide()});
+  }
+  
   delete(categorie:CategorieI):void {
     const message:MessageI={content:'L\'élément à été supprimé',level:'Attention'}
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer la catégorie ?",function(){
-      that.categorieService.deleteCategorie(categorie).subscribe( test=>
+      that.categorieService.deleteCategorie(categorie).pipe(take(1)).subscribe( test=>
         {
           var index = that.categories.indexOf(categorie);
           that.categories.splice(index, 1);
           that.messageService.add(message);    
-        }
-        );
+        });
+        
         that.categories.forEach((categorie, idx) => {
           categorie.order = idx + 1;
-          that.categorieService.updateCategorie(categorie).subscribe();
+          that.categorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
         });
         that.selectedCategorie=null;
     },function(){
@@ -56,16 +82,8 @@ export class ListCategorieComponent implements OnInit {
     });
   }
 
-  update(): void {
-    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
-
-    this.categorieService.updateCategorie(this.selectedCategorie)
-      .subscribe(item=>this.messageService.add(message));
-  }
-
-
   getCategories(): void {
-    this.categorieService.getCategories().subscribe(categories => this.categories=categories.sort((a,b)=>{
+    this.categorieService.getCategories().pipe(take(1)).subscribe(categories => this.categories=categories.sort((a,b)=>{
       if(a.order>b.order)
       {
         return 1;
@@ -84,7 +102,7 @@ export class ListCategorieComponent implements OnInit {
     moveItemInArray(this.categories, event.previousIndex, event.currentIndex);
     this.categories.forEach((categorie, idx) => {
       categorie.order = idx + 1;
-      this.categorieService.updateCategorie(categorie).subscribe();
+      this.categorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
     });
 
     this.messageService.add(message);
@@ -96,6 +114,9 @@ export class ListCategorieComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.expireService.check();
+    this.updateModal = new bootstrap.Modal(document.getElementById('updateCategorie'), {});
+    this.addModal = new bootstrap.Modal(document.getElementById('addCategorie'), {});
+
   }
 
 }

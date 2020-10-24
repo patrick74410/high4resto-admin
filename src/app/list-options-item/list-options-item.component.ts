@@ -7,6 +7,10 @@ import { MessageService} from '../message.service'
 import { MessageI } from '../interfaces/messageI';
 import { ExpireService } from '../expire.service';
 import { OptionItemI } from '../interfaces/OptionItem';
+import { take } from 'rxjs/operators';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+declare var bootstrap:any;
 
 @Component({
   selector: 'app-list-options-item',
@@ -19,6 +23,21 @@ export class ListOptionsItemComponent implements OnInit {
   selectedOptionsItem: OptionsItemI;
   selectedChoix: OptionItemI;
   addOptionsItem: OptionsItemI=new ListOptions();
+
+  addForm= new FormGroup({
+    label:new FormControl('',Validators.required),
+    unique:new FormControl('')
+  });
+
+  updateForm = new FormGroup({
+    label:new FormControl('',Validators.required),
+
+    unique:new FormControl('')
+  });
+
+  updateModal:any;
+  addModal:any;
+
 
   dropChoix(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.addOptionsItem.options, event.previousIndex, event.currentIndex);
@@ -62,13 +81,17 @@ export class ListOptionsItemComponent implements OnInit {
     this.selectedOptionsItem.options.push(choix);
   }
 
-  add(): void{
+  addData(): void{
+    this.addOptionsItem.label=this.addForm.get('label').value;
+    this.addOptionsItem.unique=this.addForm.get('unique').value;
     const message:MessageI={content:'L\'option à été rajoutée',level:'Info'}
     this.optionsItemService.addOption(this.addOptionsItem)
-      .subscribe(option => {
+      .pipe(take(1)).subscribe(option => {
         this.optionsItems.push(this.addOptionsItem);
         this.addOptionsItem=new ListOptions();
             this.messageService.add(message);
+            this.addForm.reset();
+            this.addModal.hide();
       });    
   }
 
@@ -77,7 +100,7 @@ export class ListOptionsItemComponent implements OnInit {
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer la catégorie ?",function(){
-      that.optionsItemService.deleteOption(option).subscribe( test=>
+      that.optionsItemService.deleteOption(option).pipe(take(1)).subscribe( test=>
         {
           var index = that.optionsItems.indexOf(option);
           that.optionsItems.splice(index, 1);
@@ -90,22 +113,32 @@ export class ListOptionsItemComponent implements OnInit {
     });
   }
 
-  update(): void {
-    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
+  updateDataForm(selectedOption:OptionsItemI):void{
+    this.updateForm.patchValue({label:selectedOption.label,unique:selectedOption.unique});
+    this.updateModal.show();
+    this.selectedOptionsItem=selectedOption;
+  }
 
+
+  onUpdate(): void {
+    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
+    this.selectedOptionsItem.label=this.updateForm.get("label").value;
+    this.selectedOptionsItem.unique=this.updateForm.get("unique").value;
     this.optionsItemService.updateOption(this.selectedOptionsItem)
-      .subscribe(item=>this.messageService.add(message));
+      .pipe(take(1)).subscribe(item=>{this.messageService.add(message);this.updateModal.hide()});
   }
 
   getOptions(): void {
-    this.optionsItemService.getOptionsItems().subscribe(options => this.optionsItems=options);
+    this.optionsItemService.getOptionsItems().pipe(take(1)).subscribe(options => this.optionsItems=options);
   }
 
   constructor(private optionsItemService:OptionsItemService, private alertService: AlertService,private messageService:MessageService,private expireService:ExpireService) { }
 
   ngOnInit(): void {
     this.getOptions();
-  }
+    this.updateModal = new bootstrap.Modal(document.getElementById('updateModal'), {});
+    this.addModal = new bootstrap.Modal(document.getElementById('addModal'), {});
+ }
 
 }
 
