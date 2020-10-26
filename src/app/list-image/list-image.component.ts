@@ -10,6 +10,7 @@ import { ExpireService } from '../expire.service';
 import { environment } from '../environement/environement';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { Util } from '../shared/util';
 
 declare var bootstrap:any;
 
@@ -25,7 +26,7 @@ export class ListImageComponent implements OnInit {
   images:ImageI[];
   selectedImage:ImageI;
   name:String;
-  
+  util=new Util();
   urlDownload:String=environment.apiUrl+"/images/download/";
 
   addForm= new FormGroup(

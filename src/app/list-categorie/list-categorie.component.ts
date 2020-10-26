@@ -8,6 +8,7 @@ import { MessageI } from '../interfaces/messageI';
 import { ExpireService } from '../expire.service';
 import { take } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Util } from '../shared/util';
 
 declare var bootstrap:any;
 
@@ -20,6 +21,7 @@ declare var bootstrap:any;
 export class ListCategorieComponent implements OnInit {
   categories: CategorieI[];
   selectedCategorie: CategorieI;
+  util=new Util();
 
   addForm= new FormGroup(
     {name:new FormControl('',Validators.required)}

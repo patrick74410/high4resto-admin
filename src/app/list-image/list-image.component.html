@@ -110,7 +110,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let image of images">
+              <tr *ngFor="let image of images;trackBy:util.trackById">
                 <td>{{image.fileName}}</td>
                 <td>{{image.group}}</td>
                 <td>{{image.description}}</td>

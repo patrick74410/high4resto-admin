@@ -18,6 +18,9 @@ import { TvaI } from '../interfaces/TvaI';
 import { take } from 'rxjs/operators';
 import { environment } from '../environement/environement';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OptionsItemI } from '../interfaces/OptionsItem';
+import { OptionsItemService } from '../list-options-item/options-item.service';
+import { Util } from '../shared/util';
 
 declare var bootstrap:any;
 
@@ -35,10 +38,12 @@ export class ListItemCarteComponent implements OnInit {
   images:ImageI[];
   allergenes:AllergeneI[];
   allergenesAdd:AllergeneI[]=[];
-  allergenesUpdate:AllergeneI[]=[];
   tvas:TvaI[]=[];
   categorieUpdate:string='';
   tvaUpdate:string='';
+  options:OptionsItemI[]=[];
+  optionsSelected:OptionsItemI[]=[];
+  util=new Util();
 
   filterForm=new FormGroup({
     filter:new FormControl('',Validators.required)
@@ -60,16 +65,15 @@ export class ListItemCarteComponent implements OnInit {
     categorie: new FormControl('',Validators.required)
   });
 
-
   updateModal:any;
   addModal:any;
   updateModalAllergene:any;
   addModalAllergene:any;
   updateImageModal:any;
   addImageModal:any;
-
-
+  addOptionModal:any;
   selectedImage:ImageI;
+  updateModalOption:any;
   urlDownload:String=environment.apiUrl+"/images/download/";
 
   compareFn = this._compareFn.bind(this);
@@ -86,14 +90,26 @@ export class ListItemCarteComponent implements OnInit {
     this.selectedItem=selectedItem;
   }
 
+  addSelectedOptions():void{
+    this.optionService.getOptionsItems().pipe(take(1)).subscribe(options=>{
+      this.options=options;
+      this.addModal.hide();
+      this.addOptionModal.show();
+      })
+
+  }
+
   addSelectImage():void{
     this.addModal.hide();
     this.addImageModal.show();
   }
 
   addSelectAllergene():void{
-    this.addModal.hide();
-    this.addModalAllergene.show();
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{
+      this.allergenes=allergenes;
+      this.addModal.hide();
+      this.addModalAllergene.show();
+        });
   }
   
   updateSelectImage():void{
@@ -101,10 +117,26 @@ export class ListItemCarteComponent implements OnInit {
     this.updateImageModal.show();
   }
 
-  updateSelectAllergene():void{
-    this.updateModal.hide();
-    this.updateModalAllergene.show();
+  updateSelectedOptions():void{
+    this.optionService.getOptionsItems().pipe(take(1)).subscribe(options=>{
+      this.options=options.filter((item)=>{
+        return !this.selectedItem.options.some(e=>e.id==item.id);
+      });
+      this.updateModal.hide();
+      this.updateModalOption.show();
+    })
   }
+
+  updateSelectAllergene():void{
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{
+      this.allergenes=allergenes.filter((item)=>{
+        return !this.selectedItem.allergenes.some(e=>e.id==item.id);
+      });
+       this.updateModal.hide();
+        this.updateModalAllergene.show();  
+      });
+
+    }
 
   dropC(event: CdkDragDrop<string[]>) {
     const message:MessageI={content:'Les éléments ont été triés',level:'Info'}
@@ -190,7 +222,8 @@ export class ListItemCarteComponent implements OnInit {
       tva:this.addForm.get("tva").value,
       allergenes:this.allergenesAdd,
       order:this.itemsCarte.length,
-      sourceImage:this.selectedImage
+      sourceImage:this.selectedImage,
+      options:this.optionsSelected
     }
   
     this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(test=>{
@@ -203,7 +236,6 @@ export class ListItemCarteComponent implements OnInit {
       this.addModal.hide();
     });
 
-    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>this.allergenes=allergenes);
 
   }
 
@@ -218,7 +250,7 @@ export class ListItemCarteComponent implements OnInit {
     }
   }
 
-  constructor(private tvaService:TvaService,private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemCarteService:ItemCarteService,private messageService:MessageService, private expireService:ExpireService) { }
+  constructor(private optionService:OptionsItemService,private tvaService:TvaService,private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemCarteService:ItemCarteService,private messageService:MessageService, private expireService:ExpireService) { }
 
   onSelect(image:ImageI)
   {
@@ -238,9 +270,6 @@ export class ListItemCarteComponent implements OnInit {
     });
     });
     this.imageService.getImages().pipe(take(1)).subscribe(images=>this.images=images);
-    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{
-    this.allergenes=allergenes;
-    });
     this.tvaService.getTvas().pipe(take(1)).subscribe(tvas=>{
       this.tvas=tvas;
     });
@@ -250,7 +279,8 @@ export class ListItemCarteComponent implements OnInit {
     this.addModalAllergene=new bootstrap.Modal(document.getElementById('addModalAllergene'), {});
     this.updateImageModal=new bootstrap.Modal(document.getElementById('updateImageModal'), {});
     this.addImageModal=new bootstrap.Modal(document.getElementById('addImageModal'), {});
-  
+    this.addOptionModal=new bootstrap.Modal(document.getElementById('addModalOptions'),{});
+    this.updateModalOption=new bootstrap.Modal(document.getElementById('updateModalOptions'),{});
    }
 
 }

@@ -1,53 +1,7 @@
-<!--modal image-->
-<div class="modal fade" id="addImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-xl modal-dialog-scrollable">
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h2 class="modal-title" id="selectImageModalLabel">Choix de l'image</h2>
-                <button type="button" class="btn-close" data-toggle="modal" data-target="#addModal"
-                    data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h3>Liste des images</h3>
-                <form>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nom du fichier</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Visualisation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let image of images" (click)="onSelect(image)">
-                                <td>{{image.fileName}}</td>
-                                <td>{{image.description}}</td>
-                                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                <div class="mb-3" *ngIf="selectedImage">
-                    <label>Image sélectionnée:</label>
-                    <div class="mb-3">
-                        <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center"
-                            width="80" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
-                    data-dismiss="modal">Fermer</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!--modal image update-->
-<div class="modal fade" id="updateImageModal" tabindex="-1" aria-labelledby="updateModalImageLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable" *ngIf='selectedItem'>
-        <div class="modal-content">
+<div class="modal fade" id="updateImageModal" tabindex="-1" aria-labelledby="updateModalImageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content" *ngIf='selectedItem'>
             <div class="modal-header">
                 <h2 class="modal-title" id="updateModalImageLabel">Choix de l'image</h2>
                 <button type="button" class="btn-close" data-toggle="modal" data-target="#updateModal"
@@ -65,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let image of images" (click)="selectedItem.sourceImage=image">
+                            <tr *ngFor="let image of images;trackBy:util.trackById" (click)="selectedItem.sourceImage=image">
                                 <td>{{image.fileName}}</td>
                                 <td>{{image.description}}</td>
                                 <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
@@ -89,14 +43,59 @@
     </div>
 </div>
 
+<!--modal image-->
+<div class="modal fade" id="addImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl modal-dialog-scrollable">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h2 class="modal-title" id="selectImageModalLabel">Choix de l'image</h2>
+                <button type="button" class="btn-close" data-toggle="modal" data-target="#addModal" data-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Liste des images</h3>
+                <form>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nom du fichier</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Visualisation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let image of images;trackBy:util.trackById" (click)="onSelect(image)">
+                                <td>{{image.fileName}}</td>
+                                <td>{{image.description}}</td>
+                                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="mb-3" *ngIf="selectedImage">
+                    <label>Image sélectionnée:</label>
+                    <div class="mb-3">
+                        <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center"
+                            width="80" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
+                    data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- modal allergene-->
 <div class="modal fade" id="addModalAllergene" aria-labelledby="addModalAllergeneLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
         <div class="modal-content ">
             <div class="modal-header">
                 <h2 class="modal-title" id="addModalAllergeneLabel">Choix des allergenes</h2>
-                <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal"
-                    data-target="#addModal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal" data-target="#addModal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div cdkDropListGroup>
@@ -106,7 +105,7 @@
 
                             <div cdkDropList [cdkDropListData]="allergenes" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div class="allergene-box" *ngFor="let item of allergenes" cdkDrag>{{item.name}}</div>
+                                <div class="allergene-box" *ngFor="let item of allergenes;trackBy:util.trackById" cdkDrag>{{item.name}}</div>
                             </div>
                         </div>
 
@@ -115,7 +114,7 @@
 
                             <div cdkDropList [cdkDropListData]="allergenesAdd" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div class="allergene-box" *ngFor="let item of allergenesAdd" cdkDrag>{{item.name}}
+                                <div class="allergene-box" *ngFor="let item of allergenesAdd;trackBy:util.trackById" cdkDrag>{{item.name}}
                                 </div>
                             </div>
                         </div>
@@ -124,6 +123,195 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
+                    data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal Options add-->
+<div class="modal fade" id="addModalOptions" aria-labelledby="addModalOptionsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h2 class="modal-title" id="addModalOptionsLabel">Choix des options</h2>
+                <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal" data-target="#addModal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div cdkDropListGroup>
+                    <div class="row">
+                        <div class="allergene-container col-6">
+                            <h2>Options disponibles</h2>
+
+                            <div cdkDropList [cdkDropListData]="options" class="allergene-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="allergene-box" *ngFor="let option of options;let id=index;trackBy:util.trackById" cdkDrag>
+                                    <h3>{{option.label}}</h3>
+                                    <div style="display: inline-block;width: 300px;">
+                                        <ng-container *ngIf="option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="flexRadioDefault{{id}}" id="Default{{idx}}">
+                                                    <label class="form-check-label" for="Default{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="!option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <label class="form-check-label" for="DefaultC{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="allergene-container col-6">
+                            <h2>Options choisies</h2>
+
+                            <div cdkDropList [cdkDropListData]="optionsSelected" class="allergene-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="allergene-box" *ngFor="let option of optionsSelected;let id =index;trackBy:util.trackById"
+                                    cdkDrag>
+                                    <h3>{{option.label}}</h3>
+                                    <div style="display: inline-block;width: 300px;">
+                                        <ng-container *ngIf="option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="flexRadioDefault{{id}}" id="1Default{{idx}}">
+                                                    <label class="form-check-label" for="1Default{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="!option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <label class="form-check-label" for="1DefaultC{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
+                    data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal Options update-->
+<div class="modal fade" id="updateModalOptions" aria-labelledby="updateModalOptionsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
+        <div *ngIf="selectedItem" class="modal-content ">
+            <div class="modal-header">
+                <h2 class="modal-title" id="updateModalOptionsLabel">Choix des options</h2>
+                <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal"
+                    data-target="#updateModal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div cdkDropListGroup>
+                    <div class="row">
+                        <div class="allergene-container col-6">
+                            <h2>Options disponibles</h2>
+
+                            <div cdkDropList [cdkDropListData]="options" class="allergene-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="allergene-box" *ngFor="let option of options;let id=index;trackBy:util.trackById" cdkDrag>
+                                    <h3>{{option.label}}</h3>
+                                    <div style="display: inline-block;width: 300px;">
+                                        <ng-container *ngIf="option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="flexRadioDefault{{id}}" id="Default{{idx}}">
+                                                    <label class="form-check-label" for="Default{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="!option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <label class="form-check-label" for="DefaultC{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="allergene-container col-6">
+                            <h2>Options choisies</h2>
+
+                            <div cdkDropList [cdkDropListData]="this.selectedItem.options" class="allergene-list"
+                                (cdkDropListDropped)="drop($event)">
+                                <div class="allergene-box" *ngFor="let option of this.selectedItem.options;trackBy:util.trackById;let id=index" cdkDrag>
+                                    <h3>{{option.label}}</h3>
+                                    <div style="display: inline-block;width: 300px;">
+                                        <ng-container *ngIf="option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="flexRadioDefault{{id}}" id="Default{{idx}}">
+                                                    <label class="form-check-label" for="Default{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="!option.unique">
+                                            <div *ngFor="let choix of option.options;let idx=index">
+                                                <div (*ngif)="option.unique" class="form-check">
+                                                    <input class="form-check-input" type="checkbox">
+                                                    <label class="form-check-label" for="DefaultC{{idx}}">
+                                                        {{choix.label}} <span
+                                                            *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal"
                     data-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -147,7 +335,7 @@
 
                             <div cdkDropList [cdkDropListData]="allergenes" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div class="allergene-box" *ngFor="let item of allergenes" cdkDrag>{{item.name}}</div>
+                                <div class="allergene-box" *ngFor="let item of allergenes;trackBy:util.trackById" cdkDrag>{{item.name}}</div>
                             </div>
                         </div>
 
@@ -156,7 +344,7 @@
 
                             <div cdkDropList [cdkDropListData]="selectedItem.allergenes" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div class="allergene-box" *ngFor="let item of selectedItem.allergenes" cdkDrag>
+                                <div class="allergene-box" *ngFor="let item of selectedItem.allergenes;trackBy:util.trackById()" cdkDrag>
                                     {{item.name}}
                                 </div>
                             </div>
@@ -185,47 +373,52 @@
                 <div class="modal-body">
                     <div>
                         <div class="mb-3">
-                            <label class="form-label" for="addNam">Nom:</label>
-                            <input id="addNam" formControlName="name" required type="text" class="form-control" placeholder="Nom" />
+                            <label class="form-label" for="addNam1">Nom:</label>
+                            <input id="addNam1" formControlName="name" required type="text" class="form-control"
+                                placeholder="Nom" />
                         </div>
-    
+
                         <div class="mb-3">
-                            <label class="form-label" for="addDes">Description:</label>
-                            <input id="addDes" formControlName="description" type="text" class="form-control" placeholder="Description" />
+                            <label class="form-label" for="addDes1">Description:</label>
+                            <input id="addDes1" formControlName="description" type="text" class="form-control"
+                                placeholder="Description" />
                         </div>
-    
+
                         <div class="mb-3">
-                            <label class="form-label" for="addP">Prix:</label>
+                            <label class="form-label" for="addx">Prix:</label>
                             <div class="input-group mb-3" style="max-width: 200px;">
-                                <input id="addP" formControlName="price" type="number" min="0.1" step="0.01" class="form-control"
-                                    placeholder="Montant" aria-label="Montant" aria-describedby="basic-addon1">
+                                <input id="addx" formControlName="price" type="number" min="0.1" step="0.01"
+                                    class="form-control" placeholder="Montant" aria-label="Montant"
+                                    aria-describedby="basic-addon1">
                                 <span class="input-group-text" id="basic-addon1">€</span>
                             </div>
                         </div>
-    
+
                         <div class="mb-3">
-                            <label class="form-label" for="addC">Choix du taux TVA:</label>
-                            <select formControlName="tva" id="addC" class="form-select" aria-label="Default select">
-                                <option *ngFor="let tva of tvas;let idx=index" [selected]=" idx == 0 ? true : false"
+                            <label class="form-label" for="addCt">Choix du taux TVA:</label>
+                            <select formControlName="tva" id="addCt" class="form-select" aria-label="Default select">
+                                <option *ngFor="let tva of tvas;let idx=index;trackBy:util.trackById;" [selected]=" idx == 0 ? true : false"
                                     [ngValue]="tva">{{tva.taux}}%</option>
                             </select>
                         </div>
-    
-    
+
+
                         <div class="mb-3">
-                            <label class="form-label" for="addC">Choix de la categorie:</label>
-                            <select formControlName="categorie" id="addC" class="form-select" aria-label="Default select">
-                                <option *ngFor="let categorie of categories;let idx=index"
-                                    [selected]=" idx == 0 ? true : false" [ngValue]="categorie">{{categorie.name}}</option>
+                            <label class="form-label" for="addCv">Choix de la categorie:</label>
+                            <select formControlName="categorie" id="addCv" class="form-select"
+                                aria-label="Default select">
+                                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById"
+                                    [selected]=" idx == 0 ? true : false" [ngValue]="categorie">{{categorie.name}}
+                                </option>
                             </select>
                         </div>
-    
+
                         <div class="mb-3">
                             <button type="button" class="btn btn-info" (click)="addSelectImage()">
                                 Choisir une image ...
                             </button>
                         </div>
-    
+
                         <div class="mb-3" *ngIf="selectedImage">
                             <label>Image sélectionnée:</label>
                             <div class="mb-3">
@@ -233,10 +426,16 @@
                                     width="80" />
                             </div>
                         </div>
-    
+
                         <div class="mb-3">
                             <button type="button" class="btn btn-info" (click)="addSelectAllergene()">
                                 Choix des allergenes ...
+                            </button>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-info" (click)="addSelectedOptions()">
+                                Choix des options ...
                             </button>
                         </div>
                     </div>
@@ -269,13 +468,13 @@
                             <input id="addNam" required formControlName="name" type="text" class="form-control"
                                 placeholder="Nom" />
                         </div>
-    
+
                         <div class="mb-3">
                             <label class="form-label" for="addDes">Description:</label>
                             <input id="addDes" required formControlName="description" type="text" class="form-control"
                                 placeholder="Description" />
                         </div>
-    
+
                         <div class="mb-3">
                             <label class="form-label" for="addP">Prix:</label>
                             <div class="input-group mb-3" style="max-width: 200px;">
@@ -285,30 +484,30 @@
                                 <span class="input-group-text" id="basic-addon1">€</span>
                             </div>
                         </div>
-    
+
                         <div class="mb-3">
-                            <label class="form-label" for="addC">Choix du taux TVA:</label>
-                            <select [compareWith]="compareFn" formControlName="tva" id="addC" class="form-select"
+                            <label class="form-label" for="addC1">Choix du taux TVA:</label>
+                            <select [compareWith]="compareFn" formControlName="tva" id="addC1" class="form-select"
                                 aria-label="Default select">
-                                <option *ngFor="let tva of tvas;let idx=index" [ngValue]="tva">{{tva.taux}}%</option>
+                                <option *ngFor="let tva of tvas;let idx=index;trackBy:util.trackById;" [ngValue]="tva">{{tva.taux}}%</option>
                             </select>
                         </div>
-    
+
                         <div class="mb-3">
                             <label class="form-label" for="addC">Choix de la categorie:</label>
-                            <select [compareWith]="compareFn" formControlName="categorie" id="addC"
-                                class="form-select" aria-label="Default select">
-                                <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
+                            <select [compareWith]="compareFn" formControlName="categorie" id="addC" class="form-select"
+                                aria-label="Default select">
+                                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
                                     {{categorie.name}}</option>
                             </select>
                         </div>
-    
+
                         <div class="mb-3">
                             <button type="button" class="btn btn-info" (click)="updateSelectImage()">
                                 Choisir une image ...
                             </button>
                         </div>
-    
+
                         <div class="mb-3">
                             <label>Image sélectionnée:</label>
                             <div class="mb-3">
@@ -316,13 +515,20 @@
                                     class="img-thumbnail text-center" width="80" />
                             </div>
                         </div>
-    
+
                         <div class="mb-3">
                             <button type="button" class="btn btn-info" (click)="updateSelectAllergene()">
                                 Choix des allergenes ...
                             </button>
                         </div>
-    
+
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-info" (click)="updateSelectedOptions()">
+                                Choix des options ...
+                            </button>
+                        </div>
+
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -330,7 +536,7 @@
                     <button type="submit" class="btn btn-primary">
                         Modifier
                     </button>
-                </div>    
+                </div>
             </form>
         </div>
     </div>
@@ -340,13 +546,13 @@
     <h2 class="text-center">Gestion des éléments de la carte</h2>
     <form [formGroup]="filterForm">
         <div class="mb-3">
-            <label class="form-label" for="addC">Filtrer par:</label>
+            <label class="form-label" for="addCa">Filtrer par:</label>
             <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
                 class="form-select" aria-label="Default select">
-                <option *ngFor="let categorie of categories;let idx=index" [ngValue]="categorie">
+                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
                     {{categorie.name}}</option>
             </select>
-        </div>    
+        </div>
     </form>
 
     <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
@@ -357,7 +563,7 @@
     <form>
         <table class="table">
             <tbody cdkDropList (cdkDropListDropped)="dropC($event)" class="cdk-list">
-                <tr *ngFor="let item of itemsCarte" class="cdk-box" cdkDrag cdkDragLockAxis="y"
+                <tr *ngFor="let item of itemsCarte;trackBy:util.trackById" class="cdk-box" cdkDrag cdkDragLockAxis="y"
                     (click)="selectItem(item)">
                     <th style="width:50px">
                         <div class="drag-handle">
@@ -365,12 +571,12 @@
                             {{ item.order }}
                         </div>
                     </th>
-                    <td  style="width:140px"><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail" width="120px"
-                            alt="{{item.sourceImage.description}}" /></td>
-                    <td  style="width:180px" >{{item.name}}</td>
-                    <td  style="width:200px">{{item.description}}</td>
-                    <td  style="width:50px">{{item.price}}€</td>
-                    <td  style="width:300px">
+                    <td style="width:140px"><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail"
+                            width="120px" alt="{{item.sourceImage.description}}" /></td>
+                    <td style="width:180px">{{item.name}}</td>
+                    <td style="width:200px">{{item.description}}</td>
+                    <td style="width:50px">{{item.price}}€</td>
+                    <td style="width:300px">
                         <button (click)="delete(item)" style="display: inline-block; width:120px;margin:auto"
                             class="btn btn-danger">Suprimer</button>
                         <span style="margin: 10px;"> </span>

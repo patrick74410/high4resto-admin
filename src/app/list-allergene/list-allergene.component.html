@@ -59,7 +59,7 @@
   <form>
     <table class="table">
       <tbody>
-        <tr *ngFor="let allergene of allergenes">
+        <tr *ngFor="let allergene of allergenes; trackBy:util.trackById">
           <td>{{allergene.name}}</td>
           <td>
             <button class="btn btn-danger" title="delete allergene" (click)="delete(allergene)">Supprimer</button>

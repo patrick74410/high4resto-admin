@@ -2,6 +2,7 @@ import { CategorieI } from './categorieI';
 import {AllergeneI} from './allergeneI'
 import { ImageI } from './imageI';
 import { TvaI } from './TvaI';
+import { OptionsItemI } from './OptionsItem';
 
 export interface ItemCarteI {
     id: String;
@@ -13,4 +14,5 @@ export interface ItemCarteI {
     categorie: CategorieI;
     allergenes: AllergeneI[];
     tva:TvaI;
+    options:OptionsItemI[];
  }

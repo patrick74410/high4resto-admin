@@ -5,10 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class ExpireService {
   check():void{
-    var expire:Date=JSON.parse(localStorage.getItem('connexionExpire'));
-    if(expire>new Date())
+    var expire=Date.parse(localStorage.getItem('expire'));
+    if(expire<new Date().getTime())
     {
-      localStorage.removeItem('connexionExpire');
+      localStorage.removeItem('expire');
       localStorage.removeItem('currentConnexionI');
     }    
   }
