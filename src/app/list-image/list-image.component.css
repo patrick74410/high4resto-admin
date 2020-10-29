@@ -2,3 +2,7 @@
     visibility: hidden;
     position: absolute;
   }
+  .modal-dialog-scrollable .modal-content {
+    max-height: 100%;
+    overflow: auto;
+  }

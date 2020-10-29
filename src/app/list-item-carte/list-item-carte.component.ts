@@ -6,6 +6,7 @@ import { AllergeneService } from '../list-allergene/allergene.service'
 import { ItemCarteService } from './item-carte.service'
 import { MessageService } from '../message.service'
 import { AlertService } from '../comfirm-dialog/alert.service';
+import {PromotionService} from '../list-promotions/promotion.service'
 
 import {CategorieI} from '../interfaces/categorieI'
 import {ImageI} from '../interfaces/imageI'
@@ -21,6 +22,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OptionsItemI } from '../interfaces/OptionsItem';
 import { OptionsItemService } from '../list-options-item/options-item.service';
 import { Util } from '../shared/util';
+import { PromotionI } from '../interfaces/promotionI';
 
 declare var bootstrap:any;
 
@@ -43,6 +45,9 @@ export class ListItemCarteComponent implements OnInit {
   tvaUpdate:string='';
   options:OptionsItemI[]=[];
   optionsSelected:OptionsItemI[]=[];
+  promotions:PromotionI[]=[];
+  promotionsSelected:PromotionI[]=[];
+
   util=new Util();
 
   filterForm=new FormGroup({
@@ -54,7 +59,9 @@ export class ListItemCarteComponent implements OnInit {
     description:new FormControl('',Validators.required),
     price:new FormControl('',Validators.required),
     tva: new FormControl('',Validators.required),
-    categorie: new FormControl('',Validators.required)
+    categorie: new FormControl('',Validators.required),
+    visible: new FormControl(''),
+
   });
 
   updateForm=new FormGroup({
@@ -62,7 +69,9 @@ export class ListItemCarteComponent implements OnInit {
     description:new FormControl('',Validators.required),
     price:new FormControl('',Validators.required),
     tva: new FormControl('',Validators.required),
-    categorie: new FormControl('',Validators.required)
+    categorie: new FormControl('',Validators.required),
+    visible: new FormControl(''),
+
   });
 
   updateModal:any;
@@ -72,9 +81,12 @@ export class ListItemCarteComponent implements OnInit {
   updateImageModal:any;
   addImageModal:any;
   addOptionModal:any;
-  selectedImage:ImageI;
   updateModalOption:any;
+  addPromotionModal:any;
+  updatePromotionModal:any;
+
   urlDownload:String=environment.apiUrl+"/images/download/";
+  selectedImage:ImageI;
 
   compareFn = this._compareFn.bind(this);
  
@@ -84,10 +96,18 @@ export class ListItemCarteComponent implements OnInit {
       description:selectedItem.description,
       price:selectedItem.price,
       tva:selectedItem.tva,
-      categorie:selectedItem.categorie
+      categorie:selectedItem.categorie,
     });
     this.updateModal.show();
     this.selectedItem=selectedItem;
+  }
+
+  addSelectedPromotions():void{
+    this.promotionService.getPromotions().pipe(take(1)).subscribe(promotions=>{
+      this.promotions=promotions;
+      this.addModal.hide();
+      this.addPromotionModal.show();
+    })
   }
 
   addSelectedOptions():void{
@@ -124,6 +144,16 @@ export class ListItemCarteComponent implements OnInit {
       });
       this.updateModal.hide();
       this.updateModalOption.show();
+    })
+  }
+
+  updateSelectedPromotions():void{
+    this.promotionService.getPromotions().pipe(take(1)).subscribe(promotion => {
+      this.promotions=promotion.filter((item)=>{
+        return !this.selectedItem.promotions.some(e=>e.id==item.id)
+      });
+      this.updateModal.hide();
+      this.updatePromotionModal.show();
     })
   }
 
@@ -223,7 +253,9 @@ export class ListItemCarteComponent implements OnInit {
       allergenes:this.allergenesAdd,
       order:this.itemsCarte.length,
       sourceImage:this.selectedImage,
-      options:this.optionsSelected
+      options:this.optionsSelected,
+      visible:this.addForm.get("visible").value,
+      promotions:this.promotionsSelected
     }
   
     this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(test=>{
@@ -250,7 +282,7 @@ export class ListItemCarteComponent implements OnInit {
     }
   }
 
-  constructor(private optionService:OptionsItemService,private tvaService:TvaService,private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemCarteService:ItemCarteService,private messageService:MessageService, private expireService:ExpireService) { }
+  constructor(private promotionService:PromotionService ,private optionService:OptionsItemService,private tvaService:TvaService,private alertService: AlertService,private categorieService:CategorieService, private imageService:ImageService,private allergeneService:AllergeneService,private itemCarteService:ItemCarteService,private messageService:MessageService, private expireService:ExpireService) { }
 
   onSelect(image:ImageI)
   {
@@ -270,6 +302,7 @@ export class ListItemCarteComponent implements OnInit {
     });
     });
     this.imageService.getImages().pipe(take(1)).subscribe(images=>this.images=images);
+    this.promotionService.getPromotions().pipe(take(1)).subscribe(promotions=>this.promotions=promotions);
     this.tvaService.getTvas().pipe(take(1)).subscribe(tvas=>{
       this.tvas=tvas;
     });
@@ -281,6 +314,8 @@ export class ListItemCarteComponent implements OnInit {
     this.addImageModal=new bootstrap.Modal(document.getElementById('addImageModal'), {});
     this.addOptionModal=new bootstrap.Modal(document.getElementById('addModalOptions'),{});
     this.updateModalOption=new bootstrap.Modal(document.getElementById('updateModalOptions'),{});
-   }
+    this.addPromotionModal=new bootstrap.Modal(document.getElementById('addModalPromotion'),{});
+    this.updatePromotionModal=new bootstrap.Modal(document.getElementById('updateModalPromotion'),{});
+  }
 
 }

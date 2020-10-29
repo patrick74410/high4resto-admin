@@ -1,0 +1,284 @@
+<!-- Modal update-->
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-dialog-scrollable">
+            <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="updateModalLabel">Modification de la promotion</h3>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3>Mise à jour de la valeur</h3>
+                    <div class="mb-3">
+                        <label for="updateTitre" class="form-label">Titre de la promotion</label>
+                        <input type="text" formControlName="name" required id="updateTitre" placeholder="Titre"
+                            class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateReduction" class="form-label">Montant de la réduction</label>
+                        <input type="number" step="0.01" formControlName="reduction" required id="updateReduction"
+                            placeholder="Réduction" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">Type de valeur</label>
+                        <select class="form-control" formControlName="pourcentage"
+                            id="uPoucentage" placeholder="Sélectionner le type de valeur">
+                            <option [ngValue]="true">Pourcentage</option>
+                            <option [ngValue]="false">Euro</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="updateHeureDebut" class="form-label">Heure de début</label>
+                                <input type="time" formControlName="heureDebut" id="updateHeureDebut"
+                                    placeholder="Heure de début" class="form-control">
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="updateHeureFin" class="form-label">Heure de fin</label>
+                                <input type="time" formControlName="heureFin" id="updateHeureFin"
+                                    placeholder="Heure de fin" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="updateDateDebut" class="form-label">Date de début</label>
+                                <input type="date" formControlName="dateDebut" id="updateDateDebut"
+                                    placeholder="Date de début" class="form-control">
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="updateDateFin" class="form-label">Date de fin</label>
+                                <input type="date" formControlName="dateFin" id="updateDateFin"
+                                    placeholder="Date de fin" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input formControlName="jourFerie" class="form-check-input" type="checkbox" id="UFerie"
+                                checked>
+                            <label class="form-check-label" for="UFerie">Jours férié compris</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="lundi" id="ULundi">
+                                <label class="form-check-label" for="ULundi">
+                                    Lundi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="mardi" id="UMardi">
+                                <label class="form-check-label" for="UMardi">
+                                    Mardi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="mercredi"
+                                    id="UMercredi">
+                                <label class="form-check-label" for="UMercredi">
+                                    Mercredi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="jeudi" id="UJeudi">
+                                <label class="form-check-label" for="UJeudi">
+                                    Jeudi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="vendredi"
+                                    id="UVendredi">
+                                <label class="form-check-label" for="UVendredi">
+                                    Vendredi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="samedi" id="USamedi">
+                                <label class="form-check-label" for="USamedi">
+                                    Samedi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="dimanche"
+                                    id="UDimanche">
+                                <label class="form-check-label" for="UDimanche">
+                                    Dimanche
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                    <button type="submit" class="btn btn-warning">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add-->
+<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-dialog-scrollable">
+            <form [formGroup]="addForm" (ngSubmit)="addData()">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="addModalLabel">Ajout d'une promotion</h3>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="addTitre" class="form-label">Titre de la promotion</label>
+                        <input type="text" formControlName="name" required id="addTitre" placeholder="Titre"
+                            class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="addReduction" class="form-label">Montant de la réduction</label>
+                        <input type="number" step="0.01" formControlName="reduction" required id="addReduction"
+                            placeholder="Réduction" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Type de valeur</label>
+                        <select class="form-control" formControlName="pourcentage"
+                            id="aPoucentage" placeholder="Sélectionner le type de valeur">
+                            <option [ngValue]="true">Pourcentage</option>
+                            <option [ngValue]="false">Euro</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="addHeureDebut" class="form-label">Heure de début</label>
+                                <input type="time" formControlName="heureDebut" id="addHeureDebut"
+                                    placeholder="Heure de début" class="form-control">
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="addHeureFin" class="form-label">Heure de fin</label>
+                                <input type="time" formControlName="heureFin" id="addHeureFin"
+                                    placeholder="Heure de fin" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="addDateDebut" class="form-label">Date de début</label>
+                                <input type="date" formControlName="dateDebut" id="addDateDebut"
+                                    placeholder="Date de début" class="form-control">
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <label for="addDateFin" class="form-label">Date de fin</label>
+                                <input type="date" formControlName="dateFin" id="addDateFin" placeholder="Date de fin"
+                                    class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input formControlName="jourFerie" class="form-check-input" type="checkbox" id="UFerie"
+                                checked>
+                            <label class="form-check-label" for="UFerie">Jours férié compris</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="lundi" id="ULundi">
+                                <label class="form-check-label" for="ULundi">
+                                    Lundi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="mardi" id="UMardi">
+                                <label class="form-check-label" for="UMardi">
+                                    Mardi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="mercredi"
+                                    id="UMercredi">
+                                <label class="form-check-label" for="UMercredi">
+                                    Mercredi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="jeudi" id="UJeudi">
+                                <label class="form-check-label" for="UJeudi">
+                                    Jeudi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="vendredi"
+                                    id="UVendredi">
+                                <label class="form-check-label" for="UVendredi">
+                                    Vendredi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="samedi" id="USamedi">
+                                <label class="form-check-label" for="USamedi">
+                                    Samedi
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" class="form-check-input" formControlName="dimanche"
+                                    id="UDimanche">
+                                <label class="form-check-label" for="UDimanche">
+                                    Dimanche
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                    <button type="submit" class="btn btn-warning">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-center">Gestion des promotions</h2>
+<div class="container">
+    <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+        data-target="#addModal">
+        +
+    </button>
+    <form>
+        <table class="table">
+            <tbody>
+                <tr *ngFor="let promotion of promotions; trackBy:util.trackById">
+                    <td>{{promotion.name}}</td>
+                    <td>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" title="delete promotion"
+                            (click)="delete(promotion)">Supprimer</button>
+                        <span style="margin: 10px;"> </span>
+                        <button (click)="updateDataForm(promotion)" type="button" class="btn btn-warning">
+                            Modifier
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

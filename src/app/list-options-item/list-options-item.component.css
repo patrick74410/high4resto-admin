@@ -1,3 +1,6 @@
+.modal {
+  overflow-y:auto;
+}
 list {
     width: 500px;
     max-width: 100%;

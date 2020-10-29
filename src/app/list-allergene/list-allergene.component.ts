@@ -35,7 +35,7 @@ export class ListAllergeneComponent implements OnInit {
   
 
   addData(): void{
-    const message:MessageI={content:'L\'allergene à été rajouté',level:'Info'}
+    const message:MessageI={content:'L\'allergene a été rajouté',level:'Info'}
     var name = this.addForm.get("name").value.trim();
     if (!name) { return; }
     this.allergeneService.addAllergene({ name } as AllergeneI).pipe(take(1))
@@ -45,7 +45,6 @@ export class ListAllergeneComponent implements OnInit {
         this.addForm.reset();
         this.addModal.hide();
       });
-    
   }
 
   updateDataForm(selectedAllergene:AllergeneI):void
@@ -79,7 +78,6 @@ export class ListAllergeneComponent implements OnInit {
     },function(){
 
     });
-    
   }
 
   getAllergenes(): void {
