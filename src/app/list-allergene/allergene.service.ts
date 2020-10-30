@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { from } from 'rxjs';
 import { AllergeneI } from '../interfaces/allergeneI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
@@ -36,5 +35,5 @@ export class AllergeneService {
     return this.http.put<AllergeneI>(this.allergeneAddUrl,allergene,this.httpOptionsUpdate);
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } 
 }

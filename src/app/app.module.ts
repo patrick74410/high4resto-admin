@@ -22,6 +22,14 @@ import { JwtInterceptor} from './Auth/jwt-interceptor.service';
 import { ListTvaComponent } from './list-tva/list-tva.component';
 import { ListOptionsItemComponent } from './list-options-item/list-options-item.component';
 import { ListPromotionsComponent } from './list-promotions/list-promotions.component';
+import { IdentiteComponent } from './identite/identite.component';
+import { AlbumComponent } from './album/album.component';
+import { HoraireComponent } from './horaire/horaire.component';
+
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -41,7 +49,10 @@ const DragConfig = {
     LoginComponent,
     ListTvaComponent,
     ListOptionsItemComponent,
-    ListPromotionsComponent
+    ListPromotionsComponent,
+    IdentiteComponent,
+    AlbumComponent,
+    HoraireComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +61,10 @@ const DragConfig = {
     HttpClientModule,
     FormsModule,
     DragDropModule,
-    NgxPicaModule
+    NgxPicaModule,
+    EditorModule,
+    NgxMaterialTimepickerModule.setLocale('fr-FR'),
+    BrowserAnimationsModule
   ],   
   providers:
   [ { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

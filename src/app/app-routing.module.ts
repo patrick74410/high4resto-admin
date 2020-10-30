@@ -9,6 +9,8 @@ import { AuthGuardService } from './Auth/auth-guard.service'
 import { ListTvaComponent } from './list-tva/list-tva.component';
 import { ListOptionsItemComponent } from './list-options-item/list-options-item.component';
 import { ListPromotionsComponent } from './list-promotions/list-promotions.component';
+import { HoraireComponent } from './horaire/horaire.component';
+import { IdentiteComponent } from './identite/identite.component';
 
 const routes: Routes = [ {path: 'allergene',component: ListAllergeneComponent,canActivate:[AuthGuardService]},
 {path: 'categorie',component: ListCategorieComponent,canActivate:[AuthGuardService]},
@@ -17,6 +19,8 @@ const routes: Routes = [ {path: 'allergene',component: ListAllergeneComponent,ca
 {path:'tva',component:ListTvaComponent,canActivate:[AuthGuardService]},
 {path:'option-carte',component:ListOptionsItemComponent,canActivate:[AuthGuardService]},
 {path: 'promotions',component:ListPromotionsComponent,canActivate:[AuthGuardService]},
+{path: 'horaire',component:HoraireComponent,canActivate:[AuthGuardService]},
+{path: 'identite',component:IdentiteComponent,canActivate:[AuthGuardService]},
 {path: 'login',component:LoginComponent},
 ];
 

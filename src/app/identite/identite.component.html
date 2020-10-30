@@ -1,0 +1,70 @@
+<h2 class="text-center">Mes infos</h2>
+<div class="container" *ngIf="identite">
+    <form class="row" [formGroup]="updateForm">
+        <div class="col-md-6">
+            <label for="societeName" class="form-label">Nom de la société</label>
+            <input formControlName="nomEtablissement" type="text" class="form-control" id="societeName" placeholder="Veuillez saisir un nom">
+        </div>
+        <div class="col-md-6">
+            <label for="societeName" class="form-label">Numéro de siret</label>
+            <input formControlName="siret" type="text" class="form-control" id="societeName" placeholder="Veuillez saisir votre siret">
+        </div>
+        <div class="col-12">
+            <label for="inputAddress" class="form-label">Adresse</label>
+            <input formControlName="adresse" type="text" class="form-control" id="inputAddress" placeholder="3 rue principale">
+        </div>
+        <div class="col-12">
+            <label for="inputAddress2" class="form-label">Complement d'adresse</label>
+            <input formControlName="complement" type="text" class="form-control" id="inputAddress2" placeholder="Batiment B">
+        </div>
+        <div class="col-md-8">
+            <label for="inputCity" class="form-label">Ville</label>
+            <input formControlName="city" type="text" class="form-control" id="inputCity" placeholder="Paris">
+        </div>
+        <div class="col-md-4">
+            <label for="inputZip" class="form-label">Code postal</label>
+            <input formControlName="zip" type="text" class="form-control" id="inputZip" placeholder="75000">
+        </div>
+        <div class="col-md-3">
+            <label for="inputState" class="form-label">Longitude</label>
+            <input formControlName="longitude" type="number" class="form-control" id="inputState" placeholder="2.3488">
+        </div>
+        <div class="col-md-3">
+            <label for="inputState" class="form-label">Latitude</label>
+            <input formControlName="latitude" type="number" class="form-control" id="inputState" placeholder="48.8534">
+        </div>
+
+        <h2 class="text-center" style="margin-top: 30px;">Mes éléments de contacts</h2>
+        <table class="table col-12">
+            <thead>
+                <tr>
+                    <th scope="col">Clef</th>
+                    <th scope="col">Valeur</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contact of identite.contact">
+                    <td>{{contact.key}}</td>
+                    <td>{{contact.value}}</td>
+                    <td><span class="btn btn-danger" (click)="deleteKey(contact)">-</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-md-4">
+            <label for="inputKey" class="form-label">Clef</label>
+            <input #key type="text" class="form-control" id="inputKey" placeholder="Email, ...">
+        </div>
+        <div class="col-md-6">
+            <label for="inputValue" class="form-label">Valeur</label>
+            <input #value type="text" class="form-control" id="inputValue" placeholder="l.patrick@high4technology.fr">
+
+        </div>
+        <div class="col-sm-2">
+            <button (click)="add(key,value);key.value='';value.value=''" style="margin-top: 27px;" type="button" class="btn btn-success">+</button>
+        </div>
+        <div class="col-12" style="margin-top: 30px;">
+            <button type="button" class="btn btn-warning" (click)="save()">Enregister les modifications</button>
+        </div>
+    </form>
+</div>

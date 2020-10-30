@@ -300,38 +300,44 @@
                                 (cdkDropListDropped)="drop($event)">
                                 <div class="allergene-box" *ngFor="let promotion of promotions;trackBy:util.trackById"
                                     cdkDrag>
-                                        <p>{{promotion.name}} {{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
-                                            {{promotion.heureDebut}} à {{promotion.heureFin}}
-                                            <span *ngIf="promotion.jourValide[0]">lundi </span>
-                                            <span *ngIf="promotion.jourValide[1]">mardi </span>
-                                            <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                                            <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                                            <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                                            <span *ngIf="promotion.jourValide[5]">samedi </span>
-                                            <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                                            <span *ngIf="promotion.jourFerie">et jours fériés</span>
-                                        </p>
+                                    <p>{{promotion.name}} {{promotion.reduction}}<span
+                                            *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}}
+                                        au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
                                 </div>
-                           </div>
+                            </div>
                         </div>
 
                         <div class="allergene-container col-6">
                             <h2>Promotions choisies</h2>
                             <div cdkDropList [cdkDropListData]="promotionsSelected" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div class="allergene-box" *ngFor="let promotion of promotionsSelected;trackBy:util.trackById"
-                                    cdkDrag>
-                                        <p>{{promotion.name}} {{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
-                                            {{promotion.heureDebut}} à {{promotion.heureFin}}
-                                            <span *ngIf="promotion.jourValide[0]">lundi </span>
-                                            <span *ngIf="promotion.jourValide[1]">mardi </span>
-                                            <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                                            <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                                            <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                                            <span *ngIf="promotion.jourValide[5]">samedi </span>
-                                            <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                                            <span *ngIf="promotion.jourFerie">et jours fériés</span>
-                                        </p>
+                                <div class="allergene-box"
+                                    *ngFor="let promotion of promotionsSelected;trackBy:util.trackById" cdkDrag>
+                                    <p>{{promotion.name}} {{promotion.reduction}}<span
+                                            *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}}
+                                        au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -353,8 +359,8 @@
         <div class="modal-content" *ngIf="selectedItem">
             <div class="modal-header">
                 <h2 class="modal-title" id="updateModalPromotionLabel">Choix des promotionss</h2>
-                <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal" data-target="#updateModal"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" data-toggle="modal"
+                    data-target="#updateModal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div cdkDropListGroup>
@@ -365,38 +371,44 @@
                                 (cdkDropListDropped)="drop($event)">
                                 <div class="allergene-box" *ngFor="let promotion of promotions;trackBy:util.trackById"
                                     cdkDrag>
-                                        <p>{{promotion.name}} {{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
-                                            {{promotion.heureDebut}} à {{promotion.heureFin}}
-                                            <span *ngIf="promotion.jourValide[0]">lundi </span>
-                                            <span *ngIf="promotion.jourValide[1]">mardi </span>
-                                            <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                                            <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                                            <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                                            <span *ngIf="promotion.jourValide[5]">samedi </span>
-                                            <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                                            <span *ngIf="promotion.jourFerie">et jours fériés</span>
-                                        </p>
+                                    <p>{{promotion.name}} {{promotion.reduction}}<span
+                                            *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}}
+                                        au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
                                 </div>
-                           </div>
+                            </div>
                         </div>
 
                         <div class="allergene-container col-6">
                             <h2>Promotions choisies</h2>
                             <div cdkDropList [cdkDropListData]="selectedItem.promotions" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
-                                <div class="allergene-box" *ngFor="let promotion of selectedItem.promotions;trackBy:util.trackById"
-                                    cdkDrag>
-                                        <p>{{promotion.name}} {{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
-                                            {{promotion.heureDebut}} à {{promotion.heureFin}}
-                                            <span *ngIf="promotion.jourValide[0]">lundi </span>
-                                            <span *ngIf="promotion.jourValide[1]">mardi </span>
-                                            <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                                            <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                                            <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                                            <span *ngIf="promotion.jourValide[5]">samedi </span>
-                                            <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                                            <span *ngIf="promotion.jourFerie">et jours fériés</span>
-                                        </p>
+                                <div class="allergene-box"
+                                    *ngFor="let promotion of selectedItem.promotions;trackBy:util.trackById" cdkDrag>
+                                    <p>{{promotion.name}} {{promotion.reduction}}<span
+                                            *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}}
+                                        au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -517,9 +529,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" for="addDes1">Description:</label>
-                            <input id="addDes1" formControlName="description" type="text" class="form-control"
-                                placeholder="Description" />
+                            <label class="form-label">Description:</label>
+                            <editor formControlName="description"
+                                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                         </div>
 
                         <div class="mb-3">
@@ -645,9 +657,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="mb-3" *ngFor="let promotion of promotionsSelected;trackBy:util.trackById">
+                                        <div class="mb-3"
+                                            *ngFor="let promotion of promotionsSelected;trackBy:util.trackById">
                                             <label>{{promotion.name}}</label>
-                                            <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                                            <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                                                    *ngIf="!promotion.pourcentage">€</span> valable du
+                                                {{promotion.dateDebut}} au {{promotion.dateFin}} de
                                                 {{promotion.heureDebut}} à {{promotion.heureFin}}
                                                 <span *ngIf="promotion.jourValide[0]">lundi </span>
                                                 <span *ngIf="promotion.jourValide[1]">mardi </span>
@@ -658,8 +673,8 @@
                                                 <span *ngIf="promotion.jourValide[6]">dimanche </span>
                                                 <span *ngIf="promotion.jourFerie">et jours fériés</span>
                                             </p>
-                                            <hr/>
-                                        </div>   
+                                            <hr />
+                                        </div>
 
                                     </td>
                                 </tr>
@@ -697,9 +712,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" for="addDes">Description:</label>
-                            <input id="addDes" required formControlName="description" type="text" class="form-control"
-                                placeholder="Description" />
+                            <label class="form-label">Description:</label>
+                            <editor formControlName="description"
+                                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                         </div>
 
                         <div class="mb-3">
@@ -771,7 +786,7 @@
                                                 Statégie de promotions
                                             </button>
                                         </div>
-                                   </th>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -826,9 +841,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="mb-3" *ngFor="let promotion of this.selectedItem.promotions;trackBy:util.trackById">
+                                        <div class="mb-3"
+                                            *ngFor="let promotion of this.selectedItem.promotions;trackBy:util.trackById">
                                             <label>{{promotion.name}}</label>
-                                            <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                                            <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                                                    *ngIf="!promotion.pourcentage">€</span> valable du
+                                                {{promotion.dateDebut}} au {{promotion.dateFin}} de
                                                 {{promotion.heureDebut}} à {{promotion.heureFin}}
                                                 <span *ngIf="promotion.jourValide[0]">lundi </span>
                                                 <span *ngIf="promotion.jourValide[1]">mardi </span>
@@ -839,8 +857,8 @@
                                                 <span *ngIf="promotion.jourValide[6]">dimanche </span>
                                                 <span *ngIf="promotion.jourFerie">et jours fériés</span>
                                             </p>
-                                            <hr/>
-                                        </div>   
+                                            <hr />
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -891,7 +909,7 @@
                     <td style="width:140px"><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail"
                             width="120px" alt="{{item.sourceImage.description}}" /></td>
                     <td style="width:180px">{{item.name}}</td>
-                    <td style="width:200px">{{item.description}}</td>
+                    <td style="width:200px"><span [innerHtml]="item.description"></span></td>
                     <td style="width:50px">{{item.price}}€</td>
                     <td style="width:300px">
                         <button (click)="delete(item)" style="display: inline-block; width:120px;margin:auto"
