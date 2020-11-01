@@ -31,14 +31,14 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="updateHeureDebut" class="form-label">Heure de début</label>
-                                <input type="time" formControlName="heureDebut" id="updateHeureDebut"
-                                    placeholder="Heure de début" class="form-control">
+                                <label for="updateHeureDebut" class="form-label col-12">Heure de début<br/></label>
+                                <ngx-material-timepicker #pickerx></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="pickerx" [format]=24 type="time" formControlName="heureDebut"/>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="updateHeureFin" class="form-label">Heure de fin</label>
-                                <input type="time" formControlName="heureFin" id="updateHeureFin"
-                                    placeholder="Heure de fin" class="form-control">
+                                <label for="updateHeureFin" class="form-label col-12">Heure de fin<br/></label>
+                                <ngx-material-timepicker #pickerx1></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="pickerx1" [format]=24 type="time" formControlName="heureFin"/>
                             </div>
                         </div>
                     </div>
@@ -58,55 +58,55 @@
                     </div>
                     <div class="mb-3">
                         <div class="form-check form-switch">
-                            <input formControlName="jourFerie" class="form-check-input" type="checkbox" id="UFerie"
+                            <input formControlName="jourFerie" class="form-check-input" type="checkbox" id="xUFerie"
                                 checked>
-                            <label class="form-check-label" for="UFerie">Jours férié compris</label>
+                            <label class="form-check-label" for="xUFerie">Jours férié compris</label>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="lundi" id="ULundi">
-                                <label class="form-check-label" for="ULundi">
+                                <input type="checkbox" class="form-check-input" formControlName="lundi" id="xULundi">
+                                <label class="form-check-label" for="xULundi">
                                     Lundi
                                 </label>
                             </div>
                             <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="mardi" id="UMardi">
-                                <label class="form-check-label" for="UMardi">
+                                <input type="checkbox" class="form-check-input" formControlName="mardi" id="xUMardi">
+                                <label class="form-check-label" for="xUMardi">
                                     Mardi
                                 </label>
                             </div>
                             <div class="col-4">
                                 <input type="checkbox" class="form-check-input" formControlName="mercredi"
-                                    id="UMercredi">
-                                <label class="form-check-label" for="UMercredi">
+                                    id="xUMercredi">
+                                <label class="form-check-label" for="xUMercredi">
                                     Mercredi
                                 </label>
                             </div>
                             <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="jeudi" id="UJeudi">
-                                <label class="form-check-label" for="UJeudi">
+                                <input type="checkbox" class="form-check-input" formControlName="jeudi" id="xUJeudi">
+                                <label class="form-check-label" for="xUJeudi">
                                     Jeudi
                                 </label>
                             </div>
                             <div class="col-4">
                                 <input type="checkbox" class="form-check-input" formControlName="vendredi"
-                                    id="UVendredi">
-                                <label class="form-check-label" for="UVendredi">
+                                    id="xUVendredi">
+                                <label class="form-check-label" for="xUVendredi">
                                     Vendredi
                                 </label>
                             </div>
                             <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="samedi" id="USamedi">
-                                <label class="form-check-label" for="USamedi">
+                                <input type="checkbox" class="form-check-input" formControlName="samedi" id="xUSamedi">
+                                <label class="form-check-label" for="xUSamedi">
                                     Samedi
                                 </label>
                             </div>
                             <div class="col-4">
                                 <input type="checkbox" class="form-check-input" formControlName="dimanche"
-                                    id="UDimanche">
-                                <label class="form-check-label" for="UDimanche">
+                                    id="xUDimanche">
+                                <label class="form-check-label" for="xUDimanche">
                                     Dimanche
                                 </label>
                             </div>
@@ -155,14 +155,14 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="addHeureDebut" class="form-label">Heure de début</label>
-                                <input type="time" formControlName="heureDebut" id="addHeureDebut"
-                                    placeholder="Heure de début" class="form-control">
+                                <label for="addHeureDebut" class="form-label col-12">Heure de début</label>
+                                <ngx-material-timepicker #pickerx2></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="pickerx2" [format]=24 type="time" formControlName="heureDebut"/>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="addHeureFin" class="form-label">Heure de fin</label>
-                                <input type="time" formControlName="heureFin" id="addHeureFin"
-                                    placeholder="Heure de fin" class="form-control">
+                                <label for="addHeureFin" class="form-label col-12">Heure de fin</label>
+                                <ngx-material-timepicker #pickerx3></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="pickerx3" [format]=24 type="time" formControlName="heureFin"/>
                             </div>
                         </div>
                     </div>

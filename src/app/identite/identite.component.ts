@@ -74,8 +74,7 @@ export class IdentiteComponent implements OnInit {
         siret:this.identite.siret,
         longitude:this.identite.coordonnee.longitude,
         latitude:this.identite.coordonnee.latitude
-      });
-  
+      }); 
     })
   }
 

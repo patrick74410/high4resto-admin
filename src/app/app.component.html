@@ -20,8 +20,12 @@
                     Mon établissement
                 </a>
                 <div class="dropdown-menu" aria-labelledby="monetablissement">
-                    <a class="dropdown-item" href="identite/">Mes infos</a>
-                    <a class="dropdown-item" href="horaire/">Horaire</a>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./identite/">Mes infos</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./horaire/">Horaire</a>
+                    </li>                    
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -46,9 +50,21 @@
                     </li>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./image">Images</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="mediaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Gestion des médias
+                </a>
+                <div class="dropdown-menu" aria-labelledby="mediaMenu">
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./image">Images</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./album">Album photo</a>
+                    </li>                            
+                </div>
             </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="facture" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Facture
@@ -59,6 +75,19 @@
                     </li>                    
                 </div>
             </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="webSite" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Mon site web
+                </a>
+                <div class="dropdown-menu" aria-labelledby="webSite">
+                    <li class="dropdown-item">
+                        <a class="nav-link" href="./metaTag/">Gestion des données de référencement</a>
+                    </li>                    
+                   
+                </div>
+            </li>
+
         </ul>
     </div>
 </nav>

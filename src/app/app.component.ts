@@ -11,10 +11,7 @@ import { ConnexionI } from './interfaces/connexionI';
 export class AppComponent {
   currentConnexion: ConnexionI;
   title = 'high4resto';
-  constructor(
-    private router: Router,
-    private authentificationService: AuthentificationService
-  ) {
+  constructor(private router: Router,private authentificationService: AuthentificationService) {
     this.authentificationService.currentConnexionI.subscribe(x => this.currentConnexion = x);
   }
 }

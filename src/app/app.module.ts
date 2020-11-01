@@ -30,6 +30,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { MetaTagComponent } from './meta-tag/meta-tag.component';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -52,7 +53,8 @@ const DragConfig = {
     ListPromotionsComponent,
     IdentiteComponent,
     AlbumComponent,
-    HoraireComponent
+    HoraireComponent,
+    MetaTagComponent
   ],
   imports: [
     BrowserModule,

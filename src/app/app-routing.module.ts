@@ -11,6 +11,8 @@ import { ListOptionsItemComponent } from './list-options-item/list-options-item.
 import { ListPromotionsComponent } from './list-promotions/list-promotions.component';
 import { HoraireComponent } from './horaire/horaire.component';
 import { IdentiteComponent } from './identite/identite.component';
+import { AlbumComponent } from './album/album.component';
+import { MetaTagComponent } from './meta-tag/meta-tag.component';
 
 const routes: Routes = [ {path: 'allergene',component: ListAllergeneComponent,canActivate:[AuthGuardService]},
 {path: 'categorie',component: ListCategorieComponent,canActivate:[AuthGuardService]},
@@ -21,6 +23,8 @@ const routes: Routes = [ {path: 'allergene',component: ListAllergeneComponent,ca
 {path: 'promotions',component:ListPromotionsComponent,canActivate:[AuthGuardService]},
 {path: 'horaire',component:HoraireComponent,canActivate:[AuthGuardService]},
 {path: 'identite',component:IdentiteComponent,canActivate:[AuthGuardService]},
+{path:'album',component:AlbumComponent,canActivate:[AuthGuardService]},
+{path: 'metaTag',component:MetaTagComponent,canActivate:[AuthGuardService]},
 {path: 'login',component:LoginComponent},
 ];
 

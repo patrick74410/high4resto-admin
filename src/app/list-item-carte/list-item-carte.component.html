@@ -530,7 +530,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
-                            <editor formControlName="description"
+                            <editor [init]="{language: 'fr_FR'}" formControlName="description"
                                 apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                         </div>
 
@@ -563,7 +563,6 @@
                             </select>
                         </div>
 
-
                         <div class="mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
@@ -572,114 +571,95 @@
                             </div>
                         </div>
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info" (click)="addSelectImage()">
-                                                Image
-                                            </button>
-                                        </div>
-                                    </th>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info" (click)="addSelectAllergene()">
-                                                Allergenes
-                                            </button>
-                                        </div>
-                                    </th>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info" (click)="addSelectedOptions()">
-                                                Options
-                                            </button>
-                                        </div>
-                                    </th>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info"
-                                                (click)="addSelectedPromotions()">
-                                                Stratégie de promotions
-                                            </button>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="mb-3">
-                                            <div class="mb-3" *ngIf="selectedImage">
-                                                <img src="{{urlDownload}}{{selectedImage.gridId}}"
-                                                    class="img-thumbnail text-center" width="170" />
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <div class="mb-3">
-                                            <ul>
-                                                <li *ngFor="let allergene of allergenesAdd;trackBy:util.trackById">
-                                                    {{allergene.name}}</li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="allergene-box"
-                                            *ngFor="let option of optionsSelected;trackBy:util.trackById;let id=index">
-                                            <div style="display: inline-block;width: 300px;">
-                                                <ng-container *ngIf="option.unique">
-                                                    <h3>{{option.label}}</h3>
-                                                    <div *ngFor="let choix of option.options;let idx=index">
-                                                        <div (*ngif)="option.unique" class="form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="flexRadioDefault{{id}}" id="Default{{idx}}">
-                                                            <label class="form-check-label" for="Default{{idx}}">
-                                                                {{choix.label}} <span
-                                                                    *ngIf="choix.price>0">{{choix.price}}€</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </ng-container>
-                                                <ng-container *ngIf="!option.unique">
-                                                    <h3>{{option.label}}</h3>
-                                                    <div *ngFor="let choix of option.options;let idx=index">
-                                                        <div (*ngif)="option.unique" class="form-check">
-                                                            <input class="form-check-input" type="checkbox">
-                                                            <label class="form-check-label" for="DefaultC{{idx}}">
-                                                                {{choix.label}} <span
-                                                                    *ngIf="choix.price>0">{{choix.price}}€</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </ng-container>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="mb-3"
-                                            *ngFor="let promotion of promotionsSelected;trackBy:util.trackById">
-                                            <label>{{promotion.name}}</label>
-                                            <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
-                                                    *ngIf="!promotion.pourcentage">€</span> valable du
-                                                {{promotion.dateDebut}} au {{promotion.dateFin}} de
-                                                {{promotion.heureDebut}} à {{promotion.heureFin}}
-                                                <span *ngIf="promotion.jourValide[0]">lundi </span>
-                                                <span *ngIf="promotion.jourValide[1]">mardi </span>
-                                                <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                                                <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                                                <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                                                <span *ngIf="promotion.jourValide[5]">samedi </span>
-                                                <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                                                <span *ngIf="promotion.jourFerie">et jours fériés</span>
-                                            </p>
-                                            <hr />
-                                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectImage()">
+                                    Image
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectAllergene()">
+                                    Allergenes
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectedOptions()">
+                                    Options
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectedPromotions()">
+                                    Statégie de promotions
+                                </button>
+                            </div>
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <div class="col-3">
+                                <div class="mb-3" *ngIf="selectedImage">
+                                    <img src="{{urlDownload}}{{selectedImage.gridId}}"
+                                        class="img-thumbnail text-center" width="100%" />
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <ul>
+                                    <li *ngFor="let allergene of allergenesAdd;trackBy:util.trackById">
+                                        {{allergene.name}}</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-3">
+                                <div
+                                    *ngFor="let option of optionsSelected;trackBy:util.trackById;let id=index">
+                                    <div *ngIf="option.unique">
+                                        <h3>{{option.label}}</h3>
+                                        <div *ngFor="let choix of option.options;let idx=index">
+                                            <div (*ngif)="option.unique" class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="flexRadioDefault{{id}}" id="Default{{idx}}">
+                                                <label class="form-check-label" for="Default{{idx}}">
+                                                    {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!option.unique">
+                                        <h3>{{option.label}}</h3>
+                                        <div *ngFor="let choix of option.options;let idx=index">
+                                            <div (*ngif)="option.unique" class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" for="DefaultC{{idx}}">
+                                                    {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                            </div>
+
+                            <div class="col-3">
+                                <div class="mb-3"
+                                    *ngFor="let promotion of this.promotionsSelected;trackBy:util.trackById">
+                                    <h3>{{promotion.name}}</h3>
+                                    <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du
+                                        {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -714,7 +694,8 @@
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
                             <editor formControlName="description"
-                                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+                                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2" [init]="{language: 'fr_FR'}">
+                            </editor>
                         </div>
 
                         <div class="mb-3">
@@ -753,117 +734,95 @@
                                     formControlName="visible">
                             </div>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info" (click)="updateSelectImage()">
-                                                Image
-                                            </button>
-                                        </div>
-                                    </th>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info"
-                                                (click)="updateSelectAllergene()">
-                                                Allergenes
-                                            </button>
-                                        </div>
-                                    </th>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info"
-                                                (click)="updateSelectedOptions()">
-                                                Options
-                                            </button>
-                                        </div>
-                                    </th>
-                                    <th scope="col">
-                                        <div class="mb-3">
-                                            <button type="button" class="btn btn-info"
-                                                (click)="updateSelectedPromotions()">
-                                                Statégie de promotions
-                                            </button>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="mb-3">
-                                            <div class="mb-3">
-                                                <img src="{{urlDownload}}{{selectedItem.sourceImage.gridId}}"
-                                                    class="img-thumbnail text-center" width="170" />
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <div class="mb-3">
-                                            <ul>
-                                                <li
-                                                    *ngFor="let allergene of selectedItem.allergenes;trackBy:util.trackById()">
-                                                    {{allergene.name}}</li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="allergene-box"
-                                            *ngFor="let option of this.selectedItem.options;trackBy:util.trackById;let id=index">
-                                            <div style="display: inline-block;width: 300px;">
-                                                <ng-container *ngIf="option.unique">
-                                                    <h3>{{option.label}}</h3>
-                                                    <div *ngFor="let choix of option.options;let idx=index">
-                                                        <div (*ngif)="option.unique" class="form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="flexRadioDefault{{id}}" id="Default{{idx}}">
-                                                            <label class="form-check-label" for="Default{{idx}}">
-                                                                {{choix.label}} <span
-                                                                    *ngIf="choix.price>0">{{choix.price}}€</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </ng-container>
-                                                <ng-container *ngIf="!option.unique">
-                                                    <h3>{{option.label}}</h3>
-                                                    <div *ngFor="let choix of option.options;let idx=index">
-                                                        <div (*ngif)="option.unique" class="form-check">
-                                                            <input class="form-check-input" type="checkbox">
-                                                            <label class="form-check-label" for="DefaultC{{idx}}">
-                                                                {{choix.label}} <span
-                                                                    *ngIf="choix.price>0">{{choix.price}}€</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </ng-container>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="mb-3"
-                                            *ngFor="let promotion of this.selectedItem.promotions;trackBy:util.trackById">
-                                            <label>{{promotion.name}}</label>
-                                            <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
-                                                    *ngIf="!promotion.pourcentage">€</span> valable du
-                                                {{promotion.dateDebut}} au {{promotion.dateFin}} de
-                                                {{promotion.heureDebut}} à {{promotion.heureFin}}
-                                                <span *ngIf="promotion.jourValide[0]">lundi </span>
-                                                <span *ngIf="promotion.jourValide[1]">mardi </span>
-                                                <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                                                <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                                                <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                                                <span *ngIf="promotion.jourValide[5]">samedi </span>
-                                                <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                                                <span *ngIf="promotion.jourFerie">et jours fériés</span>
-                                            </p>
-                                            <hr />
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
 
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectImage()">
+                                    Image
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectAllergene()">
+                                    Allergenes
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedOptions()">
+                                    Options
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedPromotions()">
+                                    Statégie de promotions
+                                </button>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <img src="{{urlDownload}}{{selectedItem.sourceImage.gridId}}"
+                                        class="img-thumbnail text-center" width="100%" />
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <ul>
+                                    <li *ngFor="let allergene of selectedItem.allergenes;trackBy:util.trackById()">
+                                        {{allergene.name}}</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-3">
+                                <div
+                                    *ngFor="let option of this.selectedItem.options;trackBy:util.trackById;let id=index">
+                                    <div *ngIf="option.unique">
+                                        <h3>{{option.label}}</h3>
+                                        <div *ngFor="let choix of option.options;let idx=index">
+                                            <div (*ngif)="option.unique" class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="flexRadioDefault{{id}}" id="Default{{idx}}">
+                                                <label class="form-check-label" for="Default{{idx}}">
+                                                    {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!option.unique">
+                                        <h3>{{option.label}}</h3>
+                                        <div *ngFor="let choix of option.options;let idx=index">
+                                            <div (*ngif)="option.unique" class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" for="DefaultC{{idx}}">
+                                                    {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                            </div>
+
+                            <div class="col-3">
+                                <div class="mb-3"
+                                    *ngFor="let promotion of this.selectedItem.promotions;trackBy:util.trackById">
+                                    <h3>{{promotion.name}}</h3>
+                                    <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du
+                                        {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

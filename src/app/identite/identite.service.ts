@@ -6,6 +6,7 @@ import {environment} from '../environement/environement'
 @Injectable({
   providedIn: 'root'
 })
+
 export class IdentiteService {
   private identitesFindUrl = environment.apiUrl+'/identite/find/';
   private identitesUpdateUrl = environment.apiUrl+'/identite/update/';

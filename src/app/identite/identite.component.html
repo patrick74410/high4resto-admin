@@ -47,22 +47,25 @@
                 <tr *ngFor="let contact of identite.contact">
                     <td>{{contact.key}}</td>
                     <td>{{contact.value}}</td>
-                    <td><span class="btn btn-danger" (click)="deleteKey(contact)">-</span></td>
+                    <td><span class="btn btn-danger" (click)="deleteKey(contact)">X</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input #key type="text" class="form-control" id="inputKey" placeholder="Email, ...">
+
+                    </td>
+                    <td>
+                        <input #value type="text" class="form-control" id="inputValue" placeholder="l.patrick@high4technology.fr">
+
+                    </td>
+                    <td>
+                        <button (click)="add(key,value);key.value='';value.value=''" type="button" class="btn btn-success">+</button>
+ 
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <div class="col-md-4">
-            <label for="inputKey" class="form-label">Clef</label>
-            <input #key type="text" class="form-control" id="inputKey" placeholder="Email, ...">
-        </div>
-        <div class="col-md-6">
-            <label for="inputValue" class="form-label">Valeur</label>
-            <input #value type="text" class="form-control" id="inputValue" placeholder="l.patrick@high4technology.fr">
 
-        </div>
-        <div class="col-sm-2">
-            <button (click)="add(key,value);key.value='';value.value=''" style="margin-top: 27px;" type="button" class="btn btn-success">+</button>
-        </div>
         <div class="col-12" style="margin-top: 30px;">
             <button type="button" class="btn btn-warning" (click)="save()">Enregister les modifications</button>
         </div>
