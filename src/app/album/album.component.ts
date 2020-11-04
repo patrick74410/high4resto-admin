@@ -34,12 +34,14 @@ export class AlbumComponent implements OnInit {
   
   addForm = new FormGroup({
     name:new FormControl('',Validators.required),
-    description:new FormControl('')
+    description:new FormControl(''),
+    visible: new FormControl('')
   })
 
   updateForm = new FormGroup({
     name:new FormControl('',Validators.required),
-    description:new FormControl('')
+    description:new FormControl(''),
+    visible:new FormControl('')
   })
 
   updateModal:any;
@@ -62,7 +64,9 @@ export class AlbumComponent implements OnInit {
         this.addForm.reset();
         this.addModal.hide();
         this.addAlbum.name='';
+        this.addAlbum.description='';
         this.addAlbum.photos=[];
+        this.addAlbum.visible=false;
       });
   }
 
@@ -73,7 +77,10 @@ export class AlbumComponent implements OnInit {
         return !selectedAlbum.photos.some(e=>e.id==item.id)
       });
       this.updateForm.patchValue({
-        name:selectedAlbum.name,description:selectedAlbum.description});
+        name:selectedAlbum.name,
+        description:selectedAlbum.description,
+        visible:selectedAlbum.visible
+      });
         this.updateModal.show();
         this.selectedAlbum=selectedAlbum;
   
@@ -85,6 +92,7 @@ export class AlbumComponent implements OnInit {
     const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
     this.selectedAlbum.name=this.updateForm.get("name").value;
     this.selectedAlbum.description=this.updateForm.get("description").value;
+    this.selectedAlbum.visible=this.updateForm.get("visible").value;
     this.albumService.updateAlbum(this.selectedAlbum).pipe(take(1))
       .subscribe(item=>{this.messageService.add(message);this.updateModal.hide()});
   }
@@ -124,7 +132,7 @@ export class AlbumComponent implements OnInit {
   constructor(private imageService:ImageService, private albumService:AlbumService, private alertService: AlertService, private messageService:MessageService,private expireService:ExpireService) { }
 
   ngOnInit(): void {
-    this.addAlbum={name:'',description:'',photos:[]};
+    this.addAlbum={name:'',description:'',photos:[],visible:false};
     this.getAlbums();
     this.expireService.check();
     this.updateModal = new bootstrap.Modal(document.getElementById('updateAlbum'), {});

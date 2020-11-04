@@ -1,93 +1,5 @@
-<!--modal image update-->
-<div class="modal fade" id="updateImageModal" tabindex="-1" aria-labelledby="updateModalImageLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content" *ngIf='selectedItem'>
-            <div class="modal-header">
-                <h2 class="modal-title" id="updateModalImageLabel">Choix de l'image</h2>
-                <button type="button" class="btn-close" data-toggle="modal" data-target="#updateModal"
-                    data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h3>Liste des images</h3>
-                <form>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nom du fichier</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Visualisation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let image of images;trackBy:util.trackById"
-                                (click)="selectedItem.sourceImage=image">
-                                <td>{{image.fileName}}</td>
-                                <td>{{image.description}}</td>
-                                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                <div class="mb-3" *ngIf="selectedItem.sourceImage">
-                    <label>Image sélectionnée:</label>
-                    <div class="mb-3">
-                        <img src="{{urlDownload}}{{selectedItem.sourceImage.gridId}}" class="img-thumbnail text-center"
-                            width="80" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#updateModal"
-                    data-dismiss="modal">Fermer</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--modal image-->
-<div class="modal fade" id="addImageModal" tabindex="-1" aria-labelledby="selectImageModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-xl modal-dialog-scrollable">
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h2 class="modal-title" id="selectImageModalLabel">Choix de l'image</h2>
-                <button type="button" class="btn-close" data-toggle="modal" data-target="#addModal" data-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h3>Liste des images</h3>
-                <form>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nom du fichier</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Visualisation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let image of images;trackBy:util.trackById" (click)="onSelect(image)">
-                                <td>{{image.fileName}}</td>
-                                <td>{{image.description}}</td>
-                                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                <div class="mb-3" *ngIf="selectedImage">
-                    <label>Image sélectionnée:</label>
-                    <div class="mb-3">
-                        <img src="{{urlDownload}}{{selectedImage.gridId}}" class="img-thumbnail text-center"
-                            width="80" />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addModal"
-                    data-dismiss="modal">Fermer</button>
-            </div>
-        </div>
-    </div>
-</div>
+<app-image-modal idModal="updateImageModal" showAfterClose="updateModal" (newItemEvent)="updateItemImage($event)"></app-image-modal>
+<app-image-modal idModal="addImageModal" showAfterClose="addModal" (newItemEvent)="addItemImage($event)"></app-image-modal>
 
 <!-- modal Options add-->
 <div class="modal fade" id="addModalOptions" aria-labelledby="addModalOptionsLabel" aria-hidden="true">
@@ -518,7 +430,7 @@
             <form [formGroup]="addForm" (ngSubmit)="addData()">
                 <div class="modal-header">
                     <h3 class="modal-title" id="addModaLabel">Ajout d'un item</h3>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="closeAddModal"></button>
                 </div>
                 <div class="modal-body">
                     <div>
@@ -530,14 +442,14 @@
 
                         <div class="mb-3">
                             <label class="form-label">Description:</label>
-                            <editor [init]="{language: 'fr_FR'}" formControlName="description"
+                            <editor required [init]="{language: 'fr_FR'}" formControlName="description"
                                 apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="addx">Prix:</label>
                             <div class="input-group mb-3" style="max-width: 200px;">
-                                <input id="addx" formControlName="price" type="number" min="0.1" step="0.01"
+                                <input id="addx" required formControlName="price" type="number" min="0.1" step="0.01"
                                     class="form-control" placeholder="Montant" aria-label="Montant"
                                     aria-describedby="basic-addon1">
                                 <span class="input-group-text" id="basic-addon1">€</span>
@@ -546,7 +458,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="addCt">Choix du taux TVA:</label>
-                            <select formControlName="tva" id="addCt" class="form-select" aria-label="Default select">
+                            <select formControlName="tva" required id="addCt" class="form-select" aria-label="Default select">
                                 <option *ngFor="let tva of tvas;let idx=index;trackBy:util.trackById;"
                                     [selected]=" idx == 0 ? true : false" [ngValue]="tva">{{tva.taux}}%</option>
                             </select>
@@ -555,7 +467,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="addCv">Choix de la categorie:</label>
-                            <select formControlName="categorie" id="addCv" class="form-select"
+                            <select formControlName="categorie" required id="addCv" class="form-select"
                                 aria-label="Default select">
                                 <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById"
                                     [selected]=" idx == 0 ? true : false" [ngValue]="categorie">{{categorie.name}}
@@ -573,22 +485,22 @@
 
                         <div class="row">
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="addSelectImage()">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectImage()"  data-dismiss="modal">
                                     Image
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="addSelectAllergene()">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectAllergene()"  data-dismiss="modal">
                                     Allergenes
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="addSelectedOptions()">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectedOptions()"  data-dismiss="modal">
                                     Options
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="addSelectedPromotions()">
+                                <button type="button" class="btn btn-info mbutton" (click)="addSelectedPromotions()"  data-dismiss="modal">
                                     Statégie de promotions
                                 </button>
                             </div>
@@ -681,7 +593,7 @@
             <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
                 <div class="modal-header">
                     <h3 class="modal-title" id="updateModalLabel">Modification de l'item</h3>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="closeUpdateModal"></button>
                 </div>
                 <div class="modal-body">
                     <div *ngIf="selectedItem">
@@ -737,22 +649,22 @@
 
                         <div class="row">
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectImage()">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectImage()" data-dismiss="modal">
                                     Image
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectAllergene()">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectAllergene()" data-dismiss="modal">
                                     Allergenes
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedOptions()">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedOptions()"data-dismiss="modal">
                                     Options
                                 </button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedPromotions()">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedPromotions()" data-dismiss="modal">
                                     Statégie de promotions
                                 </button>
                             </div>
@@ -826,7 +738,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" >fermer</button>
                     <button type="submit" class="btn btn-primary">
                         Modifier
                     </button>
@@ -866,7 +778,7 @@
                         </div>
                     </th>
                     <td style="width:140px"><img src="{{urlDownload}}{{item.sourceImage.gridId}}" class="thumbnail"
-                            width="120px" alt="{{item.sourceImage.description}}" /></td>
+                            width="120px" alt="{{item.sourceImage.alt}}" /></td>
                     <td style="width:180px">{{item.name}}</td>
                     <td style="width:200px"><span [innerHtml]="item.description"></span></td>
                     <td style="width:50px">{{item.price}}€</td>
@@ -875,7 +787,7 @@
                             class="btn btn-danger">Suprimer</button>
                         <span style="margin: 10px;"> </span>
                         <button type="button" style="display: inline-block; width:120px;margin:auto"
-                            class="btn btn-warning" (click)="updateDataForm(item)">
+                            class="btn btn-warning" (click)="updateDataForm(item)" >
                             Modifier
                         </button>
                     </td>

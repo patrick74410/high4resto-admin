@@ -10,6 +10,11 @@ import { IdentiteI } from '../interfaces/IdentiteI'
 import { KeyMapI } from '../interfaces/KeymapI';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GpsI } from '../interfaces/GpsI';
+import { ImageI } from '../interfaces/imageI';
+import { ImageService} from '../list-image/image.service'
+import { environment } from '../environement/environement';
+
+declare var bootstrap:any;
 
 @Component({
   selector: 'app-identite',
@@ -20,6 +25,7 @@ import { GpsI } from '../interfaces/GpsI';
 export class IdentiteComponent implements OnInit {
   identite:IdentiteI;
   util = new Util();
+  selectImage:ImageI;
 
   updateForm= new FormGroup({
     nomEtablissement:new FormControl(''),
@@ -31,7 +37,20 @@ export class IdentiteComponent implements OnInit {
     siret:new FormControl(''),
     longitude:new FormControl(''),
     latitude:new FormControl(''),
+    description:new FormControl('')
   })
+
+  urlDownload:String=environment.apiUrl+"/images/download/";
+
+  addItem(newItem: ImageI) {
+    this.selectImage=newItem;
+  }
+
+  showImageUpdateModal(): void
+  {
+    var updateImageModal=new bootstrap.Modal(document.getElementById('updateImageModal'), {});
+    updateImageModal.show();
+  }
 
   deleteKey(contact:KeyMapI):void
   {
@@ -54,6 +73,8 @@ export class IdentiteComponent implements OnInit {
     this.identite.number=this.updateForm.get('number').value;
     this.identite.siret=this.updateForm.get('siret').value;
     this.identite.zip=this.updateForm.get('zip').value;
+    this.identite.logo=this.selectImage;
+    this.identite.description=this.updateForm.get('description').value;
     this.identiteService.updateIdentite(this.identite).pipe(take(1)).subscribe(t=>{
       const message:MessageI={content:'Les imformations de l\'établissement on été enregistrées',level:'Info'};
       this.messageService.add(message);
@@ -64,6 +85,7 @@ export class IdentiteComponent implements OnInit {
   {
     this.identiteService.getIdentites().pipe(take(1)).subscribe(identite=>{
       this.identite=identite[0];
+      this.selectImage=this.identite.logo;
       this.updateForm.patchValue({
         nomEtablissement:this.identite.nomEtablissement,
         zip:this.identite.zip,
@@ -73,16 +95,20 @@ export class IdentiteComponent implements OnInit {
         complement:this.identite.complement,
         siret:this.identite.siret,
         longitude:this.identite.coordonnee.longitude,
-        latitude:this.identite.coordonnee.latitude
+        latitude:this.identite.coordonnee.latitude,
+        description:this.identite.description
       }); 
     })
   }
 
-  constructor(private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+ 
+
+  constructor(private imageService:ImageService,private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;
     this.getIdentite();
+
   }
 
 }

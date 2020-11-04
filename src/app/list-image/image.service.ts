@@ -20,12 +20,14 @@ export class ImageService {
   };
 
 
-  uploadImage(file:File,description:string,group:string):Observable<any> {
+  uploadImage(file:File,description:string,group:string,alt:string,link:string):Observable<any> {
+    console.log(link);
+    console.log(alt);
     const paramsFile = new FormData();
     paramsFile.append('file',file);
     const headers = new HttpHeaders();
     headers.append('Content-Type', undefined);
-    const myObject: any = { description: description, group: group, fileName: file.name};
+    const myObject: any = { description: description, group: group, fileName: file.name,link:link,alt:alt};
     const httpParams: HttpParamsOptions = { fromObject: myObject } as HttpParamsOptions;
     const options = { params: new HttpParams(httpParams), headers: headers };
 

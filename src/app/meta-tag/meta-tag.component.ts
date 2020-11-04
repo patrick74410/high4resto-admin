@@ -9,14 +9,22 @@ import { take } from 'rxjs/operators';
 import { MetaTagI } from '../interfaces/MetaTagI'
 import { KeyMapI } from '../interfaces/KeymapI';
 import { FormControl, FormGroup } from '@angular/forms';
-import { GpsI } from '../interfaces/GpsI';
+import { ImageI } from '../interfaces/imageI'
+import { ImageService } from '../list-image/image.service'
+import { environment } from '../environement/environement';
+
+declare var bootstrap:any;
 
 @Component({
   selector: 'app-meta-tag',
   templateUrl: './meta-tag.component.html',
   styleUrls: ['./meta-tag.component.css']
 })
+
 export class MetaTagComponent implements OnInit {
+  images:ImageI[]=[];
+  twitterImage:ImageI;
+  facebookImage:ImageI;
   metaTag:MetaTagI;
   util=new Util();
   updateForm= new FormGroup({
@@ -31,6 +39,33 @@ export class MetaTagComponent implements OnInit {
     twitterImage:new FormControl(''),
     twitterAuthor:new FormControl('')
   })
+
+  urlDownload:string=environment.apiUrl+"/images/download/";
+
+  selectTwitter(image:ImageI)
+  {
+    this.twitterImage=image;
+    this.updateForm.patchValue({twitterImage:this.urlDownload+image.gridId+'/'+image.fileName});
+  }
+
+  selectFacebook(image:ImageI)
+  {
+    this.facebookImage=image;
+    this.updateForm.patchValue({facebookImage:this.urlDownload+image.gridId+'/'+image.fileName});
+  }
+
+  showTwitter()
+  {
+    var selectTwitterImageModal=new bootstrap.Modal(document.getElementById('twitterModal'));
+    selectTwitterImageModal.show();
+  }
+
+  showFacebook()
+  {
+    var selectFacebookImageModal=new bootstrap.Modal(document.getElementById('facebookModal'));
+    selectFacebookImageModal.show();
+  }
+  
 
   deleteKey(other:KeyMapI)
   {
@@ -80,11 +115,14 @@ export class MetaTagComponent implements OnInit {
     })
   }
 
-  constructor(private metaTagService: MetaTagService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(private imageService:ImageService,private metaTagService: MetaTagService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check();
     this.getMetaTag();
+    this.imageService.getImages().pipe(take(1)).subscribe(images=>{
+      this.images=images;
+    })
   }
 
 }

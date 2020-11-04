@@ -1,8 +1,8 @@
 <!-- Modal update-->
 <div class="modal fade" id="updateAllergene" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="updateAllergeneLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
       <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
         <div class="modal-header">
           <h3 class="modal-title" id="updateAllergeneLabel">Modification de l'allergene</h3>
@@ -27,8 +27,8 @@
 <!-- Modal add-->
 <div class="modal fade" id="addAllergene" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="allergeneLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
       <form [formGroup]="addForm" (ngSubmit)="addData()">
         <div class="modal-header">
           <h3 class="modal-title" id="allergeneLabel">Ajout d'un allergene</h3>

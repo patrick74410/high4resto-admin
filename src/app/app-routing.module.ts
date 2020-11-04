@@ -13,6 +13,8 @@ import { HoraireComponent } from './horaire/horaire.component';
 import { IdentiteComponent } from './identite/identite.component';
 import { AlbumComponent } from './album/album.component';
 import { MetaTagComponent } from './meta-tag/meta-tag.component';
+import { ListArticleCategorieComponent } from './list-article-categorie/list-article-categorie.component';
+import { ListArticleComponent } from './list-article/list-article.component';
 
 const routes: Routes = [ {path: 'allergene',component: ListAllergeneComponent,canActivate:[AuthGuardService]},
 {path: 'categorie',component: ListCategorieComponent,canActivate:[AuthGuardService]},
@@ -25,6 +27,8 @@ const routes: Routes = [ {path: 'allergene',component: ListAllergeneComponent,ca
 {path: 'identite',component:IdentiteComponent,canActivate:[AuthGuardService]},
 {path:'album',component:AlbumComponent,canActivate:[AuthGuardService]},
 {path: 'metaTag',component:MetaTagComponent,canActivate:[AuthGuardService]},
+{path: 'articleCategorie',component:ListArticleCategorieComponent,canActivate:[AuthGuardService]},
+{path:'article',component:ListArticleComponent,canActivate:[AuthGuardService]},
 {path: 'login',component:LoginComponent},
 ];
 

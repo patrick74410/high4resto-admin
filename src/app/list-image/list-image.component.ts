@@ -33,6 +33,8 @@ export class ListImageComponent implements OnInit {
     {
       description:new FormControl('',Validators.required),
       groupName:new FormControl('',Validators.required),
+      alt:new FormControl(''),
+      link:new FormControl(''),
       widht:new FormControl('',Validators.required),
       heigth:new FormControl('',Validators.required),
       keepRatio:new FormControl('',Validators.required)
@@ -41,7 +43,9 @@ export class ListImageComponent implements OnInit {
 
   updateForm = new FormGroup({
     description:new FormControl('',Validators.required),
-    groupName:new FormControl('',Validators.required)
+    groupName:new FormControl('',Validators.required),
+    alt:new FormControl(''),
+    link:new FormControl(''),
 })
 
   updateModal:any;
@@ -51,6 +55,8 @@ export class ListImageComponent implements OnInit {
     var fileImages:File;
     var description=this.addForm.get("description").value;
     var group=this.addForm.get("groupName").value;
+    var link=this.addForm.get("link").value;
+    var alt=this.addForm.get("alt").value;
 
     this._ngxPicaService.resizeImage(this.tpFile, this.addForm.get("widht").value,this.addForm.get("heigth").value,new ImageResizeOptions(this.addForm.get("keepRatio").value))
         .pipe(take(1)).subscribe((imageResized: File) => {
@@ -60,9 +66,8 @@ export class ListImageComponent implements OnInit {
                 fileImages=event.target.result;
               }, false);
             reader.readAsArrayBuffer(imageResized);
-            this.imageService.uploadImage(new File([imageResized],this.tpFile.name),description,group).pipe(take(1)).subscribe(test=> 
-              {
-                
+            this.imageService.uploadImage(new File([imageResized],this.tpFile.name),description,group,alt,link).pipe(take(1)).subscribe(test=> 
+              {               
                 this.addForm.patchValue({widht:800,height:600})
                 this.imgURL="";
                 this.name="";
@@ -81,7 +86,7 @@ export class ListImageComponent implements OnInit {
    }
 
    updateDataForm(selectedImage:ImageI):void{
-     this.updateForm.patchValue({description:selectedImage.description,groupName:selectedImage.group});
+     this.updateForm.patchValue({description:selectedImage.description,groupName:selectedImage.group,alt:selectedImage.alt,link:selectedImage.link});
      this.updateModal.show();
      this.selectedImage=selectedImage;
    }
@@ -90,6 +95,8 @@ export class ListImageComponent implements OnInit {
     const message:MessageI={content:'La modification a bien été effectuée',level:'info'}
     this.selectedImage.description=this.updateForm.get("description").value;
     this.selectedImage.group=this.updateForm.get("groupName").value;
+    this.selectedImage.link=this.updateForm.get("link").value;
+    this.selectedImage.alt=this.updateForm.get("alt").value;
     this.imageService.updateImage(this.selectedImage).pipe(take(1)).subscribe(item=>
       {this.messageService.add(message);
       this.updateModal.hide()});

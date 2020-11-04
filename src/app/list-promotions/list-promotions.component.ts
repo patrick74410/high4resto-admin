@@ -25,8 +25,8 @@ export class ListPromotionsComponent implements OnInit {
   addForm = new FormGroup({
     name:new FormControl('',Validators.required),
     reduction:new FormControl('',Validators.required),
-    heureDebut:new FormControl(''),
-    heureFin:new FormControl(''),
+    heureDebut:new FormControl('',Validators.required),
+    heureFin:new FormControl('',Validators.required),
     dateDebut:new FormControl('',Validators.required),
     dateFin:new FormControl('',Validators.required),
     lundi:new FormControl(''),
@@ -43,8 +43,8 @@ export class ListPromotionsComponent implements OnInit {
   updateForm = new FormGroup({
     name:new FormControl('',Validators.required),
     reduction:new FormControl('',Validators.required),
-    heureDebut:new FormControl(''),
-    heureFin:new FormControl(''),
+    heureDebut:new FormControl('',Validators.required),
+    heureFin:new FormControl('',Validators.required),
     dateDebut:new FormControl('',Validators.required),
     dateFin:new FormControl('',Validators.required),
     lundi:new FormControl(''),
@@ -62,32 +62,40 @@ export class ListPromotionsComponent implements OnInit {
   addModal:any;
 
   addData(): void{
-    const message:MessageI={content:'La promotion a été rajoutée',level:'Info'}
-    var name = this.addForm.get("name").value;
-    var reduction = this.addForm.get("reduction").value;
-    var heureDebut = this.addForm.get("heureDebut").value;
-    var heureFin = this.addForm.get("heureFin").value;
-    var dateDebut = this.addForm.get("dateDebut").value;
-    var dateFin = this.addForm.get("dateFin").value;
-    var jourValide= [
-      this.addForm.get("lundi").value,
-      this.addForm.get("mardi").value,
-      this.addForm.get("mercredi").value,
-      this.addForm.get("jeudi").value,
-      this.addForm.get("vendredi").value,
-      this.addForm.get("samedi").value,
-      this.addForm.get("dimanche").value,
-    ];
-    var jourFerie=this.addForm.get("jourFerie").value;
-    var pourcentage=this.addForm.get("pourcentage").value;
-
-    this.promotionService.addPromotion({ name,reduction,heureDebut,heureFin, dateDebut,dateFin,jourValide,jourFerie,pourcentage } as PromotionI).pipe(take(1))
-      .subscribe(promotions => {
-        this.promotions.push(promotions);
-        this.messageService.add(message);
-        this.addForm.reset();
-        this.addModal.hide();
-      });
+    if(this.addForm.valid)
+    {
+      var name = this.addForm.get("name").value;
+      var reduction = this.addForm.get("reduction").value;
+      var heureDebut = this.addForm.get("heureDebut").value;
+      var heureFin = this.addForm.get("heureFin").value;
+      var dateDebut = this.addForm.get("dateDebut").value;
+      var dateFin = this.addForm.get("dateFin").value;
+      var jourValide= [
+        this.addForm.get("lundi").value,
+        this.addForm.get("mardi").value,
+        this.addForm.get("mercredi").value,
+        this.addForm.get("jeudi").value,
+        this.addForm.get("vendredi").value,
+        this.addForm.get("samedi").value,
+        this.addForm.get("dimanche").value,
+      ];
+      var jourFerie=this.addForm.get("jourFerie").value;
+      var pourcentage=this.addForm.get("pourcentage").value;
+  
+      this.promotionService.addPromotion({ name,reduction,heureDebut,heureFin, dateDebut,dateFin,jourValide,jourFerie,pourcentage } as PromotionI).pipe(take(1))
+        .subscribe(promotions => {
+          const message:MessageI={content:'La promotion a été rajoutée',level:'Info'}
+          this.promotions.push(promotions);
+          this.messageService.add(message);
+          this.addForm.reset();
+          this.addModal.hide();
+        });
+    }
+    else
+    {
+      const message:MessageI={content:'Pour qu\'une promotion soit valide, il faut un titre, un montant, un type de valeur, une heure de début, une heure de fin, une date de début, une date de fin!',level:'Attention'}
+      this.messageService.add(message);
+    }
   }
 
   updateDataForm(selectedPromotion:PromotionI):void

@@ -9,6 +9,8 @@ import { ExpireService } from '../expire.service';
 import { take } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Util } from '../shared/util';
+import { ImageI } from '../interfaces/imageI';
+import { environment } from '../environement/environement';
 
 declare var bootstrap:any;
 
@@ -21,31 +23,78 @@ declare var bootstrap:any;
 export class ListCategorieComponent implements OnInit {
   categories: CategorieI[];
   selectedCategorie: CategorieI;
+  addCategorie:CategorieI={name:"",description:""};
   util=new Util();
+  urlDownload:String=environment.apiUrl+"/images/download/";
 
+  updateImage(image:ImageI)
+  {
+    this.selectedCategorie.image=image;
+  }
+  updateIcon(image:ImageI)
+  {
+    this.selectedCategorie.iconImage=image;
+  }
+  addImage(image:ImageI)
+  {
+    this.addCategorie.image=image;
+  }
+  addIcon(image:ImageI)
+  {
+    this.addCategorie.iconImage=image;
+  }
+
+  showUpdateImage()
+  {
+    var updateImageModal = new bootstrap.Modal(document.getElementById('updateImageModal'),{});
+    updateImageModal.show();
+  }
+  showUpdateIcon()
+  {
+    var updateImageModal = new bootstrap.Modal(document.getElementById('updateIconModal'),{});
+    updateImageModal.show();
+  }
+  showAddImage()
+  {
+    var updateImageModal = new bootstrap.Modal(document.getElementById('addImageModal'),{});
+    updateImageModal.show();
+  }
+  showAddIcon()
+  {
+    var updateImageModal = new bootstrap.Modal(document.getElementById('addIconModal'),{});
+    updateImageModal.show();
+  }
+  
   addForm= new FormGroup(
-    {name:new FormControl('',Validators.required)}
+    {
+      name:new FormControl('',Validators.required),
+      description:new FormControl(''),
+    }
   )
 
   updateForm = new FormGroup({
-    name:new FormControl('',Validators.required)
+    name:new FormControl('',Validators.required),
+    description:new FormControl(''),
   })
 
   updateModal:any;
   addModal:any;
 
 
+
   addData(): void{
+    console.log("ok");
     const message:MessageI={content:'La catégorie a été rajoutée',level:'Info'}
-    var name = this.addForm.get("name").value.trim();
-    var order:Number = this.categories.length+1;
-    if (!name) { return; }
-    this.categorieService.addCategorie({ name,order } as CategorieI).pipe(take(1))
+    this.addCategorie.description=this.addForm.get("description").value;
+    this.addCategorie.name=this.addForm.get("name").value.trim();
+    this.addCategorie.order=this.categories.length+1;
+    if (!this.addCategorie.name) { return; }
+    this.categorieService.addCategorie(this.addCategorie).pipe(take(1))
       .subscribe(categorie => {
         this.categories.push(categorie);
         this.messageService.add(message);
         this.addForm.reset();
-        this.addModal.hide();
+        document.getElementById("addClose").click();
       });    
   }
 
@@ -58,8 +107,10 @@ export class ListCategorieComponent implements OnInit {
   onUpdate(): void {
     const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
     this.selectedCategorie.name=this.updateForm.get("name").value;
+    this.selectedCategorie.description=this.updateForm.get("description").value;
+
     this.categorieService.updateCategorie(this.selectedCategorie)
-      .pipe(take(1)).subscribe(item=>{this.messageService.add(message),this.updateModal.hide()});
+      .pipe(take(1)).subscribe(item=>{this.messageService.add(message),document.getElementById("updateClose").click();});
   }
   
   delete(categorie:CategorieI):void {
@@ -118,7 +169,6 @@ export class ListCategorieComponent implements OnInit {
     this.expireService.check();
     this.updateModal = new bootstrap.Modal(document.getElementById('updateCategorie'), {});
     this.addModal = new bootstrap.Modal(document.getElementById('addCategorie'), {});
-
   }
 
 }

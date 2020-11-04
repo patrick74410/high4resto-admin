@@ -1,8 +1,8 @@
 <!-- Modal update-->
 <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
             <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
                 <div class="modal-header">
                     <h3 class="modal-title" id="updateModalLabel">Modification de la promotion</h3>
@@ -126,8 +126,8 @@
 <!-- Modal add-->
 <div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
             <form [formGroup]="addForm" (ngSubmit)="addData()">
                 <div class="modal-header">
                     <h3 class="modal-title" id="addModalLabel">Ajout d'une promotion</h3>
@@ -147,7 +147,7 @@
                     <div class="mb-3">
                         <label class="form-label">Type de valeur</label>
                         <select class="form-control" formControlName="pourcentage"
-                            id="aPoucentage" placeholder="Sélectionner le type de valeur">
+                            id="aPoucentage" required placeholder="Sélectionner le type de valeur">
                             <option [ngValue]="true">Pourcentage</option>
                             <option [ngValue]="false">Euro</option>
                         </select>
@@ -157,12 +157,12 @@
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <label for="addHeureDebut" class="form-label col-12">Heure de début</label>
                                 <ngx-material-timepicker #pickerx2></ngx-material-timepicker>
-                                <input class="col-5" [ngxTimepicker]="pickerx2" [format]=24 type="time" formControlName="heureDebut"/>
+                                <input required class="col-5" [ngxTimepicker]="pickerx2" [format]=24 type="time" formControlName="heureDebut"/>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <label for="addHeureFin" class="form-label col-12">Heure de fin</label>
                                 <ngx-material-timepicker #pickerx3></ngx-material-timepicker>
-                                <input class="col-5" [ngxTimepicker]="pickerx3" [format]=24 type="time" formControlName="heureFin"/>
+                                <input required class="col-5" [ngxTimepicker]="pickerx3" [format]=24 type="time" formControlName="heureFin"/>
                             </div>
                         </div>
                     </div>
@@ -170,12 +170,12 @@
                         <div class="row">
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <label for="addDateDebut" class="form-label">Date de début</label>
-                                <input type="date" formControlName="dateDebut" id="addDateDebut"
+                                <input required type="date" formControlName="dateDebut" id="addDateDebut"
                                     placeholder="Date de début" class="form-control">
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <label for="addDateFin" class="form-label">Date de fin</label>
-                                <input type="date" formControlName="dateFin" id="addDateFin" placeholder="Date de fin"
+                                <input required type="date" formControlName="dateFin" id="addDateFin" placeholder="Date de fin"
                                     class="form-control">
                             </div>
                         </div>

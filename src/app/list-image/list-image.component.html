@@ -16,7 +16,12 @@
               <label class="form-label" for="updateIG">Nom du groupe:</label>
               <input formControlName="groupName" required placeholder="Nom" class="form-control" id="updateIG">
               <label class="form-label" for="updateID">Description de l'image:</label>
-              <input formControlName="description" required placeholder="Description" id="updateID" class="form-control" >
+              <editor [init]="{language: 'fr_FR'}" formControlName="description" id="updateID"
+              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+              <label class="form-label">Description alternative</label>
+              <input type="text" class="form-control" formControlName="alt" placeholder="Texte alternatif pour la description de l'image">
+              <label class="form-label">Lien de l'image</label>
+              <input type="text" class="form-control" formControlName="link" placeholder="Lien de l'image">
             </div>
           </div>
         </div>
@@ -32,8 +37,8 @@
 <!-- Modal add-->
 <div class="modal fade" id="addImage" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="addImageLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content modal-dialog-scrollable">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
       <form [formGroup]="addForm" (ngSubmit)="addData()">
         <div class="modal-header">
           <h3 class="modal-title" id="addImageLabel">Ajout d'une image</h3>
@@ -42,14 +47,24 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label" for="addDes">Description de l'image:</label>
-            <input id="addDes" required formControlName="description" type="text" class="form-control" placeholder="Description"/>
-          </div>
+            <editor [init]="{language: 'fr_FR'}" formControlName="description" id="addDes"
+            apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>          </div>
       
           <div class="mb-3">
             <label class="form-label" for="addN">Nom du groupe:</label>
             <input formControlName="groupName" required type="text" class="form-control" id="addN" placeholder="Nom"/>
           </div>
-      
+
+          <div class="mb-3">
+            <label class="form-label">Description alternative</label>
+            <input type="text" class="form-control" formControlName="alt" placeholder="Texte alternatif pour la description de l'image">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Lien de l'image</label>
+            <input type="text" class="form-control" formControlName="link" placeholder="Lien de l'image">
+          </div>
+ 
           <div class="mb-3">
             <label class="form-label" for="addW">Largeur de l'image:</label>
             <input formControlName="widht" required id="addW" type="number" class="form-control"/> 
@@ -114,7 +129,7 @@
               <tr *ngFor="let image of images;trackBy:util.trackById">
                 <td>{{image.fileName}}</td>
                 <td>{{image.group}}</td>
-                <td>{{image.description}}</td>
+                <td><p [innerHTML]="image.description"> </p></td>
                 <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80"/></td>
                 <td>
                   <button class="btn btn-danger" title="delete categorie"

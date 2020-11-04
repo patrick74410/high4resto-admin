@@ -1,4 +1,5 @@
 import { GpsI } from './GpsI';
+import { ImageI } from './imageI';
 import {KeyMapI} from './KeymapI'
 
 export interface IdentiteI {
@@ -12,4 +13,6 @@ export interface IdentiteI {
     contact:KeyMapI[];
     siret:String;
     coordonnee:GpsI;
+    logo:ImageI;
+    description:String;
 }

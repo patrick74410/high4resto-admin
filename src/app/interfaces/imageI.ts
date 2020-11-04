@@ -1,7 +1,9 @@
 export interface ImageI {
-    id: String;
-    description: String;
-    gridId: String;
-    fileName: String;
-    group: String; 
+    id?: string;
+    description: string;
+    gridId?: string;
+    fileName: string;
+    group: string;
+    alt: string;
+    link: string;
  }

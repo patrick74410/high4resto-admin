@@ -1,21 +1,39 @@
+<app-image-modal idModal="updateImageModal" (newItemEvent)="addItem($event)"></app-image-modal>
+
 <h2 class="text-center">Mes infos</h2>
 <div class="container" *ngIf="identite">
     <form class="row" [formGroup]="updateForm">
         <div class="col-md-6">
             <label for="societeName" class="form-label">Nom de la société</label>
-            <input formControlName="nomEtablissement" type="text" class="form-control" id="societeName" placeholder="Veuillez saisir un nom">
+            <input formControlName="nomEtablissement" type="text" class="form-control" id="societeName"
+                placeholder="Veuillez saisir un nom">
         </div>
         <div class="col-md-6">
             <label for="societeName" class="form-label">Numéro de siret</label>
-            <input formControlName="siret" type="text" class="form-control" id="societeName" placeholder="Veuillez saisir votre siret">
+            <input formControlName="siret" type="text" class="form-control" id="societeName"
+                placeholder="Veuillez saisir votre siret">
+        </div>
+        <div class="row" style="margin-top:20px;margin-bottom:20px;">
+            <div class="col-4">
+                <button (click)="showImageUpdateModal()" type="button"
+                    class="btn btn-primary">Sélectionner un logo</button>
+                <img *ngIf="selectImage" src="{{urlDownload}}{{selectImage.gridId}}" style="width:100%" />
+            </div>
+            <div class="col-8">
+                <label class="form-label">Description:</label>
+                <editor [init]="{language: 'fr_FR'}" formControlName="description"
+                    apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+            </div>
         </div>
         <div class="col-12">
             <label for="inputAddress" class="form-label">Adresse</label>
-            <input formControlName="adresse" type="text" class="form-control" id="inputAddress" placeholder="3 rue principale">
+            <input formControlName="adresse" type="text" class="form-control" id="inputAddress"
+                placeholder="3 rue principale">
         </div>
         <div class="col-12">
             <label for="inputAddress2" class="form-label">Complement d'adresse</label>
-            <input formControlName="complement" type="text" class="form-control" id="inputAddress2" placeholder="Batiment B">
+            <input formControlName="complement" type="text" class="form-control" id="inputAddress2"
+                placeholder="Batiment B">
         </div>
         <div class="col-md-8">
             <label for="inputCity" class="form-label">Ville</label>
@@ -55,12 +73,14 @@
 
                     </td>
                     <td>
-                        <input #value type="text" class="form-control" id="inputValue" placeholder="l.patrick@high4technology.fr">
+                        <input #value type="text" class="form-control" id="inputValue"
+                            placeholder="l.patrick@high4technology.fr">
 
                     </td>
                     <td>
-                        <button (click)="add(key,value);key.value='';value.value=''" type="button" class="btn btn-success">+</button>
- 
+                        <button (click)="add(key,value);key.value='';value.value=''" type="button"
+                            class="btn btn-success">+</button>
+
                     </td>
                 </tr>
             </tbody>

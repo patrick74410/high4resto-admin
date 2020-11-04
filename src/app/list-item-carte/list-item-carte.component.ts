@@ -54,6 +54,16 @@ export class ListItemCarteComponent implements OnInit {
     filter:new FormControl('',Validators.required)
   })
 
+  updateItemImage(image:ImageI)
+  {
+    this.selectedItem.sourceImage=image;
+  }
+
+  addItemImage(image:ImageI)
+  {
+    this.selectedImage=image;
+  }
+
   addForm=new FormGroup({
     name:new FormControl('',Validators.required),
     description:new FormControl('',Validators.required),
@@ -74,16 +84,6 @@ export class ListItemCarteComponent implements OnInit {
 
   });
 
-  updateModal:any;
-  addModal:any;
-  updateModalAllergene:any;
-  addModalAllergene:any;
-  updateImageModal:any;
-  addImageModal:any;
-  addOptionModal:any;
-  updateModalOption:any;
-  addPromotionModal:any;
-  updatePromotionModal:any;
 
   urlDownload:String=environment.apiUrl+"/images/download/";
   selectedImage:ImageI;
@@ -98,52 +98,55 @@ export class ListItemCarteComponent implements OnInit {
       tva:selectedItem.tva,
       categorie:selectedItem.categorie,
     });
-    this.updateModal.show();
+    var updateModal=new bootstrap.Modal(document.getElementById('updateModal'), {});
+    updateModal.show();
     this.selectedItem=selectedItem;
   }
 
   addSelectedPromotions():void{
     this.promotionService.getPromotions().pipe(take(1)).subscribe(promotions=>{
       this.promotions=promotions;
-      this.addModal.hide();
-      this.addPromotionModal.show();
+      var addPromotionModal=new bootstrap.Modal(document.getElementById('addModalPromotion'),{});
+      addPromotionModal.show();
     })
   }
 
   addSelectedOptions():void{
     this.optionService.getOptionsItems().pipe(take(1)).subscribe(options=>{
       this.options=options;
-      this.addModal.hide();
-      this.addOptionModal.show();
+      var addOptionModal=new bootstrap.Modal(document.getElementById('addModalOptions'),{});
+      addOptionModal.show();
       })
 
   }
 
   addSelectImage():void{
-    this.addModal.hide();
-    this.addImageModal.show();
+    var addImageModal=new bootstrap.Modal(document.getElementById('addImageModal'), {});
+    addImageModal.show();
   }
 
   addSelectAllergene():void{
     this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{
       this.allergenes=allergenes;
-      this.addModal.hide();
-      this.addModalAllergene.show();
+      var addModalAllergene=new bootstrap.Modal(document.getElementById('addModalAllergene'), {});
+      addModalAllergene.show();
         });
   }
   
   updateSelectImage():void{
-    this.updateModal.hide();
-    this.updateImageModal.show();
+    var updateImageModal=new bootstrap.Modal(document.getElementById('updateImageModal'), {});
+    updateImageModal.show();
+
   }
 
   updateSelectedOptions():void{
+    var updateModalOption=new bootstrap.Modal(document.getElementById('updateModalOptions'),{});
+    updateModalOption.show();
+
     this.optionService.getOptionsItems().pipe(take(1)).subscribe(options=>{
-      this.options=options.filter((item)=>{
+       this.options=options.filter((item)=>{
         return !this.selectedItem.options.some(e=>e.id==item.id);
       });
-      this.updateModal.hide();
-      this.updateModalOption.show();
     })
   }
 
@@ -152,8 +155,8 @@ export class ListItemCarteComponent implements OnInit {
       this.promotions=promotion.filter((item)=>{
         return !this.selectedItem.promotions.some(e=>e.id==item.id)
       });
-      this.updateModal.hide();
-      this.updatePromotionModal.show();
+      var updatePromotionModal=new bootstrap.Modal(document.getElementById('updateModalPromotion'),{});
+      updatePromotionModal.show();
     })
   }
 
@@ -162,8 +165,8 @@ export class ListItemCarteComponent implements OnInit {
       this.allergenes=allergenes.filter((item)=>{
         return !this.selectedItem.allergenes.some(e=>e.id==item.id);
       });
-       this.updateModal.hide();
-        this.updateModalAllergene.show();  
+       var updateModalAllergene=new bootstrap.Modal(document.getElementById('updateModalAllergene'), {});
+        updateModalAllergene.show();  
       });
 
     }
@@ -217,8 +220,8 @@ export class ListItemCarteComponent implements OnInit {
     this.selectedItem.tva=this.updateForm.get("tva").value;
     this.selectedItem.categorie=this.updateForm.get("categorie").value;
     this.itemCarteService.updateItem(this.selectedItem).pipe(take(1)).subscribe(item=>{
+      document.getElementById('closeUpdateModal').click();
       const message:MessageI={content:'L\'item a été mis à jour',level:'Info'};
-      this.updateModal.hide()
       this.messageService.add(message);
     })
   }
@@ -243,31 +246,38 @@ export class ListItemCarteComponent implements OnInit {
 
   addData()
   {
-    const itemAdd:ItemCarteI={
-      id:'',
-      name:this.addForm.get("name").value,
-      description:this.addForm.get("description").value,
-      price:this.addForm.get("price").value,
-      categorie:this.addForm.get("categorie").value,
-      tva:this.addForm.get("tva").value,
-      allergenes:this.allergenesAdd,
-      order:this.itemsCarte.length,
-      sourceImage:this.selectedImage,
-      options:this.optionsSelected,
-      visible:this.addForm.get("visible").value,
-      promotions:this.promotionsSelected
+    if(this.addForm.valid)
+    {
+      const itemAdd:ItemCarteI={
+        id:'',
+        name:this.addForm.get("name").value,
+        description:this.addForm.get("description").value,
+        price:this.addForm.get("price").value,
+        categorie:this.addForm.get("categorie").value,
+        tva:this.addForm.get("tva").value,
+        allergenes:this.allergenesAdd,
+        order:this.itemsCarte.length,
+        sourceImage:this.selectedImage,
+        options:this.optionsSelected,
+        visible:this.addForm.get("visible").value,
+        promotions:this.promotionsSelected
+      }
+    
+      this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(test=>{
+        this.itemsCarte.push(itemAdd);
+        const message:MessageI={content:'L\'item a bien été ajouté à la carte',level:'Info'};
+        this.messageService.add(message);
+        this.allergenes=[];
+        this.allergenesAdd=[];
+        this.addForm.reset();
+        document.getElementById('closeAddModal').click();
+      });  
     }
-  
-    this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(test=>{
-      this.itemsCarte.push(itemAdd);
-      const message:MessageI={content:'L\'item a bien été ajouté à la carte',level:'Info'};
+    else
+    {
+      const message:MessageI={content:'L\'item doit contenir un nom, une description, un prix, un choix de TVA et une catégorie',level:'Attention'};
       this.messageService.add(message);
-      this.allergenes=[];
-      this.allergenesAdd=[];
-      this.addForm.reset();
-      this.addModal.hide();
-    });
-
+    }
 
   }
 
@@ -306,16 +316,8 @@ export class ListItemCarteComponent implements OnInit {
     this.tvaService.getTvas().pipe(take(1)).subscribe(tvas=>{
       this.tvas=tvas;
     });
-    this.updateModal=new bootstrap.Modal(document.getElementById('updateModal'), {});
-    this.addModal=new bootstrap.Modal(document.getElementById('addModal'), {});
-    this.updateModalAllergene=new bootstrap.Modal(document.getElementById('updateModalAllergene'), {});
-    this.addModalAllergene=new bootstrap.Modal(document.getElementById('addModalAllergene'), {});
-    this.updateImageModal=new bootstrap.Modal(document.getElementById('updateImageModal'), {});
-    this.addImageModal=new bootstrap.Modal(document.getElementById('addImageModal'), {});
-    this.addOptionModal=new bootstrap.Modal(document.getElementById('addModalOptions'),{});
-    this.updateModalOption=new bootstrap.Modal(document.getElementById('updateModalOptions'),{});
-    this.addPromotionModal=new bootstrap.Modal(document.getElementById('addModalPromotion'),{});
-    this.updatePromotionModal=new bootstrap.Modal(document.getElementById('updateModalPromotion'),{});
+
+
   }
 
 }

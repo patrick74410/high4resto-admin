@@ -1,0 +1,43 @@
+<div class="modal fade" id="{{idModal}}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" >Choix de l'image</h2>
+                <button type="button" class="btn-close" (click)="show()"
+                    data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Liste des images</h3>
+                <form>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nom du fichier</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Visualisation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let image of images;trackBy:util.trackById" (click)="addNewItem(image)">
+                                <td>{{image.fileName}}</td>
+                                <td>
+                                    <p [innerHTML]="image.description"></p>
+                                </td>
+                                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="mb-3" *ngIf="selectImage">
+                    <label>Image sélectionnée:</label>
+                    <div class="mb-3">
+                        <img src="{{urlDownload}}{{selectImage.gridId}}" class="img-thumbnail text-center" width="80" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="show()" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

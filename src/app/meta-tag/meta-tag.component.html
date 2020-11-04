@@ -1,25 +1,9 @@
+<app-image-modal idModal="twitterModal" (newItemEvent)="selectTwitter($event)"></app-image-modal>
+<app-image-modal idModal="facebookModal" (newItemEvent)="selectFacebook($event)"></app-image-modal>
+
 <h2 class="text-center">Mes données de réferencement</h2>
 <div class="container" *ngIf="metaTag">
     <form class="row" [formGroup]="updateForm">
-        <div class="col-6">
-            <h2>Données générale</h2>
-            <div class="col-12">
-                <label for="description" class="form-label">Description</label>
-                <textarea formControlName="description" class="form-control" id="description"
-                    placeholder="Veuillez saisir une description (moin de 200 caractères)"></textarea>
-            </div>
-            <div class="col-12">
-                <label for="keywords" class="form-label">Mot clefs</label>
-                <textarea formControlName="keywords" type="text" class="form-control" id="keywords"
-                    placeholder="Veuillez saisir des mot clefs pertinents (moin de 1000 caractères)">
-                </textarea>
-            </div>
-            <div class="col-12">
-                <label for="author" class="form-label">Nom de l'auteur</label>
-                <input formControlName="author" type="text" class="form-control" id="inputAddress"
-                    placeholder="Nom du créateur du site web">
-            </div>
-        </div>
         <div class="col-6">
             <h2>Facebook</h2>
             <div class="col-12">
@@ -35,7 +19,7 @@
             </div>
             <div class="col-12">
                 <label for="facebookImage" class="form-label">Image</label>
-                <input formControlName="facebookImage" type="text" class="form-control" id="facebookImage"
+                <input (click)="showFacebook()" formControlName="facebookImage" type="text" class="form-control" id="facebookImage"
                     placeholder="Image de l'aperçu Facebook">
             </div>
         </div>
@@ -55,13 +39,32 @@
             </div>
             <div class="col-12">
                 <label for="twitterImage" class="form-label">Image</label>
-                <input formControlName="twitterImage" type="text" class="form-control" id="twitterImage"
+                <input (click)="showTwitter()" formControlName="twitterImage" type="text" class="form-control" id="twitterImage"
                     placeholder="Image de l'aperçu Twitter">
             </div>
             <div class="col-12">
                 <label for="twitterAuthor" class="form-label">Auteur</label>
                 <input formControlName="twitterAuthor" type="text" class="form-control" id="twitterAuthor"
                     placeholder="Nom du compte Twitter">
+            </div>
+        </div>
+        <div class="col-6">
+            <h2>Données générale</h2>
+            <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea formControlName="description" class="form-control" id="description"
+                    placeholder="Veuillez saisir une description (moin de 200 caractères)"></textarea>
+            </div>
+            <div class="col-12">
+                <label for="keywords" class="form-label">Mot clefs</label>
+                <textarea formControlName="keywords" type="text" class="form-control" id="keywords"
+                    placeholder="Veuillez saisir des mot clefs pertinents (moin de 1000 caractères)">
+                </textarea>
+            </div>
+            <div class="col-12">
+                <label for="author" class="form-label">Nom de l'auteur</label>
+                <input formControlName="author" type="text" class="form-control" id="inputAddress"
+                    placeholder="Nom du créateur du site web">
             </div>
         </div>
         <div class="col-6">

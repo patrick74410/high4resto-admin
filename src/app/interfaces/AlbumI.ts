@@ -5,4 +5,5 @@ export interface AlbumI {
     name:String;
     description:String;
     photos:ImageI[];
+    visible:boolean;
 }

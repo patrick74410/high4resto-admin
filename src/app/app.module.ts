@@ -31,6 +31,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { MetaTagComponent } from './meta-tag/meta-tag.component';
+import { ImageModalComponent } from './image-modal/image-modal.component';
+import { ListArticleCategorieComponent } from './list-article-categorie/list-article-categorie.component';
+import { ListArticleComponent } from './list-article/list-article.component';
+
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -54,7 +58,10 @@ const DragConfig = {
     IdentiteComponent,
     AlbumComponent,
     HoraireComponent,
-    MetaTagComponent
+    MetaTagComponent,
+    ImageModalComponent,
+    ListArticleCategorieComponent,
+    ListArticleComponent
   ],
   imports: [
     BrowserModule,

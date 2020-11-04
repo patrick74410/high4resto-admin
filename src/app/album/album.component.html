@@ -19,6 +19,10 @@
                         <editor [init]="{language: 'fr_FR'}" formControlName="description"
                             apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                     </div>
+                    <div class="form-check form-switch">
+                        <input formControlName="visible"  class="form-check-input" type="checkbox" id="visibleUpdate" checked>
+                        <label class="form-check-label" for="visibleUpdate">Est visible</label>
+                    </div>
                     <div cdkDropListGroup>
                         <div class="row">
                             <div class="album-container col-6">
@@ -28,9 +32,9 @@
                                     (cdkDropListDropped)="drop($event)">
                                     <div class="album-box" *ngFor="let image of images" cdkDrag>
                                         <div class="row">
-                                            <span class="col-9">{{image.description}}</span>
+                                            <span class="col-9"><p [innerHTML]="image.description"> </p></span>
                                             <img class=" col-2" src="{{urlDownload}}{{image.gridId}}"
-                                                alt="{{image.description}}">
+                                                alt="{{image.alt}}">
                                         </div>
                                     </div>
                                 </div>
@@ -43,9 +47,9 @@
                                     (cdkDropListDropped)="drop($event)">
                                     <div class="album-box" *ngFor="let image of selectedAlbum.photos" cdkDrag>
                                         <div class="row">
-                                            <span class="col-10">{{image.description}}</span>
+                                            <span class="col-10"><p [innerHTML]="image.description"> </p></span>
                                             <img class=" col-2" src="{{urlDownload}}{{image.gridId}}"
-                                                alt="{{image.description}}">
+                                                alt="{{image.alt}}">
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +87,10 @@
                         <editor [init]="{language: 'fr_FR'}" formControlName="description"
                             apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                     </div>
-
+                    <div class="form-check form-switch">
+                        <input formControlName="visible"  class="form-check-input" type="checkbox" id="visibleAdd" checked>
+                        <label class="form-check-label" for="visibleAdd">Est visible</label>
+                    </div>
                     <div cdkDropListGroup>
                         <div class="row">
                             <div class="album-container col-6">
@@ -93,9 +100,9 @@
                                     (cdkDropListDropped)="drop($event)">
                                     <div class="album-box" *ngFor="let image of images" cdkDrag>
                                         <div class="row">
-                                            <span class="col-9">{{image.description}}</span>
+                                            <span class="col-9"><p [innerHTML]="image.description"></p></span>
                                             <img class=" col-2" src="{{urlDownload}}{{image.gridId}}"
-                                                alt="{{image.description}}">
+                                                alt="{{image.alt}}">
                                         </div>
                                     </div>
                                 </div>
@@ -109,9 +116,9 @@
                                     (cdkDropListDropped)="drop($event)">
                                     <div class="album-box" *ngFor="let image of addAlbum.photos" cdkDrag>
                                         <div class="row">
-                                            <span class="col-10">{{image.description}}</span>
+                                            <span class="col-10"><p [innerHTML]="image.description"> </p></span>
                                             <img class=" col-2" src="{{urlDownload}}{{image.gridId}}"
-                                                alt="{{image.description}}">
+                                                alt="{{image.alt}}">
                                         </div>
                                     </div>
                                 </div>
@@ -140,15 +147,15 @@
                 <tr *ngFor="let album of albums; trackBy:util.trackById">
                     <td class="col-8">
                         <div class="row">
-                            <h3>{{album.name}}</h3>
+                            <h2>{{album.name}}</h2>
                             <p [innerHTML]="album.description"></p>
                         </div>
                         <div class="row">
                             <div class="col-3" *ngFor="let image of album.photos; trackBy:util.trackById">
                                 <figure class="figure">
                                     <img src="{{urlDownload}}{{image.gridId}}" class="figure-img img-fluid rounded"
-                                        alt="{{image.description}}">
-                                    <figcaption class="figure-caption">{{image.description}}</figcaption>
+                                        alt="{{image.alt}}">
+                                    <figcaption class="figure-caption" [innerHTML]="image.description"></figcaption>
                                 </figure>
                             </div>
                         </div>

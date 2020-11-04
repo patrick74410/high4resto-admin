@@ -1,20 +1,20 @@
-<app-image-modal idModal="updateImageModal" showAfterClose="updateCategorie" (newItemEvent)="updateImage($event)"></app-image-modal>
-<app-image-modal idModal="addImageModal" showAfterClose="addCategorie" (newItemEvent)="addImage($event)"></app-image-modal>
-<app-image-modal idModal="updateIconModal" showAfterClose="updateCategorie" (newItemEvent)="updateIcon($event)"></app-image-modal>
-<app-image-modal idModal="addIconModal" showAfterClose="addCategorie" (newItemEvent)="addIcon($event)"></app-image-modal>
+<app-image-modal idModal="updateImageModal" showAfterClose="updateArticleCategorie" (newItemEvent)="updateImage($event)"></app-image-modal>
+<app-image-modal idModal="addImageModal" showAfterClose="addArticleCategorie" (newItemEvent)="addImage($event)"></app-image-modal>
+<app-image-modal idModal="updateIconModal" showAfterClose="updateArticleCategorie" (newItemEvent)="updateIcon($event)"></app-image-modal>
+<app-image-modal idModal="addIconModal" showAfterClose="addArticleCategorie" (newItemEvent)="addIcon($event)"></app-image-modal>
 
 <!-- Modal update -->
-<div class="modal fade" id="updateCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="updateCategorieLabel" aria-hidden="true">
+<div class="modal fade" id="updateArticleCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateArticleCategorieLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
         <div class="modal-header">
-          <h3 class="modal-title" id="updateCategorieLabel">Modification de la catégorie</h3>
+          <h3 class="modal-title" id="updateArticleCategorieLabel">Modification de la catégorie</h3>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="updateClose"></button>
         </div>
         <div class="modal-body">
-          <div *ngIf="selectedCategorie">
+          <div *ngIf="selectedArticleCategorie">
             <h3>Mise à jour de la valeur</h3>
             <div class="mb-3">
               <label class="form-label" for="updateN">Nom de la catégorie</label>
@@ -30,11 +30,11 @@
                 <button type="button" class="btn btn-primary" (click)="showUpdateImage()" data-dismiss="modal">
                   Sélectionner une image
                 </button>
-                <img *ngIf="selectedCategorie.image" src="{{urlDownload}}{{selectedCategorie.image.gridId}}" style="width:100%" />                
+                <img *ngIf="selectedArticleCategorie.image" src="{{urlDownload}}{{selectedArticleCategorie.image.gridId}}" style="width:100%" />                
               </div>
               <div class="col-6">
                 <button type="button" class="btn btn-primary" (click)="showUpdateIcon()" data-dismiss="modal">Sélectionner un logo</button>
-                <img *ngIf="selectedCategorie.iconImage" src="{{urlDownload}}{{selectedCategorie.iconImage.gridId}}" style="width:100%" />                
+                <img *ngIf="selectedArticleCategorie.iconImage" src="{{urlDownload}}{{selectedArticleCategorie.iconImage.gridId}}" style="width:100%" />                
               </div>
             </div>
           </div>
@@ -49,19 +49,19 @@
 </div>
 
 <!-- Modal add-->
-<div class="modal fade" id="addCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="addCategorieel" aria-hidden="true">
+<div class="modal fade" id="addArticleCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="addArticleCategorieel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <form [formGroup]="addForm">
         <div class="modal-header">
-          <h3 class="modal-title" id="addCategorieel">Ajout d'une catégorie</h3>
+          <h3 class="modal-title" id="addArticleCategorieel">Ajout d'une catégorie</h3>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="addClose"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label" for="inputNameCategorie">Nom de la catégorie</label>
-            <input required formControlName="name" class="form-control" id="inputNameCategorie"
+            <label class="form-label" for="inputNameArticleCategorie">Nom de la catégorie</label>
+            <input required formControlName="name" class="form-control" id="inputNameArticleCategorie"
               placeholder="Taper la dénomination">
           </div>
           <div class="mb-3">
@@ -74,11 +74,11 @@
               <button type="button" class="btn btn-primary" (click)="showAddImage()" data-dismiss="modal">
                 Sélectionner une image
               </button>
-              <img *ngIf="addCategorie.image" src="{{urlDownload}}{{addCategorie.image.gridId}}" style="width:100%" />                
+              <img *ngIf="addArticleCategorie.image" src="{{urlDownload}}{{addArticleCategorie.image.gridId}}" style="width:100%" />                
             </div>
             <div class="col-6">
               <button type="button" class="btn btn-primary" (click)="showAddIcon()" data-dismiss="modal">Sélectionner un logo</button>
-              <img *ngIf="addCategorie.iconImage" src="{{urlDownload}}{{addCategorie.iconImage.gridId}}" style="width:100%" />                
+              <img *ngIf="addArticleCategorie.iconImage" src="{{urlDownload}}{{addArticleCategorie.iconImage.gridId}}" style="width:100%" />                
             </div>
           </div>
         </div>
@@ -91,27 +91,27 @@
   </div>
 </div>
 
-<h2 class="text-center">Gestion des catégories</h2>
+<h2 class="text-center">Gestion des catégories d'articles</h2>
 <div class="container">
   <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
-    data-target="#addCategorie">
+    data-target="#addArticleCategorie">
     +
   </button>
   <form>
     <table class="table">
       <tbody cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list">
-        <tr *ngFor="let categorie of categories;trackBy:util.trackById" class="cdk-box" cdkDrag cdkDragLockAxis="y">
+        <tr *ngFor="let articleCategorie of articleCategories;trackBy:util.trackById" class="cdk-box" cdkDrag cdkDragLockAxis="y">
           <th>
             <div class="drag-handle">
               <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
-              {{ categorie.order }}
+              {{ articleCategorie.order }}
             </div>
           </th>
-          <td>{{categorie.name}}</td>
+          <td>{{articleCategorie.name}}</td>
           <td>
-            <button class="btn btn-danger" title="delete categorie" (click)="delete(categorie)">Supprimer</button>
+            <button class="btn btn-danger" title="delete articleCategorie" (click)="delete(articleCategorie)">Supprimer</button>
             <span style="margin: 10px;"> </span>
-            <button (click)="updateDataForm(categorie)" type="button" class="btn btn-warning">
+            <button (click)="updateDataForm(articleCategorie)" type="button" class="btn btn-warning">
               Modifier
             </button>
           </td>
