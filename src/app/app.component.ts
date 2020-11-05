@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from './Auth/authentification.service';
 import { ConnexionI } from './interfaces/connexionI';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,12 @@ import { ConnexionI } from './interfaces/connexionI';
 export class AppComponent {
   currentConnexion: ConnexionI;
   title = 'high4resto';
-  constructor(private router: Router,private authentificationService: AuthentificationService) {
+
+  goTo(url:string): void {
+    this.router.navigate([url]);
+  }
+ 
+  constructor(private location: Location,private router: Router,private authentificationService: AuthentificationService) {
     this.authentificationService.currentConnexionI.subscribe(x => this.currentConnexion = x);
   }
 }

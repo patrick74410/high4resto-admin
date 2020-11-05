@@ -3,6 +3,7 @@ import { PromotionI } from '../interfaces/promotionI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../environement/environement';
+import { take } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,12 +15,27 @@ export class PromotionService {
   private promotionDeleteUrl= environment.apiUrl+'/promotions/delete/';
   private promotionAddUrl=environment.apiUrl+'/promotions/insert/';
 
+  private promotions:Observable<PromotionI[]>;
+
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getPromotions(): Observable<PromotionI[]>{
-    return this.http.get<PromotionI[]>(this.promotionFindUrl);
+    if(!this.promotions)
+    {
+      this.http.get<PromotionI[]>(this.promotionFindUrl).pipe(take(1)).subscribe(promotions=>{
+        this.promotions=new Observable<PromotionI[]>(observe=>{
+          observe.next(promotions);
+          observe.complete;
+        })
+      })
+      return this.http.get<PromotionI[]>(this.promotionFindUrl);
+    }
+    else
+    {
+      return this.promotions;
+    }
   }
 
   addPromotion(promotion:PromotionI):Observable<PromotionI> {

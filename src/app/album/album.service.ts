@@ -3,6 +3,7 @@ import { AlbumI } from '../interfaces/AlbumI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import {environment} from '../environement/environement'
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,27 @@ export class AlbumService {
   private albumsUpdateUrl = environment.apiUrl+'/album/update/';
   private albumDeleteUrl= environment.apiUrl+'/album/delete/';
   private albumAddUrl= environment.apiUrl+'/album/insert/';
+  private albums:Observable<AlbumI[]>;
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getAlbums(): Observable<AlbumI[]>{
-    return this.http.get<AlbumI[]>(this.albumsFindUrl);
+    if(!this.albums)
+    {
+      this.http.get<AlbumI[]>(this.albumsFindUrl).pipe(take(1)).subscribe(albums=>{
+        this.albums=new Observable<AlbumI[]>(observe=>{
+          observe.next(albums);
+          observe.complete();
+        })
+      })
+      return this.http.get<AlbumI[]>(this.albumsFindUrl);
+    }
+    else
+    {
+      return this.albums;
+    }
   }
 
   updateAlbum(album:AlbumI): Observable<any> {

@@ -3,6 +3,7 @@ import { AllergeneI } from '../interfaces/allergeneI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import {environment} from '../environement/environement'
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,27 @@ export class AllergeneService {
   private allergeneDeleteUrl= environment.apiUrl+'/allergene/delete/';
   private allergeneAddUrl= environment.apiUrl+'/allergene/insert/';
 
+  private allergenes:Observable<AllergeneI[]>;
+
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getAllergenes(): Observable<AllergeneI[]>{
-    return this.http.get<AllergeneI[]>(this.allergenesFindUrl);
+    if(!this.allergenes)
+    {
+      this.http.get<AllergeneI[]>(this.allergenesFindUrl).pipe(take(1)).subscribe(allergenes=>{
+        this.allergenes=new Observable<AllergeneI[]>(observe=>{
+          observe.next(allergenes);
+          observe.complete;
+        })
+      })
+      return this.http.get<AllergeneI[]>(this.allergenesFindUrl);
+    }
+    else
+    {
+      return this.allergenes;
+    }
   }
 
   updateAllergene(allergene:AllergeneI): Observable<any> {

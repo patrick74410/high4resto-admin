@@ -9,86 +9,86 @@
 </div>
 
 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-    <a class="navbar-brand" href="#">Menu</a>
+    <a class="navbar-brand">Menu</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu_admin" aria-controls="menu_admin" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="menu_admin">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="monetablissement" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="monetablissement" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Mon établissement
                 </a>
                 <div class="dropdown-menu" aria-labelledby="monetablissement">
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./identite/">Mes infos</a>
+                        <a class="nav-link" (click)="goTo('/identite')">Mes infos</a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./horaire/">Horaire</a>
+                        <a class="nav-link" (click)="goTo('/horaire')">Horaire</a>
                     </li>                    
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="carte" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="carte" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Carte
                 </a>
                 <div class="dropdown-menu" aria-labelledby="carte">
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./allergene">Allergenes</a>
+                        <a class="nav-link" (click)="goTo('/allergene')">Allergenes</a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./categorie">Catégories</a>
+                        <a class="nav-link" (click)="goTo('/categorie')">Catégories</a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./option-carte">Options</a>
+                        <a class="nav-link" (click)="goTo('/option-carte')">Options</a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./promotions">Stratégies de promotions</a>
+                        <a class="nav-link" (click)="goTo('/promotions')">Stratégies de promotions</a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./itemCarte">Eléments de la carte</a>
+                        <a class="nav-link" (click)="goTo('/itemCarte')">Eléments de la carte</a>
                     </li>
                 </div>
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="mediaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="mediaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Gestion des médias
                 </a>
                 <div class="dropdown-menu" aria-labelledby="mediaMenu">
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./image">Images</a>
+                        <a class="nav-link" (click)="goTo('/image')">Images</a>
                     </li>
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./album">Album photo</a>
+                        <a class="nav-link" (click)="goTo('/album')">Album photo</a>
                     </li>                            
                 </div>
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="facture" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="facture" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Facture
                 </a>
                 <div class="dropdown-menu" aria-labelledby="facture">
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./tva">Gestion des taux de TVA</a>
+                        <a class="nav-link" (click)="goTo('/tva')">Gestion des taux de TVA</a>
                     </li>                    
                 </div>
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="webSite" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="webSite" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Mon site web
                 </a>
                 <div class="dropdown-menu" aria-labelledby="webSite">
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./articleCategorie/">Catégories d'article</a>
+                        <a class="nav-link" (click)="goTo('/articleCategorie')">Catégories d'article</a>
                     </li>                    
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./article/">Articles</a>
+                        <a class="nav-link" (click)="goTo('/article')">Articles</a>
                     </li>                    
                     <li class="dropdown-item">
-                        <a class="nav-link" href="./metaTag/">Données de référencement</a>
+                        <a class="nav-link" (click)="goTo('/metaTag')">Données de référencement</a>
                     </li>                    
                    
                 </div>

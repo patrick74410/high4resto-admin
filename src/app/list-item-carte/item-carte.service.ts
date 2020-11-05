@@ -3,6 +3,8 @@ import { ItemCarteI } from '../interfaces/itemCarteI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../environement/environement';
+import { take } from 'rxjs/operators';
+import { ImageI } from '../interfaces/imageI';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +15,26 @@ export class ItemCarteService {
   private itemCarteDeleteUrl= environment.apiUrl+'/itemCarte/delete/';
   private itemCarteAddUrl=environment.apiUrl+'/itemCarte/insert/';
 
+  private items:Observable<ItemCarteI[]>;
+
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getItemCartes(): Observable<ItemCarteI[]>{
-    return this.http.get<ItemCarteI[]>(this.itemCarteFindUrl);
+    if(!this.items)
+    {
+      this.http.get<ItemCarteI[]>(this.itemCarteFindUrl).pipe(take(1)).subscribe(items=>{
+        this.items=new Observable<ItemCarteI[]>(observe=>{
+          observe.next(items);
+          observe.complete
+        })
+      })
+      return this.http.get<ItemCarteI[]>(this.itemCarteFindUrl);
+    }
+    else {
+      return this.items;
+    }
   }
 
   addItemCarte(itemCarte:ItemCarteI):Observable<ItemCarteI> {

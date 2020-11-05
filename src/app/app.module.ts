@@ -34,6 +34,7 @@ import { MetaTagComponent } from './meta-tag/meta-tag.component';
 import { ImageModalComponent } from './image-modal/image-modal.component';
 import { ListArticleCategorieComponent } from './list-article-categorie/list-article-categorie.component';
 import { ListArticleComponent } from './list-article/list-article.component';
+import { AlbumService } from './album/album.service';
 
 
 const DragConfig = {
@@ -78,7 +79,7 @@ const DragConfig = {
   providers:
   [ { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AlertService,{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }
+    AlbumService,AlertService,{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }
   ],
   bootstrap: [AppComponent]
 })

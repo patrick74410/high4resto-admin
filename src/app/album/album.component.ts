@@ -134,6 +134,8 @@ export class AlbumComponent implements OnInit {
   ngOnInit(): void {
     this.addAlbum={name:'',description:'',photos:[],visible:false};
     this.getAlbums();
+    this.getAlbums();
+    this.getAlbums();
     this.expireService.check();
     this.updateModal = new bootstrap.Modal(document.getElementById('updateAlbum'), {});
     this.addModal = new bootstrap.Modal(document.getElementById('addAlbum'), {});

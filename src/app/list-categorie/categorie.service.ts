@@ -3,6 +3,7 @@ import { CategorieI } from '../interfaces/categorieI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment} from '../environement/environement'
+import { take } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,12 +14,28 @@ export class CategorieService {
   private categoriesUpdateUrl = environment.apiUrl+'/categorie/update/';
   private categorieDeleteUrl= environment.apiUrl+'/categorie/delete/';
   private categorieAddUrl=environment.apiUrl+'/categorie/insert/';
+
+  private categories:Observable<CategorieI[]>;
+
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getCategories(): Observable<CategorieI[]>{
-    return this.http.get<CategorieI[]>(this.categoriesFindUrl);
+    if(!this.categories)
+    {
+      this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
+        this.categories=new Observable<CategorieI[]>(observe=>{
+          observe.next(categories);
+          observe.complete;
+        })
+      })
+      return this.http.get<CategorieI[]>(this.categoriesFindUrl);
+    }
+    else
+    {
+      return this.categories;
+    }
   }
 
   updateCategorie(categorie:CategorieI): Observable<any> {
