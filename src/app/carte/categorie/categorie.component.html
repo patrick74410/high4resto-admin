@@ -1,0 +1,130 @@
+<app-image-modal idModal="updateImageModal" showAfterClose="updateCategorie" (newItemEvent)="updateImage($event)"></app-image-modal>
+<app-image-modal idModal="addImageModal" showAfterClose="addCategorie" (newItemEvent)="addImage($event)"></app-image-modal>
+<app-image-modal idModal="updateIconModal" showAfterClose="updateCategorie" (newItemEvent)="updateIcon($event)"></app-image-modal>
+<app-image-modal idModal="addIconModal" showAfterClose="addCategorie" (newItemEvent)="addIcon($event)"></app-image-modal>
+
+<!-- Modal update -->
+<div class="modal fade" id="updateCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateCategorieLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+        <div class="modal-header">
+          <h3 class="modal-title" id="updateCategorieLabel">Modification de la catégorie</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="updateClose"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="selectedCategorie">
+            <h3>Mise à jour de la valeur</h3>
+            <div class="mb-3">
+              <label class="form-label" for="updateN">Nom de la catégorie</label>
+              <input required formControlName="name" id="updateN" placeholder="Nom" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description:</label>
+              <editor [init]="{language: 'fr_FR'}" formControlName="description"
+                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <button type="button" class="btn btn-primary" (click)="showUpdateImage()" data-dismiss="modal">
+                  Sélectionner une image
+                </button>
+                <img *ngIf="selectedCategorie.image" src="{{urlDownload}}{{selectedCategorie.image.gridId}}" style="width:100%" />                
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-primary" (click)="showUpdateIcon()" data-dismiss="modal">Sélectionner un logo</button>
+                <img *ngIf="selectedCategorie.iconImage" src="{{urlDownload}}{{selectedCategorie.iconImage.gridId}}" style="width:100%" />                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-warning">Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal add-->
+<div class="modal fade" id="addCategorie" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="addCategorieel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form [formGroup]="addForm">
+        <div class="modal-header">
+          <h3 class="modal-title" id="addCategorieel">Ajout d'une catégorie</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="addClose"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" for="inputNameCategorie">Nom de la catégorie</label>
+            <input required formControlName="name" class="form-control" id="inputNameCategorie"
+              placeholder="Taper la dénomination">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description:</label>
+            <editor [init]="{language: 'fr_FR'}" formControlName="description"
+              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="button" class="btn btn-primary" (click)="showAddImage()" data-dismiss="modal">
+                Sélectionner une image
+              </button>
+              <img *ngIf="addCategorie.image" src="{{urlDownload}}{{addCategorie.image.gridId}}" style="width:100%" />                
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-primary" (click)="showAddIcon()" data-dismiss="modal">Sélectionner un logo</button>
+              <img *ngIf="addCategorie.iconImage" src="{{urlDownload}}{{addCategorie.iconImage.gridId}}" style="width:100%" />                
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="button" class="btn btn-primary" (click)="addData()">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<h2 class="text-center">Gestion des sections du menu</h2>
+<div class="container">
+  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+    data-target="#addCategorie">
+    +
+  </button>
+  <form>
+    <table class="table">
+      <tbody cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list">
+        <tr *ngFor="let categorie of categories;trackBy:util.trackById" class="cdk-box" cdkDrag cdkDragLockAxis="y">
+          <th>
+            <div class="drag-handle">
+              <ng-container [ngTemplateOutlet]="dragHandleTmpl"> </ng-container>
+              {{ categorie.order }}
+            </div>
+          </th>
+          <td>{{categorie.name}}</td>
+          <td>
+            <button class="btn btn-danger" title="delete categorie" (click)="delete(categorie)">Supprimer</button>
+            <span style="margin: 10px;"> </span>
+            <button (click)="updateDataForm(categorie)" type="button" class="btn btn-warning">
+              Modifier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+
+<ng-template #dragHandleTmpl>
+  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-up" fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd"
+      d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
+  </svg>
+</ng-template>
