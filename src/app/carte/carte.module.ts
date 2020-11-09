@@ -34,6 +34,6 @@ const DragConfig = {
     NgxMaterialTimepickerModule.setLocale('fr-FR'),
     SharedModule
   ],
-  providers: [AllergeneService,{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
+  providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })
 export class CarteModule { }

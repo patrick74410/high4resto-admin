@@ -1,0 +1,104 @@
+<!-- Modal update-->
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+        <div class="modal-header">
+          <h2 class="modal-title mat-h2" id="updateModalLabel">Modification de la categorie</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row">
+          <div *ngIf="selectedImageCategorie">
+
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Nom de la categorie</mat-label>
+              <input formControlName="name" required type="text" matInput placeholder="Ex: Images de la carte (entrée)">
+            </mat-form-field>
+
+            <div class="col-12 mt-0 mb-3">
+              <mat-slide-toggle formControlName="visible">Ajouter comme album</mat-slide-toggle>
+            </div>
+
+            <div class="col-12">
+              <h3 class="form-label mat-h3">Description:</h3>
+              <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
+                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
+              </editor>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-warning">Modifier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal add-->
+<div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form [formGroup]="addForm" (ngSubmit)="addData()">
+        <div class="modal-header">
+          <h3 class="modal-title" id="addModalLabel">Ajout d'une categorie</h3>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row">
+          <div>
+
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Nom de la categorie</mat-label>
+              <input formControlName="name" required type="text" matInput placeholder="Ex: Images de la carte (entrée)">
+            </mat-form-field>
+
+            <div class="col-12 mt-0 mb-3">
+              <mat-slide-toggle formControlName="visible">Ajouter comme album</mat-slide-toggle>
+            </div>
+
+            <div class="col-12">
+              <h3 class="form-label mat-h3">Description:</h3>
+              <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
+                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
+              </editor>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<h2 class="text-center mat-h2">Gestion des catégorie d'images</h2>
+<div class="container">
+  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+    data-target="#addModal">
+    +
+  </button>
+  <form>
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let imageCategorie of imageCategories" (click)="onSelect(imageCategorie)" class="listbox">
+          <td>{{imageCategorie.name}}</td>
+          <td>
+            <button class="btn btn-danger btn-list" title="delete imageCategorie"
+              (click)="delete(imageCategorie)">Supprimer</button>
+            <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(imageCategorie)">
+              Modifier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+</div>

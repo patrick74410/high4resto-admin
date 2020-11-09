@@ -9,7 +9,7 @@ import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import {PromotionService} from '../../services/promotion.service'
 import { TvaService } from '../../services/tva.service';
 import { ExpireService } from '../../services/expire.service';
-import { OptionsItemService } from '../../interfaces/options-service'
+import { OptionsItemService } from '../../services/options-service'
 
 import {CategorieI} from '../../interfaces/categorieI'
 import {ImageI} from '../../interfaces/imageI'
@@ -90,7 +90,17 @@ export class ListItemCarteComponent implements OnInit {
   selectedImage:ImageI;
 
   compareFn = this._compareFn.bind(this);
- 
+  _compareFn(a, b) {
+    try
+    {
+      return a.id === b.id;
+    }
+    catch(Err)
+    {
+      return 0;
+    }
+}
+
   updateDataForm(selectedItem:ItemCarteI):void{
     this.updateForm.patchValue({
       name:selectedItem.name,
@@ -183,17 +193,6 @@ export class ListItemCarteComponent implements OnInit {
 
     this.messageService.add(message);
   } 
-
-  _compareFn(a, b) {
-      try
-      {
-        return a.id === b.id;
-      }
-      catch(Err)
-      {
-        return 0;
-      }
- }
 
   filter():void {
     this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items=>{this.itemsCarte=items.filter(a=>a.categorie.name==(this.filterForm.get("filter").value as CategorieI).name)

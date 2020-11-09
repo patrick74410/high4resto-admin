@@ -6,6 +6,8 @@ import { TvaComponent } from './tva/tva.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MetaTagComponent } from './meta-tag/meta-tag.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { MetaTagComponent } from './meta-tag/meta-tag.component';
     ConfigRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
   ]
 })
 export class ConfigModule { }

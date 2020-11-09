@@ -1,5 +1,6 @@
 import { BetweenTimeI } from './BetweenTimeI';
 
+// Horaire de l'établissement non kiss-ready
 export interface HoraireI{
     id:String;
     lundi:BetweenTimeI[];

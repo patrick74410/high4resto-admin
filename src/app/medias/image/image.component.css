@@ -2,7 +2,13 @@
     visibility: hidden;
     position: absolute;
   }
-  .modal-dialog-scrollable .modal-content {
-    max-height: 100%;
+  .modal-body {
+    max-height: 78vh;
     overflow: auto;
   }
+
+  .form-file-label
+  {
+    height:60px!important;
+  }
+

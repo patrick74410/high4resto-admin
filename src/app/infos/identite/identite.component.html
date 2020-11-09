@@ -3,91 +3,105 @@
 <h2 class="text-center">Mes infos</h2>
 <div class="container" *ngIf="identite">
     <form class="row" [formGroup]="updateForm">
-        <div class="col-md-6">
-            <label for="societeName" class="form-label">Nom de la société</label>
-            <input formControlName="nomEtablissement" type="text" class="form-control" id="societeName"
-                placeholder="Veuillez saisir un nom">
+        <div class="col-12 mt-2 mb-2">
+            <button type="button" class="btn btn-warning float-right" (click)="save()">Enregister les modifications</button>
         </div>
-        <div class="col-md-6">
-            <label for="societeName" class="form-label">Numéro de siret</label>
-            <input formControlName="siret" type="text" class="form-control" id="societeName"
-                placeholder="Veuillez saisir votre siret">
-        </div>
-        <div class="row" style="margin-top:20px;margin-bottom:20px;">
+
+        <div class="row">
+            <h3>Info générale</h3>
+            <mat-form-field class="col-md-6" appearance="outline">
+                <mat-label>Nom de la société</mat-label>
+                <input formControlName="nomEtablissement" type="text" matInput placeholder="Ex: Magic Italian">
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6" appearance="outline">
+                <mat-label>Numéro de siret</mat-label>
+                <input formControlName="siret" type="text" matInput placeholder="Ex: 1234567891011">
+            </mat-form-field>
+
+            <h3>Description</h3>
+
+            <div class="col-8">
+                <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
+                    apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+            </div>            
+
             <div class="col-4">
-                <button (click)="showImageUpdateModal()" type="button"
-                    class="btn btn-primary">Sélectionner un logo</button>
+                <button (click)="showImageUpdateModal()" type="button" class="btn btn-primary col-12 mb-2">Sélectionner
+                    un logo</button>
                 <img *ngIf="selectImage" src="{{urlDownload}}{{selectImage.gridId}}" style="width:100%" />
             </div>
-            <div class="col-8">
-                <label class="form-label">Description:</label>
-                <editor [init]="{language: 'fr_FR'}" formControlName="description"
-                    apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+            <div class="col-6 row mt-2">
+                <h3> Adresse</h3>
+                <mat-form-field class="col-12" appearance="outline">
+                    <mat-label>Adresse</mat-label>
+                    <input formControlName="adresse" type="text" matInput placeholder="Ex: 3 rue principale">
+                </mat-form-field>
+                <mat-form-field class="col-12" appearance="outline">
+                    <mat-label>Complement d'adresse</mat-label>
+                    <input formControlName="complement" type="text" matInput
+                        placeholder="Ex: Bâtiment B">
+                </mat-form-field>
+                <mat-form-field class="col-8" appearance="outline">
+                    <mat-label>Ville</mat-label>
+                    <input formControlName="city" type="text" matInput placeholder="Ex: Paris">
+                </mat-form-field>
+                <mat-form-field class="col-4" appearance="outline">
+                    <mat-label>Code postal</mat-label>
+                    <input formControlName="zip" type="text" matInput
+                        placeholder="Ex: 75000">
+                </mat-form-field>
+                <mat-form-field class="col-6" appearance="outline">
+                    <mat-label>Longitude</mat-label>
+                    <input formControlName="longitude" type="number" step="0.0001" matInput
+                        placeholder="Ex: 2.3488">
+                </mat-form-field>
+                <mat-form-field class="col-6" appearance="outline">
+                    <mat-label>Latitude</mat-label>
+                    <input formControlName="latitude" type="number" step="0.0001" matInput
+                        placeholder="Ex: 48.8534">
+                </mat-form-field>
             </div>
-        </div>
-        <div class="col-12">
-            <label for="inputAddress" class="form-label">Adresse</label>
-            <input formControlName="adresse" type="text" class="form-control" id="inputAddress"
-                placeholder="3 rue principale">
-        </div>
-        <div class="col-12">
-            <label for="inputAddress2" class="form-label">Complement d'adresse</label>
-            <input formControlName="complement" type="text" class="form-control" id="inputAddress2"
-                placeholder="Batiment B">
-        </div>
-        <div class="col-md-8">
-            <label for="inputCity" class="form-label">Ville</label>
-            <input formControlName="city" type="text" class="form-control" id="inputCity" placeholder="Paris">
-        </div>
-        <div class="col-md-4">
-            <label for="inputZip" class="form-label">Code postal</label>
-            <input formControlName="zip" type="text" class="form-control" id="inputZip" placeholder="75000">
-        </div>
-        <div class="col-md-3">
-            <label for="inputState" class="form-label">Longitude</label>
-            <input formControlName="longitude" type="number" class="form-control" id="inputState" placeholder="2.3488">
-        </div>
-        <div class="col-md-3">
-            <label for="inputState" class="form-label">Latitude</label>
-            <input formControlName="latitude" type="number" class="form-control" id="inputState" placeholder="48.8534">
-        </div>
-
-        <h2 class="text-center" style="margin-top: 30px;">Mes éléments de contacts</h2>
-        <table class="table col-12">
-            <thead>
-                <tr>
-                    <th scope="col">Clef</th>
-                    <th scope="col">Valeur</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let contact of identite.contact">
-                    <td>{{contact.key}}</td>
-                    <td>{{contact.value}}</td>
-                    <td><span class="btn btn-danger" (click)="deleteKey(contact)">X</span></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input #key type="text" class="form-control" id="inputKey" placeholder="Email, ...">
-
-                    </td>
-                    <td>
-                        <input #value type="text" class="form-control" id="inputValue"
-                            placeholder="l.patrick@high4technology.fr">
-
-                    </td>
-                    <td>
-                        <button (click)="add(key,value);key.value='';value.value=''" type="button"
-                            class="btn btn-success">+</button>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="col-12" style="margin-top: 30px;">
-            <button type="button" class="btn btn-warning" (click)="save()">Enregister les modifications</button>
+            <div class="col-6 mt-2">
+                <h3>Mes éléments de contacts</h3>
+                <table class="table col-12">
+                    <thead>
+                        <tr>
+                            <th scope="col">Clef</th>
+                            <th scope="col">Valeur</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let contact of identite.contact">
+                            <td>{{contact.key}}</td>
+                            <td>{{contact.value}}</td>
+                            <td><span class="btn btn-danger" (click)="deleteKey(contact)">X</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field class="col-12" appearance="outline">
+                                    <mat-label>Clef</mat-label>
+                                    <input #key type="text" matInput
+                                        placeholder="Email, ...">
+                                </mat-form-field>                  
+                            </td>
+                            <td>
+                                <mat-form-field class="col-12" appearance="outline">
+                                    <mat-label>Valeur</mat-label>
+                                    <input #value type="text" matInput
+                                        placeholder="l.patrick@high4technology.fr">
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <button (click)="add(key,value);key.value='';value.value=''" type="button"
+                                    class="btn btn-success">+</button>
+        
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </form>
 </div>

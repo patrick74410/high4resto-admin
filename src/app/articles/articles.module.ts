@@ -8,6 +8,10 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {CDK_DRAG_CONFIG, DragDropModule} from '@angular/cdk/drag-drop';
 import { ArticleComponent } from './articles/article.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'
+import {MatSelectModule} from '@angular/material/select';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -24,7 +28,12 @@ const DragConfig = {
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    DragDropModule
+    DragDropModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+
   ],
   providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

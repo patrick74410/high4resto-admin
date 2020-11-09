@@ -37,6 +37,15 @@ export class ArticleCategorieService {
     }
   }
 
+  refreshList():void{
+    this.http.get<ArticleCategorieI[]>(this.articleCategoriesFindUrl).pipe(take(1)).subscribe(articleCategorie=>{
+      this.articleCategories=new Observable<ArticleCategorieI[]>(observe=>{
+        observe.next(articleCategorie);
+        observe.complete;
+      })
+    })
+  }
+
   updateArticleCategorie(articleCategorie:ArticleCategorieI): Observable<any> {
    return this.http.put(this.articleCategoriesUpdateUrl,articleCategorie,this.httpOptionsUpdate);
   }

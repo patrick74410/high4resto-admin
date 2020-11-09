@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.timepicker-overlay {
+    z-index: 10000000 !important;
+}
+
+.timepicker-backdrop-overlay {
+    z-index: 10000000 !important;
+}
+
+.cdk-overlay-container, .cdk-overlay-pane {
+    z-index: 10000000 !important;
+}
+
+.btn-list
+{
+    margin:10px;
+    width :150px
+}
+
+.listbox {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+  }

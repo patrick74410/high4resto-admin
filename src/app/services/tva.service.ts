@@ -4,10 +4,12 @@ import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import {environment} from '../environement/environement'
 import { take } from 'rxjs/operators';
+import { ItemCarteService } from './item-carte.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TvaService {
   private tvasFindUrl = environment.apiUrl+'/tva/find/';
   private tvasUpdateUrl = environment.apiUrl+'/tva/update/';
@@ -38,6 +40,16 @@ export class TvaService {
   }
 
   updateTva(tva:TvaI): Observable<any> {
+    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+      for (let itemCarte of items)
+      {
+        if(itemCarte.tva.id==tva.id)
+        {
+          itemCarte.tva=tva;
+          this.itemCarteService.updateItem(itemCarte).pipe(take(1)).subscribe();
+        }
+      }
+    })
    return this.http.put(this.tvasUpdateUrl,tva,this.httpOptionsUpdate);
   }
 
@@ -51,5 +63,5 @@ export class TvaService {
     return this.http.put<TvaI>(this.tvaAddUrl,tva,this.httpOptionsUpdate);
   }
 
-  constructor(private http:HttpClient) { }
+  constructor(private itemCarteService:ItemCarteService,private http:HttpClient) { }
 }

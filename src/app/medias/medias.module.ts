@@ -6,8 +6,12 @@ import {ImageComponent} from './image/image.component'
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPicaModule } from '@digitalascetic/ngx-pica';
-import { AlbumComponent } from './album/album.component';
 import {CDK_DRAG_CONFIG, DragDropModule} from '@angular/cdk/drag-drop';
+import { ImageCategorieComponent } from './categorie/ImageCategorie.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSelectModule} from '@angular/material/select';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -16,7 +20,7 @@ const DragConfig = {
 };
 
 @NgModule({
-  declarations: [ImageComponent,AlbumComponent],
+  declarations: [ImageComponent,ImageCategorieComponent],
   imports: [
     CommonModule,
     MediasRoutingModule,
@@ -24,7 +28,12 @@ const DragConfig = {
     ReactiveFormsModule,
     FormsModule,
     NgxPicaModule,
-    DragDropModule
+    DragDropModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+
   ],
   providers: [ {provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

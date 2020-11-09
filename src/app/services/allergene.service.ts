@@ -5,8 +5,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import {environment} from '../environement/environement'
 import { take } from 'rxjs/operators';
 
-@Injectable()
-export class AllergeneService {
+@Injectable({
+  providedIn: 'root'
+})
+
+  export class AllergeneService {
   private allergenesFindUrl = environment.apiUrl+'/allergene/find/';
   private allergenesUpdateUrl = environment.apiUrl+'/allergene/update/';
   private allergeneDeleteUrl= environment.apiUrl+'/allergene/delete/';

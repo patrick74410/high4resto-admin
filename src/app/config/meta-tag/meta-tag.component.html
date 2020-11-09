@@ -1,71 +1,73 @@
 <app-image-modal idModal="twitterModal" (newItemEvent)="selectTwitter($event)"></app-image-modal>
 <app-image-modal idModal="facebookModal" (newItemEvent)="selectFacebook($event)"></app-image-modal>
 
-<h2 class="text-center">Mes données de réferencement</h2>
+<h2 class="text-center">Mes données de réferencements</h2>
 <div class="container" *ngIf="metaTag">
     <form class="row" [formGroup]="updateForm">
-        <div class="col-6">
-            <h2>Facebook</h2>
-            <div class="col-12">
-                <label for="facebookTitle" class="form-label">Titre</label>
-                <input formControlName="facebookTitle" type="text" class="form-control" id="facebookTitle"
-                    placeholder="Titre de l'aperçu Facebook">
-            </div>
-            <div class="col-12">
-                <label for="facebookDescription" class="form-label">Description</label>
-                <textarea formControlName="facebookDescription" type="text" class="form-control" id="facebookDescription"
-                    placeholder="Description de l'aperçu Facebook">
-                    </textarea>
-            </div>
-            <div class="col-12">
-                <label for="facebookImage" class="form-label">Image</label>
-                <input (click)="showFacebook()" formControlName="facebookImage" type="text" class="form-control" id="facebookImage"
-                    placeholder="Image de l'aperçu Facebook">
-            </div>
+        <div class="col-12 mt-3 mb-3">
+            <button type="button" class="btn btn-warning float-right" (click)="save()">Enregistrer les modifications</button>
         </div>
+
+        <div class="col-6">
+            <h3>Facebook</h3>
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Titre</mat-label>
+                <input formControlName="facebookTitle" type="text" matInput placeholder="Ex: Restaurant le Florilège">
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea class="textArea" formControlName="facebookDescription" matInput placeholder="Ex: Notre restaurant vous propose une ..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Image</mat-label>
+                <input (click)="showFacebook()" formControlName="facebookImage" type="text" id="facebookImage" matInput placeholder="Image de l'aperçu Facebook">
+            </mat-form-field>
+            
+        </div>
+
         <div class="col-6">
             <h3>Twitter</h3>
-            <div class="col-12">
-                <label for="twitterTitle" class="form-label">Titre</label>
-                <input formControlName="twitterTitle" type="text" class="form-control" id="twitterTitle"
-                    placeholder="Titre de l'aperçu Twitter">
-            </div>
-            <div class="col-12">
-                <label for="twitterDescription" class="form-label">Description</label>
-                <textarea formControlName="twitterDescription" class="form-control" id="twitterDescription"
-                    placeholder="Description de l'aperçu Twitter">
-                    </textarea>
-    
-            </div>
-            <div class="col-12">
-                <label for="twitterImage" class="form-label">Image</label>
-                <input (click)="showTwitter()" formControlName="twitterImage" type="text" class="form-control" id="twitterImage"
-                    placeholder="Image de l'aperçu Twitter">
-            </div>
-            <div class="col-12">
-                <label for="twitterAuthor" class="form-label">Auteur</label>
-                <input formControlName="twitterAuthor" type="text" class="form-control" id="twitterAuthor"
-                    placeholder="Nom du compte Twitter">
-            </div>
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Titre</mat-label>
+                <input formControlName="twitterTitle" type="text" matInput placeholder="Ex: Restaurant le Florilège">
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea class="textArea" formControlName="twitterDescription" matInput placeholder="Ex: Notre restaurant vous propose une ..."></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Image</mat-label>
+                <input (click)="showTwitter()" formControlName="twitterImage" type="text" id="twitterImage" matInput placeholder="Image de l'aperçu Twitter">
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Auteur</mat-label>
+                <input formControlName="twitterAuthor" type="text" matInput placeholder="Ex: Patrick Dujardin">
+            </mat-form-field>
         </div>
+
         <div class="col-6">
             <h3>Données générale</h3>
-            <div class="col-12">
-                <label for="description" class="form-label">Description</label>
-                <textarea formControlName="description" class="form-control" id="description"
-                    placeholder="Veuillez saisir une description (moin de 200 caractères)"></textarea>
-            </div>
-            <div class="col-12">
-                <label for="keywords" class="form-label">Mot clefs</label>
-                <textarea formControlName="keywords" type="text" class="form-control" id="keywords"
-                    placeholder="Veuillez saisir des mot clefs pertinents (moin de 1000 caractères)">
-                </textarea>
-            </div>
-            <div class="col-12">
-                <label for="author" class="form-label">Nom de l'auteur</label>
-                <input formControlName="author" type="text" class="form-control" id="inputAddress"
-                    placeholder="Nom du créateur du site web">
-            </div>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea class="textArea" formControlName="description" matInput placeholder="Veuillez saisir une description courte de votre établissement (moin de 200 caractères)"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Mots clefs</mat-label>
+                <textarea class="textArea" formControlName="keywords" matInput placeholder="Veuillez saisir des mot clefs pertinents (moin de 1000 caractères)"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+                <mat-label>Auteur</mat-label>
+                <input formControlName="author" type="text" matInput placeholder="Ex: Patrick Dujardin">
+            </mat-form-field>
+
         </div>
         <div class="col-6">
             <h3 class="text-center" style="margin-top: 30px;">Autres référencements</h3>
@@ -102,8 +104,5 @@
             </table>
         </div>
 
-        <div class="col-12" style="margin-top: 30px;">
-            <button type="button" class="btn btn-warning" (click)="save()">Enregister les modifications</button>
-        </div>
     </form>
 </div>

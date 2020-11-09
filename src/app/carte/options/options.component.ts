@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OptionsItemService } from '../../interfaces/options-service'
+import { OptionsItemService } from '../../services/options-service'
 import { OptionsItemI } from '../../interfaces/OptionsItem'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';

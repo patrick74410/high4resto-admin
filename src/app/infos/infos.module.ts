@@ -10,7 +10,10 @@ import { IdentiteComponent } from './identite/identite.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [HoraireComponent, IdentiteComponent],
@@ -21,7 +24,12 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     EditorModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxMaterialTimepickerModule.setLocale('fr-FR')
+    NgxMaterialTimepickerModule.setLocale('fr-FR'),
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+
   ],
   exports:[],
   providers: [HoraireService,IdentiteService]

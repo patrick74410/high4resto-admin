@@ -1,4 +1,3 @@
-
 <!-- Modal update-->
 <div class="modal fade" id="updateImage" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="updateImageLabel" aria-hidden="true">
@@ -6,28 +5,43 @@
     <div class="modal-content">
       <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
         <div class="modal-header">
-          <h3 class="modal-title" id="updateImageLabel">Modification des propriétés de l'image</h3>
+          <h2 class="modal-title" id="updateImageLabel">Modification des propriétés de l'image</h2>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div *ngIf="selectedImage" for="updateIG">
-            <h3>Mise à jour de la valeur</h3>
-            <div class="mb-3">
-              <label class="form-label" for="updateIG">Nom du groupe:</label>
-              <input formControlName="groupName" required placeholder="Nom" class="form-control" id="updateIG">
-              <label class="form-label" for="updateID">Description de l'image:</label>
-              <editor [init]="{language: 'fr_FR'}" formControlName="description" id="updateID"
-              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
-              <label class="form-label">Description alternative</label>
-              <input type="text" class="form-control" formControlName="alt" placeholder="Texte alternatif pour la description de l'image">
-              <label class="form-label">Lien de l'image</label>
-              <input type="text" class="form-control" formControlName="link" placeholder="Lien de l'image">
+          <div *ngIf="selectedImage" class="row">
+            <div class="col-12">
+              <h3 class="form-label mat-h3">Description:</h3>
+              <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
+                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
+              </editor>
             </div>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Catégorie de l'image</mat-label>
+              <mat-select formControlName="categorie" [compareWith]="compareByID">
+                <mat-option *ngFor="let categorie of categories" [value]="categorie">
+                  {{categorie.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Texte alternatif pour la description de l'image</mat-label>
+              <input formControlName="alt" type="text" matInput placeholder="Ex: Le logo de l'entreprise">
+            </mat-form-field>
+  
+            <mat-form-field class="col-12" appearance="outline">
+              <mat-label>Lien de l'image</mat-label>
+              <input formControlName="link" type="text" matInput
+                placeholder="Ex: https://www.mon-super-site/article/champion/">
+            </mat-form-field>            
+
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-          <button  type="submit" class="btn btn-warning" >Sauvegarder</button>
+          <button type="submit" class="btn btn-warning">Sauvegarder</button>
         </div>
       </form>
     </div>
@@ -41,67 +55,78 @@
     <div class="modal-content">
       <form [formGroup]="addForm" (ngSubmit)="addData()">
         <div class="modal-header">
-          <h3 class="modal-title" id="addImageLabel">Ajout d'une image</h3>
+          <h2 class="modal-title" id="addImageLabel">Ajout d'une image</h2>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label" for="addDes">Description de l'image:</label>
-            <editor [init]="{language: 'fr_FR'}" formControlName="description" id="addDes"
-            apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>          </div>
-      
-          <div class="mb-3">
-            <label class="form-label" for="addN">Nom du groupe:</label>
-            <input formControlName="groupName" required type="text" class="form-control" id="addN" placeholder="Nom"/>
+        <div class="modal-body row">
+
+          <div class="col-12">
+            <h3 class="form-label mat-h3">Description:</h3>
+            <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
+              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
+            </editor>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Description alternative</label>
-            <input type="text" class="form-control" formControlName="alt" placeholder="Texte alternatif pour la description de l'image">
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Catégorie de l'image</mat-label>
+            <mat-select formControlName="categorie">
+              <mat-option *ngFor="let categorie of categories" [value]="categorie">
+                {{categorie.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <div class="mb-3">
-            <label class="form-label">Lien de l'image</label>
-            <input type="text" class="form-control" formControlName="link" placeholder="Lien de l'image">
-          </div>
- 
-          <div class="mb-3">
-            <label class="form-label" for="addW">Largeur de l'image:</label>
-            <input formControlName="widht" required id="addW" type="number" class="form-control"/> 
-          </div>
-      
-          <div class="mb-3">
-            <label class="form-label" for="addH">Hauteur de l'image:</label>
-            <input formControlName="heigth" required id="addH" type="number" class="form-control"/> 
-          </div>
-      
-          <div class="mb-3">
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" required formControlName="keepRatio" class="form-check-input">Maintenir le ratio
-              </label>
-            </div>    
-          </div>
-      
-          <div class="mb-3">    
-            <label class="form-label">Choix du fichier:</label>
-            <div class="form-file">
-              <input type="file" class="form-file-input" id="customFile"  accept="image/png, image/jpeg" type="file" (change)="handleFiles($event)">
-              <label class="form-file-label" for="customFile">
-                <span class="form-file-text">{{name}}</span>
-                <span class="form-file-button">Parcourir...</span>
-              </label>
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Texte alternatif pour la description de l'image</mat-label>
+            <input formControlName="alt" type="text" matInput placeholder="Ex: Le logo de l'entreprise">
+          </mat-form-field>
+
+          <mat-form-field class="col-12" appearance="outline">
+            <mat-label>Lien de l'image</mat-label>
+            <input formControlName="link" type="text" matInput
+              placeholder="Ex: https://www.mon-super-site/article/champion/">
+          </mat-form-field>
+
+          <div class="row">
+            <div class="col-5">
+              <div class="form-file">
+                <input type="file" placeholder="choix du fichier" class="form-file-input input-lg" id="customFile"
+                  accept="image/png, image/jpeg" type="file" (change)="handleFiles($event)">
+                <label class="form-file-label form-control-lg" for="customFile">
+                  <span class="form-file-text">{{name}}</span>
+                  <span class="form-file-button">Parcourir...</span>
+                </label>
+              </div>
+
             </div>
+
+            <mat-form-field class="col-2" appearance="outline">
+              <mat-label>Largeur de l'image</mat-label>
+              <input formControlName="widht" type="number" matInput placeholder="Ex: 800">
+            </mat-form-field>
+
+            <mat-form-field class="col-2" appearance="outline">
+              <mat-label>Hauteur de l'image</mat-label>
+              <input formControlName="heigth" type="number" matInput placeholder="Ex: 800">
+            </mat-form-field>
+
+            <div class="col-3">
+              <div class="form-check form-switch">
+                <input formControlName="keepRatio" class="form-check-input" type="checkbox" id="keepRatio" checked>
+                <label class="form-check-label" for="keepRatio">Maintenir le ratio</label>
+              </div>
+            </div>
+            
           </div>
-          
+
           <div class="mb-3">
-            <img [src]="imgURL">
+            <img style="max-width: 600px;margin-top:10px" [src]="imgURL">
           </div>
-          </div>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-            <button  type="submit" class="btn btn-primary">
-              Ajouter
+          <button type="submit" class="btn btn-primary">
+            Ajouter
           </button>
         </div>
       </form>
@@ -110,39 +135,48 @@
 </div>
 
 <div class="container">
-    <h2 class="text-center">Gestion des images</h2>
-    <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addImage">
-      +
-    </button>
-      <form>
-        <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Nom du fichier</th>
-                <th scope="col">Groupe</th>
-                <th scope="col">Description</th>
-                <th scope="col">Visualisation</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let image of images;trackBy:util.trackById">
-                <td>{{image.fileName}}</td>
-                <td>{{image.group}}</td>
-                <td><p [innerHTML]="image.description"> </p></td>
-                <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80"/></td>
-                <td>
-                  <button class="btn btn-danger" title="delete categorie"
-                  (click)="deleteImage(image)">Supprimer</button>
-                  <span style="margin: 10px;"> </span>
-                  <button type="button" class="btn btn-warning" (click)="updateDataForm(image)">
-                    Modifier
-                  </button>          
-                </td>
-              </tr>
-            </tbody>
-          </table>
-    </form>
+  <h2 class="text-center">Gestion des images</h2>
+      <form [formGroup]="filterForm">
+        <div class="mb-3">
+            <label class="form-label" for="addCa">Filtrer par:</label>
+            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
+                class="form-select" aria-label="Default select">
+                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
+                    {{categorie.name}}</option>
+            </select>
+        </div>
+      </form>
+  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+    data-target="#addImage">
+    +
+  </button>
+  <form *ngIf="images">
+    <table *ngIf="images.length>0" class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nom du fichier</th>
+          <th scope="col">Description</th>
+          <th scope="col">Visualisation</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let image of images;trackBy:util.trackById">
+          <td>{{image.fileName}}</td>
+          <td>
+            <p [innerHTML]="image.description"> </p>
+          </td>
+          <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
+          <td>
+            <button class="btn btn-danger btn-list" title="delete categorie" (click)="deleteImage(image)">Supprimer</button>
+            <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(image)">
+              Modifier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 
 
 </div>

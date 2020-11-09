@@ -12,52 +12,50 @@
             <form [formGroup]="addForm">
                 <div class="modal-header">
                     <h3 class="modal-title" id="addArticleel">Ajout d'un article</h3>
-                    <button type="button" class="btn-close" id="closeAddModal" data-dismiss="modal" aria-label="Close"
-                        ></button>
+                    <button type="button" class="btn-close" id="closeAddModal" data-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
-                            <label class="form-label" for="addTitle">Titre de l'article</label>
-                            <input class="form-control" id="addTitle" placeholder="Titre de l'article"
-                                formControlName="title">
+                            <div class="row">
+                                <mat-form-field class="col-12" appearance="outline">
+                                    <mat-label>Titre de l'article</mat-label>
+                                    <input formControlName="title" type="text" matInput
+                                        placeholder="Ex: Notre restaurant accueille un nouveau chef">
+                                </mat-form-field>
+                                <mat-form-field class="col-7" appearance="outline">
+                                    <mat-label>Nom de l'auteur</mat-label>
+                                    <input formControlName="author" type="text" matInput
+                                        placeholder="Ex: Patrick Dupont">
+                                </mat-form-field>
+                                <div class="col-5">
+                                    <mat-slide-toggle formControlName="visible">Visible</mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="onTop">Mise en avant</mat-slide-toggle>
+                                </div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Catégorie de l'article</mat-label>
+                                    <mat-select formControlName="categorie">
+                                        <mat-option *ngFor="let categorie of articleCategories" [value]="categorie">
+                                            {{categorie.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
+
                         <div class="col-6">
-                            <label class="form-label">Image de l'article</label><br/>
-                            <button style="width:100%" type="button" class="btn btn-primary" (click)="showAddImage()" data-dismiss="modal">
+                            <button style="width:100%" type="button" class="btn btn-primary" (click)="showAddImage()"
+                                data-dismiss="modal">
                                 Sélectionner une image
                             </button>
                             <img *ngIf="addArticle.image" src="{{urlDownload}}{{addArticle.image.gridId}}"
                                 style="width:100%" />
                         </div>
-                        <div class="col-4">
-                            <label class="form-label" for="addAuthor">Nom de l'auteur</label>
-                            <input class="form-control" id="addAuthor" placeholder="nom de l'auteur"
-                                formControlName="author">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label">Options</label>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" formControlName="visible" type="checkbox" id="avisible"
-                                    checked>
-                                <label class="form-check-label" for="avisible">Visibile</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" formControlName="onTop" type="checkbox" id="atop"
-                                    checked>
-                                <label class="form-check-label" for="atop">Mise en avant</label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label">Catégorie de l'article</label>
-                            <select required class="form-select" formControlName="categorie">
-                                <option *ngFor="let choix of articleCategories; TrackBy:util.trackById" [ngValue]="choix" [label]="choix.name"></option>    
-                            </select>                           
-                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Résumé:</label>
-                        <editor [init]="{language: 'fr_FR'}" formControlName="resume"
+                        <editor [init]="{language: 'fr_FR',height:300}" formControlName="resume"
                             apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                     </div>
                     <div class="mb-3">
@@ -87,52 +85,50 @@
             <form [formGroup]="updateForm" *ngIf="selectedArticle">
                 <div class="modal-header">
                     <h3 class="modal-title" id="updateArticleel">Modification d'un article</h3>
-                    <button type="button" class="btn-close" id="closeUpdateModal" data-dismiss="modal" aria-label="Close"
-                        ></button>
+                    <button type="button" class="btn-close" id="closeUpdateModal" data-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
-                            <label class="form-label" for="updateTitle">Titre de l'article</label>
-                            <input class="form-control" id="updateTitle" placeholder="Titre de l'article"
-                                formControlName="title">
+                            <div class="row">
+                                <mat-form-field class="col-12" appearance="outline">
+                                    <mat-label>Titre de l'article</mat-label>
+                                    <input formControlName="title" type="text" matInput
+                                        placeholder="Ex: Notre restaurant accueille un nouveau chef">
+                                </mat-form-field>
+                                <mat-form-field class="col-7" appearance="outline">
+                                    <mat-label>Nom de l'auteur</mat-label>
+                                    <input formControlName="author" type="text" matInput
+                                        placeholder="Ex: Patrick Dupont">
+                                </mat-form-field>
+                                <div class="col-5">
+                                    <mat-slide-toggle formControlName="visible">Visible</mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="onTop">Mise en avant</mat-slide-toggle>
+                                </div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Catégorie de l'article</mat-label>
+                                    <mat-select [compareWith]="compareFn" formControlName="categorie">
+                                        <mat-option *ngFor="let categorie of articleCategories" [value]="categorie">
+                                            {{categorie.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
+
                         <div class="col-6">
-                            <label class="form-label">Image de l'article</label><br/>
-                            <button style="width:100%" type="button" class="btn btn-primary" (click)="showUpdateImage()" data-dismiss="modal">
+                            <button style="width:100%" type="button" class="btn btn-primary" (click)="showUpdateImage()"
+                                data-dismiss="modal">
                                 Sélectionner une image
                             </button>
                             <img *ngIf="selectedArticle.image" src="{{urlDownload}}{{selectedArticle.image.gridId}}"
                                 style="width:100%" />
                         </div>
-                        <div class="col-4">
-                            <label class="form-label" for="updateAuthor">Nom de l'auteur</label>
-                            <input class="form-control" id="updateAuthor" placeholder="nom de l'auteur"
-                                formControlName="author">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label">Options</label>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" formControlName="visible" type="checkbox" id="aavisible"
-                                    checked>
-                                <label class="form-check-label" for="aavisible">Visibile</label>
-                            </div>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" formControlName="onTop" type="checkbox" id="aatop"
-                                    checked>
-                                <label class="form-check-label" for="aatop">Mise en avant</label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label">Catégorie de l'article</label>
-                            <select required class="form-select" formControlName="categorie">
-                                <option *ngFor="let choix of articleCategories; TrackBy:util.trackById" [ngValue]="choix" [label]="choix.name"></option>    
-                            </select>                           
-                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Résumé:</label>
-                        <editor [init]="{language: 'fr_FR'}" formControlName="resume"
+                        <editor [init]="{language: 'fr_FR',height:300}" formControlName="resume"
                             apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                     </div>
                     <div class="mb-3">
@@ -164,7 +160,8 @@
             <label class="form-label" for="addCa">Filtrer par:</label>
             <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
                 class="form-select" aria-label="Default select">
-                <option *ngFor="let categorie of articleCategories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
+                <option *ngFor="let categorie of articleCategories;let idx=index;trackBy:util.trackById"
+                    [ngValue]="categorie">
                     {{categorie.name}}</option>
             </select>
         </div>
@@ -175,31 +172,33 @@
     </button>
     <table class="table" *ngIf="articles">
         <thead>
-          <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Résumé</th>
-            <th scope="col">Image</th>
-            <th scope="col">Action</th>
-          </tr>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Image</th>
+                <th scope="col">Résumé</th>
+                <th scope="col">Action</th>
+            </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let article of articles;trackBy:util.trackById">
-            <td>{{article.title}}</td>
-            <td><p [innerHTML]="article.resume"></p></td>
-            <td><img  *ngIf="article.image" src="{{urlDownload}}{{article.image.gridId}}" class="thumbnail"
-                width="120px" alt="{{article.image.alt}}" /></td>
-            <td>
-                <button (click)="delete(article)" style="display: inline-block; width:120px;margin:auto"
-                    class="btn btn-danger">Suprimer</button>
-                <span style="margin: 10px;"> </span>
-                <button type="button" style="display: inline-block; width:120px;margin:auto"
-                class="btn btn-warning" (click)="updateDataForm(article)" >
-                Modifier
-            </button>
+            <tr *ngFor="let article of articles;trackBy:util.trackById">
+                <td>{{article.title}}</td>
+                <td>
+                    <p [innerHTML]="article.resume"></p>
+                </td>
+                <td><img *ngIf="article.image" src="{{urlDownload}}{{article.image.gridId}}" class="thumbnail"
+                        width="120px" alt="{{article.image.alt}}" /></td>
+                <td>
+                    <button (click)="delete(article)" style="display: inline-block; width:120px;margin:auto"
+                        class="btn btn-danger">Suprimer</button>
+                    <span style="margin: 10px;"> </span>
+                    <button type="button" style="display: inline-block; width:120px;margin:auto" class="btn btn-warning"
+                        (click)="updateDataForm(article)">
+                        Modifier
+                    </button>
 
-            </td>
-          </tr>
+                </td>
+            </tr>
 
         </tbody>
-      </table>
+    </table>
 </div>

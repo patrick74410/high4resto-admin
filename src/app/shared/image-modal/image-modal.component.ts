@@ -4,6 +4,10 @@ import { environment } from '../../environement/environement';
 import { ImageI } from '../../interfaces/imageI';
 import { ImageService } from '../../services/image.service';
 import { Util } from '../../environement/util';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
+import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
+import { CategorieI } from 'src/app/interfaces/categorieI';
 declare var bootstrap:any;
 
 @Component({
@@ -14,6 +18,7 @@ declare var bootstrap:any;
 
 export class ImageModalComponent implements OnInit {
   images:ImageI[];
+  categories:CategorieI[];
   util = new Util();
   urlDownload:String=environment.apiUrl+"/images/download/";
   selectImage : ImageI;
@@ -26,24 +31,35 @@ export class ImageModalComponent implements OnInit {
   @Input()
     showAfterClose:string;
 
+  
+    filterForm = new FormGroup({
+      filter: new FormControl('', Validators.required)
+    });
+  
+  
+    compareFn = this._compareFn.bind(this);
+  
+    _compareFn(a, b) {
+      try {
+        return a.id === b.id;
+      }
+      catch (Err) {
+        return 0;
+      }
+    }
+  
+    filter(): void {
+      this.imageService.getImages().pipe(take(1)).subscribe(items => {
+        var id=((this.filterForm.get("filter").value as ImageCategorieI).id);
+        this.images = items.filter(a => a.categorie.id == id)
+      });
+    }    
+
     addNewItem(value: ImageI) {
       this.selectImage=value;
       this.newItemEvent.emit(value);
     }  
 
-    getImages(): void {
-      this.imageService.getImages().pipe(take(1)).subscribe(images => this.images=images.sort((n1,n2)=>{
-        if(n1.group>n2.group)
-        {
-          return 1;
-        }
-        if(n2.group>n1.group)
-        {
-          return -1;
-        }
-        return 0;
-      }));
-    }  
 
     show(): void {
       if(this.showAfterClose)
@@ -53,10 +69,12 @@ export class ImageModalComponent implements OnInit {
       }
     }
 
-  constructor(private imageService:ImageService) { }
+  constructor(private imageCategorieService:ImageCategorieService,private imageService:ImageService) { }
 
   ngOnInit(): void {
-    this.getImages();
+    this.imageCategorieService.getImageCategories().pipe(take(1)).subscribe(categories=>{
+      this.categories=categories;
+    })
   }
 
 }

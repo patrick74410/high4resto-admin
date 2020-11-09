@@ -1,5 +1,5 @@
 import { KeyMapI } from './KeymapI';
-
+// Données des balises Meta pour le référencement
 export interface MetaTagI {
     id?:string;
     description:string;

@@ -58,10 +58,9 @@ export class ArticleComponent implements OnInit {
 
   filter(): void {
     this.articleService.getArticles().pipe(take(1)).subscribe(items => {
-      var name=((this.filterForm.get("filter").value as ArticleCategorieI).name);
-      this.articles = items.filter(a => a.categorie.name == name)
+      var id=((this.filterForm.get("filter").value as ArticleCategorieI).id);
+      this.articles = items.filter(a => a.categorie.id == id)
     });
-
   }
 
   showAddImage(): void {
