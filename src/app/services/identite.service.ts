@@ -23,18 +23,22 @@ export class IdentiteService {
   getIdentites(): Observable<IdentiteI[]>{
     if(!this.identite)
     {
-      this.http.get<IdentiteI[]>(this.identitesFindUrl).pipe(take(1)).subscribe(identite=>{
-        this.identite=new Observable <IdentiteI[]>(observe=>{
-          observe.next(identite);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<IdentiteI[]>(this.identitesFindUrl);
     }
     else
     {
       return this.identite;
     }
+  }
+
+  refreshList(): void {
+      this.http.get<IdentiteI[]>(this.identitesFindUrl).pipe(take(1)).subscribe(identite=>{
+        this.identite=new Observable <IdentiteI[]>(observe=>{
+          observe.next(identite);
+          observe.complete;
+        })
+      })
   }
 
   updateIdentite(identite:IdentiteI): Observable<any> {

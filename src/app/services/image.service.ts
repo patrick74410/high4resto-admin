@@ -45,12 +45,7 @@ export class ImageService {
 
   getImages(): Observable<ImageI[]> {
     if (!this.images) {
-      this.http.get<ImageI[]>(this.imagesFindUrl).pipe(take(1)).subscribe(images => {
-        this.images = new Observable<ImageI[]>(observe => {
-          observe.next(images);
-          observe.complete
-        })
-      })
+      this.refreshList();
       return this.http.get<ImageI[]>(this.imagesFindUrl);
     }
     else {
@@ -64,7 +59,8 @@ export class ImageService {
         observe.next(images);
         observe.complete
       })
-    })  }
+    })  
+  }
 
   updateImage(image: ImageI): Observable<any> {
     this.identiteService.getIdentites().pipe(take(1)).subscribe(identites => {

@@ -24,17 +24,21 @@ export class ImageCategorieService {
 
     getImageCategories(): Observable<ImageCategorieI[]> {
         if (!this.imageCategorie) {
-            this.http.get<ImageCategorieI[]>(this.imageCategoriesFindUrl).pipe(take(1)).subscribe(imageCategorie => {
-                this.imageCategorie = new Observable<ImageCategorieI[]>(observe => {
-                    observe.next(imageCategorie);
-                    observe.complete
-                })
-            })
-            return this.http.get<ImageCategorieI[]>(this.imageCategoriesFindUrl);
+             this.refreshList();
+             return this.http.get<ImageCategorieI[]>(this.imageCategoriesFindUrl);
         }
         else {
             return this.imageCategorie;
         }
+    }
+
+    refreshList(): void {
+        this.http.get<ImageCategorieI[]>(this.imageCategoriesFindUrl).pipe(take(1)).subscribe(imageCategorie => {
+            this.imageCategorie = new Observable<ImageCategorieI[]>(observe => {
+                observe.next(imageCategorie);
+                observe.complete
+            })
+        })
     }
 
     updateImageCategorie(imageCategorie: ImageCategorieI): Observable<any> {

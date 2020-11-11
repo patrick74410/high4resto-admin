@@ -22,12 +22,7 @@ export class HoraireService {
   getHoraires(): Observable<HoraireI[]>{
     if(!this.horaires)
     {
-      this.http.get<HoraireI[]>(this.horairesFindUrl).pipe(take(1)).subscribe(horaires=>{
-        this.horaires=new Observable<HoraireI[]>(observe=>{
-          observe.next(horaires);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<HoraireI[]>(this.horairesFindUrl);
     }
     else
@@ -35,6 +30,16 @@ export class HoraireService {
       return this.horaires;
     }
   }
+
+  refreshList(): void {
+    this.http.get<HoraireI[]>(this.horairesFindUrl).pipe(take(1)).subscribe(horaires=>{
+      this.horaires=new Observable<HoraireI[]>(observe=>{
+        observe.next(horaires);
+        observe.complete;
+      })
+    })  
+  }
+
 
   updateHoraire(horaire:HoraireI): Observable<any> {
    return this.http.put(this.horairesUpdateUrl,horaire,this.httpOptionsUpdate);

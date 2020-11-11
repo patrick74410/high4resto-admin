@@ -43,7 +43,8 @@ export class TvaComponent implements OnInit {
     if (!taux) { return; }
     this.tvaService.addTva({ taux } as TvaI)
       .pipe(take(1)).subscribe(tva => {
-        this.tvas.push(tva);
+        this.tvaService.refreshList();
+        this.tvaService.getTvas().pipe(take(1)).subscribe(tvas =>{this.tvas=tvas});
         this.messageService.add(message);
         this.addForm.reset();
         this.addModal.hide();

@@ -22,18 +22,22 @@ export class MetaTagService {
   getMetaTags(): Observable<MetaTagI[]>{
     if(!this.metas)
     {
-      this.http.get<MetaTagI[]>(this.metaTagsFindUrl).pipe(take(1)).subscribe(metas=>{
-        this.metas=new Observable<MetaTagI[]>(observe=>{
-          observe.next(metas);
-          observe.complete
-        })
-      })
+      this.refreshList();
       return this.http.get<MetaTagI[]>(this.metaTagsFindUrl);
     }
     else
     {
       return this.metas;
     }
+  }
+
+  refreshList(): void {
+    this.http.get<MetaTagI[]>(this.metaTagsFindUrl).pipe(take(1)).subscribe(metas=>{
+      this.metas=new Observable<MetaTagI[]>(observe=>{
+        observe.next(metas);
+        observe.complete
+      })
+    })
   }
 
   updateMetaTag(metaTag:MetaTagI): Observable<any> {

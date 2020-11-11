@@ -33,7 +33,6 @@ const DragConfig = {
     MatInputModule,
     MatSlideToggleModule,
     MatSelectModule,
-
   ],
   providers: [ {provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

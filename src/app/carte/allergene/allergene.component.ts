@@ -40,7 +40,10 @@ export class AllergeneComponent implements OnInit {
     if (!name) { return; }
     this.allergeneService.addAllergene({ name } as AllergeneI).pipe(take(1))
       .subscribe(allergene => {
-        this.allergenes.push(allergene);
+        this.allergeneService.refreshList();
+        this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{
+          this.allergenes=allergenes;
+        })
         this.messageService.add(message);
         this.addForm.reset();
         this.addModal.hide();

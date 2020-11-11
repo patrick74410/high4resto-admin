@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment} from '../environement/environement'
 import { take } from 'rxjs/operators';
+import { ItemCarteService } from './item-carte.service';
 
 
 @Injectable({
@@ -24,12 +25,7 @@ export class CategorieService {
   getCategories(): Observable<CategorieI[]>{
     if(!this.categories)
     {
-      this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
-        this.categories=new Observable<CategorieI[]>(observe=>{
-          observe.next(categories);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<CategorieI[]>(this.categoriesFindUrl);
     }
     else
@@ -37,8 +33,26 @@ export class CategorieService {
       return this.categories;
     }
   }
-
+  refreshList(): void {
+    this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
+      this.categories=new Observable<CategorieI[]>(observe=>{
+        observe.next(categories);
+        observe.complete;
+      })
+    })
+  }  
+  
   updateCategorie(categorie:CategorieI): Observable<any> {
+  this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+    for(let item of items)
+    {
+      if(item.categorie.id==categorie.id)
+      {
+        item.categorie=categorie;
+        this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
+      }
+    }
+  })
    return this.http.put(this.categoriesUpdateUrl,categorie,this.httpOptionsUpdate);
   }
 
@@ -52,5 +66,5 @@ export class CategorieService {
     return this.http.put<CategorieI>(this.categorieAddUrl,categorie,this.httpOptionsUpdate);
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private itemCarteService:ItemCarteService,private http: HttpClient) { }
 }

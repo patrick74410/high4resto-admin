@@ -9,12 +9,12 @@
 
         <div class="row">
             <h3>Info générale</h3>
-            <mat-form-field class="col-md-6" appearance="outline">
+            <mat-form-field class="col-md-6" appearance="fill">
                 <mat-label>Nom de la société</mat-label>
                 <input formControlName="nomEtablissement" type="text" matInput placeholder="Ex: Magic Italian">
             </mat-form-field>
 
-            <mat-form-field class="col-md-6" appearance="outline">
+            <mat-form-field class="col-md-6" appearance="fill">
                 <mat-label>Numéro de siret</mat-label>
                 <input formControlName="siret" type="text" matInput placeholder="Ex: 1234567891011">
             </mat-form-field>
@@ -33,35 +33,36 @@
             </div>
             <div class="col-6 row mt-2">
                 <h3> Adresse</h3>
-                <mat-form-field class="col-12" appearance="outline">
+                <mat-form-field class="col-12" appearance="fill">
                     <mat-label>Adresse</mat-label>
                     <input formControlName="adresse" type="text" matInput placeholder="Ex: 3 rue principale">
                 </mat-form-field>
-                <mat-form-field class="col-12" appearance="outline">
+                <mat-form-field class="col-12" appearance="fill">
                     <mat-label>Complement d'adresse</mat-label>
                     <input formControlName="complement" type="text" matInput
                         placeholder="Ex: Bâtiment B">
                 </mat-form-field>
-                <mat-form-field class="col-8" appearance="outline">
+                <mat-form-field class="col-8" appearance="fill">
                     <mat-label>Ville</mat-label>
                     <input formControlName="city" type="text" matInput placeholder="Ex: Paris">
                 </mat-form-field>
-                <mat-form-field class="col-4" appearance="outline">
+                <mat-form-field class="col-4" appearance="fill">
                     <mat-label>Code postal</mat-label>
                     <input formControlName="zip" type="text" matInput
                         placeholder="Ex: 75000">
                 </mat-form-field>
-                <mat-form-field class="col-6" appearance="outline">
+                <mat-form-field class="col-6" appearance="fill">
                     <mat-label>Longitude</mat-label>
                     <input formControlName="longitude" type="number" step="0.0001" matInput
                         placeholder="Ex: 2.3488">
                 </mat-form-field>
-                <mat-form-field class="col-6" appearance="outline">
+                <mat-form-field class="col-6" appearance="fill">
                     <mat-label>Latitude</mat-label>
                     <input formControlName="latitude" type="number" step="0.0001" matInput
                         placeholder="Ex: 48.8534">
                 </mat-form-field>
             </div>
+            
             <div class="col-6 mt-2">
                 <h3>Mes éléments de contacts</h3>
                 <table class="table col-12">
@@ -80,14 +81,14 @@
                         </tr>
                         <tr>
                             <td>
-                                <mat-form-field class="col-12" appearance="outline">
+                                <mat-form-field class="col-12" appearance="fill">
                                     <mat-label>Clef</mat-label>
                                     <input #key type="text" matInput
                                         placeholder="Email, ...">
                                 </mat-form-field>                  
                             </td>
                             <td>
-                                <mat-form-field class="col-12" appearance="outline">
+                                <mat-form-field class="col-12" appearance="fill">
                                     <mat-label>Valeur</mat-label>
                                     <input #value type="text" matInput
                                         placeholder="l.patrick@high4technology.fr">

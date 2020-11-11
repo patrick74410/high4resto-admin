@@ -31,5 +31,5 @@ export interface ItemCarteI {
     // Liste de promotions
     promotions:PromotionI[];
     // Quantitée disponible
-//  stock:number;
+    stock:number;
  }

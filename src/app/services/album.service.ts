@@ -22,18 +22,22 @@ export class AlbumService {
   getAlbums(): Observable<AlbumI[]>{
     if(!this.albums)
     {
-      this.http.get<AlbumI[]>(this.albumsFindUrl).pipe(take(1)).subscribe(albums=>{
-        this.albums=new Observable<AlbumI[]>(observe=>{
-          observe.next(albums);
-          observe.complete();
-        })
-      })
+      this.refreshList();
       return this.http.get<AlbumI[]>(this.albumsFindUrl);
     }
     else
     {
       return this.albums;
     }
+  }
+
+  refreshList(): void {
+    this.http.get<AlbumI[]>(this.albumsFindUrl).pipe(take(1)).subscribe(albums=>{
+      this.albums=new Observable<AlbumI[]>(observe=>{
+        observe.next(albums);
+        observe.complete();
+      })
+    })
   }
 
   updateAlbum(album:AlbumI): Observable<any> {

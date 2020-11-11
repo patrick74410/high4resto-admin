@@ -260,11 +260,15 @@ export class ListItemCarteComponent implements OnInit {
         sourceImage:this.selectedImage,
         options:this.optionsSelected,
         visible:this.addForm.get("visible").value,
-        promotions:this.promotionsSelected
+        promotions:this.promotionsSelected,
+        stock:0
       }
     
       this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(test=>{
-        this.itemsCarte.push(itemAdd);
+        this.itemCarteService.refreshList();
+        this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+          this.itemsCarte=items;
+        })
         const message:MessageI={content:'L\'item a bien été ajouté à la carte',level:'Info'};
         this.messageService.add(message);
         this.allergenes=[];

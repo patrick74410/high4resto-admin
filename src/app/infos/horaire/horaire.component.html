@@ -1,6 +1,10 @@
 <h2 class="text-center">Horaire de l'établissement</h2>
+
 <div class="container" *ngIf="horaire">
     <div class="row">
+        <div class="col-12 mt-3 mb-3">
+            <button type="button" class="btn btn-warning float-right" (click)="save()">Enregistrer les modifications</button>
+        </div>
         <div class="col-md-4" >
             <div class="card mcard">
                 <h3 class="card-header">Lundi</h3>
@@ -206,7 +210,5 @@
             </div>
         </div>
     </div>
-    <div class="mb-3">
-        <button type="button" class="btn btn-warning xmtop" (click)="save()">Enregister les modifications</button>
-    </div>
+
 </div>

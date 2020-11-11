@@ -48,7 +48,8 @@ export class ImageCategorieComponent implements OnInit {
     if (!name) { return; }
     this.imageCategorieService.addImageCategorie({ name,description,visible } as ImageCategorieI)
       .pipe(take(1)).subscribe(imageCategorie => {
-        this.imageCategories.push(imageCategorie);
+        this.imageCategorieService.refreshList();
+        this.imageCategorieService.getImageCategories().pipe(take(1)).subscribe(imageCategories=>{this.imageCategories=imageCategories})
         this.messageService.add(message);
         this.addForm.reset();
         this.addModal.hide();

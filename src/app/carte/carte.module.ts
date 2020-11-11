@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { CarteRoutingModule } from './carte-routing.module';
 import {AllergeneComponent} from './allergene/allergene.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AllergeneService } from '../services/allergene.service';
 import { HttpClientModule} from '@angular/common/http';
 import {CDK_DRAG_CONFIG, DragDropModule} from '@angular/cdk/drag-drop';
 import { OptionsItemComponent } from './options/options.component';
@@ -14,6 +13,10 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { CategorieComponent } from './categorie/categorie.component';
 import { SharedModule } from '../shared/shared.module';
 import { ListItemCarteComponent } from './list-item-carte/list-item-carte.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSelectModule} from '@angular/material/select';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -32,7 +35,11 @@ const DragConfig = {
     DragDropModule,
     EditorModule,
     NgxMaterialTimepickerModule.setLocale('fr-FR'),
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule,
   ],
   providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

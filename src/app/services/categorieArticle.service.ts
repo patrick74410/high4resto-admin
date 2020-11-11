@@ -20,15 +20,11 @@ export class ArticleCategorieService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+
   getArticleCategories(): Observable<ArticleCategorieI[]>{
     if(!this.articleCategories)
     {
-      this.http.get<ArticleCategorieI[]>(this.articleCategoriesFindUrl).pipe(take(1)).subscribe(articleCategorie=>{
-        this.articleCategories=new Observable<ArticleCategorieI[]>(observe=>{
-          observe.next(articleCategorie);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<ArticleCategorieI[]>(this.articleCategoriesFindUrl);
     }
     else

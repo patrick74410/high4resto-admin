@@ -9,39 +9,38 @@
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h3>Mise à jour de la valeur</h3>
-                    <div class="mb-3">
-                        <label for="updateTitre" class="form-label">Titre de la promotion</label>
-                        <input type="text" formControlName="name" required id="updateTitre" placeholder="Titre"
-                            class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="updateReduction" class="form-label">Montant de la réduction</label>
-                        <input type="number" step="0.01" formControlName="reduction" required id="updateReduction"
-                            placeholder="Réduction" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">Type de valeur</label>
-                        <select class="form-control" formControlName="pourcentage"
-                            id="uPoucentage" placeholder="Sélectionner le type de valeur">
-                            <option [ngValue]="true">Pourcentage</option>
-                            <option [ngValue]="false">Euro</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="updateHeureDebut" class="form-label col-12">Heure de début<br/></label>
-                                <ngx-material-timepicker #pickerx></ngx-material-timepicker>
-                                <input class="col-5" [ngxTimepicker]="pickerx" [format]=24 type="time" formControlName="heureDebut"/>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="updateHeureFin" class="form-label col-12">Heure de fin<br/></label>
-                                <ngx-material-timepicker #pickerx1></ngx-material-timepicker>
-                                <input class="col-5" [ngxTimepicker]="pickerx1" [format]=24 type="time" formControlName="heureFin"/>
-                            </div>
-                        </div>
-                    </div>
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Titre</mat-label>
+                        <input formControlName="name" type="text" matInput placeholder="Ex: Happy hour">
+                    </mat-form-field>
+
+                    <mat-form-field class="col-4" appearance="fill">
+                        <mat-label>Montant de la réduction</mat-label>
+                        <input formControlName="reduction" type="number" matInput step="0.01">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="col-2">
+                        <mat-label>Valeur</mat-label>
+                        <mat-select formControlName="pourcentage">
+                            <mat-option [value]="true">%</mat-option>
+                            <mat-option [value]="false">€</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>heure de début</mat-label>
+                        <ngx-material-timepicker #picker0></ngx-material-timepicker>
+                        <input formControlName="heureDebut" [ngxTimepicker]="picker0" [format]=24 type="time" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>heure de fin</mat-label>
+                        <ngx-material-timepicker #picker1></ngx-material-timepicker>
+                        <input formControlName="heureFin" [ngxTimepicker]="picker1" [format]=24 type="time" matInput>
+                    </mat-form-field>
+
+
+
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -56,63 +55,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="jourFerie" class="form-check-input" type="checkbox" id="xUFerie"
-                                checked>
-                            <label class="form-check-label" for="xUFerie">Jours férié compris</label>
+                    
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="jourFerie">Jour férié</mat-slide-toggle>
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="lundi">Lundi</mat-slide-toggle>                          
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="mardi">Mardi</mat-slide-toggle>     
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="mercredi">Mercredi</mat-slide-toggle>        
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="jeudi">Jeudi</mat-slide-toggle>       
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="vendredi">Vendredi</mat-slide-toggle>               
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="samedi">Samedi</mat-slide-toggle>                          
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="dimanche">Dimanche</mat-slide-toggle>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="lundi" id="xULundi">
-                                <label class="form-check-label" for="xULundi">
-                                    Lundi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="mardi" id="xUMardi">
-                                <label class="form-check-label" for="xUMardi">
-                                    Mardi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="mercredi"
-                                    id="xUMercredi">
-                                <label class="form-check-label" for="xUMercredi">
-                                    Mercredi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="jeudi" id="xUJeudi">
-                                <label class="form-check-label" for="xUJeudi">
-                                    Jeudi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="vendredi"
-                                    id="xUVendredi">
-                                <label class="form-check-label" for="xUVendredi">
-                                    Vendredi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="samedi" id="xUSamedi">
-                                <label class="form-check-label" for="xUSamedi">
-                                    Samedi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="dimanche"
-                                    id="xUDimanche">
-                                <label class="form-check-label" for="xUDimanche">
-                                    Dimanche
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
@@ -133,107 +102,74 @@
                     <h3 class="modal-title" id="addModalLabel">Ajout d'une promotion</h3>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="addTitre" class="form-label">Titre de la promotion</label>
-                        <input type="text" formControlName="name" required id="addTitre" placeholder="Titre"
-                            class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="addReduction" class="form-label">Montant de la réduction</label>
-                        <input type="number" step="0.01" formControlName="reduction" required id="addReduction"
-                            placeholder="Réduction" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Type de valeur</label>
-                        <select class="form-control" formControlName="pourcentage"
-                            id="aPoucentage" required placeholder="Sélectionner le type de valeur">
-                            <option [ngValue]="true">Pourcentage</option>
-                            <option [ngValue]="false">Euro</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="addHeureDebut" class="form-label col-12">Heure de début</label>
-                                <ngx-material-timepicker #pickerx2></ngx-material-timepicker>
-                                <input required class="col-5" [ngxTimepicker]="pickerx2" [format]=24 type="time" formControlName="heureDebut"/>
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="addHeureFin" class="form-label col-12">Heure de fin</label>
-                                <ngx-material-timepicker #pickerx3></ngx-material-timepicker>
-                                <input required class="col-5" [ngxTimepicker]="pickerx3" [format]=24 type="time" formControlName="heureFin"/>
-                            </div>
+                <div class="modal-body row">
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Titre</mat-label>
+                        <input formControlName="name" type="text" matInput placeholder="Ex: Happy hour">
+                    </mat-form-field>
+
+                    <mat-form-field class="col-4" appearance="fill">
+                        <mat-label>Montant de la réduction</mat-label>
+                        <input formControlName="reduction" type="number" matInput step="0.01">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="col-2">
+                        <mat-label>Valeur</mat-label>
+                        <mat-select formControlName="pourcentage">
+                            <mat-option [value]="true">%</mat-option>
+                            <mat-option [value]="false">€</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>heure de début</mat-label>
+                        <ngx-material-timepicker #pickerx2></ngx-material-timepicker>
+                        <input formControlName="heureDebut" [ngxTimepicker]="pickerx2" [format]=24 type="time" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>heure de fin</mat-label>
+                        <ngx-material-timepicker #pickerx3></ngx-material-timepicker>
+                        <input formControlName="heureFin" [ngxTimepicker]="pickerx3" [format]=24 type="time" matInput>
+                    </mat-form-field>
+
+
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Date de début</mat-label>
+                        <input formControlName="dateDebut" type="date" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Date de fin</mat-label>
+                        <input formControlName="dateFin" type="date" matInput>
+                    </mat-form-field>
+
+
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="jourFerie">Jour férié</mat-slide-toggle>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="addDateDebut" class="form-label">Date de début</label>
-                                <input required type="date" formControlName="dateDebut" id="addDateDebut"
-                                    placeholder="Date de début" class="form-control">
-                            </div>
-                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <label for="addDateFin" class="form-label">Date de fin</label>
-                                <input required type="date" formControlName="dateFin" id="addDateFin" placeholder="Date de fin"
-                                    class="form-control">
-                            </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="lundi">Lundi</mat-slide-toggle>                          
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="jourFerie" class="form-check-input" type="checkbox" id="UFerie"
-                                checked>
-                            <label class="form-check-label" for="UFerie">Jours férié compris</label>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="mardi">Mardi</mat-slide-toggle>     
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="lundi" id="ULundi">
-                                <label class="form-check-label" for="ULundi">
-                                    Lundi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="mardi" id="UMardi">
-                                <label class="form-check-label" for="UMardi">
-                                    Mardi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="mercredi"
-                                    id="UMercredi">
-                                <label class="form-check-label" for="UMercredi">
-                                    Mercredi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="jeudi" id="UJeudi">
-                                <label class="form-check-label" for="UJeudi">
-                                    Jeudi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="vendredi"
-                                    id="UVendredi">
-                                <label class="form-check-label" for="UVendredi">
-                                    Vendredi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="samedi" id="USamedi">
-                                <label class="form-check-label" for="USamedi">
-                                    Samedi
-                                </label>
-                            </div>
-                            <div class="col-4">
-                                <input type="checkbox" class="form-check-input" formControlName="dimanche"
-                                    id="UDimanche">
-                                <label class="form-check-label" for="UDimanche">
-                                    Dimanche
-                                </label>
-                            </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="mercredi">Mercredi</mat-slide-toggle>        
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="jeudi">Jeudi</mat-slide-toggle>       
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="vendredi">Vendredi</mat-slide-toggle>               
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="samedi">Samedi</mat-slide-toggle>                          
+                        </div>
+                        <div class="col-3">
+                            <mat-slide-toggle formControlName="dimanche">Dimanche</mat-slide-toggle>
                         </div>
                     </div>
                 </div>
@@ -257,7 +193,9 @@
             <tbody>
                 <tr *ngFor="let promotion of promotions; trackBy:util.trackById">
                     <td>{{promotion.name}}</td>
-                    <td>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                    <td>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                            *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au
+                        {{promotion.dateFin}} de
                         {{promotion.heureDebut}} à {{promotion.heureFin}}
                         <span *ngIf="promotion.jourValide[0]">lundi </span>
                         <span *ngIf="promotion.jourValide[1]">mardi </span>

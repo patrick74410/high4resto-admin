@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment} from '../environement/environement'
 import { take } from 'rxjs/operators';
+import { ItemCarteService } from './item-carte.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,7 @@ export class OptionsItemService {
   getOptionsItems(): Observable<OptionsItemI[]>{
     if(!this.options)
     {
-      this.http.get<OptionsItemI[]>(this.optionsItemsFindUrl).pipe(take(1)).subscribe(options=>{
-        this.options=new Observable<OptionsItemI[]>(observe=>{
-          observe.next(options);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<OptionsItemI[]>(this.optionsItemsFindUrl);
     }
     else
@@ -37,7 +33,29 @@ export class OptionsItemService {
     }
   }
 
+  refreshList(): void {
+    this.http.get<OptionsItemI[]>(this.optionsItemsFindUrl).pipe(take(1)).subscribe(options=>{
+      this.options=new Observable<OptionsItemI[]>(observe=>{
+        observe.next(options);
+        observe.complete;
+      })
+    })
+  }
+
   updateOption(OptionsItem:OptionsItemI): Observable<any> {
+    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+      for(let item of items)
+      {
+        for(let choixI of item.options)
+        {
+          if(choixI.id==OptionsItem.id)
+          {
+            item.options[(item.options.indexOf(choixI))]=OptionsItem;
+          }
+        }
+       this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
+      }     
+    });
    return this.http.put(this.optionsItemsUpdateUrl,OptionsItem,this.httpOptionsUpdate);
   }
 
@@ -51,5 +69,5 @@ export class OptionsItemService {
     return this.http.put<OptionsItemI>(this.optionsItemAddUrl,OptionsItem,this.httpOptionsUpdate);
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private itemCarteService:ItemCarteService,private http: HttpClient) { }
 }

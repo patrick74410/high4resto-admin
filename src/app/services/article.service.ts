@@ -23,18 +23,23 @@ export class ArticleService {
   getArticles(): Observable<ArticleI[]>{
     if(!this.articles)
     {
-      this.http.get<ArticleI[]>(this.articlesFindUrl).pipe(take(1)).subscribe(articles=>{
-        this.articles=new Observable<ArticleI[]>(observe=>{
-          observe.next(articles);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<ArticleI[]>(this.articlesFindUrl);
     }
     else
     {
       return this.articles;
     }
+  }
+
+  refreshList(): void {
+    this.http.get<ArticleI[]>(this.articlesFindUrl).pipe(take(1)).subscribe(articles=>{
+      this.articles=new Observable<ArticleI[]>(observe=>{
+        observe.next(articles);
+        observe.complete;
+      })
+    })
+
   }
 
   updateArticle(article:ArticleI): Observable<any> {

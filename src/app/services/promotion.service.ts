@@ -4,6 +4,7 @@ import { Observable} from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../environement/environement';
 import { take } from 'rxjs/operators';
+import { ItemCarteService } from './item-carte.service';
 
 
 @Injectable({
@@ -24,18 +25,22 @@ export class PromotionService {
   getPromotions(): Observable<PromotionI[]>{
     if(!this.promotions)
     {
-      this.http.get<PromotionI[]>(this.promotionFindUrl).pipe(take(1)).subscribe(promotions=>{
-        this.promotions=new Observable<PromotionI[]>(observe=>{
-          observe.next(promotions);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<PromotionI[]>(this.promotionFindUrl);
     }
     else
     {
       return this.promotions;
     }
+  }
+
+  refreshList(): void {
+    this.http.get<PromotionI[]>(this.promotionFindUrl).pipe(take(1)).subscribe(promotions=>{
+      this.promotions=new Observable<PromotionI[]>(observe=>{
+        observe.next(promotions);
+        observe.complete;
+      })
+    })
   }
 
   addPromotion(promotion:PromotionI):Observable<PromotionI> {
@@ -48,8 +53,22 @@ export class PromotionService {
   }
  
   updatePromotion(promotion:PromotionI): Observable<any> {
+    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => { 
+      for(let item of items)
+      {
+        for (let promotionZ of item.promotions)
+        {
+          if(promotionZ.id==promotion.id)
+          {
+            item.promotions[(item.promotions.indexOf(promotionZ))]=promotion;
+          }
+        }
+        this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
+      }
+    })
+
     return this.http.put(this.promotionUpdateUrl,promotion,this.httpOptionsUpdate);
   }
 
-  constructor(private http:HttpClient) { }
+  constructor(private itemCarteService:ItemCarteService,private http:HttpClient) { }
 }

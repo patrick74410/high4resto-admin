@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import {environment} from '../environement/environement'
 import { take } from 'rxjs/operators';
+import { ItemCarteService } from './item-carte.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,7 @@ import { take } from 'rxjs/operators';
   getAllergenes(): Observable<AllergeneI[]>{
     if(!this.allergenes)
     {
-      this.http.get<AllergeneI[]>(this.allergenesFindUrl).pipe(take(1)).subscribe(allergenes=>{
-        this.allergenes=new Observable<AllergeneI[]>(observe=>{
-          observe.next(allergenes);
-          observe.complete;
-        })
-      })
+      this.refreshList();
       return this.http.get<AllergeneI[]>(this.allergenesFindUrl);
     }
     else
@@ -38,7 +34,29 @@ import { take } from 'rxjs/operators';
     }
   }
 
+  refreshList(): void {
+    this.http.get<AllergeneI[]>(this.allergenesFindUrl).pipe(take(1)).subscribe(allergenes=>{
+      this.allergenes=new Observable<AllergeneI[]>(observe=>{
+        observe.next(allergenes);
+        observe.complete;
+      })
+    })
+}
+
   updateAllergene(allergene:AllergeneI): Observable<any> {
+    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+      for(let item of items)
+      {
+        for(let allergeneI of item.allergenes)
+        {
+          if(allergeneI.id==allergene.id)
+          {
+            item.allergenes[(item.allergenes.indexOf(allergeneI))]=allergene;
+          }
+        }
+       this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
+      }
+    })
    return this.http.put(this.allergenesUpdateUrl,allergene,this.httpOptionsUpdate);
   }
 
@@ -52,5 +70,5 @@ import { take } from 'rxjs/operators';
     return this.http.put<AllergeneI>(this.allergeneAddUrl,allergene,this.httpOptionsUpdate);
   }
 
-  constructor(private http: HttpClient) { } 
+  constructor(private itemCarteService:ItemCarteService,private http: HttpClient) { } 
 }

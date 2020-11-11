@@ -91,7 +91,8 @@ export class CategorieComponent implements OnInit {
     if (!this.addCategorie.name) { return; }
     this.categorieService.addCategorie(this.addCategorie).pipe(take(1))
       .subscribe(categorie => {
-        this.categories.push(categorie);
+        this.categorieService.refreshList();
+        this.categorieService.getCategories().pipe(take(1)).subscribe(categories =>{this.categories=categories;})
         this.messageService.add(message);
         this.addForm.reset();
         document.getElementById("addClose").click();
@@ -99,7 +100,7 @@ export class CategorieComponent implements OnInit {
   }
 
   updateDataForm(selectedCategorie:CategorieI):void{
-    this.updateForm.patchValue({name:selectedCategorie.name});
+    this.updateForm.patchValue({name:selectedCategorie.name,description: selectedCategorie.description});
     this.updateModal.show();
     this.selectedCategorie=selectedCategorie;
   }

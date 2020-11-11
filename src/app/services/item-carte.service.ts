@@ -23,17 +23,21 @@ export class ItemCarteService {
   getItemCartes(): Observable<ItemCarteI[]>{
     if(!this.items)
     {
-      this.http.get<ItemCarteI[]>(this.itemCarteFindUrl).pipe(take(1)).subscribe(items=>{
-        this.items=new Observable<ItemCarteI[]>(observe=>{
-          observe.next(items);
-          observe.complete
-        })
-      })
+      this.refreshList();
       return this.http.get<ItemCarteI[]>(this.itemCarteFindUrl);
     }
     else {
       return this.items;
     }
+  }
+
+  refreshList(): void {
+    this.http.get<ItemCarteI[]>(this.itemCarteFindUrl).pipe(take(1)).subscribe(items=>{
+      this.items=new Observable<ItemCarteI[]>(observe=>{
+        observe.next(items);
+        observe.complete
+      })
+    })    
   }
 
   addItemCarte(itemCarte:ItemCarteI):Observable<ItemCarteI> {

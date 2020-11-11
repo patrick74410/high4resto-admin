@@ -8,12 +8,11 @@
           <h3 class="modal-title" id="updateAllergeneLabel">Modification de l'allergene</h3>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <h3>Mise à jour de la valeur</h3>
-            <div class="mb-3">
-              <label for="updateN" class="form-label">Nom de l'allergene</label>
-              <input formControlName="name" required id="updateN" placeholder="Nom" class="form-control">
-            </div>
+        <div class="modal-body row">
+          <mat-form-field class="col-12" appearance="fill">
+            <mat-label>Nom de l'allèrgene</mat-label>
+            <input formControlName="name" required type="text" matInput placeholder="Gluten">
+          </mat-form-field>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
@@ -34,12 +33,11 @@
           <h3 class="modal-title" id="allergeneLabel">Ajout d'un allergene</h3>
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label" for="inputNameAllergene">Nom de l'allergene</label>
-            <input formControlName="name" required class="form-control" id="inputNameAllergene"
-              placeholder="Taper la dénomination">
-          </div>
+        <div class="modal-body row">
+          <mat-form-field class="col-12" appearance="fill">
+            <mat-label>Nom de l'allèrgene</mat-label>
+            <input formControlName="name" required type="text" matInput placeholder="Gluten">
+          </mat-form-field>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
@@ -62,9 +60,8 @@
         <tr *ngFor="let allergene of allergenes; trackBy:util.trackById">
           <td>{{allergene.name}}</td>
           <td>
-            <button class="btn btn-danger" title="delete allergene" (click)="delete(allergene)">Supprimer</button>
-            <span style="margin: 10px;"> </span>
-            <button (click)="updateDataForm(allergene)" type="button" class="btn btn-warning">
+            <button class="btn btn-danger btn-list" title="delete allergene" (click)="delete(allergene)">Supprimer</button>
+            <button (click)="updateDataForm(allergene)" type="button" class="btn btn-warning btn-list">
               Modifier
             </button>
           </td>
