@@ -25,7 +25,12 @@ import { ItemCarteService } from './item-carte.service';
   getAllergenes(): Observable<AllergeneI[]>{
     if(!this.allergenes)
     {
-      this.refreshList();
+      this.http.get<AllergeneI[]>(this.allergenesFindUrl).pipe(take(1)).subscribe(allergenes=>{
+        this.allergenes=new Observable<AllergeneI[]>(observe=>{
+          observe.next(allergenes);
+          observe.complete;
+        })
+      })
       return this.http.get<AllergeneI[]>(this.allergenesFindUrl);
     }
     else
@@ -34,13 +39,8 @@ import { ItemCarteService } from './item-carte.service';
     }
   }
 
-  refreshList(): void {
-    this.http.get<AllergeneI[]>(this.allergenesFindUrl).pipe(take(1)).subscribe(allergenes=>{
-      this.allergenes=new Observable<AllergeneI[]>(observe=>{
-        observe.next(allergenes);
-        observe.complete;
-      })
-    })
+  resetList(): void {
+    this.allergenes=null;
 }
 
   updateAllergene(allergene:AllergeneI): Observable<any> {

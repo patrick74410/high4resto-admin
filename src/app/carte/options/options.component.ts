@@ -82,11 +82,12 @@ export class OptionsItemComponent implements OnInit {
       const message: MessageI = { content: 'L\'option à été rajoutée', level: 'Info' }
       this.optionsItemService.addOption(this.addOptionsItem)
         .pipe(take(1)).subscribe(option => {
-          this.optionsItemService.refreshList();
-          this.optionsItemService.getOptionsItems().pipe(take(1)).subscribe(options=>{this.optionsItems=options})
+          this.optionsItemService.resetList();
+          this.optionsItems.push(option);
           this.addOptionsItem = new ListOptions();
           this.messageService.add(message);
           this.addForm.reset();
+          this.addOptionsItem.options=[];
           this.addModal.hide();
         });
     }

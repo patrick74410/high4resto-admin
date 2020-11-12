@@ -1,0 +1,167 @@
+<!-- Modal update-->
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content ">
+            <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="updateModalLabel">Modification de l'item</h3>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+                        id="closeUpdateModal"></button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="selectedItem">
+                        <div class="mb-3">
+                            <label class="form-label" for="addNam">Nom:</label>
+                            <input id="addNam" required formControlName="name" type="text" class="form-control"
+                                placeholder="Nom" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description:</label>
+                            <editor formControlName="description"
+                                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2" [init]="{language: 'fr_FR'}">
+                            </editor>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="addP">Prix:</label>
+                            <div class="input-group mb-3" style="max-width: 200px;">
+                                <input id="addP" required formControlName="price" type="number" min="0.1" step="0.01"
+                                    class="form-control" placeholder="Montant" aria-label="Montant"
+                                    aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="basic-addon1">€</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="addC1">Choix du taux TVA:</label>
+                            <select [compareWith]="compareFn" formControlName="tva" id="addC1" class="form-select"
+                                aria-label="Default select">
+                                <option *ngFor="let tva of tvas;let idx=index;trackBy:util.trackById;" [ngValue]="tva">
+                                    {{tva.taux}}%</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="addC">Choix de la categorie:</label>
+                            <select [compareWith]="compareFn" formControlName="categorie" id="addC" class="form-select"
+                                aria-label="Default select">
+                                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById"
+                                    [ngValue]="categorie">
+                                    {{categorie.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitch">Visibilité</label>
+                                <input class="form-check-input" type="checkbox" id="flexSwitch"
+                                    formControlName="visible">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectImage()"
+                                    data-dismiss="modal">
+                                    Image
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectAllergene()"
+                                    data-dismiss="modal">
+                                    Allergenes
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedOptions()"
+                                    data-dismiss="modal">
+                                    Options
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-info mbutton" (click)="updateSelectedPromotions()"
+                                    data-dismiss="modal">
+                                    Statégie de promotions
+                                </button>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <img src="{{urlDownload}}{{selectedItem.sourceImage.gridId}}"
+                                        class="img-thumbnail text-center" width="100%" />
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <ul>
+                                    <li *ngFor="let allergene of selectedItem.allergenes;trackBy:util.trackById()">
+                                        {{allergene.name}}</li>
+                                </ul>
+                            </div>
+
+                            <div class="col-3">
+                                <div
+                                    *ngFor="let option of this.selectedItem.options;trackBy:util.trackById;let id=index">
+                                    <div *ngIf="option.unique">
+                                        <h3>{{option.label}}</h3>
+                                        <div *ngFor="let choix of option.options;let idx=index">
+                                            <div (*ngif)="option.unique" class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    name="flexRadioDefault{{id}}" id="Default{{idx}}">
+                                                <label class="form-check-label" for="Default{{idx}}">
+                                                    {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!option.unique">
+                                        <h3>{{option.label}}</h3>
+                                        <div *ngFor="let choix of option.options;let idx=index">
+                                            <div (*ngif)="option.unique" class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label" for="DefaultC{{idx}}">
+                                                    {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                            </div>
+
+                            <div class="col-3">
+                                <div class="mb-3"
+                                    *ngFor="let promotion of this.selectedItem.promotions;trackBy:util.trackById">
+                                    <h3>{{promotion.name}}</h3>
+                                    <p>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                                            *ngIf="!promotion.pourcentage">€</span> valable du
+                                        {{promotion.dateDebut}} au {{promotion.dateFin}} de
+                                        {{promotion.heureDebut}} à {{promotion.heureFin}}
+                                        <span *ngIf="promotion.jourValide[0]">lundi </span>
+                                        <span *ngIf="promotion.jourValide[1]">mardi </span>
+                                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                                        <span *ngIf="promotion.jourValide[5]">samedi </span>
+                                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                                    </p>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                    <button type="submit" class="btn btn-primary">
+                        Modifier
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

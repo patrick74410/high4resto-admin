@@ -24,7 +24,12 @@ export class ArticleCategorieService {
   getArticleCategories(): Observable<ArticleCategorieI[]>{
     if(!this.articleCategories)
     {
-      this.refreshList();
+      this.http.get<ArticleCategorieI[]>(this.articleCategoriesFindUrl).pipe(take(1)).subscribe(articleCategorie=>{
+        this.articleCategories=new Observable<ArticleCategorieI[]>(observe=>{
+          observe.next(articleCategorie);
+          observe.complete;
+        })
+      })
       return this.http.get<ArticleCategorieI[]>(this.articleCategoriesFindUrl);
     }
     else
@@ -33,13 +38,9 @@ export class ArticleCategorieService {
     }
   }
 
-  refreshList():void{
-    this.http.get<ArticleCategorieI[]>(this.articleCategoriesFindUrl).pipe(take(1)).subscribe(articleCategorie=>{
-      this.articleCategories=new Observable<ArticleCategorieI[]>(observe=>{
-        observe.next(articleCategorie);
-        observe.complete;
-      })
-    })
+  resetList(): void
+  {
+    this.articleCategories=null;
   }
 
   updateArticleCategorie(articleCategorie:ArticleCategorieI): Observable<any> {

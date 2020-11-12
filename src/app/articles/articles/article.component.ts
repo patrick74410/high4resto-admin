@@ -110,8 +110,9 @@ export class ArticleComponent implements OnInit {
       this.articleService.addArticle(this.addArticle).pipe(take(1)).subscribe(item => {
         const message: MessageI = { content: 'Article enregistré', level: 'Info' };
         this.messageService.add(message); this.addModal.hide();
-        this.articleService.refreshList();
-        this.articleService.getArticles().pipe(take(1)).subscribe(articles=> this.articles=articles);
+        this.articleService.resetList();
+        if((this.filterForm.get("filter").value as ArticleCategorieI)==item.categorie)
+          this.articles.push(item);
       });
       document.getElementById("closeAddModal").click();
       this.addForm.reset();

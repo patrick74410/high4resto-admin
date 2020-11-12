@@ -91,8 +91,8 @@ export class CategorieComponent implements OnInit {
     if (!this.addCategorie.name) { return; }
     this.categorieService.addCategorie(this.addCategorie).pipe(take(1))
       .subscribe(categorie => {
-        this.categorieService.refreshList();
-        this.categorieService.getCategories().pipe(take(1)).subscribe(categories =>{this.categories=categories;})
+        this.categorieService.resetList();
+        this.categories.push(categorie)
         this.messageService.add(message);
         this.addForm.reset();
         document.getElementById("addClose").click();

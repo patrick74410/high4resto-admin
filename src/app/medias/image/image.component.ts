@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgxPicaService, NgxPicaErrorInterface, NgxPicaResizeOptionsInterface } from '@digitalascetic/ngx-pica';
 import { AspectRatioOptions, ExifOptions } from '@digitalascetic/ngx-pica/lib/ngx-pica-resize-options.interface';
 import { ImageI } from '../../interfaces/imageI'
@@ -92,22 +92,24 @@ export class ImageComponent implements OnInit {
       this._ngxPicaService.resizeImage(this.tpFile, this.addForm.get("widht").value, this.addForm.get("heigth").value, new ImageResizeOptions(this.addForm.get("keepRatio").value))
         .pipe(take(1)).subscribe((imageResized: File) => {
           let reader: FileReader = new FileReader();
-  
           reader.addEventListener('load', (event: any) => {
             fileImages = event.target.result;
           }, false);
           reader.readAsArrayBuffer(imageResized);
-          this.imageService.uploadImage(new File([imageResized], this.tpFile.name), description, categorie, alt, link).pipe(take(1)).subscribe(test => {
+          this.imageService.uploadImage(new File([imageResized], this.tpFile.name), description, categorie, alt, link).pipe(take(1)).subscribe(image => {
             this.addForm.patchValue({ widht: 800, height: 600 })
             this.imgURL = "";
             this.name = "";
-            this.refreshList();
+            this.imageService.resetList();
+
             setTimeout( () => { 
               this.filter();
              }, 1000 );
-            const message: MessageI = { content: 'L\'image a bien été rajoutée', level: 'Info' }
+
+             const message: MessageI = { content: 'L\'image a bien été rajoutée', level: 'Info' }
             this.messageService.add(message);
             this.addForm.reset();
+            this.addForm.patchValue({widht: 800, heigth: 600});
             this.addModal.hide();
   
           });
@@ -135,10 +137,6 @@ export class ImageComponent implements OnInit {
       this.messageService.add(message);
       this.updateModal.hide()
     });
-  }
-
-  refreshList(): void {
-    this.imageService.refreshList();
   }
 
   deleteImage(image: ImageI): void {

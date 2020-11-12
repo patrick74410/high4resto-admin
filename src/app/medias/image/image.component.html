@@ -89,15 +89,7 @@
 
           <div class="row">
             <div class="col-5">
-              <div class="form-file">
-                <input type="file" placeholder="choix du fichier" class="form-file-input input-lg" id="customFile"
-                  accept="image/png, image/jpeg" type="file" (change)="handleFiles($event)">
-                <label class="form-file-label form-control-lg" for="customFile">
-                  <span class="form-file-text">{{name}}</span>
-                  <span class="form-file-button">Parcourir...</span>
-                </label>
-              </div>
-
+              <input class="form-control" placeholder="choix du fichier" (change)="handleFiles($event)" accept="image/png, image/jpeg" type="file" id="formFile">
             </div>
 
             <mat-form-field class="col-2" appearance="fill">

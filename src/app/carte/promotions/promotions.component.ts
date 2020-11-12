@@ -85,10 +85,11 @@ export class PromotionsComponent implements OnInit {
       this.promotionService.addPromotion({ name,reduction,heureDebut,heureFin, dateDebut,dateFin,jourValide,jourFerie,pourcentage } as PromotionI).pipe(take(1))
         .subscribe(promotions => {
           const message:MessageI={content:'La promotion a été rajoutée',level:'Info'}
+          this.promotionService.resetList();
           this.promotions.push(promotions);
           this.messageService.add(message);
           this.addForm.reset();
-          this.addModal.hide();
+          document.getElementById("addClose").click();
         });
     }
     else

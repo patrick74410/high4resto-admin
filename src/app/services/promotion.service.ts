@@ -25,7 +25,12 @@ export class PromotionService {
   getPromotions(): Observable<PromotionI[]>{
     if(!this.promotions)
     {
-      this.refreshList();
+      this.http.get<PromotionI[]>(this.promotionFindUrl).pipe(take(1)).subscribe(promotions=>{
+        this.promotions=new Observable<PromotionI[]>(observe=>{
+          observe.next(promotions);
+          observe.complete;
+        })
+      })
       return this.http.get<PromotionI[]>(this.promotionFindUrl);
     }
     else
@@ -34,13 +39,8 @@ export class PromotionService {
     }
   }
 
-  refreshList(): void {
-    this.http.get<PromotionI[]>(this.promotionFindUrl).pipe(take(1)).subscribe(promotions=>{
-      this.promotions=new Observable<PromotionI[]>(observe=>{
-        observe.next(promotions);
-        observe.complete;
-      })
-    })
+  resetList(): void {
+    this.promotions=null;
   }
 
   addPromotion(promotion:PromotionI):Observable<PromotionI> {

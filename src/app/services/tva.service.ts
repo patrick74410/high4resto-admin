@@ -25,7 +25,12 @@ export class TvaService {
   getTvas(): Observable<TvaI[]>{
     if(!this.tva)
     {
-      this.refreshList();
+      this.http.get<TvaI[]>(this.tvasFindUrl).pipe(take(1)).subscribe(tva=>{
+        this.tva=new Observable<TvaI[]>(observe=>{
+          observe.next(tva);
+          observe.complete
+        })
+      })  
       return this.http.get<TvaI[]>(this.tvasFindUrl);
     }
     else
@@ -34,13 +39,7 @@ export class TvaService {
     }
   }
 
-  refreshList(): void {
-    this.http.get<TvaI[]>(this.tvasFindUrl).pipe(take(1)).subscribe(tva=>{
-      this.tva=new Observable<TvaI[]>(observe=>{
-        observe.next(tva);
-        observe.complete
-      })
-    })
+  resetList(): void {
   }
 
   updateTva(tva:TvaI): Observable<any> {

@@ -24,7 +24,12 @@ export class OptionsItemService {
   getOptionsItems(): Observable<OptionsItemI[]>{
     if(!this.options)
     {
-      this.refreshList();
+      this.http.get<OptionsItemI[]>(this.optionsItemsFindUrl).pipe(take(1)).subscribe(options=>{
+        this.options=new Observable<OptionsItemI[]>(observe=>{
+          observe.next(options);
+          observe.complete;
+        })
+      })
       return this.http.get<OptionsItemI[]>(this.optionsItemsFindUrl);
     }
     else
@@ -33,13 +38,8 @@ export class OptionsItemService {
     }
   }
 
-  refreshList(): void {
-    this.http.get<OptionsItemI[]>(this.optionsItemsFindUrl).pipe(take(1)).subscribe(options=>{
-      this.options=new Observable<OptionsItemI[]>(observe=>{
-        observe.next(options);
-        observe.complete;
-      })
-    })
+  resetList(): void {
+    this.options=null;
   }
 
   updateOption(OptionsItem:OptionsItemI): Observable<any> {

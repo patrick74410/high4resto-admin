@@ -23,7 +23,12 @@ export class ArticleService {
   getArticles(): Observable<ArticleI[]>{
     if(!this.articles)
     {
-      this.refreshList();
+      this.http.get<ArticleI[]>(this.articlesFindUrl).pipe(take(1)).subscribe(articles=>{
+        this.articles=new Observable<ArticleI[]>(observe=>{
+          observe.next(articles);
+          observe.complete;
+        })
+      })
       return this.http.get<ArticleI[]>(this.articlesFindUrl);
     }
     else
@@ -32,14 +37,8 @@ export class ArticleService {
     }
   }
 
-  refreshList(): void {
-    this.http.get<ArticleI[]>(this.articlesFindUrl).pipe(take(1)).subscribe(articles=>{
-      this.articles=new Observable<ArticleI[]>(observe=>{
-        observe.next(articles);
-        observe.complete;
-      })
-    })
-
+  resetList(): void {
+    this.articles=null;
   }
 
   updateArticle(article:ArticleI): Observable<any> {

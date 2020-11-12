@@ -25,21 +25,27 @@ export class CategorieService {
   getCategories(): Observable<CategorieI[]>{
     if(!this.categories)
     {
-      this.refreshList();
-      return this.http.get<CategorieI[]>(this.categoriesFindUrl);
+      this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
+        this.categories=new Observable<CategorieI[]>(observe=>{
+          observe.next(categories);
+          observe.complete;
+        })
+      })
+        return this.http.get<CategorieI[]>(this.categoriesFindUrl);
     }
     else
     {
       return this.categories;
     }
   }
-  refreshList(): void {
-    this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
-      this.categories=new Observable<CategorieI[]>(observe=>{
-        observe.next(categories);
-        observe.complete;
-      })
-    })
+
+  gets(): Observable<CategorieI[]>{
+      return this.http.get<CategorieI[]>(this.categoriesFindUrl);
+  }
+
+
+  resetList(): void {
+    this.categories=null;
   }  
   
   updateCategorie(categorie:CategorieI): Observable<any> {

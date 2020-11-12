@@ -22,8 +22,13 @@ export class MetaTagService {
   getMetaTags(): Observable<MetaTagI[]>{
     if(!this.metas)
     {
-      this.refreshList();
-      return this.http.get<MetaTagI[]>(this.metaTagsFindUrl);
+      this.http.get<MetaTagI[]>(this.metaTagsFindUrl).pipe(take(1)).subscribe(metas=>{
+        this.metas=new Observable<MetaTagI[]>(observe=>{
+          observe.next(metas);
+          observe.complete
+        })
+      })
+        return this.http.get<MetaTagI[]>(this.metaTagsFindUrl);
     }
     else
     {
@@ -31,13 +36,8 @@ export class MetaTagService {
     }
   }
 
-  refreshList(): void {
-    this.http.get<MetaTagI[]>(this.metaTagsFindUrl).pipe(take(1)).subscribe(metas=>{
-      this.metas=new Observable<MetaTagI[]>(observe=>{
-        observe.next(metas);
-        observe.complete
-      })
-    })
+  resetList(): void {
+    this.metas=null;
   }
 
   updateMetaTag(metaTag:MetaTagI): Observable<any> {

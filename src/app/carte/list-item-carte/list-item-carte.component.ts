@@ -264,11 +264,12 @@ export class ListItemCarteComponent implements OnInit {
         stock:0
       }
     
-      this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(test=>{
-        this.itemCarteService.refreshList();
-        this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
-          this.itemsCarte=items;
-        })
+      this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(item=>{
+        this.itemCarteService.resetList();
+
+        setTimeout( () => { 
+          this.filter();
+         }, 1000 );
         const message:MessageI={content:'L\'item a bien été ajouté à la carte',level:'Info'};
         this.messageService.add(message);
         this.allergenes=[];
