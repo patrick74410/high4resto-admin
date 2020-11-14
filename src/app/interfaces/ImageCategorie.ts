@@ -1,3 +1,5 @@
+import { ImageI } from './imageI';
+
 export interface ImageCategorieI {
 // Catégorie d'images 
     id?:string;
@@ -7,4 +9,6 @@ export interface ImageCategorieI {
     description:string;
     // Est-ce un album photo ?
     visible:boolean;
+    // La photo en avant
+    topImage?:ImageI;
 }

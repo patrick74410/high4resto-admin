@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSelectModule} from '@angular/material/select';
+import { SharedModule } from '../shared/shared.module';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -33,6 +34,7 @@ const DragConfig = {
     MatInputModule,
     MatSlideToggleModule,
     MatSelectModule,
+    SharedModule
   ],
   providers: [ {provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

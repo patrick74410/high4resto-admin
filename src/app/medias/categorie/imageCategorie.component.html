@@ -1,25 +1,35 @@
+<app-image-modal idModal="addImageModal" (newItemEvent)="addImage($event)" showAfterClose="addModal"></app-image-modal>
+<app-image-modal idModal="updateImageModal" (newItemEvent)="updateImage($event)" showAfterClose="updateModal"></app-image-modal>
+
 <!-- Modal update-->
 <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
   aria-labelledby="updateModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
-      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+      <form [formGroup]="updateForm">
         <div class="modal-header">
           <h2 class="modal-title mat-h2" id="updateModalLabel">Modification de la categorie</h2>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="closeUpdateModal"></button>
         </div>
-        <div class="modal-body row">
-          <div *ngIf="selectedImageCategorie">
+        <div class="modal-body row" *ngIf="selectedImageCategorie">
 
             <mat-form-field class="col-12" appearance="fill">
               <mat-label>Nom de la categorie</mat-label>
               <input formControlName="name" required type="text" matInput placeholder="Ex: Images de la carte (entrée)">
             </mat-form-field>
 
-            <div class="col-12 mt-0 mb-3">
+            <div class="col-6 mt-0 mb-3">
               <mat-slide-toggle formControlName="visible">Ajouter comme album</mat-slide-toggle>
             </div>
 
+            <div class="col-6">
+              <button type="button" class="btn btn-primary col-12" (click)="showUpdateImage()" data-dismiss="modal">
+                Image mise en avant ...
+              </button>
+              <img *ngIf="selectedImageCategorie.topImage"
+              src="{{urlDownload}}{{selectedImageCategorie.topImage.gridId}}" style="width:100%" />
+            </div>
+ 
             <div class="col-12">
               <h3 class="form-label mat-h3">Description:</h3>
               <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
@@ -27,11 +37,10 @@
               </editor>
             </div>
 
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-          <button type="submit" class="btn btn-warning">Modifier</button>
+          <button type="submit" class="btn btn-warning" (click)="onUpdate()">Modifier</button>
         </div>
       </form>
     </div>
@@ -43,21 +52,28 @@
   aria-labelledby="addModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
-      <form [formGroup]="addForm" (ngSubmit)="addData()">
+      <form [formGroup]="addForm">
         <div class="modal-header">
           <h3 class="modal-title" id="addModalLabel">Ajout d'une categorie</h3>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="closeAddModal"></button>
         </div>
         <div class="modal-body row">
-          <div>
 
             <mat-form-field class="col-12" appearance="fill">
               <mat-label>Nom de la categorie</mat-label>
               <input formControlName="name" required type="text" matInput placeholder="Ex: Images de la carte (entrée)">
             </mat-form-field>
 
-            <div class="col-12 mt-0 mb-3">
+            <div class="col-6 mt-0 mb-3">
               <mat-slide-toggle formControlName="visible">Ajouter comme album</mat-slide-toggle>
+            </div>
+
+            <div class="col-6">
+              <button type="button" class="btn btn-primary col-12" (click)="showAddImage()" data-dismiss="modal">
+                Image mise en avant ...
+              </button>
+              <img *ngIf="addImageCategorie.topImage"
+              src="{{urlDownload}}{{addImageCategorie.topImage.gridId}}" style="width:100%" />
             </div>
 
             <div class="col-12">
@@ -67,11 +83,10 @@
               </editor>
             </div>
 
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-          <button type="submit" class="btn btn-primary">Ajouter</button>
+          <button type="submit" class="btn btn-primary" (click)="addData()">Ajouter</button>
         </div>
       </form>
     </div>
@@ -84,21 +99,20 @@
     data-target="#addModal">
     +
   </button>
-  <form>
-    <table class="table">
-      <tbody>
-        <tr *ngFor="let imageCategorie of imageCategories" (click)="onSelect(imageCategorie)" class="listbox">
-          <td>{{imageCategorie.name}}</td>
-          <td>
-            <button class="btn btn-danger btn-list" title="delete imageCategorie"
-              (click)="delete(imageCategorie)">Supprimer</button>
-            <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(imageCategorie)">
-              Modifier
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+
+  <div>
+    <div *ngFor="let imageCategorie of imageCategories" (click)="onSelect(imageCategorie)" class="card my-3">
+     <div class="card-header">
+        <h3 class="float-left">{{imageCategorie.name}}</h3>
+         <div class="float-right">
+          <button class="btn btn-danger btn-list" title="delete imageCategorie"
+          (click)="delete(imageCategorie)">Supprimer</button>
+        <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(imageCategorie)">
+          Modifier
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

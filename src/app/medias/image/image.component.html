@@ -16,7 +16,7 @@
                 apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
               </editor>
             </div>
-  
+
             <mat-form-field appearance="fill">
               <mat-label>Catégorie de l'image</mat-label>
               <mat-select formControlName="categorie" [compareWith]="compareByID">
@@ -30,12 +30,12 @@
               <mat-label>Texte alternatif pour la description de l'image</mat-label>
               <input formControlName="alt" type="text" matInput placeholder="Ex: Le logo de l'entreprise">
             </mat-form-field>
-  
+
             <mat-form-field class="col-12" appearance="fill">
               <mat-label>Lien de l'image</mat-label>
               <input formControlName="link" type="text" matInput
                 placeholder="Ex: https://www.mon-super-site/article/champion/">
-            </mat-form-field>            
+            </mat-form-field>
 
           </div>
         </div>
@@ -89,7 +89,8 @@
 
           <div class="row">
             <div class="col-5">
-              <input class="form-control" placeholder="choix du fichier" (change)="handleFiles($event)" accept="image/png, image/jpeg" type="file" id="formFile">
+              <input class="form-control" placeholder="choix du fichier" (change)="handleFiles($event)"
+                accept="image/png, image/jpeg" type="file" id="formFile">
             </div>
 
             <mat-form-field class="col-2" appearance="fill">
@@ -105,7 +106,7 @@
             <div class="col-3">
               <mat-slide-toggle formControlName="keepRatio">Maintenir le ratio</mat-slide-toggle>
             </div>
-            
+
           </div>
 
           <div class="mb-3">
@@ -125,47 +126,40 @@
 
 <div class="container">
   <h2 class="text-center">Gestion des images</h2>
-      <form [formGroup]="filterForm">
-        <div class="mb-3">
-            <label class="form-label" for="addCa">Filtrer par:</label>
-            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
-                class="form-select" aria-label="Default select">
-                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
-                    {{categorie.name}}</option>
-            </select>
-        </div>
-      </form>
+  <form [formGroup]="filterForm">
+    <div class="mb-3">
+      <label class="form-label" for="addCa">Filtrer par:</label>
+      <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa" class="form-select"
+        aria-label="Default select">
+        <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
+          {{categorie.name}}</option>
+      </select>
+    </div>
+  </form>
   <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
     data-target="#addImage">
     +
   </button>
-  <form *ngIf="images">
-    <table *ngIf="images.length>0" class="table">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Nom du fichier</th>
-          <th scope="col">Description</th>
-          <th scope="col">Visualisation</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let image of images;trackBy:util.trackById">
-          <td>{{image.fileName}}</td>
-          <td>
-            <p [innerHTML]="image.description"> </p>
-          </td>
-          <td><img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail" width="80" /></td>
-          <td>
-            <button class="btn btn-danger btn-list" title="delete categorie" (click)="deleteImage(image)">Supprimer</button>
-            <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(image)">
-              Modifier
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-
-
+  <div *ngIf="images">
+    <div class="card my-3" *ngFor="let image of images;trackBy:util.trackById">
+      <div class="card-header">
+        <h3 class="float-left">{{image.fileName}}</h3>
+        <div class="float-right">
+          <button class="btn btn-danger btn-list" title="delete categorie"
+            (click)="deleteImage(image)">Supprimer</button>
+          <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(image)">
+            Modifier
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail col-2"/>
+          <div class="col-10">
+            <p [innerHTML]="image.description"> </p>           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

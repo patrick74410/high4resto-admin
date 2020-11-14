@@ -58,20 +58,18 @@
     data-target="#addModal">
     +
   </button>
-  <form>
-    <table class="table">
-      <tbody>
-        <tr *ngFor="let tva of tvas" (click)="onSelect(tva)" class="listbox">
-          <td>{{tva.taux}}%</td>
-          <td>
-            <button class="btn btn-danger btn-list" title="delete tva" (click)="delete(tva)">Supprimer</button>
-            <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(tva)">
-              Modifier
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+  <div>
+    <div *ngFor="let tva of tvas" (click)="onSelect(tva)" class="card my-3">
+      <div class="card-header">
+        <h3 class="float-left">{{tva.taux}}%</h3>
+        <div class="float-right">
+          <button class="btn btn-danger btn-list" title="delete tva" (click)="delete(tva)">Supprimer</button>
+          <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(tva)">
+            Modifier
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

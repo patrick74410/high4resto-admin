@@ -54,19 +54,18 @@
     data-target="#addAllergene">
     +
   </button>
-  <form>
-    <table class="table">
-      <tbody>
-        <tr *ngFor="let allergene of allergenes; trackBy:util.trackById">
-          <td>{{allergene.name}}</td>
-          <td>
-            <button class="btn btn-danger btn-list" title="delete allergene" (click)="delete(allergene)">Supprimer</button>
-            <button (click)="updateDataForm(allergene)" type="button" class="btn btn-warning btn-list">
-              Modifier
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-</div>
+
+  <div>
+    <div *ngFor="let allergene of allergenes; trackBy:util.trackById" class="card my-3">
+      <div class="card-header">
+        <h3 class="float-left">{{allergene.name}}</h3>
+        <div class="float-right">
+          <button class="btn btn-danger btn-list" title="delete allergene" (click)="delete(allergene)">Supprimer</button>
+          <button (click)="updateDataForm(allergene)" type="button" class="btn btn-warning btn-list">
+            Modifier
+          </button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

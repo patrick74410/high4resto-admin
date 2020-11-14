@@ -170,35 +170,31 @@
         data-target="#addArticle">
         +
     </button>
-    <table class="table" *ngIf="articles">
-        <thead>
-            <tr>
-                <th scope="col">Titre</th>
-                <th scope="col">Résumé</th>
-                <th scope="col">Image</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let article of articles;trackBy:util.trackById">
-                <td>{{article.title}}</td>
-                <td>
-                    <p [innerHTML]="article.resume"></p>
-                </td>
-                <td><img *ngIf="article.image" src="{{urlDownload}}{{article.image.gridId}}" class="thumbnail"
-                        width="120px" alt="{{article.image.alt}}" /></td>
-                <td>
-                    <button (click)="delete(article)" style="display: inline-block; width:120px;margin:auto"
-                        class="btn btn-danger">Suprimer</button>
-                    <span style="margin: 10px;"> </span>
-                    <button type="button" style="display: inline-block; width:120px;margin:auto" class="btn btn-warning"
+
+    <div *ngIf="articles" >
+        <div class="card my-3" *ngFor="let article of articles;trackBy:util.trackById">
+            <div class="card-header">
+                <h3 class="float-left">{{article.title}}</h3>
+                <div class="float-right">
+                    <button (click)="delete(article)" 
+                        class="btn btn-danger btn-list">Suprimer</button>
+                    <button type="button" class="btn btn-list btn-warning"
                         (click)="updateDataForm(article)">
                         Modifier
-                    </button>
-
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
+                    </button>                    
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <img *ngIf="article.image" src="{{urlDownload}}{{article.image.gridId}}" class="thumbnail"
+                        alt="{{article.image.alt}}" width="100%" />                       
+                    </div>
+                    <div class="col-sm-10">
+                        <p [innerHTML]="article.resume"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

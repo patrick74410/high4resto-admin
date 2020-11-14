@@ -6,7 +6,8 @@
             <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
                 <div class="modal-header">
                     <h3 class="modal-title" id="updateModalLabel">Modification de la promotion</h3>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="updateClose" ></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+                        id="updateClose"></button>
                 </div>
                 <div class="modal-body row">
                     <mat-form-field class="col-md-6" appearance="fill">
@@ -50,28 +51,28 @@
                         <input formControlName="dateFin" type="date" matInput>
                     </mat-form-field>
 
-                    
+
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
                             <mat-slide-toggle formControlName="jourFerie">Jour férié</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="lundi">Lundi</mat-slide-toggle>                          
+                            <mat-slide-toggle formControlName="lundi">Lundi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="mardi">Mardi</mat-slide-toggle>     
+                            <mat-slide-toggle formControlName="mardi">Mardi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="mercredi">Mercredi</mat-slide-toggle>        
+                            <mat-slide-toggle formControlName="mercredi">Mercredi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="jeudi">Jeudi</mat-slide-toggle>       
+                            <mat-slide-toggle formControlName="jeudi">Jeudi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="vendredi">Vendredi</mat-slide-toggle>               
+                            <mat-slide-toggle formControlName="vendredi">Vendredi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="samedi">Samedi</mat-slide-toggle>                          
+                            <mat-slide-toggle formControlName="samedi">Samedi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <mat-slide-toggle formControlName="dimanche">Dimanche</mat-slide-toggle>
@@ -95,7 +96,8 @@
             <form [formGroup]="addForm" (ngSubmit)="addData()">
                 <div class="modal-header">
                     <h3 class="modal-title" id="addModalLabel">Ajout d'une promotion</h3>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="addClose"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+                        id="addClose"></button>
                 </div>
                 <div class="modal-body row">
                     <mat-form-field class="col-md-6" appearance="fill">
@@ -146,22 +148,22 @@
                             <mat-slide-toggle formControlName="jourFerie">Jour férié</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="lundi">Lundi</mat-slide-toggle>                          
+                            <mat-slide-toggle formControlName="lundi">Lundi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="mardi">Mardi</mat-slide-toggle>     
+                            <mat-slide-toggle formControlName="mardi">Mardi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="mercredi">Mercredi</mat-slide-toggle>        
+                            <mat-slide-toggle formControlName="mercredi">Mercredi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="jeudi">Jeudi</mat-slide-toggle>       
+                            <mat-slide-toggle formControlName="jeudi">Jeudi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="vendredi">Vendredi</mat-slide-toggle>               
+                            <mat-slide-toggle formControlName="vendredi">Vendredi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <mat-slide-toggle formControlName="samedi">Samedi</mat-slide-toggle>                          
+                            <mat-slide-toggle formControlName="samedi">Samedi</mat-slide-toggle>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <mat-slide-toggle formControlName="dimanche">Dimanche</mat-slide-toggle>
@@ -183,35 +185,36 @@
         data-target="#addModal">
         +
     </button>
-    <form>
-        <table class="table">
-            <tbody>
-                <tr *ngFor="let promotion of promotions; trackBy:util.trackById">
-                    <td>{{promotion.name}}</td>
-                    <td>{{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
-                            *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au
-                        {{promotion.dateFin}} de
-                        {{promotion.heureDebut}} à {{promotion.heureFin}}
-                        <span *ngIf="promotion.jourValide[0]">lundi </span>
-                        <span *ngIf="promotion.jourValide[1]">mardi </span>
-                        <span *ngIf="promotion.jourValide[2]">mercredi </span>
-                        <span *ngIf="promotion.jourValide[3]">jeudi </span>
-                        <span *ngIf="promotion.jourValide[4]">vendredi </span>
-                        <span *ngIf="promotion.jourValide[5]">samedi </span>
-                        <span *ngIf="promotion.jourValide[6]">dimanche </span>
-                        <span *ngIf="promotion.jourFerie">et jours fériés</span>
 
-                    </td>
-                    <td>
-                        <button class="btn btn-danger btn-list" title="delete promotion"
-                            (click)="delete(promotion)">Supprimer</button>
+    <div>
+        <div *ngFor="let promotion of promotions; trackBy:util.trackById" class="card my-3">
+            <div class="card-header">
+                <h3 class="float-left">{{promotion.name}}</h3>
+                <div class="float-right">
+                    <button class="btn btn-danger btn-list" title="delete promotion"
+                        (click)="delete(promotion)">Supprimer</button>
 
-                        <button (click)="updateDataForm(promotion)" type="button" class="btn btn-warning btn-list">
-                            Modifier
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
+                    <button (click)="updateDataForm(promotion)" type="button" class="btn btn-warning btn-list">
+                        Modifier
+                    </button>
+                </div>
+            </div>
+            <div class="card-body row">
+                <p>
+                    {{promotion.reduction}}<span *ngIf="promotion.pourcentage">%</span><span
+                        *ngIf="!promotion.pourcentage">€</span> valable du {{promotion.dateDebut}} au
+                    {{promotion.dateFin}} de
+                    {{promotion.heureDebut}} à {{promotion.heureFin}}
+                    <span *ngIf="promotion.jourValide[0]">lundi </span>
+                    <span *ngIf="promotion.jourValide[1]">mardi </span>
+                    <span *ngIf="promotion.jourValide[2]">mercredi </span>
+                    <span *ngIf="promotion.jourValide[3]">jeudi </span>
+                    <span *ngIf="promotion.jourValide[4]">vendredi </span>
+                    <span *ngIf="promotion.jourValide[5]">samedi </span>
+                    <span *ngIf="promotion.jourValide[6]">dimanche </span>
+                    <span *ngIf="promotion.jourFerie">et jours fériés</span>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
