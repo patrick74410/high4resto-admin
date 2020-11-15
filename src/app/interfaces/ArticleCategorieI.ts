@@ -1,4 +1,4 @@
-import { ImageI } from './imageI';
+import { ImageI } from './ImageI';
 // Catégorie d'articles
 export interface ArticleCategorieI {
     id?: String;

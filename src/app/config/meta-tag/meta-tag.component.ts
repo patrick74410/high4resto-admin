@@ -3,13 +3,13 @@ import { MetaTagService } from '../../services/meta-tag.service'
 import { Util } from '../../environement/util'
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI'
+import { MessageI } from '../../interfaces/MessageI'
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { MetaTagI } from '../../interfaces/MetaTagI'
 import { KeyMapI } from '../../interfaces/KeymapI';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ImageI } from '../../interfaces/imageI'
+import { ImageI } from '../../interfaces/ImageI'
 import { environment } from '../../environement/environement';
 
 declare var bootstrap:any;

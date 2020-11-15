@@ -1,13 +1,13 @@
 import { Component, Input, OnInit,Output, EventEmitter } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { environment } from '../../environement/environement';
-import { ImageI } from '../../interfaces/imageI';
+import { ImageI } from '../../interfaces/ImageI';
 import { ImageService } from '../../services/image.service';
 import { Util } from '../../environement/util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
 import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
-import { CategorieI } from 'src/app/interfaces/categorieI';
+import { CategorieI } from 'src/app/interfaces/CategorieI';
 declare var bootstrap:any;
 
 @Component({

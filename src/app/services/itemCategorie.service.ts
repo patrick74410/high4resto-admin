@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CategorieI } from '../interfaces/categorieI'
+import { CategorieI } from '../interfaces/CategorieI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment} from '../environement/environement'
@@ -10,7 +10,8 @@ import { ItemCarteService } from './item-carte.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CategorieService {
+
+export class ItemCategorieService {
   private categoriesFindUrl = environment.apiUrl+'/categorie/find/';
   private categoriesUpdateUrl = environment.apiUrl+'/categorie/update/';
   private categorieDeleteUrl= environment.apiUrl+'/categorie/delete/';
@@ -23,6 +24,7 @@ export class CategorieService {
   };
 
   getCategories(): Observable<CategorieI[]>{
+    this.itemCarteService.resetList();
     if(!this.categories)
     {
       this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
@@ -49,22 +51,12 @@ export class CategorieService {
   }  
   
   updateCategorie(categorie:CategorieI): Observable<any> {
-  this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
-    for(let item of items)
-    {
-      if(item.categorie.id==categorie.id)
-      {
-        item.categorie=categorie;
-        this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
-      }
-    }
-  })
+    this.itemCarteService.resetList();
    return this.http.put(this.categoriesUpdateUrl,categorie,this.httpOptionsUpdate);
   }
 
   deleteCategorie(categorie:CategorieI): Observable<any> {
     var finalUrl=this.categorieDeleteUrl+categorie.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

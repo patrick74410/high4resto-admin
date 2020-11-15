@@ -3,11 +3,11 @@ import { ImageCategorieService } from '../../services/ImageCategorie.service'
 import { ImageCategorieI } from '../../interfaces/ImageCategorie'
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI'
+import { MessageI } from '../../interfaces/MessageI'
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ImageI } from 'src/app/interfaces/imageI';
+import { ImageI } from 'src/app/interfaces/ImageI';
 import { environment } from '../../environement/environement';
 
 declare var bootstrap: any;
@@ -37,6 +37,7 @@ export class ImageCategorieComponent implements OnInit {
 
   updateModal: any;
   addModal: any;
+
 
   addImage(topImage: ImageI) {
     this.addImageCategorie.topImage = topImage;

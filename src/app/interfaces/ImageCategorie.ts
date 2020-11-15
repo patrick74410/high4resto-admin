@@ -1,4 +1,4 @@
-import { ImageI } from './imageI';
+import { ImageI } from './ImageI';
 
 export interface ImageCategorieI {
 // Catégorie d'images 

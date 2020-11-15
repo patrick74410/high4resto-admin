@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ImageI } from '../interfaces/imageI'
+import { ImageI } from '../interfaces/ImageI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders, HttpParameterCodec, HttpParams, HttpRequest } from '@angular/common/http'
 import { environment } from '../environement/environement';
@@ -8,7 +8,6 @@ import { ImageCategorieI } from '../interfaces/ImageCategorie';
 
 import { IdentiteService } from './identite.service';
 import { ItemCarteService } from './item-carte.service';
-import { CategorieService } from './categorie.service';
 import { ArticleCategorieService } from './categorieArticle.service';
 import { ArticleService } from './article.service';
 
@@ -63,54 +62,6 @@ export class ImageService {
   }
 
   updateImage(image: ImageI): Observable<any> {
-    this.identiteService.getIdentites().pipe(take(1)).subscribe(identites => {
-      for (let identite of identites) {
-        if (identite.logo.id == image.id) {
-          identite.logo = image;
-          this.identiteService.updateIdentite(identite).pipe(take(1)).subscribe();
-        }
-      }
-    })
-    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
-      for (let item of items) {
-        if (item.sourceImage.id == image.id) {
-          item.sourceImage = image;
-          this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
-        }
-      }
-    })
-    this.categorieService.getCategories().pipe(take(1)).subscribe(categories => {
-      for (let categorie of categories) {
-        if (categorie.iconImage.id == image.id) {
-          categorie.iconImage = image;
-          this.categorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
-        }
-        if (categorie.image.id == image.id) {
-          categorie.image = image;
-          this.categorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
-        }
-      }
-    })
-    this.articleService.getArticles().pipe(take(1)).subscribe(articles => {
-      for (let article of articles) {
-        if (article.image.id == image.id) {
-          article.image = image;
-          this.articleService.updateArticle(article).pipe(take(1)).subscribe();
-        }
-      }
-    })
-    this.categorieArticleService.getArticleCategories().pipe(take(1)).subscribe(categoriesArticles => {
-      for (let categorieArticle of categoriesArticles) {
-        if (categorieArticle.iconImage.id == image.id) {
-          categorieArticle.iconImage = image;
-          this.categorieArticleService.updateArticleCategorie(categorieArticle).pipe(take(1)).subscribe();
-        }
-        if (categorieArticle.image.id == image.id) {
-          categorieArticle.image = image;
-          this.categorieArticleService.updateArticleCategorie(categorieArticle).pipe(take(1)).subscribe();
-        }
-      }
-    })
 
     return this.http.put(this.imageUpdateUrl, image, this.httpOptionsUpdate);
   }
@@ -126,7 +77,7 @@ export class ImageService {
 
 
 
-  constructor(private identiteService: IdentiteService, private itemCarteService: ItemCarteService, private categorieService: CategorieService, private categorieArticleService: ArticleCategorieService, private articleService: ArticleService, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 }
 
 export interface HttpParamsOptions {

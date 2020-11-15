@@ -42,22 +42,14 @@ export class ImageCategorieService {
     }
 
     updateImageCategorie(imageCategorie: ImageCategorieI): Observable<any> {
-        this.imageService.getImages().pipe(take(1)).subscribe(images=>{
-            for( let image of images)
-            {
-                if(image.categorie.id==imageCategorie.id)
-                {
-                    image.categorie=imageCategorie;
-                    this.imageService.updateImage(image).pipe(take(1)).subscribe();
-                }
-            }
-        })
+        this.imageService.resetList;
         return this.http.put(this.imageCategoriesUpdateUrl, imageCategorie, this.httpOptionsUpdate);
     }
 
     deleteImageCategorie(imageCategorie: ImageCategorieI): Observable<any> {
+        this.imageService.resetList;
+        this.resetList();
         var finalUrl = this.imageCategorieDeleteUrl + imageCategorie.id;
-        console.log(finalUrl);
         return this.http.delete(finalUrl);
     }
 

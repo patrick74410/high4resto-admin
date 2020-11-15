@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PromotionI } from '../interfaces/promotionI'
+import { PromotionI } from '../interfaces/PromotionI'
 import { Observable} from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../environement/environement';

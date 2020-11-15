@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AllergeneI } from '../interfaces/allergeneI'
+import { AllergeneI } from '../interfaces/AllergeneI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import {environment} from '../environement/environement'

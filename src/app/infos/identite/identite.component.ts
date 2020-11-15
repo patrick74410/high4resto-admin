@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { IdentiteService } from '../../services/identite.service'
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI'
+import { MessageI } from '../../interfaces/MessageI'
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { IdentiteI } from '../../interfaces/IdentiteI'
 import { KeyMapI } from '../../interfaces/KeymapI';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GpsI } from '../../interfaces/GpsI';
-import { ImageI } from '../../interfaces/imageI';
+import { ImageI } from '../../interfaces/ImageI';
 import { ImageService} from '../../services/image.service'
 import { environment } from '../../environement/environement';
 import { Util } from '../../environement/util'
@@ -103,7 +103,7 @@ export class IdentiteComponent implements OnInit {
 
  
 
-  constructor(private imageService:ImageService,private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;

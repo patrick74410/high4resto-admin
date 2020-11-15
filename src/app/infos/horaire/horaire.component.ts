@@ -3,7 +3,7 @@ import { HoraireService } from '../../services/horaire.service'
 import { Util } from '../../environement/util'
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI'
+import { MessageI } from '../../interfaces/MessageI'
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { HoraireI } from '../../interfaces/HoraireI'

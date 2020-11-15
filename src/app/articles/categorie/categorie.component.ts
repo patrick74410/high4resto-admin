@@ -4,12 +4,12 @@ import { ArticleCategorieI} from '../../interfaces/ArticleCategorieI'
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService} from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI';
+import { MessageI } from '../../interfaces/MessageI';
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Util } from '../../environement/util';
-import { ImageI } from '../../interfaces/imageI';
+import { ImageI } from '../../interfaces/ImageI';
 import { environment } from '../../environement/environement';
 
 declare var bootstrap:any;

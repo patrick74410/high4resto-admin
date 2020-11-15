@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PromotionService } from '../../services/promotion.service'
-import { PromotionI} from '../../interfaces/promotionI'
+import { PromotionI} from '../../interfaces/PromotionI'
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI'
+import { MessageI } from '../../interfaces/MessageI'
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { FormControl, FormGroup,Validators } from '@angular/forms';

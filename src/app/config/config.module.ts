@@ -8,10 +8,13 @@ import { SharedModule } from '../shared/shared.module';
 import { MetaTagComponent } from './meta-tag/meta-tag.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { WebConfigComponent } from './web-config/web-config.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
-  declarations: [TvaComponent,MetaTagComponent],
+  declarations: [TvaComponent,MetaTagComponent, WebConfigComponent],
   imports: [
     CommonModule,
     ConfigRoutingModule,
@@ -20,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
     SharedModule,
     MatFormFieldModule,
     MatInputModule,
-  ]
+    MatSelectModule,
+    MatSlideToggleModule]
 })
 export class ConfigModule { }

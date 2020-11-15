@@ -1,5 +1,5 @@
 import { ArticleCategorieI } from './ArticleCategorieI';
-import { ImageI } from './imageI';
+import { ImageI } from './ImageI';
 
 // Un Article
 export interface ArticleI{

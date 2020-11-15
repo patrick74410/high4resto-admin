@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ItemCarteI } from '../interfaces/itemCarteI'
+import { ItemCarteI } from '../interfaces/ItemCarteI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../environement/environement';

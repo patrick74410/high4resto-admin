@@ -1,4 +1,4 @@
-import { ImageI } from './imageI';
+import { ImageI } from './ImageI';
 // Catégorie de menu 
 export interface CategorieI {
     id?: String;

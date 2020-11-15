@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CategorieService } from '../../services/categorie.service'
-import { CategorieI} from '../../interfaces/categorieI'
+import { ItemCategorieService } from '../../services/itemCategorie.service'
+import { CategorieI} from '../../interfaces/CategorieI'
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService} from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI';
+import { MessageI } from '../../interfaces/MessageI';
 import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Util } from '../../environement/util';
-import { ImageI } from '../../interfaces/imageI';
+import { ImageI } from '../../interfaces/ImageI';
 import { environment } from '../../environement/environement';
 
 declare var bootstrap:any;
@@ -89,9 +89,9 @@ export class CategorieComponent implements OnInit {
     this.addCategorie.name=this.addForm.get("name").value.trim();
     this.addCategorie.order=this.categories.length+1;
     if (!this.addCategorie.name) { return; }
-    this.categorieService.addCategorie(this.addCategorie).pipe(take(1))
+    this.itemCategorieService.addCategorie(this.addCategorie).pipe(take(1))
       .subscribe(categorie => {
-        this.categorieService.resetList();
+        this.itemCategorieService.resetList();
         this.categories.push(categorie)
         this.messageService.add(message);
         this.addForm.reset();
@@ -110,7 +110,7 @@ export class CategorieComponent implements OnInit {
     this.selectedCategorie.name=this.updateForm.get("name").value;
     this.selectedCategorie.description=this.updateForm.get("description").value;
 
-    this.categorieService.updateCategorie(this.selectedCategorie)
+    this.itemCategorieService.updateCategorie(this.selectedCategorie)
       .pipe(take(1)).subscribe(item=>{this.messageService.add(message),document.getElementById("updateClose").click();});
   }
   
@@ -119,7 +119,7 @@ export class CategorieComponent implements OnInit {
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer la catégorie ?",function(){
-      that.categorieService.deleteCategorie(categorie).pipe(take(1)).subscribe( test=>
+      that.itemCategorieService.deleteCategorie(categorie).pipe(take(1)).subscribe( test=>
         {
           var index = that.categories.indexOf(categorie);
           that.categories.splice(index, 1);
@@ -128,7 +128,7 @@ export class CategorieComponent implements OnInit {
         
         that.categories.forEach((categorie, idx) => {
           categorie.order = idx + 1;
-          that.categorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
+          that.itemCategorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
         });
         that.selectedCategorie=null;
     },function(){
@@ -137,7 +137,7 @@ export class CategorieComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categorieService.getCategories().pipe(take(1)).subscribe(categories => this.categories=categories.sort((a,b)=>{
+    this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories => this.categories=categories.sort((a,b)=>{
       if(a.order>b.order)
       {
         return 1;
@@ -156,14 +156,14 @@ export class CategorieComponent implements OnInit {
     moveItemInArray(this.categories, event.previousIndex, event.currentIndex);
     this.categories.forEach((categorie, idx) => {
       categorie.order = idx + 1;
-      this.categorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
+      this.itemCategorieService.updateCategorie(categorie).pipe(take(1)).subscribe();
     });
 
     this.messageService.add(message);
   }
 
 
-  constructor(private categorieService:CategorieService, private alertService: AlertService,private messageService:MessageService,private expireService:ExpireService) { }
+  constructor(private itemCategorieService:ItemCategorieService, private alertService: AlertService,private messageService:MessageService,private expireService:ExpireService) { }
 
   ngOnInit(): void {
     this.getCategories();

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import {MessageService} from '../messages/message.service'
 import { AuthentificationService } from '../../services/Auth/authentification.service';
-import { MessageI } from '../../interfaces/messageI';
+import { MessageI } from '../../interfaces/MessageI';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {

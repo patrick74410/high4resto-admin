@@ -4,7 +4,7 @@ import { OptionsItemI } from '../../interfaces/OptionsItem'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/messageI';
+import { MessageI } from '../../interfaces/MessageI';
 import { ExpireService } from '../../services/expire.service';
 import { OptionItemI } from '../../interfaces/OptionItem';
 import { take } from 'rxjs/operators';

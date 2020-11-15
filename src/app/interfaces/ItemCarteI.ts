@@ -1,9 +1,9 @@
-import { CategorieI } from './categorieI';
-import {AllergeneI} from './allergeneI'
-import { ImageI } from './imageI';
+import { CategorieI } from './CategorieI';
+import {AllergeneI} from './AllergeneI'
+import { ImageI } from './ImageI';
 import { TvaI } from './TvaI';
 import { OptionsItemI } from './OptionsItem';
-import { PromotionI } from './promotionI';
+import { PromotionI } from './PromotionI';
 
 export interface ItemCarteI {
     // Elément de la carte

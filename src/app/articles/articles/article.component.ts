@@ -10,8 +10,8 @@ import { environment } from '../../environement/environement';
 import { ImageService } from '../../services/image.service'
 import { ArticleCategorieService } from '../../services/categorieArticle.service'
 import { ArticleCategorieI } from '../../interfaces/ArticleCategorieI';
-import { ImageI } from '../../interfaces/imageI';
-import { MessageI } from '../../interfaces/messageI';
+import { ImageI } from '../../interfaces/ImageI';
+import { MessageI } from '../../interfaces/MessageI';
 import { ArticleI } from '../../interfaces/ArticleI'
 
 declare var bootstrap: any;
@@ -58,8 +58,18 @@ export class ArticleComponent implements OnInit {
 
   filter(): void {
     this.articleService.getArticles().pipe(take(1)).subscribe(items => {
-      var id=((this.filterForm.get("filter").value as ArticleCategorieI).id);
-      this.articles = items.filter(a => a.categorie.id == id)
+
+      if((this.filterForm.get("filter").value as ArticleCategorieI))
+      {
+        var id=((this.filterForm.get("filter").value as ArticleCategorieI).id);
+        this.articles=items.filter(a=>a.categorie!=null);
+        this.articles=this.articles.filter(a=>a.categorie.id== id);
+      }
+      else
+      {
+        this.articles=items.filter(a=>a.categorie==null);
+
+      }
     });
   }
 

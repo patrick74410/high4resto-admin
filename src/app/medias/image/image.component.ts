@@ -1,11 +1,11 @@
 import { Component, OnInit} from '@angular/core';
 import { NgxPicaService, NgxPicaErrorInterface, NgxPicaResizeOptionsInterface } from '@digitalascetic/ngx-pica';
 import { AspectRatioOptions, ExifOptions } from '@digitalascetic/ngx-pica/lib/ngx-pica-resize-options.interface';
-import { ImageI } from '../../interfaces/imageI'
+import { ImageI } from 'src/app/interfaces/ImageI'
 import { ImageService } from '../../services/image.service'
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from '../../rootComponent/messages/message.service';
-import { MessageI } from '../../interfaces/messageI';
+import { MessageI } from 'src/app/interfaces/MessageI';
 import { ExpireService } from '../../services/expire.service';
 import { environment } from '../../environement/environement';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -76,8 +76,17 @@ export class ImageComponent implements OnInit {
 
   filter(): void {
     this.imageService.getImages().pipe(take(1)).subscribe(items => {
-      var id=((this.filterForm.get("filter").value as ImageCategorieI).id);
-      this.images = items.filter(a => a.categorie.id == id)
+        if((this.filterForm.get("filter").value as ImageCategorieI))
+        {
+          var id=((this.filterForm.get("filter").value as ImageCategorieI).id);
+          this.images=items.filter(a=>a.categorie!=null);
+          this.images=this.images.filter(a=>a.categorie.id== id);
+        }
+        else
+        {
+          this.images=items.filter(a=>a.categorie==null);
+
+        }
     });
   }
 

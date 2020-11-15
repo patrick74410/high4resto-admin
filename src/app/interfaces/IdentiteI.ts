@@ -1,5 +1,5 @@
 import { GpsI } from './GpsI';
-import { ImageI } from './imageI';
+import { ImageI } from './ImageI';
 import {KeyMapI} from './KeymapI'
 // Identité de l'établissement
 export interface IdentiteI {

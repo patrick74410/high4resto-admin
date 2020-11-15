@@ -133,6 +133,7 @@
         aria-label="Default select">
         <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
           {{categorie.name}}</option>
+          <option [ngValue]="null">Catégorie null</option>
       </select>
     </div>
   </form>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MessageI } from '../../interfaces/messageI'
+import { MessageI } from '../../interfaces/MessageI'
 
 declare var bootstrap:any;
 

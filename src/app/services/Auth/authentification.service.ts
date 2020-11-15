@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environement/environement';
-import { ConnexionI } from '../../interfaces/connexionI';
+import { ConnexionI } from '../../interfaces/ConnexionI';
 
 @Injectable({
   providedIn: 'root'
