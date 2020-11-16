@@ -58,7 +58,6 @@ export class TvaService {
 
   deleteTva(tva:TvaI): Observable<any> {
     var finalUrl=this.tvaDeleteUrl+tva.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

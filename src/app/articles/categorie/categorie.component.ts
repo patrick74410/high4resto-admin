@@ -83,7 +83,6 @@ export class CategorieComponent implements OnInit {
 
 
   addData(): void{
-    console.log("ok");
     const message:MessageI={content:'La catégorie a été rajoutée',level:'Info'}
     this.addArticleCategorie.description=this.addForm.get("description").value;
     this.addArticleCategorie.name=this.addForm.get("name").value.trim();

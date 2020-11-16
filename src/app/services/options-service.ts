@@ -43,25 +43,13 @@ export class OptionsItemService {
   }
 
   updateOption(OptionsItem:OptionsItemI): Observable<any> {
-    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
-      for(let item of items)
-      {
-        for(let choixI of item.options)
-        {
-          if(choixI.id==OptionsItem.id)
-          {
-            item.options[(item.options.indexOf(choixI))]=OptionsItem;
-          }
-        }
-       this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
-      }     
-    });
+    this.resetList();
+    this.itemCarteService.resetList();
    return this.http.put(this.optionsItemsUpdateUrl,OptionsItem,this.httpOptionsUpdate);
   }
 
   deleteOption(OptionsItem:OptionsItemI): Observable<any> {
     var finalUrl=this.optionsItemDeleteUrl+OptionsItem.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

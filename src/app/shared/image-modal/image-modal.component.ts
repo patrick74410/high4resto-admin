@@ -7,7 +7,7 @@ import { Util } from '../../environement/util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
 import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
-import { CategorieI } from 'src/app/interfaces/CategorieI';
+import { ItemCategorieI } from 'src/app/interfaces/ItemCategorieI';
 declare var bootstrap:any;
 
 @Component({
@@ -18,7 +18,7 @@ declare var bootstrap:any;
 
 export class ImageModalComponent implements OnInit {
   images:ImageI[];
-  categories:CategorieI[];
+  categories:ItemCategorieI[];
   util = new Util();
   urlDownload:String=environment.apiUrl+"/images/download/";
   selectImage : ImageI;

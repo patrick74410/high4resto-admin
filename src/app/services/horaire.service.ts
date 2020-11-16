@@ -47,7 +47,6 @@ export class HoraireService {
 
   deleteHoraire(horaire:HoraireI): Observable<any> {
     var finalUrl=this.horaireDeleteUrl+horaire.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

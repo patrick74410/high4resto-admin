@@ -47,7 +47,6 @@ export class ArticleService {
 
   deleteArticle(article:ArticleI): Observable<any> {
     var finalUrl=this.articleDeleteUrl+article.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

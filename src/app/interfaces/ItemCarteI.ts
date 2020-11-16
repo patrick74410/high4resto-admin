@@ -1,4 +1,4 @@
-import { CategorieI } from './CategorieI';
+import { ItemCategorieI } from './ItemCategorieI';
 import {AllergeneI} from './AllergeneI'
 import { ImageI } from './ImageI';
 import { TvaI } from './TvaI';
@@ -19,7 +19,7 @@ export interface ItemCarteI {
     // Image
     sourceImage: ImageI;
     // Entrée? plat ? dessert? 
-    categorie: CategorieI;
+    categorie: ItemCategorieI;
     // Liste d'allergènes
     allergenes: AllergeneI[];
     // Taux TVA

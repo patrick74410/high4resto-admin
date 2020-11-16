@@ -1,6 +1,6 @@
 import { ImageI } from './ImageI';
 // Catégorie de menu 
-export interface CategorieI {
+export interface ItemCategorieI {
     id?: String;
     // Nom de la catégorie
     name: String;

@@ -648,32 +648,40 @@
                             </ul>
                         </div>
                     </div>
-                    <div *ngFor="let option of this.selectedItem.options;trackBy:util.trackById;let id=index">
-                        <div *ngIf="option.unique">
-                            <h3>{{option.label}}</h3>
-                            <div *ngFor="let choix of option.options;let idx=index">
-                                <div (*ngif)="option.unique" class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault{{id}}"
-                                        id="Default{{idx}}">
-                                    <label class="form-check-label" for="Default{{idx}}">
-                                        {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
-                                    </label>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <button type="button" class="btn btn-info mbutton" (click)="updateSelectedOptions()"
+                            data-dismiss="modal">
+                            Options
+                        </button>
+                        <div *ngFor="let option of this.selectedItem.options;trackBy:util.trackById;let id=index">
+                            <div *ngIf="option.unique">
+                                <h3>{{option.label}}</h3>
+                                <div *ngFor="let choix of option.options;let idx=index">
+                                    <div (*ngif)="option.unique" class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault{{id}}"
+                                            id="Default{{idx}}">
+                                        <label class="form-check-label" for="Default{{idx}}">
+                                            {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div *ngIf="!option.unique">
-                            <h3>{{option.label}}</h3>
-                            <div *ngFor="let choix of option.options;let idx=index">
-                                <div (*ngif)="option.unique" class="form-check">
-                                    <input class="form-check-input" type="checkbox">
-                                    <label class="form-check-label" for="DefaultC{{idx}}">
-                                        {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
-                                    </label>
+                            <div *ngIf="!option.unique">
+                                <h3>{{option.label}}</h3>
+                                <div *ngFor="let choix of option.options;let idx=index">
+                                    <div (*ngif)="option.unique" class="form-check">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label" for="DefaultC{{idx}}">
+                                            {{choix.label}} <span *ngIf="choix.price>0">{{choix.price}}€</span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
-                        <hr>
                     </div>
+
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <button type="button" class="btn btn-info mbutton" (click)="updateSelectedPromotions()"
                             data-dismiss="modal">
@@ -700,6 +708,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
 
                 <div class="modal-footer">
@@ -717,8 +727,8 @@
     <h2 class="text-center">Gestion des éléments de la carte</h2>
     <form [formGroup]="filterForm">
         <div class="mb-3">
-            <label class="form-label" for="addCa">Filtrer par:</label>
-            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
+            <label class="form-label" for="adddCa">Filtrer par:</label>
+            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="adddCa"
                 class="form-select" aria-label="Default select">
                 <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
                     {{categorie.name}}</option>
@@ -739,12 +749,10 @@
                 <div class="card-header">
                     <h3 class="float-left">{{item.name}}</h3>
                     <div class="float-right">
-                        <button (click)="delete(item)"
-                        class="btn btn-danger btn-list">Suprimer</button>
-                    <button type="button" class="btn btn-warning btn-list"
-                        (click)="updateDataForm(item)">
-                        Modifier
-                    </button>                        
+                        <button (click)="delete(item)" class="btn btn-danger btn-list">Suprimer</button>
+                        <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(item)">
+                            Modifier
+                        </button>
                     </div>
                 </div>
                 <div class="card-body row">

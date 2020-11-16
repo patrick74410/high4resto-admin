@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemCategorieService } from '../../services/itemCategorie.service'
-import { CategorieI} from '../../interfaces/CategorieI'
+import { ItemCategorieI} from '../../interfaces/ItemCategorieI'
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
 import { MessageService} from '../../rootComponent/messages/message.service'
@@ -21,9 +21,9 @@ declare var bootstrap:any;
 })
 
 export class CategorieComponent implements OnInit {
-  categories: CategorieI[];
-  selectedCategorie: CategorieI;
-  addCategorie:CategorieI={name:"",description:""};
+  categories: ItemCategorieI[];
+  selectedCategorie: ItemCategorieI;
+  addCategorie:ItemCategorieI={name:"",description:""};
   util=new Util();
   urlDownload:String=environment.apiUrl+"/images/download/";
 
@@ -83,7 +83,6 @@ export class CategorieComponent implements OnInit {
 
 
   addData(): void{
-    console.log("ok");
     const message:MessageI={content:'La catégorie a été rajoutée',level:'Info'}
     this.addCategorie.description=this.addForm.get("description").value;
     this.addCategorie.name=this.addForm.get("name").value.trim();
@@ -99,7 +98,7 @@ export class CategorieComponent implements OnInit {
       });    
   }
 
-  updateDataForm(selectedCategorie:CategorieI):void{
+  updateDataForm(selectedCategorie:ItemCategorieI):void{
     this.updateForm.patchValue({name:selectedCategorie.name,description: selectedCategorie.description});
     this.updateModal.show();
     this.selectedCategorie=selectedCategorie;
@@ -114,7 +113,7 @@ export class CategorieComponent implements OnInit {
       .pipe(take(1)).subscribe(item=>{this.messageService.add(message),document.getElementById("updateClose").click();});
   }
   
-  delete(categorie:CategorieI):void {
+  delete(categorie:ItemCategorieI):void {
     const message:MessageI={content:'L\'élément à été supprimé',level:'Attention'}
 
     let that = this;

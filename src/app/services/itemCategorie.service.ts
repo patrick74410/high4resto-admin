@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CategorieI } from '../interfaces/CategorieI'
+import { ItemCategorieI } from '../interfaces/ItemCategorieI'
 import { Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment} from '../environement/environement'
@@ -17,23 +17,23 @@ export class ItemCategorieService {
   private categorieDeleteUrl= environment.apiUrl+'/categorie/delete/';
   private categorieAddUrl=environment.apiUrl+'/categorie/insert/';
 
-  private categories:Observable<CategorieI[]>;
+  private categories:Observable<ItemCategorieI[]>;
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getCategories(): Observable<CategorieI[]>{
+  getCategories(): Observable<ItemCategorieI[]>{
     this.itemCarteService.resetList();
     if(!this.categories)
     {
-      this.http.get<CategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
-        this.categories=new Observable<CategorieI[]>(observe=>{
+      this.http.get<ItemCategorieI[]>(this.categoriesFindUrl).pipe(take(1)).subscribe(categories=>{
+        this.categories=new Observable<ItemCategorieI[]>(observe=>{
           observe.next(categories);
           observe.complete;
         })
       })
-        return this.http.get<CategorieI[]>(this.categoriesFindUrl);
+        return this.http.get<ItemCategorieI[]>(this.categoriesFindUrl);
     }
     else
     {
@@ -41,8 +41,8 @@ export class ItemCategorieService {
     }
   }
 
-  gets(): Observable<CategorieI[]>{
-      return this.http.get<CategorieI[]>(this.categoriesFindUrl);
+  gets(): Observable<ItemCategorieI[]>{
+      return this.http.get<ItemCategorieI[]>(this.categoriesFindUrl);
   }
 
 
@@ -50,18 +50,18 @@ export class ItemCategorieService {
     this.categories=null;
   }  
   
-  updateCategorie(categorie:CategorieI): Observable<any> {
+  updateCategorie(categorie:ItemCategorieI): Observable<any> {
     this.itemCarteService.resetList();
    return this.http.put(this.categoriesUpdateUrl,categorie,this.httpOptionsUpdate);
   }
 
-  deleteCategorie(categorie:CategorieI): Observable<any> {
+  deleteCategorie(categorie:ItemCategorieI): Observable<any> {
     var finalUrl=this.categorieDeleteUrl+categorie.id;
     return this.http.delete(finalUrl);
   }
 
-  addCategorie(categorie:CategorieI):Observable<CategorieI> {
-    return this.http.put<CategorieI>(this.categorieAddUrl,categorie,this.httpOptionsUpdate);
+  addCategorie(categorie:ItemCategorieI):Observable<ItemCategorieI> {
+    return this.http.put<ItemCategorieI>(this.categorieAddUrl,categorie,this.httpOptionsUpdate);
   }
 
   constructor(private itemCarteService:ItemCarteService,private http: HttpClient) { }

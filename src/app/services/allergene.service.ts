@@ -44,25 +44,14 @@ import { ItemCarteService } from './item-carte.service';
 }
 
   updateAllergene(allergene:AllergeneI): Observable<any> {
-    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
-      for(let item of items)
-      {
-        for(let allergeneI of item.allergenes)
-        {
-          if(allergeneI.id==allergene.id)
-          {
-            item.allergenes[(item.allergenes.indexOf(allergeneI))]=allergene;
-          }
-        }
-       this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
-      }
-    })
+    this.itemCarteService.resetList;
    return this.http.put(this.allergenesUpdateUrl,allergene,this.httpOptionsUpdate);
   }
 
   deleteAllergene(allergene:AllergeneI): Observable<any> {
+    this.resetList;
+    this.itemCarteService.resetList;
     var finalUrl=this.allergeneDeleteUrl+allergene.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

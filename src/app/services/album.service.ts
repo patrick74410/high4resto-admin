@@ -46,7 +46,6 @@ export class AlbumService {
 
   deleteAlbum(album:AlbumI): Observable<any> {
     var finalUrl=this.albumDeleteUrl+album.id;
-    console.log(finalUrl);
     return this.http.delete(finalUrl);
   }
 

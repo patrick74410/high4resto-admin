@@ -29,8 +29,6 @@ export class ImageService {
 
 
   uploadImage(file: File, description: string, categorie: ImageCategorieI, alt: string, link: string): Observable<any> {
-    console.log(link);
-    console.log(alt);
     const paramsFile = new FormData();
     paramsFile.append('file', file);
     const headers = new HttpHeaders();
@@ -67,10 +65,13 @@ export class ImageService {
   }
 
   deleteImage(image: ImageI): Observable<any> {
+    this.resetList();
     var finalUrl = this.imageDeleteUrl + image.id;
     return this.http.delete(finalUrl);
   }
+
   deleteImageGrid(image: ImageI): Observable<any> {
+    this.resetList;
     var finalUrl = this.imageDeleteGridUrl + image.gridId;
     return this.http.delete(finalUrl);
   }

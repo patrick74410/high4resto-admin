@@ -11,7 +11,7 @@ import { TvaService } from '../../services/tva.service';
 import { ExpireService } from '../../services/expire.service';
 import { OptionsItemService } from '../../services/options-service'
 
-import { CategorieI } from '../../interfaces/CategorieI'
+import { ItemCategorieI } from '../../interfaces/ItemCategorieI'
 import { ImageI } from '../../interfaces/ImageI'
 import { AllergeneI } from '../../interfaces/AllergeneI'
 import { ItemCarteI } from '../../interfaces/ItemCarteI'
@@ -37,7 +37,7 @@ export class ListItemCarteComponent implements OnInit {
   itemCarte: ItemCarteI;
   selectedItem: ItemCarteI;
   itemsCarte: ItemCarteI[];
-  categories: CategorieI[];
+  categories: ItemCategorieI[];
   images: ImageI[];
   allergenes: AllergeneI[];
   allergenesAdd: AllergeneI[] = [];
@@ -193,8 +193,8 @@ export class ListItemCarteComponent implements OnInit {
   filter(): void {
     this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
 
-      if ((this.filterForm.get("filter").value as CategorieI)) {
-        var id = ((this.filterForm.get("filter").value as CategorieI).id);
+      if ((this.filterForm.get("filter").value as ItemCategorieI)) {
+        var id = ((this.filterForm.get("filter").value as ItemCategorieI).id);
         this.itemsCarte = items.filter(a => a.categorie != null);
         this.itemsCarte = this.itemsCarte.filter(a => a.categorie.id == id).sort((a, b) => {
           if (a.order > b.order)
@@ -207,7 +207,6 @@ export class ListItemCarteComponent implements OnInit {
       }
       else {
         this.itemsCarte = items.filter(a => {
-          console.log(a.categorie);
           return a.categorie.id == null}
           );
        }

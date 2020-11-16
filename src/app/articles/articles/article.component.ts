@@ -110,7 +110,6 @@ export class ArticleComponent implements OnInit {
     {
       this.addArticle.title=this.addForm.get("title").value;
       this.addArticle.resume=this.addForm.get("resume").value;
-      console.log(this.addArticle.resume,this.addArticle.title);
       this.addArticle.categorie = (this.addForm.get("categorie").value) as ArticleCategorieI;
       this.addArticle.author = this.addForm.get("author").value;
       this.addArticle.content = this.addForm.get("content").value;

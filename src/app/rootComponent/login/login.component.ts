@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.log(error);
                     if(error!=null)
                     {
                         const message:MessageI={content:error,level:'Erreur'}

@@ -48,25 +48,15 @@ export class PromotionService {
   }
 
   deletePromotion(promotion:PromotionI): Observable<any> {
+    this.resetList();
+    this.itemCarteService.resetList();
     var finalUrl=this.promotionDeleteUrl+promotion.id;
     return this.http.delete(finalUrl);
   }
  
   updatePromotion(promotion:PromotionI): Observable<any> {
-    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => { 
-      for(let item of items)
-      {
-        for (let promotionZ of item.promotions)
-        {
-          if(promotionZ.id==promotion.id)
-          {
-            item.promotions[(item.promotions.indexOf(promotionZ))]=promotion;
-          }
-        }
-        this.itemCarteService.updateItem(item).pipe(take(1)).subscribe();
-      }
-    })
-
+    this.resetList();
+    this.itemCarteService.resetList();
     return this.http.put(this.promotionUpdateUrl,promotion,this.httpOptionsUpdate);
   }
 
