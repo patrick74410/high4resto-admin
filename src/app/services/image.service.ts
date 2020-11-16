@@ -6,11 +6,6 @@ import { environment } from '../environement/environement';
 import { take } from 'rxjs/operators';
 import { ImageCategorieI } from '../interfaces/ImageCategorie';
 
-import { IdentiteService } from './identite.service';
-import { ItemCarteService } from './item-carte.service';
-import { ArticleCategorieService } from './categorieArticle.service';
-import { ArticleService } from './article.service';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -75,8 +70,6 @@ export class ImageService {
     var finalUrl = this.imageDeleteGridUrl + image.gridId;
     return this.http.delete(finalUrl);
   }
-
-
 
   constructor(private http: HttpClient) { }
 }

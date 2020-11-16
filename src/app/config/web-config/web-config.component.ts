@@ -1,4 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
@@ -32,7 +31,9 @@ export class WebConfigComponent implements OnInit {
     title:new FormControl(''),
     googleMapApi:new FormControl(''),
     qty:new FormControl(''),
-    caroussel:new FormControl('')
+    caroussel:new FormControl(''),
+    auth0Key:new FormControl(''),
+    auth0Domain:new FormControl(''),
   })
 
   urlDownload:String=environment.apiUrl+"/images/download/";
@@ -59,6 +60,8 @@ export class WebConfigComponent implements OnInit {
     this.webConfig.title=this.updateForm.get("title").value;
     this.webConfig.logo=this.selectedLogo;
     this.webConfig.qty=this.updateForm.get("qty").value;
+   this.webConfig.auth0Domain=this.updateForm.get("auth0Domain").value;
+    this.webConfig.auth0Key=this.updateForm.get("auth0Key").value;
     this.webConfigService.updateWebConfig(this.webConfig).pipe(take(1)).subscribe(t=>{
       const message:MessageI={content:'La configuration du site web a bien été enregistrée',level:'Info'};
       this.messageService.add(message);
@@ -75,6 +78,8 @@ export class WebConfigComponent implements OnInit {
         caroussel:this.webConfig.caroussel,
         googleMapApi:this.webConfig.googleMapApi,
         qty:this.webConfig.qty,
+        auth0Key:this.webConfig.auth0Key,
+        auth0Domain:this.webConfig.auth0Domain,
       });
     });
   }

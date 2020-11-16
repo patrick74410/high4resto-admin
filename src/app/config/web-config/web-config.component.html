@@ -17,6 +17,14 @@
                     <mat-label>Clef de l'API Google Map</mat-label>
                     <input formControlName="googleMapApi" type="text" matInput>
                 </mat-form-field>
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Clef de l'API Auth0</mat-label>
+                    <input formControlName="auth0Key" type="text" matInput>
+                </mat-form-field>
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Domaine de Auth0</mat-label>
+                    <input formControlName="auth0Domain" type="text" matInput>
+                </mat-form-field>
                 <mat-form-field appearance="fill" class="col-12">
                     <mat-label>Catégorie de l'image</mat-label>
                     <mat-select formControlName="caroussel" [compareWith]="compareByID">
