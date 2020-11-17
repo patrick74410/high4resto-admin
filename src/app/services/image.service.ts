@@ -22,7 +22,6 @@ export class ImageService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-
   uploadImage(file: File, description: string, categorie: ImageCategorieI, alt: string, link: string): Observable<any> {
     const paramsFile = new FormData();
     paramsFile.append('file', file);
@@ -68,6 +67,12 @@ export class ImageService {
   deleteImageGrid(image: ImageI): Observable<any> {
     this.resetList;
     var finalUrl = this.imageDeleteGridUrl + image.gridId;
+    return this.http.delete(finalUrl);
+  }
+  
+  deleteImageMiniGrid(image: ImageI): Observable<any> {
+    this.resetList;
+    var finalUrl = this.imageDeleteGridUrl + image.miniGridId;;
     return this.http.delete(finalUrl);
   }
 
