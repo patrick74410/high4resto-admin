@@ -1,10 +1,12 @@
 <app-image-modal idModal="twitterModal" (newItemEvent)="selectTwitter($event)"></app-image-modal>
 <app-image-modal idModal="facebookModal" (newItemEvent)="selectFacebook($event)"></app-image-modal>
+<div class="jumbotron">
+    <h2 class="text-center">Mes données de réferencements</h2>
+</div>
 
-<h2 class="text-center">Mes données de réferencements</h2>
 <div class="container" *ngIf="metaTag">
     <form class="row" [formGroup]="updateForm">
-        <div class="col-12 mt-3 mb-3">
+        <div class="col-12 mt-3 mb-5">
             <button type="button" class="btn btn-warning float-right" (click)="save()">Enregistrer les modifications</button>
         </div>
 

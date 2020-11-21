@@ -48,12 +48,10 @@ export class ListItemCarteComponent implements OnInit {
   optionsSelected: OptionsItemI[] = [];
   promotions: PromotionI[] = [];
   promotionsSelected: PromotionI[] = [];
+  itemCategorie:ItemCategorieI;
 
   util = new Util();
 
-  filterForm = new FormGroup({
-    filter: new FormControl('', Validators.required)
-  })
 
   updateItemImage(image: ImageI) {
     this.selectedItem.sourceImage = image;
@@ -65,7 +63,7 @@ export class ListItemCarteComponent implements OnInit {
 
   addForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    description: new FormControl(''),
     price: new FormControl('', Validators.required),
     tva: new FormControl('', Validators.required),
     categorie: new FormControl('', Validators.required),
@@ -75,7 +73,7 @@ export class ListItemCarteComponent implements OnInit {
 
   updateForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    description: new FormControl(''),
     price: new FormControl('', Validators.required),
     tva: new FormControl('', Validators.required),
     categorie: new FormControl('', Validators.required),
@@ -88,6 +86,17 @@ export class ListItemCarteComponent implements OnInit {
   selectedImage: ImageI;
 
   compareFn = this._compareFn.bind(this);
+
+  addCategorie(name:string): void {
+    this.itemCategorieService.addCategorie(({name:name,description:"", visible:true} as ItemCategorieI))
+    .pipe(take(1)).subscribe(t=>{
+      this.itemCategorieService.resetList();
+      this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories=>{
+        this.categories = categories;
+      })
+    });
+  }
+
   _compareFn(a, b) {
     try {
       return a.id === b.id;
@@ -97,6 +106,11 @@ export class ListItemCarteComponent implements OnInit {
     }
   }
 
+  addClearDate(): void {
+    this.selectedImage=null
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{this.allergenes=allergenes});
+  }
+
   updateDataForm(selectedItem: ItemCarteI): void {
     this.updateForm.patchValue({
       name: selectedItem.name,
@@ -104,7 +118,10 @@ export class ListItemCarteComponent implements OnInit {
       price: selectedItem.price,
       tva: selectedItem.tva,
       categorie: selectedItem.categorie,
+      visible:selectedItem.visible,
     });
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>this.allergenes= allergenes);
+    this.selectedImage=selectedItem.sourceImage;
     var updateModal = new bootstrap.Modal(document.getElementById('updateModal'), {});
     updateModal.show();
     this.selectedItem = selectedItem;
@@ -190,11 +207,13 @@ export class ListItemCarteComponent implements OnInit {
     this.messageService.add(message);
   }
 
-  filter(): void {
+  filter(categorie:ItemCategorieI): void {
+    this.itemCategorie=categorie;
+    this.addForm.patchValue({categorie:categorie});
     this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
 
-      if ((this.filterForm.get("filter").value as ItemCategorieI)) {
-        var id = ((this.filterForm.get("filter").value as ItemCategorieI).id);
+      if (categorie) {
+        var id = (categorie.id);
         this.itemsCarte = items.filter(a => a.categorie != null);
         this.itemsCarte = this.itemsCarte.filter(a => a.categorie.id == id).sort((a, b) => {
           if (a.order > b.order)
@@ -227,6 +246,7 @@ export class ListItemCarteComponent implements OnInit {
     this.itemCarteService.updateItem(this.selectedItem).pipe(take(1)).subscribe(item => {
       document.getElementById('closeUpdateModal').click();
       const message: MessageI = { content: 'L\'item a été mis à jour', level: 'Info' };
+      this.selectedImage=null;
       this.messageService.add(message);
     })
   }
@@ -265,19 +285,21 @@ export class ListItemCarteComponent implements OnInit {
         promotions: this.promotionsSelected,
         stock: 0
       }
-
+      this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes =>{this.allergenes=allergenes});
       this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(item => {
         this.itemCarteService.resetList();
 
         setTimeout(() => {
-          this.filter();
+          this.filter(this.itemCategorie);
         }, 1000);
+
         const message: MessageI = { content: 'L\'item a bien été ajouté à la carte', level: 'Info' };
         this.messageService.add(message);
         this.allergenes = [];
         this.allergenesAdd = [];
         this.addForm.reset();
         document.getElementById('closeAddModal').click();
+        this.selectedImage=null;
       });
     }
     else {

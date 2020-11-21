@@ -151,45 +151,45 @@
 </div>
 
 
-<h2 class="text-center">Gestion des articles</h2>
-
-
 <div class="container">
-    <form [formGroup]="filterForm">
-        <div class="mb-3">
-            <label class="form-label" for="addCa">Filtrer par:</label>
-            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa"
-                class="form-select" aria-label="Default select">
-                <option *ngFor="let categorie of articleCategories;let idx=index;trackBy:util.trackById"
-                    [ngValue]="categorie">
-                    {{categorie.name}}</option>
-                <option [ngValue]="null">Catégorie null</option>
-            </select>
-        </div>
-    </form>
-    <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
-        data-target="#addArticle">
-        +
-    </button>
+    <div class="jumbotron">
+        <h2 class="text-center">Gestion des articles</h2>
+    </div>
 
-    <div *ngIf="articles" >
+    <div>
+        <mat-button-toggle-group matPrefix aria-label="Default select">
+            <mat-button-toggle *ngFor="let categorie of articleCategories;let idx=index;trackBy:util.trackById"
+                (click)="filter(categorie)">{{categorie.name}}</mat-button-toggle>
+            <mat-button-toggle (click)="filter(null)">Catégorie null</mat-button-toggle>
+            <mat-form-field appearance="" class="ml-3" style="max-height: 50px;">
+                <mat-label>Ajout rapide d'une catégorie</mat-label>
+                <input #cattegorieName type="text" matInput placeholder="Ex: Nouveauté">
+                <button matSuffix (click)="addCategorie(cattegorieName.value);cattegorieName.value=''"
+                    class="btn btn btn-secondary mb-2">+</button>
+            </mat-form-field>
+        </mat-button-toggle-group>
+        <button *ngIf="addArticle.categorie" type="button" class="btn btn-success ml-3" data-toggle="modal"
+            data-target="#addArticle">
+            Créer un article
+        </button>
+    </div>
+
+    <div *ngIf="articles" class="mt-5">
         <div class="card my-3" *ngFor="let article of articles;trackBy:util.trackById">
             <div class="card-header">
                 <h3 class="float-left">{{article.title}}</h3>
                 <div class="float-right">
-                    <button (click)="delete(article)" 
-                        class="btn btn-danger btn-list">Suprimer</button>
-                    <button type="button" class="btn btn-list btn-warning"
-                        (click)="updateDataForm(article)">
+                    <button (click)="delete(article)" class="btn btn-danger btn-list">Suprimer</button>
+                    <button type="button" class="btn btn-list btn-warning" (click)="updateDataForm(article)">
                         Modifier
-                    </button>                    
+                    </button>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-2">
                         <img *ngIf="article.image" src="{{urlDownload}}{{article.image.gridId}}" class="thumbnail"
-                        alt="{{article.image.alt}}" width="100%" />                       
+                            alt="{{article.image.alt}}" width="100%" />
                     </div>
                     <div class="col-sm-10">
                         <p [innerHTML]="article.resume"></p>

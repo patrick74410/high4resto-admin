@@ -125,23 +125,31 @@
 </div>
 
 <div class="container">
+<div class="jumbotron">
   <h2 class="text-center">Gestion des images</h2>
-  <form [formGroup]="filterForm">
-    <div class="mb-3">
-      <label class="form-label" for="addCa">Filtrer par:</label>
-      <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="addCa" class="form-select"
-        aria-label="Default select">
-        <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
-          {{categorie.name}}</option>
-          <option [ngValue]="null">Catégorie null</option>
-      </select>
-    </div>
-  </form>
-  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+</div>
+
+  <div>
+    <mat-button-toggle-group matPrefix aria-label="Default select">
+      <mat-button-toggle *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" 
+        (click)="filter(categorie)">{{categorie.name}}</mat-button-toggle>
+        <mat-button-toggle (click)="filter(null)">Catégorie null</mat-button-toggle>
+      <mat-form-field appearance="" class="ml-3" style="max-height: 50px;">
+        <mat-label>Ajout rapide d'une catégorie</mat-label>
+        <input #cattegorieName type="text" matInput placeholder="Ex: Nouveauté">
+        <button matSuffix (click)="addCategorie(cattegorieName.value);cattegorieName.value=''"
+          class="btn  btn-secondary mb-2">+</button>
+      </mat-form-field>
+    </mat-button-toggle-group>
+  </div>
+
+  <button *ngIf="filterCategorie" type="button" class="btn btn-success btn-lg mt-3" data-toggle="modal"
     data-target="#addImage">
-    +
+    Ajouter une image
   </button>
-  <div *ngIf="images">
+
+
+  <div *ngIf="images" class="mt-5">
     <div class="card my-3" *ngFor="let image of images;trackBy:util.trackById">
       <div class="card-header">
         <h3 class="float-left">{{image.fileName}}</h3>
@@ -155,9 +163,9 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail col-2"/>
+          <img src="{{urlDownload}}{{image.gridId}}" class="img-thumbnail col-2" />
           <div class="col-10">
-            <p [innerHTML]="image.description"> </p>           
+            <p [innerHTML]="image.description"> </p>
           </div>
         </div>
       </div>

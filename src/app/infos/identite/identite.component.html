@@ -1,9 +1,10 @@
 <app-image-modal idModal="updateImageModal" (newItemEvent)="addItem($event)"></app-image-modal>
-
-<h2 class="text-center">Mes infos</h2>
 <div class="container" *ngIf="identite">
-    <form class="row" [formGroup]="updateForm">
-        <div class="col-12 mt-2 mb-2">
+    <div class="jumbotron">
+        <h2 class="text-center">Mes infos</h2>
+    </div>
+        <form class="row" [formGroup]="updateForm">
+        <div class="col-12 mt-2 mb-5">
             <button type="button" class="btn btn-warning float-right" (click)="save()">Enregister les modifications</button>
         </div>
 

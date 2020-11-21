@@ -51,7 +51,7 @@ export class ImageModalComponent implements OnInit {
     filter(): void {
       this.imageService.getImages().pipe(take(1)).subscribe(items => {
         var id=((this.filterForm.get("filter").value as ImageCategorieI).id);
-        this.images = items.filter(a => a.categorie.id == id)
+        this.images = items.filter(a=>a.categorie).filter(a => a.categorie.id == id)
       });
     }    
 

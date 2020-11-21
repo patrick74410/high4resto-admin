@@ -8,10 +8,10 @@ declare var bootstrap:any;
 })
 
 export class MessageService {
-  messages: MessageI[]=[];
+  messages: MessageI;
 
   async add(message: MessageI) {
-    this.messages.push(message);
+    this.messages=message;
     await new Promise(resolve => setTimeout(()=>resolve(), 1000)).then(()=>{
       var toastElList = [].slice.call(document.querySelectorAll('.toast'))
       var toastList = toastElList.map(function(toastEl) {
@@ -21,9 +21,8 @@ export class MessageService {
     });
   }
 
-  delMessage(message:MessageI) {
-    var index = this.messages.indexOf(message);
-    this.messages.splice(index, 1);         
+  delMessage() {
+    this.messages=null;         
   }
 
   constructor() { }

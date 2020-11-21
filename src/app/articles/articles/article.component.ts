@@ -13,6 +13,7 @@ import { ArticleCategorieI } from '../../interfaces/ArticleCategorieI';
 import { ImageI } from '../../interfaces/ImageI';
 import { MessageI } from '../../interfaces/MessageI';
 import { ArticleI } from '../../interfaces/ArticleI'
+import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
 
 declare var bootstrap: any;
 
@@ -25,7 +26,7 @@ export class ArticleComponent implements OnInit {
   articleCategories: ArticleCategorieI[];
   articles: ArticleI[];
   selectedArticle: ArticleI;
-  addArticle: ArticleI = { title: "", content: "", date: "", author: "",categorie:{name:"Aucune categorie",description:""} } as ArticleI;
+  addArticle: ArticleI = { title: "", content: "", date: "", author: "" } as ArticleI;
   util = new Util();
   urlDownload: String = environment.apiUrl + "/images/download/";
 
@@ -33,6 +34,16 @@ export class ArticleComponent implements OnInit {
   addModal: any;
   image_list: TinyImage[] = [];
 
+  addCategorie(name:string): void {
+    this.articleCategorieService.addArticleCategorie(({name:name,description:"", visible:true} as ArticleCategorieI))
+    .pipe(take(1)).subscribe(t=>{
+      this.articleCategorieService.resetList();
+      this.articleCategorieService.getArticleCategories().pipe(take(1)).subscribe(categories=>{
+        this.articleCategories = categories;
+      })
+    });
+  }
+  
   addImage(image: ImageI) {
     this.addArticle.image = image;
   }
@@ -41,9 +52,6 @@ export class ArticleComponent implements OnInit {
     this.selectedArticle.image = image;
   }
 
-  filterForm = new FormGroup({
-    filter: new FormControl('', Validators.required)
-  })
 
   compareFn = this._compareFn.bind(this);
 
@@ -56,19 +64,18 @@ export class ArticleComponent implements OnInit {
     }
   }
 
-  filter(): void {
+  filter(categorie:ImageCategorieI): void {
     this.articleService.getArticles().pipe(take(1)).subscribe(items => {
-
-      if((this.filterForm.get("filter").value as ArticleCategorieI))
+      if(categorie)
       {
-        var id=((this.filterForm.get("filter").value as ArticleCategorieI).id);
+        this.addArticle.categorie=categorie;
+        var id=categorie.id;
         this.articles=items.filter(a=>a.categorie!=null);
         this.articles=this.articles.filter(a=>a.categorie.id== id);
       }
       else
       {
         this.articles=items.filter(a=>a.categorie==null);
-
       }
     });
   }
@@ -120,7 +127,7 @@ export class ArticleComponent implements OnInit {
         const message: MessageI = { content: 'Article enregistré', level: 'Info' };
         this.messageService.add(message); this.addModal.hide();
         this.articleService.resetList();
-        if((this.filterForm.get("filter").value as ArticleCategorieI)==item.categorie)
+        if(this.addArticle.categorie==item.categorie)
           this.articles.push(item);
       });
       document.getElementById("closeAddModal").click();

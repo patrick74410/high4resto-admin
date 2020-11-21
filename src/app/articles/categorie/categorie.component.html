@@ -20,10 +20,11 @@
         <div class="modal-body row">
           <div *ngIf="selectedArticleCategorie">
 
-            <mat-form-field class="col-12" appearance="fill">
+            <mat-form-field class="col-8" appearance="fill">
               <mat-label>Nom de la catégorie</mat-label>
               <input formControlName="name" type="text" matInput placeholder="Ex: Actualité">
             </mat-form-field>
+            <mat-slide-toggle class="col-4" formControlName="visible">Visible</mat-slide-toggle>
 
             <div class="col-12">
               <label class="form-label">Description:</label>
@@ -68,10 +69,11 @@
           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" id="addClose"></button>
         </div>
         <div class="modal-body row">
-          <mat-form-field class="col-12" appearance="fill">
+          <mat-form-field class="col-8" appearance="fill">
             <mat-label>Nom de la catégorie</mat-label>
             <input formControlName="name" type="text" matInput placeholder="Ex: Actualité">
           </mat-form-field>
+          <mat-slide-toggle class="col-4" formControlName="visible">Visible</mat-slide-toggle>
           <div class="col-12">
             <label class="form-label">Description:</label>
             <editor [init]="{language: 'fr_FR'}" formControlName="description"
@@ -103,13 +105,15 @@
   </div>
 </div>
 
-<h2 class="text-center">Gestion des catégories d'articles</h2>
 <div class="container">
-  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+  <div class="jumbotron">
+    <h2 class="text-center">Gestion des catégories d'articles</h2>
+  </div>
+    <button type="button"class="btn btn-success btn-lg" data-toggle="modal"
     data-target="#addArticleCategorie">
-    +
+    Ajouter une catégorie
   </button>
-  <div cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list">
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list mt-5">
     <div *ngFor="let articleCategorie of articleCategories;trackBy:util.trackById" class="cdk-box" cdkDragLockAxis="y"
       cdkDrag class="card my-3">
       <div class="card-header">

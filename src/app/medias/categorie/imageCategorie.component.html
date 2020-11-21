@@ -93,14 +93,16 @@
   </div>
 </div>
 
-<h2 class="text-center mat-h2">Gestion des catégorie d'images</h2>
 <div class="container">
-  <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
+  <div class="jumbotron">
+    <h2 class="text-center mat-h2">Gestion des catégorie d'images</h2>
+  </div>
+  <button type="button" class="btn btn-success btn-lg" data-toggle="modal"
     data-target="#addModal">
-    +
+    Ajouter une catégorie d'image
   </button>
 
-  <div>
+  <div class="mt-5">
     <div *ngFor="let imageCategorie of imageCategories" (click)="onSelect(imageCategorie)" class="card my-3">
      <div class="card-header">
         <h3 class="float-left">{{imageCategorie.name}}</h3>

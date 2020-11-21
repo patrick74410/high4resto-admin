@@ -2,3 +2,9 @@
     max-height: 100%;
     overflow: auto;
   }
+.mini
+{
+  padding-left:0;
+  padding-right: 0;
+
+}

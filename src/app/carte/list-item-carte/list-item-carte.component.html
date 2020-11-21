@@ -473,7 +473,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <editor required [init]="{language: 'fr_FR',height:300}" formControlName="description"
+                        <editor [init]="{language: 'fr_FR',height:300}" formControlName="description"
                             apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                     </div>
                     <hr class="mt-3" />
@@ -598,7 +598,7 @@
 
                         <mat-form-field class="col-md-8" appearance="fill">
                             <mat-label>Taux de la TVA</mat-label>
-                            <mat-select formControlName="tva">
+                            <mat-select [compareWith]="compareFn" formControlName="tva">
                                 <mat-option *ngFor="let tva of tvas" [value]="tva">
                                     {{tva.taux}} %
                                 </mat-option>
@@ -611,7 +611,7 @@
 
                         <mat-form-field appearance="fill" class="col-12">
                             <mat-label>Catégorie de l'item</mat-label>
-                            <mat-select formControlName="categorie">
+                            <mat-select [compareWith]="compareFn" formControlName="categorie">
                                 <mat-option *ngFor="let categorie of categories" [value]="categorie">
                                     {{categorie.name}}
                                 </mat-option>
@@ -621,7 +621,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <editor required [init]="{language: 'fr_FR',height:300}" formControlName="description"
+                        <editor [init]="{language: 'fr_FR',height:300}" formControlName="description"
                             apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
                     </div>
                     <hr class="mt-3" />
@@ -723,26 +723,30 @@
     </div>
 </div>
 
-<div class="container">
-    <h2 class="text-center">Gestion des éléments de la carte</h2>
-    <form [formGroup]="filterForm">
-        <div class="mb-3">
-            <label class="form-label" for="adddCa">Filtrer par:</label>
-            <select (change)="filter()" [compareWith]="compareFn" formControlName="filter" id="adddCa"
-                class="form-select" aria-label="Default select">
-                <option *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" [ngValue]="categorie">
-                    {{categorie.name}}</option>
-                <option [ngValue]="null">Catégorie null</option>
-            </select>
+<div class="container"> 
+    <div>
+        <div class="jumbotron">
+            <h2 class="text-center">Gestion des éléments de la carte</h2>
         </div>
-    </form>
+    
+        <mat-button-toggle-group matPrefix aria-label="Default select">
+            <mat-button-toggle *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById"
+                (click)="filter(categorie)">{{categorie.name}}</mat-button-toggle>
+            <mat-button-toggle (click)="filter(null)">Catégorie null</mat-button-toggle>
+            <mat-form-field appearance="" class="ml-3" style="max-height: 50px;">
+                <mat-label>Ajout rapide d'une catégorie</mat-label>
+                <input #cattegorieName type="text" matInput placeholder="Ex: Nouveauté">
+                <button matSuffix (click)="addCategorie(cattegorieName.value);cattegorieName.value=''"
+                    class="btn btn btn-secondary mb-2">+</button>
+            </mat-form-field>
+        </mat-button-toggle-group>
+        <button *ngIf="itemCategorie" type="button" class="btn btn-success ml-3" data-toggle="modal"
+            data-target="#addModal">
+            Créer un item
+        </button>
+    </div>
 
-    <button type="button" style="border-radius: 0px;margin:10px" class="btn btn-success btn-lg" data-toggle="modal"
-        data-target="#addModal">
-        +
-    </button>
-
-    <div cdkDropList (cdkDropListDropped)="dropC($event)" class="cdk-list">
+    <div cdkDropList (cdkDropListDropped)="dropC($event)" class="cdk-list mt-5">
         <div *ngFor="let item of itemsCarte;trackBy:util.trackById" cdkDrag cdkDragLockAxis="y"
             (click)="selectItem(item)" class="cdk-box">
             <div class="card col-12">

@@ -22,7 +22,7 @@ declare var bootstrap:any;
 export class CategorieComponent implements OnInit {
   articleCategories: ArticleCategorieI[];
   selectedArticleCategorie: ArticleCategorieI;
-  addArticleCategorie:ArticleCategorieI={name:"",description:""};
+  addArticleCategorie:ArticleCategorieI={name:"",description:"", visible:true};
   util=new Util();
   urlDownload:String=environment.apiUrl+"/images/download/";
 
@@ -30,12 +30,14 @@ export class CategorieComponent implements OnInit {
     {
       name:new FormControl('',Validators.required),
       description:new FormControl(''),
+      visible:new FormControl('')
     }
   )
 
   updateForm = new FormGroup({
     name:new FormControl('',Validators.required),
     description:new FormControl(''),
+    visible:new FormControl('')
   })
 
 
@@ -85,6 +87,7 @@ export class CategorieComponent implements OnInit {
   addData(): void{
     const message:MessageI={content:'La catégorie a été rajoutée',level:'Info'}
     this.addArticleCategorie.description=this.addForm.get("description").value;
+    this.addArticleCategorie.visible=this.addForm.get("visible").value;
     this.addArticleCategorie.name=this.addForm.get("name").value.trim();
     this.addArticleCategorie.order=this.articleCategories.length+1;
     if (!this.addArticleCategorie.name) { return; }
@@ -99,7 +102,7 @@ export class CategorieComponent implements OnInit {
   }
 
   updateDataForm(selectedArticleCategorie:ArticleCategorieI):void{
-    this.updateForm.patchValue({name:selectedArticleCategorie.name,description:selectedArticleCategorie.description});
+    this.updateForm.patchValue({name:selectedArticleCategorie.name,description:selectedArticleCategorie.description, visible: selectedArticleCategorie.visible});
     this.updateModal.show();
     this.selectedArticleCategorie=selectedArticleCategorie;
   }
@@ -108,7 +111,7 @@ export class CategorieComponent implements OnInit {
     const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
     this.selectedArticleCategorie.name=this.updateForm.get("name").value;
     this.selectedArticleCategorie.description=this.updateForm.get("description").value;
-
+    this.selectedArticleCategorie.visible=this.updateForm.get("visible").value;
     this.articleCategorieService.updateArticleCategorie(this.selectedArticleCategorie)
       .pipe(take(1)).subscribe(item=>{this.messageService.add(message),document.getElementById("updateClose").click();});
   }

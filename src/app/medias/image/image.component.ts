@@ -14,6 +14,7 @@ import { Util } from '../../environement/util';
 import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
 import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
 
+
 declare var bootstrap: any;
 
 @Component({
@@ -28,6 +29,7 @@ export class ImageComponent implements OnInit {
   tpFile: File;
   images: ImageI[];
   selectedImage: ImageI;
+  filterCategorie:ImageCategorieI;
   name: String;
   util = new Util();
   urlDownload: String = environment.apiUrl + "/images/download/";
@@ -58,11 +60,6 @@ export class ImageComponent implements OnInit {
   updateModal: any;
   addModal: any;
 
-  filterForm = new FormGroup({
-    filter: new FormControl('', Validators.required)
-  });
-
-
   compareFn = this._compareFn.bind(this);
 
   _compareFn(a, b) {
@@ -74,11 +71,23 @@ export class ImageComponent implements OnInit {
     }
   }
 
-  filter(): void {
+  addCategorie(name:string): void {
+    this.categorieService.addImageCategorie(({name:name,description:"", visible:true} as ImageCategorieI))
+    .pipe(take(1)).subscribe(t=>{
+      this.categorieService.resetList();
+      this.categorieService.getImageCategories().pipe(take(1)).subscribe(categories=>{
+        this.categories = categories;
+      })
+    });
+  }
+
+  filter(categorie:ImageCategorieI): void {
     this.imageService.getImages().pipe(take(1)).subscribe(items => {
-        if((this.filterForm.get("filter").value as ImageCategorieI))
+        if(categorie)
         {
-          var id=((this.filterForm.get("filter").value as ImageCategorieI).id);
+          this.filterCategorie=categorie;
+          this.addForm.patchValue({categorie:categorie}); 
+          var id=categorie.id;
           this.images=items.filter(a=>a.categorie!=null);
           this.images=this.images.filter(a=>a.categorie.id== id);
         }
@@ -106,19 +115,17 @@ export class ImageComponent implements OnInit {
           }, false);
           reader.readAsArrayBuffer(imageResized);
           this.imageService.uploadImage(new File([imageResized], this.tpFile.name), description, categorie, alt, link).pipe(take(1)).subscribe(image => {
-            this.addForm.patchValue({ widht: 800, height: 600 })
             this.imgURL = "";
             this.name = "";
             this.imageService.resetList();
 
             setTimeout( () => { 
-              this.filter();
+              this.filter(this.filterCategorie);
              }, 1000 );
 
              const message: MessageI = { content: 'L\'image a bien été rajoutée', level: 'Info' }
             this.messageService.add(message);
-            this.addForm.reset();
-            this.addForm.patchValue({widht: 800, heigth: 600});
+            this.addForm.patchValue({description:"",alt:"",link:""});
             this.addModal.hide();
   
           });
