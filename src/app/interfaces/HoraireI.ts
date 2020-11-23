@@ -2,7 +2,7 @@ import { BetweenTimeI } from './BetweenTimeI';
 
 // Horaire de l'établissement non kiss-ready
 export interface HoraireI{
-    id:String;
+    id?:string;
     lundi:BetweenTimeI[];
     mardi:BetweenTimeI[];
     mercredi:BetweenTimeI[];

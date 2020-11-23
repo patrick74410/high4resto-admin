@@ -3,7 +3,6 @@ import { StockI } from '../interfaces/StockI'
 import { Observable} from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from '../environement/environement';
-import { take } from 'rxjs/operators';
 import { ItemCarteService } from './item-carte.service';
 
 @Injectable({
@@ -11,7 +10,7 @@ import { ItemCarteService } from './item-carte.service';
   })
   export class StockService {
     private stockFindUrl = environment.apiUrl+'/stock/find/';
-     private stockMoveUrl= environment.apiUrl+'/stock/move/';
+    private stockMoveUrl= environment.apiUrl+'/stock/move_to_next/';
     private stockAddUrl=environment.apiUrl+'/stock/insert/';
 
     private httpOptionsUpdate = {
@@ -30,8 +29,8 @@ import { ItemCarteService } from './item-carte.service';
         return this.http.put<StockI>(this.stockAddUrl+qty,stock,this.httpOptionsUpdate);
       }
 
-      moveStock(stock:StockI,destination: string): Observable<any> {
-        var finalUrl=this.stockMoveUrl+stock.id+"/"+destination;
+      moveStock(stock:StockI): Observable<any> {
+        var finalUrl=this.stockMoveUrl+stock.id+"/";
         return this.http.delete(finalUrl);
       }
 

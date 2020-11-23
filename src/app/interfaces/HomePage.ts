@@ -1,5 +1,6 @@
 import { ArticleCategorieI } from './ArticleCategorieI';
 import { ArticleI } from './ArticleI';
+import { HoraireI } from './HoraireI';
 import { IdentiteI } from './IdentiteI';
 import { ImageI } from './ImageI';
 import { MetaTagI } from './MetaTagI';
@@ -12,4 +13,5 @@ export interface HomePageI{
     articleCategorie:ArticleCategorieI[];
     onTop:ArticleI[];
     caroussel:ImageI[];
+    horaire:HoraireI;
 }
