@@ -30,6 +30,7 @@ export class AuthentificationService {
               oneday.setHours(oneday.getHours() + 9);
               localStorage.setItem("expire",oneday.toJSON());
               localStorage.setItem('currentConnexionI', JSON.stringify(connexion));
+              localStorage.setItem('username', username);
               this.currentConnexionISubject.next(connexion);
               return connexion;
           }));

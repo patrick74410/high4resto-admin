@@ -33,28 +33,19 @@
                                     <a class="dropdown-item" routerLink="/carte/items">
                                         Gestion des items de la carte
                                     </a>
+                                    <a class="dropdown-item" routerLink="/carte/itemDisponibility">
+                                        Attribution des disponibilités
+                                    </a>
                                 </li>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Mes imformations
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="info">
-                                <a class="dropdown-item" routerLink="/infos/horaire">
-                                    Horaires
-                                </a>
-                                <a class="dropdown-item" routerLink="/infos/mon-entreprise">
-                                    Mon entreprise
-                                </a>
-                            </div>
-                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="medias" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Médias
                             </a>
                             <div class="dropdown-menu" aria-labelledby="medias">
-                                <a class="dropdown-item" routerLink="/medias/categories/">Catégories d'images</a>
+                                <a class="dropdown-item" (click)="expireService.check()" routerLink="/medias/categories/">Catégories d'images</a>
                                <a class="dropdown-item" routerLink="/medias/images/">Images</a>
                             </div>
                         </li>
@@ -81,6 +72,13 @@
                                 <a class="dropdown-item" routerLink="/config/tva/">
                                     TVA
                                 </a>                               
+
+                                <a class="dropdown-item" routerLink="/infos/horaire">
+                                    Horaires
+                                </a>
+                                <a class="dropdown-item" routerLink="/infos/mon-entreprise">
+                                    Mon entreprise
+                                </a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

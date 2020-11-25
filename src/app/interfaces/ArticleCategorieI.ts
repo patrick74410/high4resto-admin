@@ -1,11 +1,11 @@
 import { ImageI } from './ImageI';
 // Catégorie d'articles
 export interface ArticleCategorieI {
-    id?: String;
+    id?: string;
     // Nom de la catégorie
-    name: String;
+    name: string;
     // Présentation de la catégorie
-    description: String;
+    description: string;
     // Ordre d'affichage
     order?: Number;
     // Image pour la miniature

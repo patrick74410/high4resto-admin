@@ -30,9 +30,9 @@ export class ImageComponent implements OnInit {
   images: ImageI[];
   selectedImage: ImageI;
   filterCategorie:ImageCategorieI;
-  name: String;
+  name: string;
   util = new Util();
-  urlDownload: String = environment.apiUrl + "/images/download/";
+  urlDownload: string = environment.apiUrl + "/images/download/";
  
   compareByID(itemOne, itemTwo) {
     return itemOne && itemTwo && itemOne.id == itemTwo.id;

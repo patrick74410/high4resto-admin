@@ -3,20 +3,20 @@ import { ImageI } from './ImageI';
 import {KeyMapI} from './KeymapI'
 // Identité de l'établissement
 export interface IdentiteI {
-    id:String;
+    id:string;
     // Info de base
-    nomEtablissement:String;
-    siret:String;
+    nomEtablissement:string;
+    siret:string;
     logo:ImageI;
     // Adresse
-    zip:String;
-    city:String;
-    number:String;
-    adresse:String;
-    complement:String;
+    zip:string;
+    city:string;
+    number:string;
+    adresse:string;
+    complement:string;
     contact:KeyMapI[];
     coordonnee:GpsI;
 
     // Description de l'établissement
-    description:String;
+    description:string;
 }

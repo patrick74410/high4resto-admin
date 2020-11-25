@@ -7,11 +7,11 @@ import { PromotionI } from './PromotionI';
 
 export interface ItemCarteI {
     // Elément de la carte
-    id: String;
+    id: string;
     // Nom
-    name: String; 
+    name: string; 
     // Description
-    description: String;
+    description: string;
     // Prix
     price: Number;
     // Ordre d'affichage

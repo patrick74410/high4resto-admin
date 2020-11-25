@@ -24,7 +24,7 @@ export class CategorieComponent implements OnInit {
   selectedArticleCategorie: ArticleCategorieI;
   addArticleCategorie:ArticleCategorieI={name:"",description:"", visible:true};
   util=new Util();
-  urlDownload:String=environment.apiUrl+"/images/download/";
+  urlDownload:string=environment.apiUrl+"/images/download/";
 
   addForm= new FormGroup(
     {

@@ -3,7 +3,7 @@ import { ImageI } from './ImageI';
 
 // Un Article
 export interface ArticleI{
-    id?: String;
+    id?: string;
     // Il est inclus dans quelle catégorie ?
     categorie:ArticleCategorieI;
     // L'image de l'article

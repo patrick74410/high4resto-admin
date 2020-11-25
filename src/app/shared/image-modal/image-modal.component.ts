@@ -20,14 +20,14 @@ export class ImageModalComponent implements OnInit {
   images:ImageI[];
   categories:ItemCategorieI[];
   util = new Util();
-  urlDownload:String=environment.apiUrl+"/images/download/";
+  urlDownload:string=environment.apiUrl+"/images/download/";
   selectImage : ImageI;
 
 
   @Output() 
     newItemEvent= new  EventEmitter<ImageI>();
   @Input()
-    idModal:String;
+    idModal:string;
   @Input()
     showAfterClose:string;
 

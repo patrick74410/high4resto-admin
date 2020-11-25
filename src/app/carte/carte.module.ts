@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { ItemDisponibilityComponent } from './item-disponibility/item-disponibility.component';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -26,7 +27,7 @@ const DragConfig = {
 };
 
 @NgModule({
-  declarations: [AllergeneComponent,OptionsItemComponent,PromotionsComponent,CategorieComponent,ListItemCarteComponent],
+  declarations: [AllergeneComponent,OptionsItemComponent,PromotionsComponent,CategorieComponent,ListItemCarteComponent, ItemDisponibilityComponent],
   imports: [
     CommonModule,
     CarteRoutingModule,

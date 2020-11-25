@@ -1,0 +1,258 @@
+<!-- Modal uppdate-->
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content" *ngIf="currentDisponibility">
+        <div class="modal-header">
+          <h2 class="modal-title" id="updateModalLabel">Modification de la disponibilité</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="currentDisponibility.disponibility">
+           
+            <mat-slide-toggle class="col-12" [(ngModel)]="currentDisponibility.always">Tous les jours ouvrés</mat-slide-toggle>
+
+            <mat-form-field class="col-md-4" appearance="fill">
+                <mat-label>Date de début</mat-label>
+                <input  type="date" value="2000-01-01" [(ngModel)]="currentDisponibility.dateDebut" matInput>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4" appearance="fill">
+                <mat-label>Date de fin</mat-label>
+                <input  value="2000-01-01" type="date" [(ngModel)]="currentDisponibility.dateFin" matInput>
+            </mat-form-field>
+
+            <div class="row">
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Lundi</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.lundi;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <button class="btn btn-danger col-2" (click)="deleteBetween(between,0)">X</button>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker" [format]=24   #lundiDe type="time"/>
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker1></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker1" [format]=24   #lundiFi type="time" />
+                            </div>
+                            <button class="col-12 btn btn-success mt-4" type="button"
+                                (click)="addBetween(lundiDe,lundiFi,0);lundiDe.value='';lundiFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Mardi</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.mardi;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <button class="btn btn-danger col-2" (click)="deleteBetween(between,1)">X</button>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker2></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker2" [format]=24  #mardiDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker3></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker3" [format]=24  #mardiFi type="time" />
+                                </div>
+                            <button class="col-12 btn btn-success mt-4" type="button"
+                                (click)="addBetween(mardiDe,mardiFi,1);mardiDe.value='';mardiFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Mercredi</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.mercredi;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <span class="btn btn-danger col-2" (click)="deleteBetween(between,2)">X</span>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker4></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker4" [format]=24 #mercrediDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker5></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker5" [format]=24 #mercrediFi type="time" />
+                                </div>
+                            <button class="btn btn-success col-12 mt-4" type="button"
+                                (click)="addBetween(mercrediDe,mercrediFi,2);mercrediDe.value='';mercrediFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row xmtop">
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Jeudi</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.jeudi;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <span class="btn btn-danger col-2" (click)="deleteBetween(between,3)">X</span>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker6></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker6" [format]=24 #jeudiDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker7></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker7" [format]=24 #jeudiFi type="time" />
+                            </div>
+                            <button class="btn btn-success col-12 mt-4" type="button"
+                                (click)="addBetween(jeudiDe,jeudiFi,3);jeudiDe.value='';jeudiFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Vendredi</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.vendredi;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <span class="btn btn-danger col-2" (click)="deleteBetween(between,4)">X</span>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker8></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker8" [format]=24 #vendrediDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker9></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker9" [format]=24 #vendrediFi type="time" />
+                            </div>
+                            <button class="btn btn-success col-12 mt-4" type="button"
+                                (click)="addBetween(vendrediDe,vendrediFi,4);vendrediDe.value='';vendrediFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Samedi</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.samedi;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <span class="btn btn-danger col-2" (click)="deleteBetween(between,5)">X</span>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker10></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker10" [format]=24 #samediDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker11></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker11" [format]=24 #samediFi type="time" />
+                            </div>
+                            <button class="btn btn-success col-12 mt-4" type="button"
+                                (click)="addBetween(samediDe,samediFi,5);samediDe.value='';samediFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row xmtop">
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Dimanche</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.dimanche;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <span class="btn btn-danger col-2" (click)="deleteBetween(between,6)">X</span>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker12></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker12" [format]=24 #dimancheDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker13></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker13" [format]=24 #dimancheFi type="time" />
+                                </div>
+                            <button class="btn btn-success col-12 mt-4" type="button"
+                                (click)="addBetween(dimancheDe,dimancheFi,6);dimancheDe.value='';dimancheFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <div class="card mcard">
+                        <h3 class="card-header">Jour férié</h3>
+                        <div class="card-body">
+                            <p class="card-text row" *ngFor="let between of currentDisponibility.disponibility.ferie;trackBy:util.trackById">
+                                <span class="col-10 mtop">{{between.debut}} à {{between.fin}}</span> 
+                                <span class="btn btn-danger col-2" (click)="deleteBetween(between,7)">X</span>
+                            </p>
+                        </div>
+                        <div class="card-text card-footer">
+                            <div class="mbottom">
+                                <label class="col-1 text-center">De </label>
+                                <ngx-material-timepicker #picker14></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker14" [format]=24 #ferieDe type="time" />
+                                <label class="col-1 text-center"> à </label>
+                                <ngx-material-timepicker #picker15></ngx-material-timepicker>
+                                <input class="col-5" [ngxTimepicker]="picker15" [format]=24 #ferieFi type="time" />
+                            </div>
+                            <button class="btn btn-success col-12 mt-4" type="button"
+                                (click)="addBetween(ferieDe,ferieFi,7);ferieDe.value='';ferieFi.value=''">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" (click)="saveData()" class="btn btn-primary">Enregister</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h2 class="text-center">Gestion des disponibilités des items</h2>
+    </div>
+    <div *ngIf="itemDisponibilitys">
+        <div *ngFor="let dispo of items" class="card my-3">
+            <div class="card-header">
+              <h3 class="float-left">{{dispo.name}}</h3>
+              <div class="float-right">
+                <button type="button" class="btn btn-warning btn-list"  (click)="updateDataForm(dispo.id)">
+                  Modifier
+                </button>
+              </div>
+            </div>
+          </div>
+    </div>
+
+</div>

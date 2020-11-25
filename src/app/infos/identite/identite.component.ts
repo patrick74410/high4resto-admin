@@ -40,7 +40,7 @@ export class IdentiteComponent implements OnInit {
     description:new FormControl('')
   })
 
-  urlDownload:String=environment.apiUrl+"/images/download/";
+  urlDownload:string=environment.apiUrl+"/images/download/";
 
   addItem(newItem: ImageI) {
     this.selectImage=newItem;

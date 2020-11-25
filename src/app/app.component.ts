@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ExpireService } from './services/expire.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'high4RestoAdminNext';
+  constructor(public expireService: ExpireService){}
 }

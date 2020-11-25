@@ -36,7 +36,7 @@ export class WebConfigComponent implements OnInit {
     auth0Domain:new FormControl(''),
   })
 
-  urlDownload:String=environment.apiUrl+"/images/download/";
+  urlDownload:string=environment.apiUrl+"/images/download/";
 
   compareByID(itemOne, itemTwo) {
     return itemOne && itemTwo && itemOne.id == itemTwo.id;

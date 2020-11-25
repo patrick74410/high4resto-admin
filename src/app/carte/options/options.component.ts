@@ -145,7 +145,7 @@ export class OptionsItemComponent implements OnInit {
 }
 
 export class ListOptions implements OptionsItemI {
-  id?: String;
+  id?: string;
   options: OptionItemI[] = [];
   unique: boolean = false;
   label: string;

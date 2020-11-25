@@ -1,13 +1,29 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatTableFilter } from 'mat-table-filter';
 import { take } from 'rxjs/operators';
 import { Util } from 'src/app/environement/util';
+import { AllergeneI } from 'src/app/interfaces/AllergeneI';
 import { BetweenTimeI } from 'src/app/interfaces/BetweenTimeI';
 import { HoraireI } from 'src/app/interfaces/HoraireI';
+import { ImageI } from 'src/app/interfaces/ImageI';
 import { ItemCarteI } from 'src/app/interfaces/ItemCarteI';
 import { ItemCategorieI } from 'src/app/interfaces/ItemCategorieI';
 import { MessageI } from 'src/app/interfaces/MessageI';
+import { OptionsItemI } from 'src/app/interfaces/OptionsItem';
+import { PromotionI } from 'src/app/interfaces/PromotionI';
 import { StockI } from 'src/app/interfaces/StockI';
+import { DeleveryI } from 'src/app/interfaces/tracability/Delevery';
+import { OrderI } from 'src/app/interfaces/tracability/Order';
+import { PreOrderI } from 'src/app/interfaces/tracability/PreOrder';
+import { PrepareI } from 'src/app/interfaces/tracability/Prepare';
+import { ToDeliveryI } from 'src/app/interfaces/tracability/ToDelivery';
+import { ToPrepareI } from 'src/app/interfaces/tracability/ToPrepare';
+import { TrashI } from 'src/app/interfaces/tracability/Trash';
+import { TvaI } from 'src/app/interfaces/TvaI';
 import { AlertService } from 'src/app/rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from 'src/app/rootComponent/messages/message.service';
 import { ExpireService } from 'src/app/services/expire.service';
@@ -15,6 +31,7 @@ import { HoraireService } from 'src/app/services/horaire.service';
 import { ItemCarteService } from 'src/app/services/item-carte.service';
 import { ItemCategorieService } from 'src/app/services/itemCategorie.service';
 import { StockService } from 'src/app/services/StockService';
+import { TrashService } from 'src/app/services/trashService';
 
 declare var bootstrap:any;
 
@@ -25,31 +42,71 @@ declare var bootstrap:any;
 })
 export class StockComponent implements OnInit {
   stocks:StockI[]=[];
+  grouppedStock: StockI[]=[];
   items:ItemCarteI[]=[];
   itemCategories:ItemCategorieI[]=[];
-  stockItem:StockI={item:{id:"",name:"",description:"",price:0,order:0,sourceImage:null,categorie:null,allergenes:null,tva:null,options:null,visible:false,promotions:null,stock:1},disponibility:{lundi:null,mardi:null,mercredi:null,jeudi:null,vendredi:null,samedi:null,dimanche:null,ferie:null}};
+  stockItem:StockI={item:{id:"",name:"",description:"",price:0,order:0,sourceImage:null,categorie:null,allergenes:null,tva:null,options:null,visible:false,promotions:null,stock:1}};
   util = new Util();
   itemSelected:boolean=false;
   horaire: HoraireI;
   addModal:any;
+  categorie:ItemCategorieI;
+  columnsToDisplay = ['select','NAME','DATE','USERNAME'];
+  columnsGrouppedToDisplay = ['NAME','CATEGORY','QUANTITY'];
+  dataSource = new MatTableDataSource<StockI>();
+  dataGrouppedSource = new MatTableDataSource<StockI>();
 
-  addData(qty:number):void
+
+  selection = new SelectionModel<StockI>(true, []);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  delete(message:string): void
   {
-    this.stockItem.disponibility=this.horaire;
-    this.stockService.addManyStock(this.stockItem,qty).pipe(take(1)).subscribe(t=>{
-      this.stockItem={item:{id:"",name:"",description:"",price:0,order:0,sourceImage:null,categorie:null,allergenes:null,tva:null,options:null,visible:false,promotions:null,stock:1},disponibility:{lundi:null,mardi:null,mercredi:null,jeudi:null,vendredi:null,samedi:null,dimanche:null,ferie:null}}
-      this.itemSelected=false;
-      this.horaireService.getHoraires().pipe(take(1)).subscribe(horaires=>{
-        this.horaire=horaires[0];
-        const message:MessageI={content:'La modification a été enregistrée',level:'Info'};
-        this.addModal.hide();
-        this.messageService.add(message);
-      })
+    this.selection.selected
+    for (let stock of this.selection.selected)
+    {
+      var preOrder:PreOrderI={stock:stock,inside:"",idCustommer:""};
+      var order:OrderI={preOrder:preOrder,inside:"",mandatory:"",deleveryMode:"",meansOfPayement:"",orderNumber:""};
+      var toPrepare:ToPrepareI={order:order,inside:"",executorName:""}
+      var prepare:PrepareI={toPrepare:toPrepare,inside:""};
+      var toDelivery:ToDeliveryI={prepare:prepare,inside:"",deleveryPerson:""}
+      var delevery:DeleveryI={toDelivery:toDelivery,inside:""};
+      var trash:TrashI={delevery:delevery,inside:"",causeMessage:message}
+      this.trashService.addTrash(trash).pipe(take(1)).subscribe(f=>{
+        this.stockService.deleteStock(stock).pipe(take(1)).subscribe(t=>{
+          const message:MessageI={content:'Les items ont été supprimés',level:'Info'};
+          this.messageService.add(message);
+          this.filterUnique(this.categorie);
+          this.getGroupped();
+        })
+      });
+
+    }
+   }
+
+  getGroupped(): void {
+    this.stockService.getGrouppedStock().pipe(take(1)).subscribe(stocks=>{
+      this.grouppedStock= stocks;
+      this.dataGrouppedSource=new MatTableDataSource<StockI>(this.grouppedStock);
 
     })
   }
 
-  filter(categorie:ItemCategorieI): void {
+  addData(qty:number):void
+  {
+    this.stockService.addManyStock(this.stockItem,qty,localStorage.getItem('username')).pipe(take(1)).subscribe(t=>{
+      this.stockItem={item:{id:"",name:"",description:"",price:0,order:0,sourceImage:null,categorie:null,allergenes:null,tva:null,options:null,visible:false,promotions:null,stock:1}}
+      this.itemSelected=false;
+      const message:MessageI={content:'La modification a été enregistrée',level:'Info'};
+      this.addModal.hide();
+      this.messageService.add(message);
+      this.filterUnique(this.categorie);
+      this.getGroupped();
+    })
+   }
+
+  filterAdd(categorie:ItemCategorieI): void {
     this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
       if(categorie)
       {
@@ -60,6 +117,21 @@ export class StockComponent implements OnInit {
       }
     });
   }
+
+  filterUnique(categorie:ItemCategorieI): void {
+    this.categorie=categorie;
+    this.stockService.getStock().pipe(take(1)).subscribe(stocks => {
+      this.stocks=stocks.filter(stock=>{
+        return stock.item.categorie.id==categorie.id;
+      });
+      this.dataSource=new MatTableDataSource<StockI>(this.stocks);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  filterEntity: StockI;  
+  filterGroupedEntity: StockI;
+  filterType: MatTableFilter;
 
   selectItem(choix: ItemCarteI)
   {
@@ -72,156 +144,57 @@ export class StockComponent implements OnInit {
       this.stocks=stocks;
     })
   }
-  addBetween(debut, fin, day:number): void {
-    if(debut.value && fin.value)
-    {
-      switch (day) {
-        case 0:
-          this.horaire.lundi.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.lundi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 1:
-          this.horaire.mardi.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.mardi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 2:
-          this.horaire.mercredi.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.mercredi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 3:
-          this.horaire.jeudi.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.jeudi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 4:
-          this.horaire.vendredi.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.vendredi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 5:
-          this.horaire.samedi.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.samedi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 6:
-          this.horaire.dimanche.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.dimanche.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-        case 7:
-          this.horaire.ferie.push({ debut: debut.value, fin: fin.value } as BetweenTimeI)
-          this.horaire.lundi.sort((a,b)=>{
-            if(a.debut>b.debut)
-              return 1
-            else if(a.debut<b.debut)
-              return -1
-            else
-              return 0
-          });
-          break;
-      }  
-    }
-    else
-    {
-      const message:MessageI={content:'Un élément d\'horaire doit contenir une heure de début et une heure de fin',level:'Attention'};
-      this.messageService.add(message);     
-    }
-  }
-
-  deleteBetween(between:BetweenTimeI,day:number):void
-  {
-    switch (day) {
-      case 0:
-        var index=this.horaire.lundi.indexOf(between);
-        this.horaire.lundi.splice(index,1);
-        break;
-      case 1:
-        var index=this.horaire.mardi.indexOf(between);
-        this.horaire.mardi.splice(index,1);
-        break;
-      case 2:
-        var index=this.horaire.mercredi.indexOf(between);
-        this.horaire.mercredi.splice(index,1);
-        break;
-      case 3:
-        var index=this.horaire.jeudi.indexOf(between);
-        this.horaire.jeudi.splice(index,1);
-        break;
-      case 4:
-        var index=this.horaire.vendredi.indexOf(between);
-        this.horaire.vendredi.splice(index,1);
-        break;
-      case 5:
-        var index=this.horaire.samedi.indexOf(between);
-        this.horaire.samedi.splice(index,1);
-        break;
-      case 6:
-        var index=this.horaire.dimanche.indexOf(between);
-        this.horaire.dimanche.splice(index,1);
-        break;
-      case 7:
-        var index=this.horaire.ferie.indexOf(between);
-        this.horaire.ferie.splice(index,1);
-        break;
-    }
-  }
   
-  constructor(private horaireService:HoraireService,private itemCarteService:ItemCarteService,private itemCategorieService: ItemCategorieService,private stockService:StockService,private http: HttpClient,private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) {
+  constructor(private trashService:TrashService,private itemCarteService:ItemCarteService,private itemCategorieService: ItemCategorieService,private stockService:StockService,private http: HttpClient,private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) {
     this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories=>{
       this.itemCategories=categories;
     })
-    this.horaireService.getHoraires().pipe(take(1)).subscribe(horaires=>{
-      this.horaire=horaires[0];
-    })
+
    }
 
   ngOnInit(): void {
     this.addModal = new bootstrap.Modal(document.getElementById('addModal'), {});
+    this.filterEntity = new Stock();
+    this.filterEntity.item = new Item();
+    this.filterGroupedEntity = new Stock();
+    this.filterGroupedEntity.item = new Item();
+    this.filterGroupedEntity.item.categorie = new Categorie();
+    this.filterType = MatTableFilter.ANYWHERE;
+    this.getGroupped();
   }
 
+}
+export class Stock implements StockI{
+  id?: string;
+  item: ItemCarteI;
+  disponibility: HoraireI;
+  inside?: string;
+  username?: string;
+  
+}
+
+export class Item implements ItemCarteI{
+  id: string;
+  name: string;
+  description: string;
+  price: Number;
+  order: Number;
+  sourceImage: ImageI;
+  categorie: ItemCategorieI;
+  allergenes: AllergeneI[];
+  tva: TvaI;
+  options: OptionsItemI[];
+  visible: boolean;
+  promotions: PromotionI[];
+  stock: number;
+  
+}
+
+export class Categorie implements ItemCategorieI{
+  id?: string;
+  name: string;
+  description: string;
+  order?: Number;
+  iconImage?: ImageI;
+  image?: ImageI;
 }

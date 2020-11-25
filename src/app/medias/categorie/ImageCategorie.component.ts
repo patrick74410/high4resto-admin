@@ -21,7 +21,7 @@ export class ImageCategorieComponent implements OnInit {
   imageCategories: ImageCategorieI[];
   selectedImageCategorie: ImageCategorieI;
   addImageCategorie: ImageCategorieI = { name: "", description: "", visible: false };
-  urlDownload: String = environment.apiUrl + "/images/download/";
+  urlDownload: string = environment.apiUrl + "/images/download/";
 
   addForm = new FormGroup({
     name: new FormControl('', Validators.required),

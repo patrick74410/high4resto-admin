@@ -1,4 +1,4 @@
 export interface TvaI {
-    id?: String;
+    id?: string;
     taux: Number;
 }

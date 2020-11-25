@@ -1,15 +1,15 @@
 export interface PromotionI {
 // Définition d'une promotion
-    id?:String;
+    id?:string;
     // Nom
-    name:String;
+    name:string;
     // Montant de la réduction
     reduction:Number;
     // Quand ?
-    heureDebut:String;
-    heureFin:String;
-    dateDebut:String;
-    dateFin:String;
+    heureDebut:string;
+    heureFin:string;
+    dateDebut:string;
+    dateFin:string;
     // Tableau de taille 7 pour chaque jour de la semaine
     jourValide:boolean[];
     jourFerie:boolean;

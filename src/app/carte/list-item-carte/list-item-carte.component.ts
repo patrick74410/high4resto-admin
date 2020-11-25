@@ -82,7 +82,7 @@ export class ListItemCarteComponent implements OnInit {
   });
 
 
-  urlDownload: String = environment.apiUrl + "/images/download/";
+  urlDownload: string = environment.apiUrl + "/images/download/";
   selectedImage: ImageI;
 
   compareFn = this._compareFn.bind(this);

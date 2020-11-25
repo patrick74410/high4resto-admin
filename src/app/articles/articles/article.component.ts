@@ -22,13 +22,15 @@ declare var bootstrap: any;
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
+
 export class ArticleComponent implements OnInit {
+  check=false;
   articleCategories: ArticleCategorieI[];
   articles: ArticleI[];
   selectedArticle: ArticleI;
   addArticle: ArticleI = { title: "", content: "", date: "", author: "" } as ArticleI;
   util = new Util();
-  urlDownload: String = environment.apiUrl + "/images/download/";
+  urlDownload: string = environment.apiUrl + "/images/download/";
 
   updateModal: any;
   addModal: any;

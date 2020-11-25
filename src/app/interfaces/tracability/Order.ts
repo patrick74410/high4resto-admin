@@ -2,7 +2,7 @@ import { PreOrderI } from './PreOrder';
 
 export interface OrderI{
     id?:string;
-    preoOrder:PreOrderI;
+    preOrder:PreOrderI;
     inside:string;
     mandatory:string;
     deleveryMode:string;
