@@ -6,8 +6,8 @@ import { HoraireComponent } from './horaire/horaire.component'
 import { IdentiteComponent } from './identite/identite.component';
 
 const routes: Routes = [
-  { path: 'horaire', component: HoraireComponent,canActivate:[AuthGuardService]},
-  { path: 'mon-entreprise', component: IdentiteComponent,canActivate:[AuthGuardService]}
+  { path: 'horaire', component: HoraireComponent, canActivate: [AuthGuardService] },
+  { path: 'mon-entreprise', component: IdentiteComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

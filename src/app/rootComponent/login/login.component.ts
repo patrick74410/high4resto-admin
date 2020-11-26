@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import {MessageService} from '../messages/message.service'
+import { MessageService } from '../messages/message.service'
 import { AuthentificationService } from '../../services/Auth/authentification.service';
 import { MessageI } from '../../interfaces/MessageI';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -18,10 +19,10 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthentificationService,
-        private messageService:MessageService
-    ) { 
+        private messageService: MessageService,private userService: UserService
+    ) {
 
-        if (this.authenticationService.currentConnexionIValue) { 
+        if (this.authenticationService.currentConnexionIValue) {
             this.router.navigate(['/']);
         }
     }
@@ -52,9 +53,8 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    if(error!=null)
-                    {
-                        const message:MessageI={content:error,level:'Erreur'}
+                    if (error != null) {
+                        const message: MessageI = { content: error, level: 'Erreur' }
                         this.messageService.add(message);
                     }
                     this.loading = false;

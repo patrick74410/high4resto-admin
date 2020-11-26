@@ -1,0 +1,126 @@
+<!-- Modal update-->
+<div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="updateModalLabel">Attribution des roles</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" *ngIf="UpdateDataUser">
+            <div class="cdk-container">
+                <h2>Rôles disponibles</h2>
+
+                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="bRoles" [cdkDropListConnectedTo]="[doneList]"
+                    class="cdk-list" (cdkDropListDropped)="drop($event)">
+                    <div class="cdk-box" *ngFor="let item of bRoles" cdkDrag>{{item}}</div>
+                </div>
+            </div>
+
+            <div class="cdk-container">
+                <h2>Rôles attribués</h2>
+
+                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="UpdateDataUser.roles"
+                    [cdkDropListConnectedTo]="[todoList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
+                    <div class="cdk-box" *ngFor="let item of UpdateDataUser.roles" cdkDrag>{{item}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-warning" (click)="updateRole()">Enregister</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal updatePassword-->
+<div class="modal fade" id="updatePasswordModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="updatePasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="updatePasswordModalLabel">Changement du mot de passe</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Mot de passe de l'utilisateur</mat-label>
+                <input required #password type="text" matInput>
+            </mat-form-field>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+          <button type="submit" class="btn btn-warning" (click)="updatePassword(password.value);password.value=''">Enregister</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Gestion des utilisateurs</h2>
+    </div>
+
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-description>
+                Ajout d'un utilisateur
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <form [formGroup]="addForm" (ngSubmit)="addUser()">
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Nom de l'utilisateur</mat-label>
+                <input required formControlName="username" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Email de l'utilisateur</mat-label>
+                <input required formControlName="email" type="email" matInput>
+            </mat-form-field>
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Mot de passe de l'utilisateur</mat-label>
+                <input required formControlName="password" type="text" matInput>
+            </mat-form-field>
+            <div class="cdk-container">
+                <h2>Rôles disponibles</h2>
+
+                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="roles" [cdkDropListConnectedTo]="[doneList]"
+                    class="cdk-list" (cdkDropListDropped)="drop($event)">
+                    <div class="cdk-box" *ngFor="let item of roles" cdkDrag>{{item}}</div>
+                </div>
+            </div>
+
+            <div class="cdk-container">
+                <h2>Rôles attribués</h2>
+
+                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="addRole"
+                    [cdkDropListConnectedTo]="[todoList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
+                    <div class="cdk-box" *ngFor="let item of addRole" cdkDrag>{{item}}</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ajouter l'utilisateur</button>
+        </form>
+    </mat-expansion-panel>
+
+    <div *ngIf="users">
+        <div *ngFor="let user of users;trackBy:util.trackById" class="card my-3">
+            <div class="card-header">
+                <p class="float-left card-title">{{user.username}}</p>
+                <div class="float-right">
+                    <button type="button" class="btn btn-danger btn-list" (click)="delete(user)">
+                        Supprimer
+                    </button>
+                    <button type="button" class="btn btn-warning btn-list" (click)="updateRoleShow(user)">
+                        Modifier les rôles
+                    </button>
+                    <button type="button" class="btn btn-warning btn-list" (click)="updatePasswordShow(user)">
+                        Modifier le mot de passe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

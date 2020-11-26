@@ -1,5 +1,5 @@
 import { ItemCategorieI } from './ItemCategorieI';
-import {AllergeneI} from './AllergeneI'
+import { AllergeneI } from './AllergeneI'
 import { ImageI } from './ImageI';
 import { TvaI } from './TvaI';
 import { OptionsItemI } from './OptionsItem';
@@ -9,7 +9,7 @@ export interface ItemCarteI {
     // Elément de la carte
     id: string;
     // Nom
-    name: string; 
+    name: string;
     // Description
     description: string;
     // Prix
@@ -18,18 +18,18 @@ export interface ItemCarteI {
     order: Number;
     // Image
     sourceImage: ImageI;
-    // Entrée? plat ? dessert? 
+    // Entrée? plat ? dessert?
     categorie: ItemCategorieI;
     // Liste d'allergènes
     allergenes: AllergeneI[];
     // Taux TVA
-    tva:TvaI;
-    // Options associées 
-    options:OptionsItemI[];
+    tva: TvaI;
+    // Options associées
+    options: OptionsItemI[];
     // Visible ?
-    visible:boolean;
+    visible: boolean;
     // Liste de promotions
-    promotions:PromotionI[];
+    promotions: PromotionI[];
     // Quantitée disponible
-    stock:number;
- }
+    stock: number;
+}

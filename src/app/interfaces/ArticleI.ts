@@ -2,24 +2,24 @@ import { ArticleCategorieI } from './ArticleCategorieI';
 import { ImageI } from './ImageI';
 
 // Un Article
-export interface ArticleI{
+export interface ArticleI {
     id?: string;
     // Il est inclus dans quelle catégorie ?
-    categorie:ArticleCategorieI;
+    categorie: ArticleCategorieI;
     // L'image de l'article
-    image?:ImageI;
+    image?: ImageI;
     // Mis en avant ?
-    onTop?:boolean;
+    onTop?: boolean;
     // Visible ?
-    visible?:boolean;
+    visible?: boolean;
     // Le titre
-    title:string;
+    title: string;
     // Tous le texte qu'il y a avant un bouton en savoir plus ...
-    resume?:string;
+    resume?: string;
     // Le contenu complet
-    content:string;
+    content: string;
     // La date de publication
-    date:string;
+    date: string;
     // Le nom de l'auteur
-    author:string;
+    author: string;
 }

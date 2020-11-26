@@ -723,12 +723,12 @@
     </div>
 </div>
 
-<div class="container"> 
+<div class="container">
     <div>
         <div class="jumbotron">
             <h2 class="text-center">Gestion des éléments de la carte</h2>
         </div>
-    
+
         <mat-button-toggle-group matPrefix aria-label="Default select">
             <mat-button-toggle *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById"
                 (click)="filter(categorie)">{{categorie.name}}</mat-button-toggle>
@@ -751,7 +751,7 @@
             (click)="selectItem(item)" class="cdk-box">
             <div class="card col-12">
                 <div class="card-header">
-                    <h3 class="float-left">{{item.name}}</h3>
+                    <p class="float-left card-title">{{item.name}}</p>
                     <div class="float-right">
                         <button (click)="delete(item)" class="btn btn-danger btn-list">Suprimer</button>
                         <button type="button" class="btn btn-warning btn-list" (click)="updateDataForm(item)">

@@ -119,15 +119,14 @@
     <div class="jumbotron">
         <h2 class="text-center">Gestion des options de la carte</h2>
     </div>
-        <button type="button" class="btn btn-success btn-lg" data-toggle="modal"
-        data-target="#addModal">
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal">
         Ajouter une option
     </button>
 
     <div class="mt-5">
         <div *ngFor="let option of optionsItems;let id=index" (click)="onSelect(option)" class="card my-3">
             <div class="card-header">
-                <h3 class="float-left">{{option.label}}</h3>
+                <p class="float-left card-title">{{option.label}}</p>
                 <div class="float-right">
                     <button class="btn btn-danger btn-list" title="delete allergene"
                         (click)="delete(option)">Supprimer</button>

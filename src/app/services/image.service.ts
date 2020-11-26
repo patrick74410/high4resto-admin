@@ -50,7 +50,7 @@ export class ImageService {
   }
 
   resetList(): void {
-    this.images=null;
+    this.images = null;
   }
 
   updateImage(image: ImageI): Observable<any> {
@@ -69,7 +69,7 @@ export class ImageService {
     var finalUrl = this.imageDeleteGridUrl + image.gridId;
     return this.http.delete(finalUrl);
   }
-  
+
   deleteImageMiniGrid(image: ImageI): Observable<any> {
     this.resetList;
     var finalUrl = this.imageDeleteGridUrl + image.miniGridId;;

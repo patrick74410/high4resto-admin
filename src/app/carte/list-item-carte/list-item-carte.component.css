@@ -1,6 +1,6 @@
 .mbutton
 {
-  width: 100%;padding: 10px;  
+  width: 100%;padding: 10px;
 }
 .modal-dialog-scrollable .modal-content {
   max-height: 100%;
@@ -53,7 +53,7 @@ allergene-container {
     display: inline-block;
     vertical-align: top;
   }
-  
+
   .allergene-list {
     border: solid 1px #ccc;
     min-height: 60px;
@@ -62,7 +62,7 @@ allergene-container {
     overflow: hidden;
     display: block;
   }
-  
+
   .allergene-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
@@ -76,7 +76,7 @@ allergene-container {
     background: white;
     font-size: 14px;
   }
-  
+
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
@@ -84,19 +84,19 @@ allergene-container {
                 0 8px 10px 1px rgba(0, 0, 0, 0.14),
                 0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
-  
+
   .cdk-drag-placeholder {
     opacity: 0;
   }
-  
+
   .cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
-  
+
   .allergene-box:last-child {
     border: none;
   }
-  
+
   .allergene-list.cdk-drop-list-dragging .allergene-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }

@@ -1,29 +1,29 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, CDK_DRAG_CONFIG, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ItemCategorieService } from '../../services/itemCategorie.service'
-import { ImageService } from '../../services/image.service'
-import { AllergeneService } from '../../services/allergene.service'
-import { ItemCarteService } from '../../services/item-carte.service'
-import { MessageService } from '../../rootComponent/messages/message.service'
-import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
-import { PromotionService } from '../../services/promotion.service'
-import { TvaService } from '../../services/tva.service';
-import { ExpireService } from '../../services/expire.service';
-import { OptionsItemService } from '../../services/options-service'
-
-import { ItemCategorieI } from '../../interfaces/ItemCategorieI'
-import { ImageI } from '../../interfaces/ImageI'
-import { AllergeneI } from '../../interfaces/AllergeneI'
-import { ItemCarteI } from '../../interfaces/ItemCarteI'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
+import { environment } from '../../environement/environement';
+import { Util } from '../../environement/util';
+import { AllergeneI } from '../../interfaces/AllergeneI';
+import { ImageI } from '../../interfaces/ImageI';
+import { ItemCarteI } from '../../interfaces/ItemCarteI';
+import { ItemCategorieI } from '../../interfaces/ItemCategorieI';
 import { MessageI } from '../../interfaces/MessageI';
 import { OptionsItemI } from '../../interfaces/OptionsItem';
 import { PromotionI } from '../../interfaces/PromotionI';
 import { TvaI } from '../../interfaces/TvaI';
+import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
+import { MessageService } from '../../rootComponent/messages/message.service';
+import { AllergeneService } from '../../services/allergene.service';
+import { ExpireService } from '../../services/expire.service';
+import { ImageService } from '../../services/image.service';
+import { ItemCarteService } from '../../services/item-carte.service';
+import { ItemCategorieService } from '../../services/itemCategorie.service';
+import { OptionsItemService } from '../../services/options-service';
+import { PromotionService } from '../../services/promotion.service';
+import { TvaService } from '../../services/tva.service';
 
-import { take } from 'rxjs/operators';
-import { environment } from '../../environement/environement';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Util } from '../../environement/util';
+
 
 declare var bootstrap: any;
 
@@ -48,7 +48,7 @@ export class ListItemCarteComponent implements OnInit {
   optionsSelected: OptionsItemI[] = [];
   promotions: PromotionI[] = [];
   promotionsSelected: PromotionI[] = [];
-  itemCategorie:ItemCategorieI;
+  itemCategorie: ItemCategorieI;
 
   util = new Util();
 
@@ -87,14 +87,14 @@ export class ListItemCarteComponent implements OnInit {
 
   compareFn = this._compareFn.bind(this);
 
-  addCategorie(name:string): void {
-    this.itemCategorieService.addCategorie(({name:name,description:"", visible:true} as ItemCategorieI))
-    .pipe(take(1)).subscribe(t=>{
-      this.itemCategorieService.resetList();
-      this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories=>{
-        this.categories = categories;
-      })
-    });
+  addCategorie(name: string): void {
+    this.itemCategorieService.addCategorie(({ name: name, description: "", visible: true } as ItemCategorieI))
+      .pipe(take(1)).subscribe(t => {
+        this.itemCategorieService.resetList();
+        this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories => {
+          this.categories = categories;
+        })
+      });
   }
 
   _compareFn(a, b) {
@@ -107,8 +107,8 @@ export class ListItemCarteComponent implements OnInit {
   }
 
   addClearDate(): void {
-    this.selectedImage=null
-    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>{this.allergenes=allergenes});
+    this.selectedImage = null
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => { this.allergenes = allergenes });
   }
 
   updateDataForm(selectedItem: ItemCarteI): void {
@@ -118,10 +118,10 @@ export class ListItemCarteComponent implements OnInit {
       price: selectedItem.price,
       tva: selectedItem.tva,
       categorie: selectedItem.categorie,
-      visible:selectedItem.visible,
+      visible: selectedItem.visible,
     });
-    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes=>this.allergenes= allergenes);
-    this.selectedImage=selectedItem.sourceImage;
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => this.allergenes = allergenes);
+    this.selectedImage = selectedItem.sourceImage;
     var updateModal = new bootstrap.Modal(document.getElementById('updateModal'), {});
     updateModal.show();
     this.selectedItem = selectedItem;
@@ -207,9 +207,9 @@ export class ListItemCarteComponent implements OnInit {
     this.messageService.add(message);
   }
 
-  filter(categorie:ItemCategorieI): void {
-    this.itemCategorie=categorie;
-    this.addForm.patchValue({categorie:categorie});
+  filter(categorie: ItemCategorieI): void {
+    this.itemCategorie = categorie;
+    this.addForm.patchValue({ categorie: categorie });
     this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
 
       if (categorie) {
@@ -226,9 +226,10 @@ export class ListItemCarteComponent implements OnInit {
       }
       else {
         this.itemsCarte = items.filter(a => {
-          return a.categorie.id == null}
-          );
-       }
+          return a.categorie.id == null
+        }
+        );
+      }
     });
 
   }
@@ -246,7 +247,7 @@ export class ListItemCarteComponent implements OnInit {
     this.itemCarteService.updateItem(this.selectedItem).pipe(take(1)).subscribe(item => {
       document.getElementById('closeUpdateModal').click();
       const message: MessageI = { content: 'L\'item a été mis à jour', level: 'Info' };
-      this.selectedImage=null;
+      this.selectedImage = null;
       this.messageService.add(message);
     })
   }
@@ -285,7 +286,7 @@ export class ListItemCarteComponent implements OnInit {
         promotions: this.promotionsSelected,
         stock: 0
       }
-      this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes =>{this.allergenes=allergenes});
+      this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => { this.allergenes = allergenes });
       this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(item => {
         this.itemCarteService.resetList();
 
@@ -299,7 +300,7 @@ export class ListItemCarteComponent implements OnInit {
         this.allergenesAdd = [];
         this.addForm.reset();
         document.getElementById('closeAddModal').click();
-        this.selectedImage=null;
+        this.selectedImage = null;
       });
     }
     else {

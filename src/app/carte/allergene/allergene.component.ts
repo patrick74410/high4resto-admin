@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AllergeneService } from '../../services/allergene.service'
-import { AllergeneI} from '../../interfaces/AllergeneI'
-import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
-import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/MessageI'
-import { ExpireService } from '../../services/expire.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
-import { Util } from '../../environement/util'
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
+import { Util } from '../../environement/util';
+import { AllergeneI } from '../../interfaces/AllergeneI';
+import { MessageI } from '../../interfaces/MessageI';
+import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
+import { MessageService } from '../../rootComponent/messages/message.service';
+import { AllergeneService } from '../../services/allergene.service';
+import { ExpireService } from '../../services/expire.service';
 
-declare var bootstrap:any;
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-allergene',
@@ -18,24 +19,24 @@ declare var bootstrap:any;
 })
 
 export class AllergeneComponent implements OnInit {
-  allergenes: AllergeneI[]=[];
-  selectedAllergene:AllergeneI;
-  util=new Util();
+  allergenes: AllergeneI[] = [];
+  selectedAllergene: AllergeneI;
+  util = new Util();
 
   addForm = new FormGroup({
-    name:new FormControl('',Validators.required)
+    name: new FormControl('', Validators.required)
   })
 
   updateForm = new FormGroup({
-    name:new FormControl('',Validators.required)
+    name: new FormControl('', Validators.required)
   })
 
-  updateModal:any;
-  addModal:any;
-  
+  updateModal: any;
+  addModal: any;
 
-  addData(): void{
-    const message:MessageI={content:'L\'allergene a été rajouté',level:'Info'}
+
+  addData(): void {
+    const message: MessageI = { content: 'L\'allergene a été rajouté', level: 'Info' }
     var name = this.addForm.get("name").value.trim();
     if (!name) { return; }
     this.allergeneService.addAllergene({ name } as AllergeneI).pipe(take(1))
@@ -48,44 +49,43 @@ export class AllergeneComponent implements OnInit {
       });
   }
 
-  updateDataForm(selectedAllergene:AllergeneI):void
-  {
+  updateDataForm(selectedAllergene: AllergeneI): void {
     this.updateForm.patchValue({
-      name:selectedAllergene.name});
-      this.updateModal.show();
-      this.selectedAllergene=selectedAllergene;
+      name: selectedAllergene.name
+    });
+    this.updateModal.show();
+    this.selectedAllergene = selectedAllergene;
   }
 
-  onUpdate(): void{
+  onUpdate(): void {
 
-    const message:MessageI={content:'La modification a été enregistrée',level:'Info'}
-    this.selectedAllergene.name=this.updateForm.get("name").value;
+    const message: MessageI = { content: 'La modification a été enregistrée', level: 'Info' }
+    this.selectedAllergene.name = this.updateForm.get("name").value;
     this.allergeneService.updateAllergene(this.selectedAllergene).pipe(take(1))
-      .subscribe(item=>{this.messageService.add(message);this.updateModal.hide()});
+      .subscribe(item => { this.messageService.add(message); this.updateModal.hide() });
   }
 
-  delete(allergene:AllergeneI):void {
-    const message:MessageI={content:'L\'élément à été supprimé',level:'Attention'}
+  delete(allergene: AllergeneI): void {
+    const message: MessageI = { content: 'L\'élément à été supprimé', level: 'Attention' }
     let that = this;
-    this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'allergene ?",function(){
-    that.allergeneService.deleteAllergene(allergene).pipe(take(1)).subscribe( test=>
-      {
+    this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'allergene ?", function () {
+      that.allergeneService.deleteAllergene(allergene).pipe(take(1)).subscribe(test => {
         var index = that.allergenes.indexOf(allergene);
         that.allergenes.splice(index, 1);
-        that.messageService.add(message);        
+        that.messageService.add(message);
       }
-    );
+      );
 
-    },function(){
+    }, function () {
 
     });
   }
 
   getAllergenes(): void {
-    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => this.allergenes=allergenes);
+    this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => this.allergenes = allergenes);
   }
 
-  constructor(private allergeneService:AllergeneService, private alertService: AlertService, private messageService:MessageService,private expireService:ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private allergeneService: AllergeneService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getAllergenes();

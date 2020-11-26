@@ -11,7 +11,7 @@ export interface ArticleCategorieI {
     // Image pour la miniature
     iconImage?: ImageI;
     // Image de la présentation de l'article
-    image?:ImageI;
-    // 
-    visible:boolean;
+    image?: ImageI;
+    //
+    visible: boolean;
 }

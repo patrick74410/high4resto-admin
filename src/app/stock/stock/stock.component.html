@@ -23,14 +23,14 @@
                     </div>
                     <div *ngIf="itemSelected">
                         <h3>{{stockItem.item.name}}</h3>
-                            <div class="mt-5">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Quantité</mat-label>
-                                    <input #quantite matInput type="number" min="1" value="1">
-                                </mat-form-field>
-                                <button type="submit" class="btn btn-primary btn-lg ml-5"
-                                    (click)="addData(quantite.value);quantite.value='1'">Ajouter</button>
-                            </div>
+                        <div class="mt-5">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Quantité</mat-label>
+                                <input #quantite matInput type="number" min="1" value="1">
+                            </mat-form-field>
+                            <button type="submit" class="btn btn-primary btn-lg ml-5"
+                                (click)="addData(quantite.value);quantite.value='1'">Ajouter</button>
+                        </div>
                     </div>
 
                 </div>
@@ -89,9 +89,9 @@
                 </table>
             </div>
         </mat-tab>
-        <mat-tab label="Gestion des stocks">
+        <mat-tab label="Suppression d'items dans le stock">
             <h3>Sélection de la categorie</h3>
-            <mat-button-toggle-group class="col-12" matPrefix aria-label="Default select">
+            <mat-button-toggle-group matPrefix aria-label="Default select">
                 <mat-button-toggle *ngFor="let categorie of itemCategories;let idx=index;trackBy:util.trackById"
                     (click)="filterUnique(categorie)">{{categorie.name}}</mat-button-toggle>
             </mat-button-toggle-group>
@@ -147,18 +147,58 @@
                 <input #message type="text" placeholder="Ex: invendus" matInput>
             </mat-form-field>
 
-            <button (click)="delete(message.value);message.value=''" class="btn btn-danger">Suppression des éléments</button>
+            <button (click)="delete(message.value);message.value=''" class="btn btn-danger">Suppression des
+                éléments</button>
         </mat-tab>
-        <mat-tab label="Reset quotidien">
-            
+        <mat-tab label="Définir le stock">
+            <h3>Sélection de la categorie</h3>
+            <mat-button-toggle-group matPrefix aria-label="Default select" class="mt-3">
+                <mat-button-toggle *ngFor="let categorie of itemCategories;let idx=index;trackBy:util.trackById"
+                    (click)="filterAdd(categorie)">{{categorie.name}}</mat-button-toggle>
+            </mat-button-toggle-group>
+            <div *ngIf="stockItem.item">
+                <div *ngIf="stockItem.item.categorie">
+                    <h3>Sélection du produit</h3>
+                    <button (click)="selectItem(choix)" *ngFor="let choix of items;let idx=index;trackBy:util.trackById"
+                        mat-button>{{choix.name}}</button>
+                </div>
+                <div *ngIf="itemSelected">
+                    <h3>{{stockItem.item.name}}</h3>
+                    <div class="mt-5">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Quantité</mat-label>
+                            <input #quantite matInput type="number" min="1" value="1">
+                        </mat-form-field>
+                        <button type="submit" class="btn btn-primary btn-lg ml-5"
+                            (click)="updateData(quantite.value);quantite.value='1'">Définir le stock</button>
+                    </div>
+                </div>
+            </div>
         </mat-tab>
-        <mat-tab disabled>
-            <ng-template mat-tab-label>
-                <button style="width:250px;padding:0; color:black;border:none" mat-icon-button data-toggle="modal" data-target="#addModal">
-                    <mat-icon>add_circle</mat-icon>
-                    <mat-label> Ajouter de produits</mat-label>
-                </button>
-            </ng-template>
-        </mat-tab>        
+        <mat-tab label="Ajouter du stock">
+            <h3>Sélection de la categorie</h3>
+            <mat-button-toggle-group matPrefix aria-label="Default select" class="mt-3">
+                <mat-button-toggle *ngFor="let categorie of itemCategories;let idx=index;trackBy:util.trackById"
+                    (click)="filterAdd(categorie)">{{categorie.name}}</mat-button-toggle>
+            </mat-button-toggle-group>
+            <div *ngIf="stockItem.item">
+                <div *ngIf="stockItem.item.categorie">
+                    <h3>Sélection du produit</h3>
+                    <button (click)="selectItem(choix)" *ngFor="let choix of items;let idx=index;trackBy:util.trackById"
+                        mat-button>{{choix.name}}</button>
+                </div>
+            </div>
+            <div *ngIf="itemSelected">
+                <h3>{{stockItem.item.name}}</h3>
+                <div class="mt-5">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Quantité</mat-label>
+                        <input #quantite matInput type="number" min="1" value="1">
+                    </mat-form-field>
+                    <button type="submit" class="btn btn-primary btn-lg ml-5"
+                        (click)="addData(quantite.value);quantite.value='1'">Ajouter</button>
+                </div>
+            </div>
+        </mat-tab>
     </mat-tab-group>
 </div>

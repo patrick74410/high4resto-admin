@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ExpireService } from './services/expire.service';
 
 @Component({
@@ -8,5 +9,10 @@ import { ExpireService } from './services/expire.service';
 })
 export class AppComponent {
   title = 'high4RestoAdminNext';
-  constructor(public expireService: ExpireService){}
+  constructor(public expireService: ExpireService,private router: Router) { }
+  ngOnInit() {
+    localStorage.removeItem('expire');
+    localStorage.removeItem("currentConnexionI");
+
+  }
 }

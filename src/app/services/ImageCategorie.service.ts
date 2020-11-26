@@ -38,7 +38,7 @@ export class ImageCategorieService {
     }
 
     resetList(): void {
-        this.imageCategorie=null;
+        this.imageCategorie = null;
     }
 
     updateImageCategorie(imageCategorie: ImageCategorieI): Observable<any> {
@@ -57,6 +57,6 @@ export class ImageCategorieService {
         return this.http.put<ImageCategorieI>(this.imageCategorieAddUrl, imageCategorie, this.httpOptionsUpdate);
     }
 
-    constructor(private imageService:ImageService,private http: HttpClient) { }
+    constructor(private imageService: ImageService, private http: HttpClient) { }
 
 }

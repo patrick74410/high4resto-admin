@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgxPicaService, NgxPicaErrorInterface, NgxPicaResizeOptionsInterface } from '@digitalascetic/ngx-pica';
 import { AspectRatioOptions, ExifOptions } from '@digitalascetic/ngx-pica/lib/ngx-pica-resize-options.interface';
 import { ImageI } from 'src/app/interfaces/ImageI'
@@ -29,11 +29,11 @@ export class ImageComponent implements OnInit {
   tpFile: File;
   images: ImageI[];
   selectedImage: ImageI;
-  filterCategorie:ImageCategorieI;
+  filterCategorie: ImageCategorieI;
   name: string;
   util = new Util();
   urlDownload: string = environment.apiUrl + "/images/download/";
- 
+
   compareByID(itemOne, itemTwo) {
     return itemOne && itemTwo && itemOne.id == itemTwo.id;
   }
@@ -71,69 +71,67 @@ export class ImageComponent implements OnInit {
     }
   }
 
-  addCategorie(name:string): void {
-    this.categorieService.addImageCategorie(({name:name,description:"", visible:true} as ImageCategorieI))
-    .pipe(take(1)).subscribe(t=>{
-      this.categorieService.resetList();
-      this.categorieService.getImageCategories().pipe(take(1)).subscribe(categories=>{
-        this.categories = categories;
-      })
-    });
+  addCategorie(name: string): void {
+    this.categorieService.addImageCategorie(({ name: name, description: "", visible: true } as ImageCategorieI))
+      .pipe(take(1)).subscribe(t => {
+        this.categorieService.resetList();
+        this.categorieService.getImageCategories().pipe(take(1)).subscribe(categories => {
+          this.categories = categories;
+        })
+      });
   }
 
-  filter(categorie:ImageCategorieI): void {
+  filter(categorie: ImageCategorieI): void {
     this.imageService.getImages().pipe(take(1)).subscribe(items => {
-        if(categorie)
-        {
-          this.filterCategorie=categorie;
-          this.addForm.patchValue({categorie:categorie}); 
-          var id=categorie.id;
-          this.images=items.filter(a=>a.categorie!=null);
-          this.images=this.images.filter(a=>a.categorie.id== id);
-        }
-        else
-        {
-          this.images=items.filter(a=>a.categorie==null);
+      if (categorie) {
+        this.filterCategorie = categorie;
+        this.addForm.patchValue({ categorie: categorie });
+        var id = categorie.id;
+        this.images = items.filter(a => a.categorie != null);
+        this.images = this.images.filter(a => a.categorie.id == id);
+      }
+      else {
+        this.images = items.filter(a => a.categorie == null);
 
-        }
+      }
     });
   }
 
   addData(): void {
 
-      var fileImages: File;
-      var description = this.addForm.get("description").value;
-      var categorie = this.addForm.get("categorie").value;
-      var link = this.addForm.get("link").value;
-      var alt = this.addForm.get("alt").value;
-  
-      this._ngxPicaService.resizeImage(this.tpFile, this.addForm.get("widht").value, this.addForm.get("heigth").value, new ImageResizeOptions(this.addForm.get("keepRatio").value))
-        .pipe(take(1)).subscribe((imageResized: File) => {
-          let reader: FileReader = new FileReader();
-          reader.addEventListener('load', (event: any) => {
-            fileImages = event.target.result;
-          }, false);
-          reader.readAsArrayBuffer(imageResized);
-          this.imageService.uploadImage(new File([imageResized], this.tpFile.name), description, categorie, alt, link).pipe(take(1)).subscribe(image => {
-            this.imgURL = "";
-            this.name = "";
-            this.imageService.resetList();
+    var fileImages: File;
+    var description = this.addForm.get("description").value;
+    var categorie = this.addForm.get("categorie").value;
+    var link = this.addForm.get("link").value;
+    var alt = this.addForm.get("alt").value;
 
-            setTimeout( () => { 
-              this.filter(this.filterCategorie);
-             }, 1000 );
+    this._ngxPicaService.resizeImage(this.tpFile, this.addForm.get("widht").value, this.addForm.get("heigth").value, new ImageResizeOptions(this.addForm.get("keepRatio").value))
+      .pipe(take(1)).subscribe((imageResized: File) => {
+        let reader: FileReader = new FileReader();
+        reader.addEventListener('load', (event: any) => {
+          fileImages = event.target.result;
+        }, false);
+        reader.readAsArrayBuffer(imageResized);
+        this.imageService.uploadImage(new File([imageResized], this.tpFile.name), description, categorie, alt, link).pipe(take(1)).subscribe(image => {
+          this.imgURL = "";
+          this.name = "";
+          this.imageService.resetList();
 
-             const message: MessageI = { content: 'L\'image a bien été rajoutée', level: 'Info' }
-            this.messageService.add(message);
-            this.addForm.patchValue({description:"",alt:"",link:""});
-            this.addModal.hide();
-  
-          });
-        }, (err: NgxPicaErrorInterface) => {
-          const message: MessageI = { content: 'Il y a eu une erreux lors de l\'importation de l\'image', level: 'Erreur' }
+          setTimeout(() => {
+            this.filter(this.filterCategorie);
+          }, 1000);
+
+          const message: MessageI = { content: 'L\'image a bien été rajoutée', level: 'Info' }
           this.messageService.add(message);
-          throw err.err;
-        });  
+          this.addForm.patchValue({ description: "", alt: "", link: "" });
+          this.addModal.hide();
+
+        });
+      }, (err: NgxPicaErrorInterface) => {
+        const message: MessageI = { content: 'Il y a eu une erreux lors de l\'importation de l\'image', level: 'Erreur' }
+        this.messageService.add(message);
+        throw err.err;
+      });
 
   }
 

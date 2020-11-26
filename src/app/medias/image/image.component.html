@@ -125,15 +125,15 @@
 </div>
 
 <div class="container">
-<div class="jumbotron">
-  <h2 class="text-center">Gestion des images</h2>
-</div>
+  <div class="jumbotron">
+    <h2 class="text-center">Gestion des images</h2>
+  </div>
 
   <div>
     <mat-button-toggle-group matPrefix aria-label="Default select">
-      <mat-button-toggle *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById" 
+      <mat-button-toggle *ngFor="let categorie of categories;let idx=index;trackBy:util.trackById"
         (click)="filter(categorie)">{{categorie.name}}</mat-button-toggle>
-        <mat-button-toggle (click)="filter(null)">Catégorie null</mat-button-toggle>
+      <mat-button-toggle (click)="filter(null)">Catégorie null</mat-button-toggle>
       <mat-form-field appearance="" class="ml-3" style="max-height: 50px;">
         <mat-label>Ajout rapide d'une catégorie</mat-label>
         <input #cattegorieName type="text" matInput placeholder="Ex: Nouveauté">
@@ -152,7 +152,7 @@
   <div *ngIf="images" class="mt-5">
     <div class="card my-3" *ngFor="let image of images;trackBy:util.trackById">
       <div class="card-header">
-        <h3 class="float-left">{{image.fileName}}</h3>
+        <p class="float-left card-title">{{image.fileName}}</p>
         <div class="float-right">
           <button class="btn btn-danger btn-list" title="delete categorie"
             (click)="deleteImage(image)">Supprimer</button>

@@ -183,15 +183,14 @@
         <h2 class="text-center">Gestion des promotions</h2>
     </div>
 
-    <button type="button" class="btn btn-success btn-lg" data-toggle="modal"
-        data-target="#addModal">
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal">
         Ajouter une stratégie de promotion
     </button>
 
     <div class="mt-5">
         <div *ngFor="let promotion of promotions; trackBy:util.trackById" class="card my-3">
             <div class="card-header">
-                <h3 class="float-left">{{promotion.name}}</h3>
+                <p class="float-left card-title">{{promotion.name}}</p>
                 <div class="float-right">
                     <button class="btn btn-danger btn-list" title="delete promotion"
                         (click)="delete(promotion)">Supprimer</button>

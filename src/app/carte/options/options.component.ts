@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { OptionsItemService } from '../../services/options-service'
-import { OptionsItemI } from '../../interfaces/OptionsItem'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
-import { MessageService } from '../../rootComponent/messages/message.service'
-import { MessageI } from '../../interfaces/MessageI';
-import { ExpireService } from '../../services/expire.service';
-import { OptionItemI } from '../../interfaces/OptionItem';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MessageI } from '../../interfaces/MessageI';
+import { OptionItemI } from '../../interfaces/OptionItem';
+import { OptionsItemI } from '../../interfaces/OptionsItem';
+import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
+import { MessageService } from '../../rootComponent/messages/message.service';
+import { ExpireService } from '../../services/expire.service';
+import { OptionsItemService } from '../../services/options-service';
 
 declare var bootstrap: any;
 
@@ -87,7 +87,7 @@ export class OptionsItemComponent implements OnInit {
           this.addOptionsItem = new ListOptions();
           this.messageService.add(message);
           this.addForm.reset();
-          this.addOptionsItem.options=[];
+          this.addOptionsItem.options = [];
           this.addModal.hide();
         });
     }

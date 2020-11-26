@@ -1,14 +1,14 @@
 import { ImageI } from './ImageI';
 
 export interface ImageCategorieI {
-// Catégorie d'images 
-    id?:string;
+    // Catégorie d'images
+    id?: string;
     // Nom de la catégorie
-    name:string;
+    name: string;
     // Description
-    description:string;
+    description: string;
     // Est-ce un album photo ?
-    visible:boolean;
+    visible: boolean;
     // La photo en avant
-    topImage?:ImageI;
+    topImage?: ImageI;
 }

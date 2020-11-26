@@ -6,12 +6,12 @@ import { ImageI } from './ImageI';
 import { MetaTagI } from './MetaTagI';
 import { WebConfigI } from './WebConfigI';
 
-export interface HomePageI{
-    webConfig:WebConfigI;
-    metaTag:MetaTagI;
-    identite:IdentiteI;
-    articleCategorie:ArticleCategorieI[];
-    onTop:ArticleI[];
-    caroussel:ImageI[];
-    horaire:HoraireI;
+export interface HomePageI {
+    webConfig: WebConfigI;
+    metaTag: MetaTagI;
+    identite: IdentiteI;
+    articleCategorie: ArticleCategorieI[];
+    onTop: ArticleI[];
+    caroussel: ImageI[];
+    horaire: HoraireI;
 }

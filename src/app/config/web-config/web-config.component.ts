@@ -13,7 +13,7 @@ import { ExpireService } from 'src/app/services/expire.service';
 import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
 import { WebConfigService } from 'src/app/services/web-config.service';
 
-declare var bootstrap:any;
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-web-config',
@@ -22,75 +22,71 @@ declare var bootstrap:any;
 })
 
 export class WebConfigComponent implements OnInit {
-  webConfig:WebConfigI;
+  webConfig: WebConfigI;
   util = new Util();
   selectedLogo: ImageI;
-  categories:ImageCategorieI[];
+  categories: ImageCategorieI[];
 
   updateForm = new FormGroup({
-    title:new FormControl(''),
-    googleMapApi:new FormControl(''),
-    qty:new FormControl(''),
-    caroussel:new FormControl(''),
-    auth0Key:new FormControl(''),
-    auth0Domain:new FormControl(''),
+    title: new FormControl(''),
+    googleMapApi: new FormControl(''),
+    qty: new FormControl(''),
+    caroussel: new FormControl(''),
+    auth0Key: new FormControl(''),
+    auth0Domain: new FormControl(''),
   })
 
-  urlDownload:string=environment.apiUrl+"/images/download/";
+  urlDownload: string = environment.apiUrl + "/images/download/";
 
   compareByID(itemOne, itemTwo) {
     return itemOne && itemTwo && itemOne.id == itemTwo.id;
   }
 
-  addImage(image: ImageI):void
-  {
-    this.selectedLogo=image;
+  addImage(image: ImageI): void {
+    this.selectedLogo = image;
   }
 
-  showImageUpdateModal(): void
-  {
-    var updateImageModal=new bootstrap.Modal(document.getElementById('updateImageModal'), {});
+  showImageUpdateModal(): void {
+    var updateImageModal = new bootstrap.Modal(document.getElementById('updateImageModal'), {});
     updateImageModal.show();
   }
 
-  save(): void
-  {
-    this.webConfig.caroussel=this.updateForm.get("caroussel").value;
-    this.webConfig.googleMapApi=this.updateForm.get("googleMapApi").value;
-    this.webConfig.title=this.updateForm.get("title").value;
-    this.webConfig.logo=this.selectedLogo;
-    this.webConfig.qty=this.updateForm.get("qty").value;
-   this.webConfig.auth0Domain=this.updateForm.get("auth0Domain").value;
-    this.webConfig.auth0Key=this.updateForm.get("auth0Key").value;
-    this.webConfigService.updateWebConfig(this.webConfig).pipe(take(1)).subscribe(t=>{
-      const message:MessageI={content:'La configuration du site web a bien été enregistrée',level:'Info'};
+  save(): void {
+    this.webConfig.caroussel = this.updateForm.get("caroussel").value;
+    this.webConfig.googleMapApi = this.updateForm.get("googleMapApi").value;
+    this.webConfig.title = this.updateForm.get("title").value;
+    this.webConfig.logo = this.selectedLogo;
+    this.webConfig.qty = this.updateForm.get("qty").value;
+    this.webConfig.auth0Domain = this.updateForm.get("auth0Domain").value;
+    this.webConfig.auth0Key = this.updateForm.get("auth0Key").value;
+    this.webConfigService.updateWebConfig(this.webConfig).pipe(take(1)).subscribe(t => {
+      const message: MessageI = { content: 'La configuration du site web a bien été enregistrée', level: 'Info' };
       this.messageService.add(message);
     })
   }
 
-  getWebConfigs(): void
-  {
-    this.webConfigService.getWebConfigs().pipe(take(1)).subscribe(webConfigs=>{
-      this.webConfig= webConfigs[0];
-      this.selectedLogo=this.webConfig.logo;
+  getWebConfigs(): void {
+    this.webConfigService.getWebConfigs().pipe(take(1)).subscribe(webConfigs => {
+      this.webConfig = webConfigs[0];
+      this.selectedLogo = this.webConfig.logo;
       this.updateForm.patchValue({
-        title:this.webConfig.title,
-        caroussel:this.webConfig.caroussel,
-        googleMapApi:this.webConfig.googleMapApi,
-        qty:this.webConfig.qty,
-        auth0Key:this.webConfig.auth0Key,
-        auth0Domain:this.webConfig.auth0Domain,
+        title: this.webConfig.title,
+        caroussel: this.webConfig.caroussel,
+        googleMapApi: this.webConfig.googleMapApi,
+        qty: this.webConfig.qty,
+        auth0Key: this.webConfig.auth0Key,
+        auth0Domain: this.webConfig.auth0Domain,
       });
     });
   }
 
-  constructor(private imageCategorieService: ImageCategorieService,private webConfigService: WebConfigService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(private imageCategorieService: ImageCategorieService, private webConfigService: WebConfigService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;
     this.getWebConfigs();
-    this.imageCategorieService.getImageCategories().pipe(take(1)).subscribe(categories=>{
-      this.categories=categories;
+    this.imageCategorieService.getImageCategories().pipe(take(1)).subscribe(categories => {
+      this.categories = categories;
     })
   }
 

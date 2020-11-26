@@ -1,7 +1,7 @@
 import { ItemCarteI } from './ItemCarteI';
 
 export interface ClientI {
-    id?:string;
+    id?: string;
     name: string;
     lastName: string;
     email: string;
@@ -9,6 +9,6 @@ export interface ClientI {
     adresseL2: string;
     zip: string;
     city: string;
-    sendInfo:boolean;
-    currentPanier:ItemCarteI[];
+    sendInfo: boolean;
+    currentPanier: ItemCarteI[];
 }

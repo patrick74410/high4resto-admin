@@ -3,20 +3,20 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { AuthentificationService } from './authentification.service';
 
 @Injectable()
-export class AuthGuardService implements CanActivate{
+export class AuthGuardService implements CanActivate {
 
   constructor(
-    private router:Router,
-    private authentificationService:AuthentificationService
+    private router: Router,
+    private authentificationService: AuthentificationService
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentConnexionI = this.authentificationService.currentConnexionIValue;
     if (currentConnexionI) {
-        return true;
+      return true;
     }
 
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
-}  
+  }
 }

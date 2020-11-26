@@ -9,11 +9,11 @@ import { SharedModule } from '../shared/shared.module';
 import { IdentiteComponent } from './identite/identite.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle'
-import {MatSelectModule} from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [HoraireComponent, IdentiteComponent],
@@ -31,7 +31,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatSelectModule,
 
   ],
-  exports:[],
-  providers: [HoraireService,IdentiteService]
+  exports: [],
+  providers: [HoraireService, IdentiteService]
 })
 export class InfosModule { }

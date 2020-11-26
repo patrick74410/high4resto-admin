@@ -20,13 +20,14 @@
                 </form>
                 <div class="row">
                     <form class="col-6">
-                            <div class="row">
-                                <div class="col-12 row">
-                                    <div class="col-4 mini" *ngFor="let image of images;trackBy:util.trackById" (click)="addNewItem(image)">
-                                        <img  class="img-fluid" src="{{urlDownload}}{{image.miniGridId}}" />
-                                    </div>
+                        <div class="row">
+                            <div class="col-12 row">
+                                <div class="col-4 mini" *ngFor="let image of images;trackBy:util.trackById"
+                                    (click)="addNewItem(image)">
+                                    <img class="img-fluid" src="{{urlDownload}}{{image.miniGridId}}" />
                                 </div>
                             </div>
+                        </div>
                     </form>
                     <div class="col-6" *ngIf="selectImage">
                         <h3>Image sélectionnée:</h3>

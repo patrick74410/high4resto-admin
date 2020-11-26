@@ -1,5 +1,5 @@
 import { ImageI } from './ImageI';
-// Catégorie de menu 
+// Catégorie de menu
 export interface ItemCategorieI {
     id?: string;
     // Nom de la catégorie
@@ -11,5 +11,5 @@ export interface ItemCategorieI {
     // Miniature
     iconImage?: ImageI;
     // Image pour la présentation
-    image?:ImageI; 
- }
+    image?: ImageI;
+}

@@ -151,7 +151,7 @@
 </div>
 
 
-<div class="container" >
+<div class="container">
     <div class="jumbotron">
         <h2 class="text-center">Gestion des articles</h2>
     </div>
@@ -161,26 +161,30 @@
             <mat-button-toggle *ngFor="let categorie of articleCategories;let idx=index;trackBy:util.trackById"
                 (click)="filter(categorie)">{{categorie.name}}</mat-button-toggle>
             <mat-button-toggle (click)="filter(null)">Catégorie null</mat-button-toggle>
-            <mat-form-field appearance="" class="ml-3" style="max-height: 50px;">
+            <mat-form-field *ngIf="authenticationService.editor" appearance="" class="ml-3" style="max-height: 50px;">
                 <mat-label>Ajout rapide d'une catégorie</mat-label>
                 <input #cattegorieName type="text" matInput placeholder="Ex: Nouveauté">
                 <button matSuffix (click)="addCategorie(cattegorieName.value);cattegorieName.value=''"
                     class="btn btn btn-secondary mb-2">+</button>
             </mat-form-field>
         </mat-button-toggle-group>
-        <button *ngIf="addArticle.categorie" type="button" class="btn btn-success ml-3" data-toggle="modal"
-            data-target="#addArticle">
-            Créer un article
-        </button>
+        <span *ngIf="authenticationService.editor">
+            <button *ngIf="addArticle.categorie" type="button" class="btn btn-success ml-3" data-toggle="modal"
+                data-target="#addArticle">
+                Créer un article
+            </button>
+        </span>
     </div>
 
     <div *ngIf="articles" class="mt-5">
         <div class="card my-3" *ngFor="let article of articles;trackBy:util.trackById">
             <div class="card-header">
-                <h3 class="float-left">{{article.title}}</h3>
+                <p class="float-left card-title">{{article.title}}</p>
                 <div class="float-right">
-                    <button (click)="delete(article)" class="btn btn-danger btn-list">Suprimer</button>
-                    <button type="button" class="btn btn-list btn-warning" (click)="updateDataForm(article)">
+                    <button *ngIf="authenticationService.admin" (click)="delete(article)"
+                        class="btn btn-danger btn-list">Suprimer</button>
+                    <button *ngIf="authenticationService.editor" type="button" class="btn btn-list btn-warning"
+                        (click)="updateDataForm(article)">
                         Modifier
                     </button>
                 </div>

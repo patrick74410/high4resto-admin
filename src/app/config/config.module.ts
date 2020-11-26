@@ -11,10 +11,18 @@ import { MatInputModule } from '@angular/material/input';
 import { WebConfigComponent } from './web-config/web-config.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { UserComponent } from './user/user.component';
+import { CDK_DRAG_CONFIG, DragDropModule } from '@angular/cdk/drag-drop';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+const DragConfig = {
+  dragStartThreshold: 0,
+  pointerDirectionChangeThreshold: 5,
+  zIndex: 10000
+};
 
 @NgModule({
-  declarations: [TvaComponent,MetaTagComponent, WebConfigComponent],
+  declarations: [TvaComponent, MetaTagComponent, WebConfigComponent, UserComponent],
   imports: [
     CommonModule,
     ConfigRoutingModule,
@@ -24,6 +32,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatSlideToggleModule]
+    DragDropModule,
+    MatExpansionModule,
+    MatSlideToggleModule],
+  providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })
 export class ConfigModule { }
