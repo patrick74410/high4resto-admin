@@ -8,6 +8,7 @@ import { ItemCategorieI } from 'src/app/interfaces/ItemCategorieI';
 import { ItemDisponibilityI } from 'src/app/interfaces/ItemDisponibility';
 import { MessageI } from 'src/app/interfaces/MessageI';
 import { MessageService } from 'src/app/rootComponent/messages/message.service';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { ExpireService } from 'src/app/services/expire.service';
 import { HoraireService } from 'src/app/services/horaire.service';
 import { ItemCarteService } from 'src/app/services/item-carte.service';
@@ -263,24 +264,29 @@ export class ItemDisponibilityComponent implements OnInit {
       this.itemCategories = categories
     )
 
-    this.itemDisponibilityService.getDisponibilitys().pipe(take(1)).subscribe(dispo => {
-      this.itemDisponibilitys = dispo;
-      this.itemSevice.getItemCartes().pipe(take(1)).subscribe(items => {
-        for (let item of items) {
-          var present: boolean = false;
-          for (let dispo of this.itemDisponibilitys) {
-            if (dispo.id == item.id)
-              present = true;
+
+    this.horaireService.getHoraires().pipe(take(1)).subscribe(horaire => {
+      this.defaultHoraire = horaire[0];
+      this.itemDisponibilityService.getDisponibilitys().pipe(take(1)).subscribe(dispo => {
+        this.itemDisponibilitys = dispo;
+        this.itemSevice.getItemCartes().pipe(take(1)).subscribe(items => {
+          for (let item of items) {
+            var present: boolean = false;
+            for (let dispo of this.itemDisponibilitys) {
+              if (dispo.id == item.id)
+                present = true;
+            }
+            if (!present) {
+              var addDispo: ItemDisponibilityI = { id: item.id, disponibility: this.defaultHoraire, always: true, dateFin: "", dateDebut: "" };
+              this.itemDisponibilityService.addDisponibility(addDispo).pipe(take(1)).subscribe(t => {
+              })
+            }
           }
-          if (!present) {
-            var addDispo: ItemDisponibilityI = { id: item.id, disponibility: this.defaultHoraire, always: true, dateFin: "", dateDebut: "" };
-            this.itemDisponibilityService.addDisponibility(addDispo).pipe(take(1)).subscribe(t => {
-            })
-          }
-        }
+        })
       })
     })
+
   }
-  constructor(private itemCategorieService: ItemCategorieService, private messageService: MessageService, private expireService: ExpireService, private horaireService: HoraireService, private itemDisponibilityService: ItemDisponibilityService, private itemSevice: ItemCarteService) { }
+  constructor(public authenticationService: AuthentificationService, private itemCategorieService: ItemCategorieService, private messageService: MessageService, private expireService: ExpireService, private horaireService: HoraireService, private itemDisponibilityService: ItemDisponibilityService, private itemSevice: ItemCarteService) { }
 
 }

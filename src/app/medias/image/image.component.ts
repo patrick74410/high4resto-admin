@@ -13,6 +13,7 @@ import { take } from 'rxjs/operators';
 import { Util } from '../../environement/util';
 import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
 import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 
 
 declare var bootstrap: any;
@@ -181,7 +182,7 @@ export class ImageComponent implements OnInit {
     this.name = files[0].name;
   }
 
-  constructor(private categorieService: ImageCategorieService, private messageService: MessageService, private _ngxPicaService: NgxPicaService, private imageService: ImageService, private alertService: AlertService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private categorieService: ImageCategorieService, private messageService: MessageService, private _ngxPicaService: NgxPicaService, private imageService: ImageService, private alertService: AlertService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check();

@@ -169,7 +169,7 @@
             </mat-form-field>
         </mat-button-toggle-group>
         <span *ngIf="authenticationService.editor">
-            <button *ngIf="addArticle.categorie" type="button" class="btn btn-success ml-3" data-toggle="modal"
+            <button *ngIf="addArticle.categorie" mat-stroked-button type="button" class="ml-3" data-toggle="modal"
                 data-target="#addArticle">
                 Créer un article
             </button>
@@ -182,8 +182,8 @@
                 <p class="float-left card-title">{{article.title}}</p>
                 <div class="float-right">
                     <button *ngIf="authenticationService.admin" (click)="delete(article)"
-                        class="btn btn-danger btn-list">Suprimer</button>
-                    <button *ngIf="authenticationService.editor" type="button" class="btn btn-list btn-warning"
+                        mat-stroked-button color="warn">Suprimer</button>
+                    <button *ngIf="authenticationService.editor" type="button" mat-stroked-button
                         (click)="updateDataForm(article)">
                         Modifier
                     </button>

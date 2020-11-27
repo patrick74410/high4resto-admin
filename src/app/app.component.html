@@ -5,8 +5,10 @@
     <div>
         <div class="container">
             <img src="../assets/image/banniere.png" style="width:100%" />
+
+
             <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-                <a class="navbar-brand" routerLink="/">Menu</a>
+                <a class="navbar-brand" >Menu</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
                     aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -14,94 +16,92 @@
                 <div class="collapse navbar-collapse" id="mainMenu">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="carte" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="#" id="manageItem" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 Gestion de la carte
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="carte">
-                        <li class="nav-item">
-                            <a class="dropdown-item" routerLink="/carte/allergene">
-                                Allergènes
-                            </a>
-                            <a class="dropdown-item" routerLink="/carte/options">
-                                Options de la carte
-                            </a>
-                            <a class="dropdown-item" routerLink="/carte/promotions">
-                                Promotions
-                            </a>
-                            <a class="dropdown-item" routerLink="/carte/categories">
-                                Sections de la carte
-                            </a>
-                            <a class="dropdown-item" routerLink="/carte/items">
-                                Gestion des items de la carte
-                            </a>
-                            <a class="dropdown-item" routerLink="/carte/itemDisponibility">
-                                Disponibilités des items
-                            </a>
+                            <div class="dropdown-menu" aria-labelledby="manageItem">
+                                <a class="dropdown-item" routerLink="/carte/allergene">
+                                    Allergènes
+                                </a>
+                                <a class="dropdown-item" routerLink="/carte/options">
+                                    Options de la carte
+                                </a>
+                                <a class="dropdown-item" routerLink="/carte/promotions">
+                                    Promotions
+                                </a>
+                                <a class="dropdown-item" routerLink="/carte/categories">
+                                    Sections de la carte
+                                </a>
+                                <a class="dropdown-item" routerLink="/carte/items">
+                                    Gestion des items de la carte
+                                </a>
+                            </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="media" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Médias
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="media">
+                                <a class="dropdown-item" (click)="expireService.check()"
+                                    routerLink="/medias/categories/">Catégories d'images</a>
+                                <a class="dropdown-item" routerLink="/medias/images/">Images</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="news" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Mes articles
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="news">
+                                <a class="dropdown-item" routerLink="/articles/categories/">Categories d'articles</a>
+                                <a class="dropdown-item" routerLink="/articles/edition/">Editer des articles</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="config" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Configuration
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="config">
+                                <a class="dropdown-item" routerLink="/config/meta-tag/">
+                                    Données de référencement
+                                </a>
+                                <a *ngIf="authenticationService.admin" class="dropdown-item" routerLink="/config/web-config/">
+                                    Configuration du site web
+                                </a>
+                                <a class="dropdown-item" routerLink="/config/tva/">
+                                    TVA
+                                </a>
+
+                                <a class="dropdown-item" routerLink="/infos/horaire">
+                                    Horaires
+                                </a>
+                                <a class="dropdown-item" routerLink="/infos/mon-entreprise">
+                                    Mon entreprise
+                                </a>
+                                <a *ngIf="authenticationService.admin" class="dropdown-item" routerLink="/config/utilisateurs">Gestion des utilisateurs</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown" *ngIf="authenticationService.manager">
+                            <a class="nav-link dropdown-toggle" href="#" id="stock" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Stock & tracabilité
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="stock">
+                                <a class="dropdown-item" routerLink="/gestion/stock/">Gestion du stock</a>
+                                <a class="dropdown-item" routerLink="/gestion/itemDisponibility/">
+                                    Disponibilités des items
+                                </a>
+                                <a class="dropdown-item" routerLink="/gestion/itemToPreparation/">Attribution des rôles pour préparation</a>
+                           </div>
+                        </li>
+                    </ul>
                 </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="medias" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Médias
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="medias">
-                        <a class="dropdown-item" (click)="expireService.check()"
-                            routerLink="/medias/categories/">Catégories d'images</a>
-                        <a class="dropdown-item" routerLink="/medias/images/">Images</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="articles" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Mes articles
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="articles">
-                        <a class="dropdown-item" routerLink="/articles/categories/">Categories d'articles</a>
-                        <a class="dropdown-item" routerLink="/articles/edition/">Editer des articles</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="config" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Configuration
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="config">
-                        <a class="dropdown-item" routerLink="/config/meta-tag/">
-                            Données de référencement
-                        </a>
-                        <a class="dropdown-item" routerLink="/config/web-config/">
-                            Configuration du site web
-                        </a>
-                        <a class="dropdown-item" routerLink="/config/tva/">
-                            TVA
-                        </a>
-
-                        <a class="dropdown-item" routerLink="/infos/horaire">
-                            Horaires
-                        </a>
-                        <a class="dropdown-item" routerLink="/infos/mon-entreprise">
-                            Mon entreprise
-                        </a>
-                        <a class="dropdown-item" routerLink="/config/utilisateurs">Gestion des utilisateurs</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="gestion" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Stock & tracabilité
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="gestion">
-                        <a class="dropdown-item" href="/gestion/stock/">Gestion du stock</a>
-                    </div>
-                </li>
-                </ul>
+            </nav>
         </div>
-        </nav>
     </div>
-</div>
 </div>
 
 <router-outlet></router-outlet>

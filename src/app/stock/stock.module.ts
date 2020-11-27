@@ -22,6 +22,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
+import { ItemDisponibilityComponent } from './item-disponibility/item-disponibility.component';
+import { ItemToPreparationComponent } from './item-to-preparation/item-to-preparation.component';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -30,7 +32,7 @@ const DragConfig = {
 };
 
 @NgModule({
-  declarations: [StockComponent],
+  declarations: [StockComponent,ItemDisponibilityComponent, ItemToPreparationComponent],
   imports: [
     CommonModule,
     StockRoutingModule,
@@ -39,6 +41,7 @@ const DragConfig = {
     HttpClientModule,
     DragDropModule,
     EditorModule,
+    SharedModule,
     NgxMaterialTimepickerModule.setLocale('fr-FR'),
     SharedModule,
     MatFormFieldModule,

@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from '../services/Auth/auth-guard.service';
 import { AllergeneComponent } from './allergene/allergene.component';
 import { CategorieComponent } from './categorie/categorie.component';
-import { ItemDisponibilityComponent } from './item-disponibility/item-disponibility.component';
 import { ListItemCarteComponent } from './list-item-carte/list-item-carte.component';
 import { OptionsItemComponent } from './options/options.component';
 import { PromotionsComponent } from './promotions/promotions.component';
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'promotions', component: PromotionsComponent, canActivate: [AuthGuardService] },
   { path: 'categories', component: CategorieComponent, canActivate: [AuthGuardService] },
   { path: 'items', component: ListItemCarteComponent, canActivate: [AuthGuardService] },
-  { path: 'itemDisponibility', component: ItemDisponibilityComponent, canActivate: [AuthGuardService] },
   { path: 'login' }
 ];
 

@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { environment } from '../../environement/environement';
 import { Util } from '../../environement/util';
 import { ImageI } from '../../interfaces/ImageI';
@@ -151,7 +152,7 @@ export class CategorieComponent implements OnInit {
   }
 
 
-  constructor(private itemCategorieService: ItemCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private itemCategorieService: ItemCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getCategories();

@@ -4,8 +4,8 @@
         <h2 class="text-center">Mes infos</h2>
     </div>
     <form class="row" [formGroup]="updateForm">
-        <div class="col-12 mt-2 mb-5">
-            <button type="button" class="btn btn-warning float-right" (click)="save()">Enregister les
+        <div *ngIf="authenticationService.manager" class="col-12 mt-2 mb-5">
+            <button type="button" mat-stroked-button class="float-right" (click)="save()">Enregister les
                 modifications</button>
         </div>
 
@@ -75,7 +75,7 @@
                         <tr *ngFor="let contact of identite.contact">
                             <td>{{contact.key}}</td>
                             <td>{{contact.value}}</td>
-                            <td><span class="btn btn-danger" (click)="deleteKey(contact)">X</span></td>
+                            <td><button mat-icon-button color="warn" (click)="deleteKey(contact)"><mat-icon>delete</mat-icon></button></td>
                         </tr>
                         <tr>
                             <td>

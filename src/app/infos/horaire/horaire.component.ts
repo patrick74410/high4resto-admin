@@ -8,6 +8,7 @@ import { ExpireService } from '../../services/expire.service';
 import { take } from 'rxjs/operators';
 import { HoraireI } from '../../interfaces/HoraireI'
 import { BetweenTimeI } from '../../interfaces/BetweenTimeI';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 
 @Component({
   selector: 'app-horaire',
@@ -231,7 +232,7 @@ export class HoraireComponent implements OnInit {
     });
   }
 
-  constructor(private horaireService: HoraireService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private horaireService: HoraireService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;

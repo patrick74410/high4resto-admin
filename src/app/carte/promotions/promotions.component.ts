@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { Util } from '../../environement/util';
 import { MessageI } from '../../interfaces/MessageI';
 import { PromotionI } from '../../interfaces/PromotionI';
@@ -161,7 +162,7 @@ export class PromotionsComponent implements OnInit {
     this.promotionService.getPromotions().pipe(take(1)).subscribe(promotions => this.promotions = promotions);
   }
 
-  constructor(private alertService: AlertService, private promotionService: PromotionService, private expireService: ExpireService, private messageService: MessageService) { }
+  constructor(public authenticationService: AuthentificationService,private alertService: AlertService, private promotionService: PromotionService, private expireService: ExpireService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getPromotions();

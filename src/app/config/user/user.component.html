@@ -59,7 +59,7 @@
 </div>
 
 
-<div class="container">
+<div class="container" *ngIf="authenticationService.admin">
     <div class="jumbotron">
         <h2>Gestion des utilisateurs</h2>
     </div>
@@ -110,13 +110,13 @@
             <div class="card-header">
                 <p class="float-left card-title">{{user.username}}</p>
                 <div class="float-right">
-                    <button type="button" class="btn btn-danger btn-list" (click)="delete(user)">
+                    <button type="button" mat-stroked-button color="warn" (click)="delete(user)">
                         Supprimer
                     </button>
-                    <button type="button" class="btn btn-warning btn-list" (click)="updateRoleShow(user)">
+                    <button type="button" mat-stroked-button (click)="updateRoleShow(user)">
                         Modifier les rôles
                     </button>
-                    <button type="button" class="btn btn-warning btn-list" (click)="updatePasswordShow(user)">
+                    <button type="button" mat-stroked-button (click)="updatePasswordShow(user)">
                         Modifier le mot de passe
                     </button>
                 </div>

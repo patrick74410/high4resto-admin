@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { MessageI } from '../../interfaces/MessageI';
 import { TvaI } from '../../interfaces/TvaI';
 import { AlertService } from '../../rootComponent/comfirm-dialog/alert.service';
@@ -86,7 +87,7 @@ export class TvaComponent implements OnInit {
     this.tvaService.getTvas().pipe(take(1)).subscribe(tvas => this.tvas = tvas);
   }
 
-  constructor(private tvaService: TvaService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private tvaService: TvaService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getTvas();

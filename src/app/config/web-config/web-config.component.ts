@@ -9,6 +9,7 @@ import { MessageI } from 'src/app/interfaces/MessageI';
 import { WebConfigI } from 'src/app/interfaces/WebConfigI';
 import { AlertService } from 'src/app/rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from 'src/app/rootComponent/messages/message.service';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { ExpireService } from 'src/app/services/expire.service';
 import { ImageCategorieService } from 'src/app/services/ImageCategorie.service';
 import { WebConfigService } from 'src/app/services/web-config.service';
@@ -80,7 +81,7 @@ export class WebConfigComponent implements OnInit {
     });
   }
 
-  constructor(private imageCategorieService: ImageCategorieService, private webConfigService: WebConfigService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private imageCategorieService: ImageCategorieService, private webConfigService: WebConfigService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;

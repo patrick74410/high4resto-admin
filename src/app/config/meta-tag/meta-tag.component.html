@@ -7,7 +7,7 @@
 <div class="container" *ngIf="metaTag">
     <form class="row" [formGroup]="updateForm">
         <div class="col-12 mt-3 mb-5">
-            <button type="button" class="btn btn-warning float-right" (click)="save()">Enregistrer les
+            <button *ngIf="authenticationService.manager" mat-stroked-button type="button" class="float-right" (click)="save()">Enregistrer les
                 modifications</button>
         </div>
 
@@ -92,7 +92,7 @@
                     <tr *ngFor="let other of metaTag.other;TrackBy:util.trackById">
                         <td>{{other.key}}</td>
                         <td>{{other.value}}</td>
-                        <td><span class="btn btn-danger" (click)="deleteKey(other)">X</span></td>
+                        <td><button mat-icon-button color="warn" (click)="deleteKey(other)"><mat-icon>delete</mat-icon></button></td>
                     </tr>
                     <tr>
                         <td>

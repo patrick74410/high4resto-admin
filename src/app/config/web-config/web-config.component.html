@@ -1,51 +1,53 @@
 <app-image-modal idModal="updateImageModal" (newItemEvent)="addImage($event)"></app-image-modal>
-<div class="container" *ngIf="webConfig">
-    <div class="jumbotron">
-        <h2 class="text-center">Configuration du site web</h2>
-    </div>
-    <form [formGroup]="updateForm">
-        <div class="row">
-            <div class="col-12 mt-2 mb-5">
-                <button type="button" class="btn btn-warning float-right" (click)="save()">Enregister les
-                    modifications</button>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field class="col-12" appearance="fill">
-                    <mat-label>Titre du site web</mat-label>
-                    <input formControlName="title" type="text" matInput placeholder="Ex: Site web de Magic Italian">
-                </mat-form-field>
-                <mat-form-field class="col-12" appearance="fill">
-                    <mat-label>Clef de l'API Google Map</mat-label>
-                    <input formControlName="googleMapApi" type="text" matInput>
-                </mat-form-field>
-                <mat-form-field class="col-12" appearance="fill">
-                    <mat-label>Clef de l'API Auth0</mat-label>
-                    <input formControlName="auth0Key" type="text" matInput>
-                </mat-form-field>
-                <mat-form-field class="col-12" appearance="fill">
-                    <mat-label>Domaine de Auth0</mat-label>
-                    <input formControlName="auth0Domain" type="text" matInput>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="col-12">
-                    <mat-label>Catégorie de l'image</mat-label>
-                    <mat-select formControlName="caroussel" [compareWith]="compareByID">
-                        <mat-option *ngFor="let categorie of categories" [value]="categorie">
-                            {{categorie.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-slide-toggle formControlName="qty">Permettre l'affichage de sélection de la quantité
-                </mat-slide-toggle>
+<div *ngIf="authenticationService.admin">
+    <div class="container" *ngIf="webConfig">
+        <div class="jumbotron">
+            <h2 class="text-center">Configuration du site web</h2>
+        </div>
+        <form [formGroup]="updateForm">
+            <div class="row">
+                <div class="col-12 mt-2 mb-5">
+                    <button type="button" class="btn btn-warning float-right" (click)="save()">Enregister les
+                        modifications</button>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Titre du site web</mat-label>
+                        <input formControlName="title" type="text" matInput placeholder="Ex: Site web de Magic Italian">
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Clef de l'API Google Map</mat-label>
+                        <input formControlName="googleMapApi" type="text" matInput>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Clef de l'API Auth0</mat-label>
+                        <input formControlName="auth0Key" type="text" matInput>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Domaine de Auth0</mat-label>
+                        <input formControlName="auth0Domain" type="text" matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="col-12">
+                        <mat-label>Catégorie de l'image</mat-label>
+                        <mat-select formControlName="caroussel" [compareWith]="compareByID">
+                            <mat-option *ngFor="let categorie of categories" [value]="categorie">
+                                {{categorie.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-slide-toggle formControlName="qty">Permettre l'affichage de sélection de la quantité
+                    </mat-slide-toggle>
 
-            </div>
-            <div class="col-md-6">
-                <div class="col-12 text-center">
-                    <button (click)="showImageUpdateModal()" type="button"
-                        class="btn btn-primary col-12 mb-2">Sélectionner
-                        une fav-icon</button>
-                    <img *ngIf="selectedLogo" src="{{urlDownload}}{{selectedLogo.gridId}}" style="max-width: 128px;" />
+                </div>
+                <div class="col-md-6">
+                    <div class="col-12 text-center">
+                        <button (click)="showImageUpdateModal()" type="button"
+                            class="btn btn-primary col-12 mb-2">Sélectionner
+                            une fav-icon</button>
+                        <img *ngIf="selectedLogo" src="{{urlDownload}}{{selectedLogo.gridId}}" style="max-width: 128px;" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

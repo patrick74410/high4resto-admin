@@ -23,7 +23,6 @@ import { ToDeliveryI } from 'src/app/interfaces/tracability/ToDelivery';
 import { ToPrepareI } from 'src/app/interfaces/tracability/ToPrepare';
 import { TrashI } from 'src/app/interfaces/tracability/Trash';
 import { TvaI } from 'src/app/interfaces/TvaI';
-import { UserI } from 'src/app/interfaces/UserI';
 import { AlertService } from 'src/app/rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from 'src/app/rootComponent/messages/message.service';
 import { AuthentificationService } from 'src/app/services/Auth/authentification.service';

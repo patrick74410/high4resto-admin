@@ -112,7 +112,7 @@
   <div class="jumbotron">
     <h2 class="text-center">Gestion des sections de la carte</h2>
   </div>
-  <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#addCategorie">
+  <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal" data-target="#addCategorie">
     Ajouter une catégorie
   </button>
   <div cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list mt-5">
@@ -121,9 +121,9 @@
         <div class="card-header">
           <p class="float-left card-title">{{categorie.name}}</p>
           <div class="float-right">
-            <button class="btn btn-danger btn-list" title="delete categorie"
+            <button *ngIf="authenticationService.admin" mat-stroked-button color="warn" title="delete categorie"
               (click)="delete(categorie)">Supprimer</button>
-            <button (click)="updateDataForm(categorie)" type="button" class="btn btn-warning btn-list">
+            <button *ngIf="authenticationService.manager" (click)="updateDataForm(categorie)" type="button" mat-stroked-button>
               Modifier
             </button>
           </div>

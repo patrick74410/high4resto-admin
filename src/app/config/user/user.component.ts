@@ -6,6 +6,7 @@ import { MessageI } from 'src/app/interfaces/MessageI';
 import { UserI } from 'src/app/interfaces/UserI';
 import { AlertService } from 'src/app/rootComponent/comfirm-dialog/alert.service';
 import { MessageService } from 'src/app/rootComponent/messages/message.service';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { ExpireService } from 'src/app/services/expire.service';
 import { UserService } from 'src/app/services/user.service';
 import { Util } from '../../environement/util';
@@ -114,7 +115,7 @@ export class UserComponent implements OnInit {
     }
   }
 
-  constructor(private userService: UserService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private userService: UserService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   update(): void {
     this.userService.getRoles().pipe(take(1)).subscribe(roles => {

@@ -9,6 +9,7 @@ import { take } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ImageI } from 'src/app/interfaces/ImageI';
 import { environment } from '../../environement/environement';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 
 declare var bootstrap: any;
 
@@ -115,7 +116,7 @@ export class ImageCategorieComponent implements OnInit {
     this.imageCategorieService.getImageCategories().pipe(take(1)).subscribe(imageCategories => this.imageCategories = imageCategories);
   }
 
-  constructor(private imageCategorieService: ImageCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private imageCategorieService: ImageCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getImageCategories();

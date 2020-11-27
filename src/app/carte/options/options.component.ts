@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { MessageI } from '../../interfaces/MessageI';
 import { OptionItemI } from '../../interfaces/OptionItem';
 import { OptionsItemI } from '../../interfaces/OptionsItem';
@@ -134,7 +135,7 @@ export class OptionsItemComponent implements OnInit {
     this.optionsItemService.getOptionsItems().pipe(take(1)).subscribe(options => this.optionsItems = options);
   }
 
-  constructor(private optionsItemService: OptionsItemService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private optionsItemService: OptionsItemService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getOptions();

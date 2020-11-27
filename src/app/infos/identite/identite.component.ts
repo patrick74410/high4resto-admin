@@ -13,6 +13,7 @@ import { ImageI } from '../../interfaces/ImageI';
 import { ImageService } from '../../services/image.service'
 import { environment } from '../../environement/environement';
 import { Util } from '../../environement/util'
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 
 declare var bootstrap: any;
 
@@ -98,7 +99,7 @@ export class IdentiteComponent implements OnInit {
 
 
 
-  constructor(private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;

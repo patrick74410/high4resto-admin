@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { take } from 'rxjs/operators';
+import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { environment } from '../../environement/environement';
 import { Util } from '../../environement/util';
 import { ImageI } from '../../interfaces/ImageI';
@@ -105,7 +106,7 @@ export class MetaTagComponent implements OnInit {
     })
   }
 
-  constructor(private metaTagService: MetaTagService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService,private metaTagService: MetaTagService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check();

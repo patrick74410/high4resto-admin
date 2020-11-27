@@ -1,0 +1,12 @@
+<h3>Sélection de la categorie</h3>
+<mat-button-toggle-group matPrefix aria-label="Default select" class="mt-3">
+    <mat-button-toggle *ngFor="let categorie of itemCategories;let idx=index;trackBy:util.trackById"
+        (click)="filterAdd(categorie)">{{categorie.name}}</mat-button-toggle>
+</mat-button-toggle-group>
+<div *ngIf="stockItem.item">
+    <div *ngIf="stockItem.item.categorie">
+        <h3>Sélection du produit</h3>
+        <button (click)="addNewItem(choix)" *ngFor="let choix of items;let idx=index;trackBy:util.trackById"
+            mat-button>{{choix.name}}</button>
+    </div>
+</div>

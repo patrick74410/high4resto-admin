@@ -13,6 +13,9 @@ import { AuthGuardService } from './services/Auth/auth-guard.service';
 import { JwtInterceptor } from './services/Auth/jwt-interceptor.service';
 import { ErrorInterceptor } from './services/Auth/error-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     AlertService,

@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatButtonModule} from '@angular/material/button';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -35,6 +36,7 @@ const DragConfig = {
     MatSlideToggleModule,
     MatSelectModule,
     MatButtonToggleModule,
+    MatButtonModule
   ],
   providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })
