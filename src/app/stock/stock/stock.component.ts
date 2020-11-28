@@ -168,7 +168,7 @@ export class StockComponent implements OnInit {
     })
   }
 
-  constructor(private authenticationService: AuthentificationService,private trashService: TrashService, private itemCarteService: ItemCarteService, private itemCategorieService: ItemCategorieService, private stockService: StockService, private http: HttpClient, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) {
+  constructor(private authenticationService: AuthentificationService,private trashService: TrashService, private itemCarteService: ItemCarteService, private itemCategorieService: ItemCategorieService, private stockService: StockService, private http: HttpClient, private messageService: MessageService, private expireService: ExpireService) {
     this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories => {
       this.itemCategories = categories;
     })
@@ -176,6 +176,7 @@ export class StockComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.expireService.check();
     this.filterEntity = new Stock();
     this.filterEntity.item = new Item();
     this.filterGroupedEntity = new Stock();

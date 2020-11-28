@@ -16,7 +16,7 @@
                 <div cdkDropListGroup>
                     <div class="row">
                         <div class="allergene-container col-6">
-                            <h2>Options disponibles</h2>
+                            <h4>Options disponibles</h4>
 
                             <div cdkDropList [cdkDropListData]="options" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="allergene-container col-6">
-                            <h2>Options choisies</h2>
+                            <h4>Options choisies</h4>
 
                             <div cdkDropList [cdkDropListData]="optionsSelected" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -112,7 +112,7 @@
                 <div cdkDropListGroup>
                     <div class="row">
                         <div class="allergene-container col-6">
-                            <h2>Options disponibles</h2>
+                            <h4>Options disponibles</h4>
 
                             <div cdkDropList [cdkDropListData]="options" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -149,7 +149,7 @@
                         </div>
 
                         <div class="allergene-container col-6">
-                            <h2>Options choisies</h2>
+                            <h4>Options choisies</h4>
 
                             <div cdkDropList [cdkDropListData]="this.selectedItem.options" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -209,7 +209,7 @@
                 <div cdkDropListGroup>
                     <div class="row">
                         <div class="allergene-container col-6">
-                            <h2>Promotions disponibles</h2>
+                            <h4>Promotions disponibles</h4>
                             <div cdkDropList [cdkDropListData]="promotions" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div class="allergene-box" *ngFor="let promotion of promotions;trackBy:util.trackById"
@@ -233,7 +233,7 @@
                         </div>
 
                         <div class="allergene-container col-6">
-                            <h2>Promotions choisies</h2>
+                            <h4>Promotions choisies</h4>
                             <div cdkDropList [cdkDropListData]="promotionsSelected" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div class="allergene-box"
@@ -280,7 +280,7 @@
                 <div cdkDropListGroup>
                     <div class="row">
                         <div class="allergene-container col-6">
-                            <h2>Promotions disponibles</h2>
+                            <h4>Promotions disponibles</h4>
                             <div cdkDropList [cdkDropListData]="promotions" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div class="allergene-box" *ngFor="let promotion of promotions;trackBy:util.trackById"
@@ -304,7 +304,7 @@
                         </div>
 
                         <div class="allergene-container col-6">
-                            <h2>Promotions choisies</h2>
+                            <h4>Promotions choisies</h4>
                             <div cdkDropList [cdkDropListData]="selectedItem.promotions" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
                                 <div class="allergene-box"
@@ -350,7 +350,7 @@
                 <div cdkDropListGroup>
                     <div class="row">
                         <div class="allergene-container col-6">
-                            <h2>Allergenes disponibles</h2>
+                            <h4>Allergenes disponibles</h4>
 
                             <div cdkDropList [cdkDropListData]="allergenes" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -360,7 +360,7 @@
                         </div>
 
                         <div class="allergene-container col-6">
-                            <h2>Allergenes choisis</h2>
+                            <h4>Allergenes choisis</h4>
 
                             <div cdkDropList [cdkDropListData]="selectedItem.allergenes" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -394,7 +394,7 @@
                 <div cdkDropListGroup>
                     <div class="row">
                         <div class="allergene-container col-6">
-                            <h2>Allergenes disponibles</h2>
+                            <h4>Allergenes disponibles</h4>
 
                             <div cdkDropList [cdkDropListData]="allergenes" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">
@@ -404,7 +404,7 @@
                         </div>
 
                         <div class="allergene-container col-6">
-                            <h2>Allergenes choisis</h2>
+                            <h4>Allergenes choisis</h4>
 
                             <div cdkDropList [cdkDropListData]="allergenesAdd" class="allergene-list"
                                 (cdkDropListDropped)="drop($event)">

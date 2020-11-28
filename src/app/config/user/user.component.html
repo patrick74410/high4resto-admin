@@ -84,7 +84,7 @@
                 <input required formControlName="password" type="text" matInput>
             </mat-form-field>
             <div class="cdk-container">
-                <h2>Rôles disponibles</h2>
+                <h4>Rôles disponibles</h4>
 
                 <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="roles" [cdkDropListConnectedTo]="[doneList]"
                     class="cdk-list" (cdkDropListDropped)="drop($event)">
@@ -93,7 +93,7 @@
             </div>
 
             <div class="cdk-container">
-                <h2>Rôles attribués</h2>
+                <h4>Rôles attribués</h4>
 
                 <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="addRole"
                     [cdkDropListConnectedTo]="[todoList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
