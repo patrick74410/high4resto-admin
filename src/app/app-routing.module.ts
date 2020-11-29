@@ -14,7 +14,7 @@ const routes: Routes = [{ path: 'carte', loadChildren: () => import('./carte/car
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), SharedModule],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }), SharedModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
