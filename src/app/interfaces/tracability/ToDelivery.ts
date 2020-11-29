@@ -5,4 +5,5 @@ export interface ToDeliveryI {
     prepare: PrepareI;
     inside: string;
     deleveryPerson: string;
+    messageToNext: string;
 }

@@ -61,11 +61,11 @@ export class StockComponent implements OnInit {
   delete(message: string): void {
     this.selection.selected
     for (let stock of this.selection.selected) {
-      var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "" };
-      var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", meansOfPayement: "", orderNumber: "" };
-      var toPrepare: ToPrepareI = { order: order, inside: "", executorName: "" }
+      var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "",orderNumber:"",messageToNext:"" };
+      var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", meansOfPayement: "" };
+      var toPrepare: ToPrepareI = { order: order, inside: "", executor: "",messageToNext: ""}
       var prepare: PrepareI = { toPrepare: toPrepare, inside: "" };
-      var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "" }
+      var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "",messageToNext:"" }
       var delevery: DeleveryI = { toDelivery: toDelivery, inside: "" };
       var trash: TrashI = { delevery: delevery, inside: "", causeMessage: message }
       this.trashService.addTrash(trash).pipe(take(1)).subscribe(f => {
@@ -105,11 +105,11 @@ export class StockComponent implements OnInit {
       for (let stock of stocks) {
 
         if (stock.item.id == this.stockItem.item.id) {
-          var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "" };
-          var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", meansOfPayement: "", orderNumber: "" };
-          var toPrepare: ToPrepareI = { order: order, inside: "", executorName: "" }
+          var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "",messageToNext:"",orderNumber:"" };
+          var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", meansOfPayement: ""};
+          var toPrepare: ToPrepareI = { order: order, inside: "", executor: "",messageToNext:"" }
           var prepare: PrepareI = { toPrepare: toPrepare, inside: "" };
-          var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "" }
+          var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "",messageToNext:"" }
           var delevery: DeleveryI = { toDelivery: toDelivery, inside: "" };
           var trash: TrashI = { delevery: delevery, inside: "", causeMessage: "Définition d'une nouvelle quantité" }
           this.trashService.addTrash(trash).pipe(take(1)).subscribe(f => {

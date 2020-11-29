@@ -4,5 +4,6 @@ export interface ToPrepareI {
     id?: string;
     order: OrderI;
     inside: string;
-    executorName: string;
+    executor: string;
+    messageToNext:string;
 }

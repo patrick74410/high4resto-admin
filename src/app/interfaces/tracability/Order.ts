@@ -6,6 +6,5 @@ export interface OrderI {
     inside: string;
     mandatory: string;
     deleveryMode: string;
-    orderNumber: string;
     meansOfPayement: string;
 }

@@ -25,6 +25,7 @@
     "@angular/router": "^10.2.3",
     "@digitalascetic/ngx-pica": "^10.0.1",
     "@tinymce/tinymce-angular": "^4.2.0",
+    "Firestitch.angular-counter": "github:Firestitch/angular-counter",
     "bootstrap": "^5.0.0-alpha3",
     "exifr": "^6.0.0",
     "mat-table-filter": "^9.0.1",

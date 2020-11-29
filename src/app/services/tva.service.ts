@@ -38,6 +38,7 @@ export class TvaService {
   }
 
   resetList(): void {
+    this.tva=null;
   }
 
   updateTva(tva: TvaI): Observable<any> {
