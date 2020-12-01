@@ -27,9 +27,13 @@
                         <div class="card mcard">
                             <h3 class="card-header">Lundi</h3>
                             <div class="card-body">
-                                <div *ngFor="let between of currentDisponibility.disponibility.lundi;trackBy:util.trackById" class="row">
+                                <div *ngFor="let between of currentDisponibility.disponibility.lundi;trackBy:util.trackById"
+                                    class="row">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,0)"><mat-icon>delete</mat-icon></button>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,0)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
                                 </div>
                             </div>
                             <div class="card-text card-footer">
@@ -55,8 +59,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.mardi;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,1)"><mat-icon>delete</mat-icon></button>
-                            </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,1)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -81,8 +88,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.mercredi;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,2)"><mat-icon>delete</mat-icon></button>
-                            </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,2)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -111,8 +121,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.jeudi;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,3)"><mat-icon>delete</mat-icon></button>
-                            </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,3)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -137,8 +150,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.vendredi;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,4)"><mat-icon>delete</mat-icon></button>
-                            </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,4)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -165,8 +181,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.samedi;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,5)"><mat-icon>delete</mat-icon></button>
-                            </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,5)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -193,8 +212,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.dimanche;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,6)"><mat-icon>delete</mat-icon></button>
-                           </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,6)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -221,8 +243,11 @@
                                 <div class="card-text row"
                                     *ngFor="let between of currentDisponibility.disponibility.ferie;trackBy:util.trackById">
                                     <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                                    <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,7)"><mat-icon>delete</mat-icon></button>
-                            </div>
+                                    <button class="col-4" mat-icon-button color="warn"
+                                        (click)="deleteBetween(between,7)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div class="card-text card-footer">
                                 <div class="mbottom">
@@ -267,7 +292,8 @@
             <div class="card-header">
                 <p class="float-left card-title">{{dispo.name}}</p>
                 <div class="float-right">
-                    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button (click)="updateDataForm(dispo.id)">
+                    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button
+                        (click)="updateDataForm(dispo.id)">
                         Modifier
                     </button>
                 </div>

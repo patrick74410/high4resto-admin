@@ -8,7 +8,7 @@
 
 
             <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-                <a class="navbar-brand" >Menu</a>
+                <a class="navbar-brand">Menu</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
                     aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,8 @@
                 <div class="collapse navbar-collapse" id="mainMenu">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="serveur" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="serveur" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 Serveur
                             </a>
                             <div class="dropdown-menu" aria-labelledby="serveur">
@@ -76,7 +77,8 @@
                                 <a class="dropdown-item" routerLink="/config/meta-tag/">
                                     Données de référencement
                                 </a>
-                                <a *ngIf="authenticationService.admin" class="dropdown-item" routerLink="/config/web-config/">
+                                <a *ngIf="authenticationService.admin" class="dropdown-item"
+                                    routerLink="/config/web-config/">
                                     Configuration du site web
                                 </a>
                                 <a class="dropdown-item" routerLink="/config/tva/">
@@ -89,7 +91,8 @@
                                 <a class="dropdown-item" routerLink="/infos/mon-entreprise">
                                     Mon entreprise
                                 </a>
-                                <a *ngIf="authenticationService.admin" class="dropdown-item" routerLink="/config/utilisateurs">Gestion des utilisateurs</a>
+                                <a *ngIf="authenticationService.admin" class="dropdown-item"
+                                    routerLink="/config/utilisateurs">Gestion des utilisateurs</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown" *ngIf="authenticationService.manager">
@@ -102,8 +105,9 @@
                                 <a class="dropdown-item" routerLink="/gestion/itemDisponibility/">
                                     Disponibilités des items
                                 </a>
-                                <a class="dropdown-item" routerLink="/gestion/itemToPreparation/">Attributions pour la préparation</a>
-                           </div>
+                                <a class="dropdown-item" routerLink="/gestion/itemToPreparation/">Attributions pour la
+                                    préparation</a>
+                            </div>
                         </li>
                     </ul>
                 </div>

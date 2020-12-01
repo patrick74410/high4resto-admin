@@ -135,7 +135,7 @@ export class OptionsItemComponent implements OnInit {
     this.optionsItemService.getOptionsItems().pipe(take(1)).subscribe(options => this.optionsItems = options);
   }
 
-  constructor(public authenticationService: AuthentificationService,private optionsItemService: OptionsItemService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private optionsItemService: OptionsItemService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getOptions();

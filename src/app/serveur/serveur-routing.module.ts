@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from '../services/Auth/auth-guard.service';
 import { InterfaceComponent } from './interface/interface.component';
 
-const routes: Routes = [{ path: 'interface', component: InterfaceComponent,canActivate:[AuthGuardService] }];
+const routes: Routes = [{ path: 'interface', component: InterfaceComponent, canActivate: [AuthGuardService] }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

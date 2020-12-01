@@ -75,7 +75,9 @@
                         <tr *ngFor="let contact of identite.contact">
                             <td>{{contact.key}}</td>
                             <td>{{contact.value}}</td>
-                            <td><button mat-icon-button color="warn" (click)="deleteKey(contact)"><mat-icon>delete</mat-icon></button></td>
+                            <td><button mat-icon-button color="warn" (click)="deleteKey(contact)">
+                                    <mat-icon>delete</mat-icon>
+                                </button></td>
                         </tr>
                         <tr>
                             <td>

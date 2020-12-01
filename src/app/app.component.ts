@@ -10,7 +10,7 @@ import { ExpireService } from './services/expire.service';
 })
 export class AppComponent {
   title = 'high4RestoAdminNext';
-  constructor(public authenticationService: AuthentificationService,public expireService: ExpireService,private router: Router) { }
+  constructor(public authenticationService: AuthentificationService, public expireService: ExpireService, private router: Router) { }
 
   ngOnInit() {
     localStorage.removeItem('expire');

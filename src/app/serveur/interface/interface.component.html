@@ -5,31 +5,35 @@
     <div class="row">
         <mat-tab-group>
             <mat-tab label="Commande">
-                <mat-tab-group>
-                    <mat-tab label="Prise de commande">
+                <mat-button-toggle-group [disabled]="table.length>0" [(ngModel)]="table" matPrefix
+                    aria-label="Default select" class="mt-3 col-12">
+                    <mat-button-toggle value="1">Table 1</mat-button-toggle>
+                    <mat-button-toggle value="table2">Table 2</mat-button-toggle>
+                    <mat-button-toggle value="table3">Table 3</mat-button-toggle>
+                    <mat-button-toggle value="table4">Table 4</mat-button-toggle>
+                    <mat-button-toggle value="table5">Table 5</mat-button-toggle>
+                    <mat-button-toggle value="table6">Table 6</mat-button-toggle>
+                    <mat-button-toggle value="table7">Table 7</mat-button-toggle>
+                    <mat-button-toggle value="table8">Table 8</mat-button-toggle>
+                </mat-button-toggle-group>
+                <mat-tab-group (selectedTabChange)="getTable()">
+                    <mat-tab label="Prise de commande" *ngIf="table.length>0">
                         <div class="col-12 row">
-                            <mat-button-toggle-group [disabled]="table>0" [(ngModel)]="table" matPrefix aria-label="Default select" class="mt-3 col-12">
-                                <mat-button-toggle value="1">Table 1</mat-button-toggle>
-                                <mat-button-toggle value="2">Table 2</mat-button-toggle>
-                                <mat-button-toggle value="3">Table 3</mat-button-toggle>
-                                <mat-button-toggle value="4">Table 4</mat-button-toggle>
-                                <mat-button-toggle value="5">Table 5</mat-button-toggle>
-                                <mat-button-toggle value="6">Table 6</mat-button-toggle>
-                                <mat-button-toggle value="7">Table 7</mat-button-toggle>
-                                <mat-button-toggle value="8">Table 8</mat-button-toggle>
-                            </mat-button-toggle-group>
-                            <div *ngIf="table>0">
+                            <div>
                                 <mat-button-toggle-group matPrefix aria-label="Default select" class="mt-3 col-12">
-                                    <mat-button-toggle *ngFor="let categorie of itemsCategory;let idx=index;trackBy:util.trackById"
+                                    <mat-button-toggle
+                                        *ngFor="let categorie of itemsCategory;let idx=index;trackBy:util.trackById"
                                         (click)="filterAdd(categorie)">{{categorie.name}}</mat-button-toggle>
                                 </mat-button-toggle-group>
                                 <mat-button-toggle-group matPrefix aria-label="Default select" class="mt-3 col-12">
-                                    <mat-button-toggle *ngFor="let stock of stocksAdd;let idx=index;trackBy:util.trackById"
+                                    <mat-button-toggle
+                                        *ngFor="let stock of stocksAdd;let idx=index;trackBy:util.trackById"
                                         (click)="selectStock(stock)">{{stock.item.name}}</mat-button-toggle>
                                 </mat-button-toggle-group>
                                 <div class=col-12>
                                     <div *ngIf="currentAdd" class="row">
-                                        <div *ngFor="let option of currentAdd.item.options;let idx=index" class="my-3 col-md-6">
+                                        <div *ngFor="let option of currentAdd.item.options;let idx=index"
+                                            class="my-3 col-md-6">
                                             <div class="card">
                                                 <div class="card-header">
                                                     <h3>{{option.label}}</h3>
@@ -37,37 +41,65 @@
                                                 <div class="card-body">
                                                     <ng-container *ngIf="option.unique">
                                                         <mat-radio-group>
-                                                            <mat-radio-button #item (change)="check(idx,i,item)" class="col-12 my-2"
-                                                                [checked]="choix.selected" [value]="idx +',' +i"
+                                                            <mat-radio-button #item (change)="check(idx,i,item)"
+                                                                class="col-12 my-2" [checked]="choix.selected"
+                                                                [value]="idx +',' +i"
                                                                 *ngFor="let choix of option.options; let i=index"><span>
-                                                                {{choix.label}} <span *ngIf="choix.price>0">+ {{choix.price}}€</span></span>
+                                                                    {{choix.label}} <span *ngIf="choix.price>0">+
+                                                                        {{choix.price}}€</span></span>
                                                             </mat-radio-button>
                                                         </mat-radio-group>
                                                     </ng-container>
                                                 </div>
                                                 <ng-container *ngIf="!option.unique">
-                                                    <mat-checkbox #item (change)="check(idx,i,item)" class="col-12 my-2 ml-3"
-                                                        [checked]="choix.selected" [value]="idx +',' +i"
+                                                    <mat-checkbox #item (change)="check(idx,i,item)"
+                                                        class="col-12 my-2 ml-3" [checked]="choix.selected"
+                                                        [value]="idx +',' +i"
                                                         *ngFor="let choix of option.options; let i=index">
-                                                        {{choix.label}} <span *ngIf="choix.price>0">+ {{choix.price}}€</span>
+                                                        {{choix.label}} <span *ngIf="choix.price>0">+
+                                                            {{choix.price}}€</span>
                                                     </mat-checkbox>
                                                 </ng-container>
                                             </div>
                                         </div>
+
                                         <mat-form-field class="col-12" appearance="fill">
-                                            <mat-label>Quantité</mat-label>
-                                            <input type="number" value="1" min="1" [max]="currentAdd.item.stock" matInput #qty>
+                                            <mat-label>Commentaire</mat-label>
+                                            <input type="text" matInput #text>
                                         </mat-form-field>
-                                        <button class="mt-5" (click)="addToPreorder(qty.value)" mat-stroked-button>Ajouter au panier</button>
-                                        <button class="my-2" (click)="table=-1" mat-stroked-button>Changer de table</button>
+
+                                        <button class="mt-5" (click)="addToPreorder(text.value)"
+                                            mat-stroked-button>Ajouter au panier</button>
+                                        <button class="my-2" (click)="cancel()" mat-stroked-button>Annuler la
+                                            commande</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </mat-tab>
-                    <mat-tab label="Pannier">
-                        <div *ngFor="let panierItem of preOrder">
-                            {{panierItem.stock.item.name}}
+                    <mat-tab *ngIf="table.length>0" label="Pannier">
+                        <div *ngFor="let panierItem of preOrder;trackBy:util.trackById" class="card my-3">
+                            <div class="card-header">
+                                <h3 class="card-title float-left">{{panierItem.stock.item.name}}</h3>
+                                <div class="float-right">
+                                    <button mat-stroked-button (click)="sendToCook(panierItem)">
+                                        Annoncer a la cuisine
+                                    </button>
+                                    <button (click)="goBack(panierItem)" mat-stroked-button color="warn">
+                                        Remettre dans la prise de commande
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p>Options:</p>
+                                <span *ngFor="let option of panierItem.stock.item.options">
+                                    <span *ngFor="let choix of option.options">
+                                        <span *ngIf="choix.selected">-{{choix.label}}-</span>
+                                    </span><br />
+                                </span>
+                                <hr />
+                                <p>Message:{{panierItem.messageToNext}}</p>
+                            </div>
                         </div>
                     </mat-tab>
                 </mat-tab-group>

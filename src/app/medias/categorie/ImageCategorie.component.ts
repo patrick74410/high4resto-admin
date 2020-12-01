@@ -116,7 +116,7 @@ export class ImageCategorieComponent implements OnInit {
     this.imageCategorieService.getImageCategories().pipe(take(1)).subscribe(imageCategories => this.imageCategories = imageCategories);
   }
 
-  constructor(public authenticationService: AuthentificationService,private imageCategorieService: ImageCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private imageCategorieService: ImageCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getImageCategories();

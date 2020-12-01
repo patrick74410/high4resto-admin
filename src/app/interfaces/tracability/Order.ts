@@ -6,5 +6,7 @@ export interface OrderI {
     inside: string;
     mandatory: string;
     deleveryMode: string;
-    meansOfPayement: string;
+    statusOfPayement: string;
+    timeToTake: string;
+    toTake: boolean;
 }

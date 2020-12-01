@@ -181,8 +181,8 @@
             <div class="card-header">
                 <p class="float-left card-title">{{article.title}}</p>
                 <div class="float-right">
-                    <button *ngIf="authenticationService.admin" (click)="delete(article)"
-                        mat-stroked-button color="warn">Suprimer</button>
+                    <button *ngIf="authenticationService.admin" (click)="delete(article)" mat-stroked-button
+                        color="warn">Suprimer</button>
                     <button *ngIf="authenticationService.editor" type="button" mat-stroked-button
                         (click)="updateDataForm(article)">
                         Modifier

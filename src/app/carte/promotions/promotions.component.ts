@@ -162,7 +162,7 @@ export class PromotionsComponent implements OnInit {
     this.promotionService.getPromotions().pipe(take(1)).subscribe(promotions => this.promotions = promotions);
   }
 
-  constructor(public authenticationService: AuthentificationService,private alertService: AlertService, private promotionService: PromotionService, private expireService: ExpireService, private messageService: MessageService) { }
+  constructor(public authenticationService: AuthentificationService, private alertService: AlertService, private promotionService: PromotionService, private expireService: ExpireService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getPromotions();

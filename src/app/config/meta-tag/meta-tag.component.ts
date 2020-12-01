@@ -106,7 +106,7 @@ export class MetaTagComponent implements OnInit {
     })
   }
 
-  constructor(public authenticationService: AuthentificationService,private metaTagService: MetaTagService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private metaTagService: MetaTagService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check();

@@ -183,7 +183,8 @@
         <h2 class="text-center">Gestion des promotions</h2>
     </div>
 
-    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal" data-target="#addModal">
+    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal"
+        data-target="#addModal">
         Ajouter une stratégie de promotion
     </button>
 
@@ -195,7 +196,8 @@
                     <button *ngIf="authenticationService.admin" mat-stroked-button color="warn" title="delete promotion"
                         (click)="delete(promotion)">Supprimer</button>
 
-                    <button *ngIf="authenticationService.manager" (click)="updateDataForm(promotion)" type="button" mat-stroked-button>
+                    <button *ngIf="authenticationService.manager" (click)="updateDataForm(promotion)" type="button"
+                        mat-stroked-button>
                         Modifier
                     </button>
                 </div>

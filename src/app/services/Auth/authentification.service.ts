@@ -15,12 +15,12 @@ import { UserI } from 'src/app/interfaces/UserI';
 export class AuthentificationService {
   private currentConnexionISubject: BehaviorSubject<ConnexionI>;
   public currentConnexionI: Observable<ConnexionI>;
-  public admin:boolean= false;
-  public manager:boolean= false;
-  public editor:boolean= false;
-  public userName:string;
+  public admin: boolean = false;
+  public manager: boolean = false;
+  public editor: boolean = false;
+  public userName: string;
 
-  constructor(private http: HttpClient,private userService: UserService) {
+  constructor(private http: HttpClient, private userService: UserService) {
     this.currentConnexionISubject = new BehaviorSubject<ConnexionI>(JSON.parse(localStorage.getItem('currentConnexionI')));
     this.currentConnexionI = this.currentConnexionISubject.asObservable();
   }
@@ -37,11 +37,11 @@ export class AuthentificationService {
         localStorage.setItem("expire", oneday.toJSON());
         localStorage.setItem('currentConnexionI', JSON.stringify(connexion));
         this.currentConnexionISubject.next(connexion);
-        this.http.get<UserI>(environment.apiUrl+'/users/me').pipe(take(1)).subscribe(user=>{
-          this.admin=user.roles.includes("ROLE_ADMIN");
-          this.manager=user.roles.includes("ROLE_MANAGER");
-          this.editor=user.roles.includes("ROLE_EDITOR");
-          this.userName=user.username;
+        this.http.get<UserI>(environment.apiUrl + '/users/me').pipe(take(1)).subscribe(user => {
+          this.admin = user.roles.includes("ROLE_ADMIN");
+          this.manager = user.roles.includes("ROLE_MANAGER");
+          this.editor = user.roles.includes("ROLE_EDITOR");
+          this.userName = user.username;
         })
 
         return connexion;

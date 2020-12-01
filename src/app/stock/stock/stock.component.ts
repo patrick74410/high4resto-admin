@@ -61,11 +61,11 @@ export class StockComponent implements OnInit {
   delete(message: string): void {
     this.selection.selected
     for (let stock of this.selection.selected) {
-      var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "",orderNumber:"",messageToNext:"" };
-      var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", meansOfPayement: "" };
-      var toPrepare: ToPrepareI = { order: order, inside: "", executor: "",messageToNext: ""}
+      var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "", orderNumber: "", messageToNext: "", destination: "" };
+      var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", statusOfPayement: "", timeToTake: "", toTake: false };
+      var toPrepare: ToPrepareI = { order: order, inside: "", executor: "", messageToNext: "" }
       var prepare: PrepareI = { toPrepare: toPrepare, inside: "" };
-      var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "",messageToNext:"" }
+      var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "", messageToNext: "" }
       var delevery: DeleveryI = { toDelivery: toDelivery, inside: "" };
       var trash: TrashI = { delevery: delevery, inside: "", causeMessage: message }
       this.trashService.addTrash(trash).pipe(take(1)).subscribe(f => {
@@ -105,11 +105,11 @@ export class StockComponent implements OnInit {
       for (let stock of stocks) {
 
         if (stock.item.id == this.stockItem.item.id) {
-          var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "",messageToNext:"",orderNumber:"" };
-          var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", meansOfPayement: ""};
-          var toPrepare: ToPrepareI = { order: order, inside: "", executor: "",messageToNext:"" }
+          var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "", messageToNext: "", orderNumber: "", destination: "" };
+          var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", statusOfPayement: "", timeToTake: "", toTake: false };
+          var toPrepare: ToPrepareI = { order: order, inside: "", executor: "", messageToNext: "" }
           var prepare: PrepareI = { toPrepare: toPrepare, inside: "" };
-          var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "",messageToNext:"" }
+          var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "", messageToNext: "" }
           var delevery: DeleveryI = { toDelivery: toDelivery, inside: "" };
           var trash: TrashI = { delevery: delevery, inside: "", causeMessage: "Définition d'une nouvelle quantité" }
           this.trashService.addTrash(trash).pipe(take(1)).subscribe(f => {
@@ -168,7 +168,7 @@ export class StockComponent implements OnInit {
     })
   }
 
-  constructor(private authenticationService: AuthentificationService,private trashService: TrashService, private itemCarteService: ItemCarteService, private itemCategorieService: ItemCategorieService, private stockService: StockService, private http: HttpClient, private messageService: MessageService, private expireService: ExpireService) {
+  constructor(private authenticationService: AuthentificationService, private trashService: TrashService, private itemCarteService: ItemCarteService, private itemCategorieService: ItemCategorieService, private stockService: StockService, private http: HttpClient, private messageService: MessageService, private expireService: ExpireService) {
     this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories => {
       this.itemCategories = categories;
     })

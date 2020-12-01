@@ -1,61 +1,62 @@
 <!-- Modal update-->
 <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="updateModalLabel">Attribution des roles</h2>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" *ngIf="UpdateDataUser">
-            <div class="cdk-container">
-                <h2>Rôles disponibles</h2>
+    aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="updateModalLabel">Attribution des roles</h2>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="UpdateDataUser">
+                <div class="cdk-container">
+                    <h2>Rôles disponibles</h2>
 
-                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="bRoles" [cdkDropListConnectedTo]="[doneList]"
-                    class="cdk-list" (cdkDropListDropped)="drop($event)">
-                    <div class="cdk-box" *ngFor="let item of bRoles" cdkDrag>{{item}}</div>
+                    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="bRoles"
+                        [cdkDropListConnectedTo]="[doneList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
+                        <div class="cdk-box" *ngFor="let item of bRoles" cdkDrag>{{item}}</div>
+                    </div>
+                </div>
+
+                <div class="cdk-container">
+                    <h2>Rôles attribués</h2>
+
+                    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="UpdateDataUser.roles"
+                        [cdkDropListConnectedTo]="[todoList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
+                        <div class="cdk-box" *ngFor="let item of UpdateDataUser.roles" cdkDrag>{{item}}</div>
+                    </div>
                 </div>
             </div>
-
-            <div class="cdk-container">
-                <h2>Rôles attribués</h2>
-
-                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="UpdateDataUser.roles"
-                    [cdkDropListConnectedTo]="[todoList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
-                    <div class="cdk-box" *ngFor="let item of UpdateDataUser.roles" cdkDrag>{{item}}</div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                <button type="submit" class="btn btn-warning" (click)="updateRole()">Enregister</button>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-          <button type="submit" class="btn btn-warning" (click)="updateRole()">Enregister</button>
         </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal updatePassword-->
 <div class="modal fade" id="updatePasswordModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-  aria-labelledby="updatePasswordModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="updatePasswordModalLabel">Changement du mot de passe</h2>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <mat-form-field class="col-12" appearance="fill">
-                <mat-label>Mot de passe de l'utilisateur</mat-label>
-                <input required #password type="text" matInput>
-            </mat-form-field>
+    aria-labelledby="updatePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="updatePasswordModalLabel">Changement du mot de passe</h2>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Mot de passe de l'utilisateur</mat-label>
+                    <input required #password type="text" matInput>
+                </mat-form-field>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
-          <button type="submit" class="btn btn-warning" (click)="updatePassword(password.value);password.value=''">Enregister</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">fermer</button>
+                <button type="submit" class="btn btn-warning"
+                    (click)="updatePassword(password.value);password.value=''">Enregister</button>
+            </div>
         </div>
     </div>
-  </div>
 </div>
 
 

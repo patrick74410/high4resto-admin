@@ -13,9 +13,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '../shared/shared.module';
 import { CDK_DRAG_CONFIG, DragDropModule } from '@angular/cdk/drag-drop';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const DragConfig = {
   dragStartThreshold: 0,

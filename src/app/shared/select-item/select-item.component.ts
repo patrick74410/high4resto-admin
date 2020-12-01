@@ -37,7 +37,7 @@ export class SelectItemComponent implements OnInit {
     this.newItemEvent.emit(value);
   }
 
-  constructor(private itemCategorieService:ItemCategorieService,private itemCarteService: ItemCarteService, private http: HttpClient) {
+  constructor(private itemCategorieService: ItemCategorieService, private itemCarteService: ItemCarteService, private http: HttpClient) {
     this.itemCategorieService.getCategories().pipe(take(1)).subscribe(categories => {
       this.itemCategories = categories;
     })

@@ -24,9 +24,9 @@ export class UserComponent implements OnInit {
   roles: string[];
   addRole: string[] = [];
 
-  bRoles: string[]=[];
+  bRoles: string[] = [];
   util = new Util();
-  UpdateDataUser:UserI;
+  UpdateDataUser: UserI;
 
   updateModal: any;
   updatePasswordModal: any;
@@ -37,35 +37,31 @@ export class UserComponent implements OnInit {
     email: new FormControl('')
   })
 
-  updateRoleShow(user:UserI) : void
-  {
-    this.UpdateDataUser=user;
+  updateRoleShow(user: UserI): void {
+    this.UpdateDataUser = user;
     this.bRoles = this.roles.filter((item) => {
       return !user.roles.some(e => e == item)
     });
     this.updateModal.show();
   }
 
-  updatePasswordShow(user:UserI): void
-  {
-    this.UpdateDataUser=user;
+  updatePasswordShow(user: UserI): void {
+    this.UpdateDataUser = user;
     this.updatePasswordModal.show();
   }
 
-  updatePassword(password:string):void
-  {
-    this.UpdateDataUser.password=password;
-    this.userService.updateUserPassword(this.UpdateDataUser).pipe(take(1)).subscribe(t=>{
-      const message: MessageI = { content: 'Le mot de pass de l\'utilisateur a été mis à jour', level: 'Info'};
+  updatePassword(password: string): void {
+    this.UpdateDataUser.password = password;
+    this.userService.updateUserPassword(this.UpdateDataUser).pipe(take(1)).subscribe(t => {
+      const message: MessageI = { content: 'Le mot de pass de l\'utilisateur a été mis à jour', level: 'Info' };
       this.messageService.add(message);
       this.updatePasswordModal.hide();
     })
   }
 
-  updateRole()
-  {
-    this.userService.updateUsersRoles(this.UpdateDataUser).pipe(take(1)).subscribe(t=>{
-      const message: MessageI = { content: 'Les rôles de l\'utilisateur ont été mis à jour', level: 'Info'};
+  updateRole() {
+    this.userService.updateUsersRoles(this.UpdateDataUser).pipe(take(1)).subscribe(t => {
+      const message: MessageI = { content: 'Les rôles de l\'utilisateur ont été mis à jour', level: 'Info' };
       this.messageService.add(message);
       this.updateModal.hide();
     })
@@ -115,7 +111,7 @@ export class UserComponent implements OnInit {
     }
   }
 
-  constructor(public authenticationService: AuthentificationService,private userService: UserService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private userService: UserService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   update(): void {
     this.userService.getRoles().pipe(take(1)).subscribe(roles => {

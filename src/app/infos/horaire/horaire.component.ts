@@ -232,7 +232,7 @@ export class HoraireComponent implements OnInit {
     });
   }
 
-  constructor(public authenticationService: AuthentificationService,private horaireService: HoraireService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private horaireService: HoraireService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;

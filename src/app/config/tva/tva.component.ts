@@ -87,7 +87,7 @@ export class TvaComponent implements OnInit {
     this.tvaService.getTvas().pipe(take(1)).subscribe(tvas => this.tvas = tvas);
   }
 
-  constructor(public authenticationService: AuthentificationService,private tvaService: TvaService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private tvaService: TvaService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getTvas();

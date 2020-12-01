@@ -322,7 +322,7 @@ export class ListItemCarteComponent implements OnInit {
     }
   }
 
-  constructor(public authenticationService: AuthentificationService,private promotionService: PromotionService, private optionService: OptionsItemService, private tvaService: TvaService, private alertService: AlertService, private itemCategorieService: ItemCategorieService, private imageService: ImageService, private allergeneService: AllergeneService, private itemCarteService: ItemCarteService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private promotionService: PromotionService, private optionService: OptionsItemService, private tvaService: TvaService, private alertService: AlertService, private itemCategorieService: ItemCategorieService, private imageService: ImageService, private allergeneService: AllergeneService, private itemCarteService: ItemCarteService, private messageService: MessageService, private expireService: ExpireService) { }
 
   onSelect(image: ImageI) {
     this.selectedImage = image;

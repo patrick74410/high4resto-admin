@@ -51,7 +51,8 @@
   <div class="jumbotron">
     <h2 class="text-center">Gestion des allergenes</h2>
   </div>
-  <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal" data-target="#addAllergene">
+  <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal"
+    data-target="#addAllergene">
     Ajouter un allergene
   </button>
 
@@ -62,7 +63,8 @@
         <div class="float-right">
           <button *ngIf="authenticationService.admin" mat-stroked-button color="warn" title="delete allergene"
             (click)="delete(allergene)">Supprimer</button>
-          <button *ngIf="authenticationService.manager" (click)="updateDataForm(allergene)" type="button" mat-stroked-button>
+          <button *ngIf="authenticationService.manager" (click)="updateDataForm(allergene)" type="button"
+            mat-stroked-button>
             Modifier
           </button>
         </div>

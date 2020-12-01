@@ -17,16 +17,16 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./item-to-preparation.component.css']
 })
 export class ItemToPreparationComponent implements OnInit {
-  allItemRoles:ItemPreparationI[];
-  roles:string[];
-  roleForAdd: string[]=[];
+  allItemRoles: ItemPreparationI[];
+  roles: string[];
+  roleForAdd: string[] = [];
   currentItemRole: ItemPreparationI;
 
-  selectItem(item:ItemCarteI): void{
-    this.itemPreparationService.getItemRolesWithId(item.id).pipe(take(1)).subscribe(itemRole=>{
-      this.currentItemRole=itemRole;
-      this.roleForAdd=this.roles.filter((item)=>{
-        return !itemRole.roleName.some(e=> e==item);
+  selectItem(item: ItemCarteI): void {
+    this.itemPreparationService.getItemRolesWithId(item.id).pipe(take(1)).subscribe(itemRole => {
+      this.currentItemRole = itemRole;
+      this.roleForAdd = this.roles.filter((item) => {
+        return !itemRole.roleName.some(e => e == item);
       })
     })
   }
@@ -42,38 +42,35 @@ export class ItemToPreparationComponent implements OnInit {
     }
   }
 
-  save():void{
-    this.itemPreparationService.updateItemRole(this.currentItemRole).pipe(take(1)).subscribe(item=>{
-      const message: MessageI = { content: 'Les données ont été misent à jour',level: 'Info'};
+  save(): void {
+    this.itemPreparationService.updateItemRole(this.currentItemRole).pipe(take(1)).subscribe(item => {
+      const message: MessageI = { content: 'Les données ont été misent à jour', level: 'Info' };
       this.messageService.add(message);
     })
   }
 
-  constructor(public authenticationService: AuthentificationService,private expireService: ExpireService,private messageService: MessageService,private userService:UserService,private itemPreparationService:ItemPreparationService,private itemCarteService:ItemCarteService) {
+  constructor(public authenticationService: AuthentificationService, private expireService: ExpireService, private messageService: MessageService, private userService: UserService, private itemPreparationService: ItemPreparationService, private itemCarteService: ItemCarteService) {
     this.expireService.check();
-    this.userService.getRoles().pipe(take(1)).subscribe(roles=>{
-      this.roles=roles;
+    this.userService.getRoles().pipe(take(1)).subscribe(roles => {
+      this.roles = roles;
     })
-    this.itemPreparationService.getItemRoles().pipe(take(1)).subscribe(itemRoles=>{
-      this.allItemRoles= itemRoles;
-      this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items=>{
-        for (let item of items)
-        {
-          var present: boolean= false;
-          for (let itemRole of this.allItemRoles)
-          {
-            if(itemRole.id== item.id)
-            present=true;
+    this.itemPreparationService.getItemRoles().pipe(take(1)).subscribe(itemRoles => {
+      this.allItemRoles = itemRoles;
+      this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+        for (let item of items) {
+          var present: boolean = false;
+          for (let itemRole of this.allItemRoles) {
+            if (itemRole.id == item.id)
+              present = true;
           }
-          if(!present)
-          {
-            var addItemRole:ItemPreparationI={id:item.id,roleName:[],part:0.1,name:item.name,time:10};
-            this.itemPreparationService.addItemRole(addItemRole).pipe(take(1)).subscribe(r=>{});
+          if (!present) {
+            var addItemRole: ItemPreparationI = { id: item.id, roleName: [], part: 0.1, name: item.name, time: 10 };
+            this.itemPreparationService.addItemRole(addItemRole).pipe(take(1)).subscribe(r => { });
           }
         }
       })
     })
-   }
+  }
 
   ngOnInit(): void {
   }

@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthentificationService,
-        private messageService: MessageService,private userService: UserService
+        private messageService: MessageService, private userService: UserService
     ) {
 
         if (this.authenticationService.currentConnexionIValue) {

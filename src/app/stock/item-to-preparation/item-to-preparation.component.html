@@ -5,12 +5,14 @@
     <app-select-item (newItemEvent)="selectItem($event)"></app-select-item>
     <div *ngIf="currentItemRole">
         <div class="col-12 mt-3 mb-5">
-            <button *ngIf="authenticationService.manager" mat-stroked-button type="button" class="float-right" (click)="save()">Enregistrer les
+            <button *ngIf="authenticationService.manager" mat-stroked-button type="button" class="float-right"
+                (click)="save()">Enregistrer les
                 modifications</button>
         </div>
         <h3>{{currentItemRole.name}}</h3>
         <mat-form-field class="col-12 mt-3" appearance="fill">
-            <mat-label>Part de travail ( ex 0.1 signifie que l'on peut préparé 10 items simultanément, 1 signifie que l'on peut préparer 1 item simultanément)</mat-label>
+            <mat-label>Part de travail ( ex 0.1 signifie que l'on peut préparé 10 items simultanément, 1 signifie que
+                l'on peut préparer 1 item simultanément)</mat-label>
             <input required [(ngModel)]="currentItemRole.part" step="0.1" min="0" max="1" type="number" matInput>
         </mat-form-field>
         <mat-form-field class="col-12" appearance="fill">
@@ -21,8 +23,8 @@
         <div class="cdk-container">
             <h4>Rôles disponibles</h4>
 
-            <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="roleForAdd" [cdkDropListConnectedTo]="[doneList]"
-                class="cdk-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="roleForAdd"
+                [cdkDropListConnectedTo]="[doneList]" class="cdk-list" (cdkDropListDropped)="drop($event)">
                 <div class="cdk-box" *ngFor="let item of roleForAdd" cdkDrag>{{item}}</div>
             </div>
         </div>

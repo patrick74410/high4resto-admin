@@ -57,7 +57,8 @@
 </div>
 
 <div class="container">
-  <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal" data-target="#addModal">
+  <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal"
+    data-target="#addModal">
     Ajouter un taux de TVA
   </button>
   <div class="mt-5">
@@ -65,7 +66,8 @@
       <div class="card-header">
         <p class="float-left card-title">{{tva.taux}}%</p>
         <div class="float-right">
-          <button *ngIf="authenticationService.admin" mat-stroked-button color="warn" title="delete tva" (click)="delete(tva)">Supprimer</button>
+          <button *ngIf="authenticationService.admin" mat-stroked-button color="warn" title="delete tva"
+            (click)="delete(tva)">Supprimer</button>
           <button *ngIf="authenticationService.manager" type="button" mat-stroked-button (click)="updateDataForm(tva)">
             Modifier
           </button>

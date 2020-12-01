@@ -99,7 +99,8 @@
   <div class="jumbotron">
     <h2 class="text-center mat-h2">Gestion des catégorie d'images</h2>
   </div>
-  <button *ngIf="authenticationService.editor" type="button" mat-stroked-button data-toggle="modal" data-target="#addModal">
+  <button *ngIf="authenticationService.editor" type="button" mat-stroked-button data-toggle="modal"
+    data-target="#addModal">
     Ajouter une catégorie d'image
   </button>
 
@@ -108,9 +109,10 @@
       <div class="card-header">
         <p class="float-left card-title">{{imageCategorie.name}}</p>
         <div class="float-right">
-          <button mat-stroked-button color="warn" title="delete imageCategorie"
-            (click)="delete(imageCategorie)" *ngIf="authenticationService.admin">Supprimer</button>
-          <button *ngIf="authenticationService.editor" type="button" mat-stroked-button (click)="updateDataForm(imageCategorie)">
+          <button mat-stroked-button color="warn" title="delete imageCategorie" (click)="delete(imageCategorie)"
+            *ngIf="authenticationService.admin">Supprimer</button>
+          <button *ngIf="authenticationService.editor" type="button" mat-stroked-button
+            (click)="updateDataForm(imageCategorie)">
             Modifier
           </button>
         </div>

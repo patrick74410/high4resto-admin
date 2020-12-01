@@ -3,7 +3,8 @@
 <div class="container" *ngIf="horaire">
     <div class="row">
         <div class="col-12 mt-3 mb-5">
-            <button *ngIf="authenticationService.manager" type="button" class="btn btn-warning float-right" (click)="save()">Enregistrer les
+            <button *ngIf="authenticationService.manager" type="button" class="btn btn-warning float-right"
+                (click)="save()">Enregistrer les
                 modifications</button>
         </div>
         <div class="col-md-4">
@@ -12,7 +13,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.lundi;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,0)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,0)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">
@@ -37,7 +40,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.mardi;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,1)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,1)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">
@@ -62,7 +67,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.mercredi;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,2)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,2)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">
@@ -89,7 +96,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.jeudi;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,3)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,3)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">
@@ -114,7 +123,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.vendredi;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,4)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,4)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">
@@ -139,7 +150,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.samedi;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,5)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,5)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">
@@ -166,7 +179,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.dimanche;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,6)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,6)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
 
                     </div>
                 </div>
@@ -192,7 +207,9 @@
                 <div class="card-body">
                     <div class="card-text row" *ngFor="let between of horaire.ferie;trackBy:util.trackById">
                         <p class="col-8 mt-2">{{between.debut}} à {{between.fin}}</p>
-                        <button class="col-4"  mat-icon-button color="warn" (click)="deleteBetween(between,1)"><mat-icon>delete</mat-icon></button>
+                        <button class="col-4" mat-icon-button color="warn" (click)="deleteBetween(between,1)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div class="card-text card-footer">

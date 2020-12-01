@@ -155,7 +155,7 @@ export class CategorieComponent implements OnInit {
   }
 
 
-  constructor(public authenticationService: AuthentificationService,private articleCategorieService: ArticleCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private articleCategorieService: ArticleCategorieService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getArticleCategories();

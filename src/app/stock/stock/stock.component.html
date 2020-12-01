@@ -151,7 +151,7 @@
                 éléments</button>
         </mat-tab>
         <mat-tab label="Définir le stock">
-          <app-select-item  (newItemEvent)="selectItem($event)"></app-select-item>
+            <app-select-item (newItemEvent)="selectItem($event)"></app-select-item>
 
             <div *ngIf="stockItem.item">
                 <div *ngIf="itemSelected">

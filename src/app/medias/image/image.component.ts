@@ -182,7 +182,7 @@ export class ImageComponent implements OnInit {
     this.name = files[0].name;
   }
 
-  constructor(public authenticationService: AuthentificationService,private categorieService: ImageCategorieService, private messageService: MessageService, private _ngxPicaService: NgxPicaService, private imageService: ImageService, private alertService: AlertService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private categorieService: ImageCategorieService, private messageService: MessageService, private _ngxPicaService: NgxPicaService, private imageService: ImageService, private alertService: AlertService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check();

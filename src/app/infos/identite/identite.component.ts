@@ -99,7 +99,7 @@ export class IdentiteComponent implements OnInit {
 
 
 
-  constructor(public authenticationService: AuthentificationService,private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private identiteService: IdentiteService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.expireService.check;

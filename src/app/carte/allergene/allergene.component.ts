@@ -85,7 +85,7 @@ export class AllergeneComponent implements OnInit {
     this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => this.allergenes = allergenes);
   }
 
-  constructor(public authenticationService: AuthentificationService,private allergeneService: AllergeneService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
+  constructor(public authenticationService: AuthentificationService, private allergeneService: AllergeneService, private alertService: AlertService, private messageService: MessageService, private expireService: ExpireService) { }
 
   ngOnInit(): void {
     this.getAllergenes();

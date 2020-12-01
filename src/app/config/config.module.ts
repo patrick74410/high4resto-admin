@@ -14,8 +14,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { UserComponent } from './user/user.component';
 import { CDK_DRAG_CONFIG, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 const DragConfig = {
   dragStartThreshold: 0,

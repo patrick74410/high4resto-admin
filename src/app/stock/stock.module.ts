@@ -32,7 +32,7 @@ const DragConfig = {
 };
 
 @NgModule({
-  declarations: [StockComponent,ItemDisponibilityComponent, ItemToPreparationComponent],
+  declarations: [StockComponent, ItemDisponibilityComponent, ItemToPreparationComponent],
   imports: [
     CommonModule,
     StockRoutingModule,

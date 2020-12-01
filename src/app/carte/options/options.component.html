@@ -43,7 +43,9 @@
                         <div (click)="onSelectChoix(choix)" class="box" *ngFor="let choix of addOptionsItem.options"
                             cdkDrag>
                             {{choix.label}} {{choix.price}}€
-                            <button class="btn btn-danger" (click)="deleteChoixAdd(choix)"><mat-icon>delete</mat-icon></button>
+                            <button class="btn btn-danger" (click)="deleteChoixAdd(choix)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
                         </div>
                     </div>
 
@@ -102,7 +104,9 @@
                         <div (click)="onSelectChoix(choix)" class="box"
                             *ngFor="let choix of selectedOptionsItem.options" cdkDrag>
                             {{choix.label}} {{choix.price}}€
-                            <button class="btn btn-danger" (click)="deleteChoixUpd(choix)"><mat-icon>delete</mat-icon></button>
+                            <button class="btn btn-danger" (click)="deleteChoixUpd(choix)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +123,8 @@
     <div class="jumbotron">
         <h2 class="text-center">Gestion des options de la carte</h2>
     </div>
-    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal" data-target="#addModal">
+    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button data-toggle="modal"
+        data-target="#addModal">
         Ajouter une option
     </button>
 
@@ -130,7 +135,8 @@
                 <div class="float-right">
                     <button *ngIf="authenticationService.admin" mat-stroked-button color="warn" title="delete allergene"
                         (click)="delete(option)">Supprimer</button>
-                    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button (click)="updateDataForm(option)">
+                    <button *ngIf="authenticationService.manager" type="button" mat-stroked-button
+                        (click)="updateDataForm(option)">
                         Modifier
                     </button>
                 </div>
