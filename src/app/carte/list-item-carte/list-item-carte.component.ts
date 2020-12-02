@@ -69,6 +69,7 @@ export class ListItemCarteComponent implements OnInit {
     tva: new FormControl('', Validators.required),
     categorie: new FormControl('', Validators.required),
     visible: new FormControl(''),
+    remarque: new FormControl('')
 
   });
 
@@ -79,7 +80,7 @@ export class ListItemCarteComponent implements OnInit {
     tva: new FormControl('', Validators.required),
     categorie: new FormControl('', Validators.required),
     visible: new FormControl(''),
-
+    remarque: new FormControl('')
   });
 
 
@@ -120,6 +121,7 @@ export class ListItemCarteComponent implements OnInit {
       tva: selectedItem.tva,
       categorie: selectedItem.categorie,
       visible: selectedItem.visible,
+      remarque: selectedItem.remarque,
     });
     this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => this.allergenes = allergenes);
     this.selectedImage = selectedItem.sourceImage;
@@ -244,6 +246,7 @@ export class ListItemCarteComponent implements OnInit {
     this.selectedItem.description = this.updateForm.get("description").value;
     this.selectedItem.price = this.updateForm.get("price").value;
     this.selectedItem.tva = this.updateForm.get("tva").value;
+    this.selectedItem.remarque= this.updateForm.get("remarque").value;
     this.selectedItem.categorie = this.updateForm.get("categorie").value;
     this.itemCarteService.updateItem(this.selectedItem).pipe(take(1)).subscribe(item => {
       document.getElementById('closeUpdateModal').click();
@@ -285,7 +288,8 @@ export class ListItemCarteComponent implements OnInit {
         options: this.optionsSelected,
         visible: this.addForm.get("visible").value,
         promotions: this.promotionsSelected,
-        stock: 0
+        stock: 0,
+        remarque:this.addForm.get("remarque").value,
       }
       this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => { this.allergenes = allergenes });
       this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(item => {

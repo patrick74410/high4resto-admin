@@ -10,12 +10,12 @@
         </div>
         <div class="modal-body">
           <div *ngIf="selectedImage" class="row">
-            <div class="col-12">
-              <h3 class="form-label mat-h3">Description:</h3>
-              <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
-                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
-              </editor>
-            </div>
+            <mat-form-field class="col-12" appearance="fill">
+              <mat-label>Description</mat-label>
+              <textarea class="textArea" formControlName="description" matInput
+                placeholder="Ex: Cette catégorie .."></textarea>
+            </mat-form-field>
+
 
             <mat-form-field appearance="fill">
               <mat-label>Catégorie de l'image</mat-label>
@@ -60,12 +60,12 @@
         </div>
         <div class="modal-body row">
 
-          <div class="col-12">
-            <h3 class="form-label mat-h3">Description:</h3>
-            <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
-              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2">
-            </editor>
-          </div>
+          <mat-form-field class="col-12" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea class="textArea" formControlName="description" matInput
+              placeholder="Ex: Cette catégorie .."></textarea>
+          </mat-form-field>
+
 
           <mat-form-field appearance="fill">
             <mat-label>Catégorie de l'image</mat-label>

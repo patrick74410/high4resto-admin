@@ -53,11 +53,11 @@
                                 style="width:100%" />
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Résumé:</label>
-                        <editor [init]="{language: 'fr_FR',height:300}" formControlName="resume"
-                            apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
-                    </div>
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Résumé</mat-label>
+                        <textarea class="textArea" formControlName="resume" matInput
+                            placeholder="Ex: Notre restaurant vous propose une ..."></textarea>
+                    </mat-form-field>
                     <div class="mb-3">
                         <label class="form-label">Contenu:</label>
                         <editor [init]="{language: 'fr_FR',height:500,   plugins: [ 'advlist autolink lists link image charmap print preview anchor',
@@ -126,11 +126,11 @@
                                 style="width:100%" />
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Résumé:</label>
-                        <editor [init]="{language: 'fr_FR',height:300}" formControlName="resume"
-                            apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
-                    </div>
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Résumé</mat-label>
+                        <textarea class="textArea" formControlName="resume" matInput
+                            placeholder="Ex: Notre restaurant vous propose une ..."></textarea>
+                    </mat-form-field>
                     <div class="mb-3">
                         <label class="form-label">Contenu:</label>
                         <editor [init]="{language: 'fr_FR',height:500,   plugins: [ 'advlist autolink lists link image charmap print preview anchor',

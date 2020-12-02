@@ -21,6 +21,8 @@ export class InterfaceComponent implements OnInit {
   currentCategory: ItemCategorieI;
   stocksAdd: StockI[] = [];
   preOrder: PreOrderI[] = [];
+  orders: OrderI[] = [];
+
   currentAdd: StockI;
   table: string = "";
 
@@ -29,6 +31,9 @@ export class InterfaceComponent implements OnInit {
     this.serveurService.getPreOrder(this.table).pipe(take(1)).subscribe(preOrder => {
       this.preOrder = preOrder;
     });
+    this.serveurService.getOrder(this.table).pipe(take(1)).subscribe(orders => {
+      this.orders = orders;
+    })
   }
 
   cancel(): void {
@@ -50,7 +55,7 @@ export class InterfaceComponent implements OnInit {
     var order: OrderI = { preOrder: panierItem, inside: "", mandatory: this.authenticationService.userName, deleveryMode: "inside", statusOfPayement: "", timeToTake: "Immédiat", toTake: false };
     this.serveurService.moveToOrder(order).pipe(take(1)).subscribe(t => {
       this.getTable();
-      const message: MessageI = { content: 'Item envoyé vers la cuisine', level: 'Info' };
+      const message: MessageI = { content: 'Item signalé à la cuisine', level: 'Info' };
       this.messageService.add(message);
     })
   }
@@ -61,6 +66,16 @@ export class InterfaceComponent implements OnInit {
       this.filterAdd(this.currentCategory);
     });
     this.currentAdd = null;
+  }
+
+  moveToTake(order: OrderI): void {
+    this.serveurService.moveToTake(order).pipe(take(1)).subscribe(t => {
+      this.serveurService.getOrder(this.table).pipe(take(1)).subscribe(orders => {
+        this.orders = orders;
+        const message: MessageI = { content: 'La demande d\'envoie a bien été réalisée', level: 'Info' };
+        this.messageService.add(message);
+      })
+    })
   }
 
   check(idx: number, i: number, item: HTMLInputElement) {

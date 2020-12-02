@@ -83,7 +83,7 @@
                                 <h3 class="card-title float-left">{{panierItem.stock.item.name}}</h3>
                                 <div class="float-right">
                                     <button mat-stroked-button (click)="sendToCook(panierItem)">
-                                        Annoncer a la cuisine
+                                        Anoncer à la cuisine
                                     </button>
                                     <button (click)="goBack(panierItem)" mat-stroked-button color="warn">
                                         Remettre dans la prise de commande
@@ -92,7 +92,7 @@
                             </div>
                             <div class="card-body">
                                 <p>Options:</p>
-                                <span *ngFor="let option of panierItem.stock.item.options">
+                                <span *ngFor="let option of panierItem.stock.item.options;trackBy:util.trackById">
                                     <span *ngFor="let choix of option.options">
                                         <span *ngIf="choix.selected">-{{choix.label}}-</span>
                                     </span><br />
@@ -101,6 +101,25 @@
                                 <p>Message:{{panierItem.messageToNext}}</p>
                             </div>
                         </div>
+                    </mat-tab>
+                    <mat-tab *ngIf="table.length>0" label="En cours">
+                        <div class="card my-3" *ngFor="let order of orders">
+                            <div class="card-header">
+                                <h3 class="float-left">{{order.preOrder.stock.item.name}}</h3>
+                                <button mat-stroked-button (click)="moveToTake(order)" class="float-right">Demander l'envoie</button>
+                            </div>
+                            <div class="card-body">
+                                <p>Options:</p>
+                                <span *ngFor="let option of order.preOrder.stock.item.options;trackBy:util.trackById">
+                                    <span *ngFor="let choix of option.options">
+                                        <span *ngIf="choix.selected">-{{choix.label}}-</span>
+                                    </span><br />
+                                </span>
+                                <hr />
+                                <p>Message:{{order.preOrder.messageToNext}}</p>
+                            </div>
+                        </div>
+
                     </mat-tab>
                 </mat-tab-group>
             </mat-tab>

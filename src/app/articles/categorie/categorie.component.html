@@ -25,12 +25,11 @@
               <input formControlName="name" type="text" matInput placeholder="Ex: Actualité">
             </mat-form-field>
             <mat-slide-toggle class="col-4" formControlName="visible">Visible</mat-slide-toggle>
-
-            <div class="col-12">
-              <label class="form-label">Description:</label>
-              <editor [init]="{language: 'fr_FR'}" formControlName="description"
-                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
-            </div>
+            <mat-form-field class="col-12" appearance="fill">
+              <mat-label>Description</mat-label>
+              <textarea class="textArea" formControlName="description" matInput
+                placeholder="Ex: Cette catégorie .."></textarea>
+            </mat-form-field>
             <div class="row">
               <div class="col-6 text-center">
                 <button type="button" class="btn btn-primary btn-list" (click)="showUpdateImage()" data-dismiss="modal">
@@ -74,11 +73,11 @@
             <input formControlName="name" type="text" matInput placeholder="Ex: Actualité">
           </mat-form-field>
           <mat-slide-toggle class="col-4" formControlName="visible">Visible</mat-slide-toggle>
-          <div class="col-12">
-            <label class="form-label">Description:</label>
-            <editor [init]="{language: 'fr_FR'}" formControlName="description"
-              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
-          </div>
+          <mat-form-field class="col-12" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea class="textArea" formControlName="description" matInput
+              placeholder="Ex: Cette catégorie .."></textarea>
+          </mat-form-field>
           <div class="row">
             <div class="col-6 text-center">
               <button type="button" class="btn btn-primary btn-list" (click)="showAddImage()" data-dismiss="modal">
