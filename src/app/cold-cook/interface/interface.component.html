@@ -1,5 +1,51 @@
-<div class="container">
+<div class="container-fluid">
     <div class="jumbotron">
         <h2>Interface du cuisinier froid</h2>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h3>Signalé</h3>
+            <mat-expansion-panel hideToggle *ngFor="let order of signalOrder;let idx=index">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    A{{idx}}-{{order.preOrder.destination}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{order.preOrder.stock.item.name}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>{{order.annonce}}</p>
+
+              </mat-expansion-panel>
+        </div>
+        <div class="col-4">
+            <h3>A faire</h3>
+            <mat-expansion-panel hideToggle *ngFor="let order of toTakeOrder;let idx=index">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    B{{idx}}-{{order.preOrder.destination}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{order.preOrder.stock.item.name}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>{{order.annonce}}</p>
+                <button (click)="prepare(order)" mat-stroked-button>Prendre en charge</button>
+              </mat-expansion-panel>
+        </div>
+        <div class="col-4">
+            <h3>En cours</h3>
+            <mat-expansion-panel hideToggle *ngFor="let toPrepare of toPrepares;let idx=index">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    C{{idx}}-{{toPrepare.order.preOrder.destination}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{toPrepare.order.preOrder.stock.item.name}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>{{toPrepare.order.annonce}}</p>
+              </mat-expansion-panel>
+        </div>
     </div>
 </div>
