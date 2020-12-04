@@ -20,10 +20,14 @@ export class ServeurService {
   private moveBackToStockUrl = environment.apiUrl + '/serveur/moveBackToStock/';
   private findOrderUrl=environment.apiUrl + '/serveur/findOrder/';
   private moveToTakeUrl= environment.apiUrl + '/serveur/moveToTake/';
+  private moveManyToOrderUrl=environment.apiUrl + '/serveur/moveManyToOrder/';
+  private moveManyToTakeUrl=environment.apiUrl + '/serveur/moveManyToTake/';
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+
 
   getCategory(): Observable<ItemCategorieI[]> {
     return this.http.get<ItemCategorieI[]>(this.findCategoryUrl)
@@ -48,6 +52,15 @@ export class ServeurService {
   moveToOrder(order: OrderI): Observable<OrderI> {
     return this.http.put<OrderI>(this.moveToOrderUrl, order, this.httpOptionsUpdate);
   }
+
+  moveManyToOrder(table:string,mandatory: string):Observable<OrderI>{
+    return this.http.get<OrderI>(this.moveManyToOrderUrl+table+"/"+mandatory);
+  }
+
+  moveManyToTake(table:string,category: string):Observable<OrderI>{
+    return this.http.get<OrderI>(this.moveManyToTakeUrl+table+"/"+category);
+  }
+
 
   moveToTake(order: OrderI): Observable<OrderI> {
     return this.http.put<OrderI>(this.moveToTakeUrl, order, this.httpOptionsUpdate);

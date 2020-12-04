@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/app/environement/environement';
+import { Util } from 'src/app/environement/util';
 import { MessageI } from 'src/app/interfaces/MessageI';
 import { OrderI } from 'src/app/interfaces/tracability/Order';
 import { ToPrepareI } from 'src/app/interfaces/tracability/ToPrepare';
@@ -10,6 +11,14 @@ import { AuthentificationService } from 'src/app/services/Auth/authentification.
 import { PreparateurService } from 'src/app/services/preparateurService';
 import { Socket } from 'src/app/services/Socket';
 const ROLE="ROLE_COLDCOOK";
+
+const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
+  list.reduce((previous, currentItem) => {
+    const group = getKey(currentItem);
+    if (!previous[group]) previous[group] = [];
+    previous[group].push(currentItem);
+    return previous;
+  }, {} as Record<K, T[]>);
 
 @Component({
   selector: 'app-interface',
@@ -21,31 +30,72 @@ export class InterfaceComponent implements OnInit {
   private socket:Socket=new Socket(environment.socketColdCook)
   private listener: EventEmitter<any> = new EventEmitter();
   private audioFlux=new Subject<string>();
-  toTakeOrder:OrderI[]=[];
-  signalOrder: OrderI[] = [];
   toPrepares:ToPrepareI[]=[];
+  signals:Signal[]=[];
+  toTakes:ToTake[]=[];
 
-  prepare(order: OrderI)
+  util = new Util();
+
+  prepare(order: OrderI):void
   {
     var toPrepare:ToPrepareI={order: order, inside: "",executor:this.authenticationService.userName,messageToNext:""};
     this.preparateurService.moveToPrepare(toPrepare).pipe(take(1)).subscribe(toPrep=>{
       this.toPrepares.push(toPrep);
-      this.preparateurService.getSignalOrder(ROLE).pipe(take(1)).subscribe(result=>{
-        this.signalOrder=result;
-      });
-      this.preparateurService.getToTakeOrder(ROLE).pipe(take(1)).subscribe(result=>{
-        this.toTakeOrder=result;
-      });
+      this.initSignal();
+      this.initToTake();
+    });
+  }
+
+  private initSignal():void
+  {
+    this.signals=[];
+    this.preparateurService.getSignalOrder(ROLE).pipe(take(1)).subscribe(result=>{
+      var tpRecord:Record<string, OrderI[]>=groupBy(result,i=>i.preOrder.destination);
+      for(let key in tpRecord)
+      {
+        var tpTable=new Signal();
+        tpTable.tableName="Table " +key;
+
+        var reduce=tpRecord[key].reduce((a,b)=>{
+          var name=b.preOrder.stock.item.name+" "+b.annonce;
+          if (!a.hasOwnProperty(name)) {
+            a[name] = 0;
+          }
+          a[name]++;
+          return a;
+        },{});
+
+        var reducesExtended=Object.keys(reduce).map(k=>{
+          return {name:k,count:reduce[k]} as NameCountI;
+        });
+
+        for (let nc in reducesExtended)
+        {
+          tpTable.items.push(reducesExtended[nc]);
+        }
+
+        this.signals.push(tpTable);
+      }
+    });
+  }
+
+  private initToTake(){
+    this.preparateurService.getToTakeOrder(ROLE).pipe(take(1)).subscribe(result=>{
+      this.toTakes=[];
+      var tpRecord:Record<string, OrderI[]>=groupBy(result,i=>i.preOrder.destination)
+      for(let key in tpRecord)
+      {
+        var tpToTake=new ToTake();
+        tpToTake.tableName="Table "+key;
+        tpToTake.items=tpRecord[key];
+        this.toTakes.push(tpToTake);
+      }
     });
   }
 
   private initAllData(): void {
-    this.preparateurService.getSignalOrder(ROLE).pipe(take(1)).subscribe(result=>{
-      this.signalOrder=result;
-    });
-    this.preparateurService.getToTakeOrder(ROLE).pipe(take(1)).subscribe(result=>{
-      this.toTakeOrder=result;
-    });
+    this.initSignal();
+    this.initToTake();
     this.preparateurService.getToPrepare(ROLE).pipe(take(1)).subscribe(result=>{
       this.toPrepares=result;
     });
@@ -71,18 +121,12 @@ export class InterfaceComponent implements OnInit {
         {
           if(value=="annonce")
            {
-            this.preparateurService.getSignalOrder(ROLE).pipe(take(1)).subscribe(result=>{
-              this.signalOrder=result;
-            });
+            this.initSignal();
            }
            if(value=="afaire")
            {
-            this.preparateurService.getSignalOrder(ROLE).pipe(take(1)).subscribe(result=>{
-              this.signalOrder=result;
-            });
-            this.preparateurService.getToTakeOrder(ROLE).pipe(take(1)).subscribe(result=>{
-              this.toTakeOrder=result;
-            });
+            this.initSignal();
+            this.initToTake();
            }
         }
       }
@@ -97,4 +141,23 @@ export class InterfaceComponent implements OnInit {
     });
   }
 
+}
+export interface NameCountI{
+  name:string
+  count:number
+}
+
+export interface SignalI{
+  tableName:string
+  items:NameCountI[];
+}
+
+export class Signal implements SignalI{
+  tableName: string;
+  items: NameCountI[]=[];
+}
+
+export class ToTake{
+  tableName:string;
+  items:OrderI[] = [];
 }

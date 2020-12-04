@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -41,7 +42,8 @@ const DragConfig = {
     DragDropModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatExpansionModule,
   ],
   providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

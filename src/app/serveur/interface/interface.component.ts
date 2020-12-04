@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { environment } from 'src/app/environement/environement';
 import { Util } from 'src/app/environement/util';
 import { ItemCategorieI } from 'src/app/interfaces/ItemCategorieI';
 import { MessageI } from 'src/app/interfaces/MessageI';
@@ -26,6 +27,7 @@ export class InterfaceComponent implements OnInit {
   currentAdd: StockI;
   table: string = "";
 
+  urlDownload: string = environment.apiUrl + "/images/download/";
 
   getTable(): void {
     this.serveurService.getPreOrder(this.table).pipe(take(1)).subscribe(preOrder => {
@@ -52,12 +54,30 @@ export class InterfaceComponent implements OnInit {
   }
 
   sendToCook(panierItem: PreOrderI) {
-    var order: OrderI = { preOrder: panierItem, inside: "", mandatory: this.authenticationService.userName, deleveryMode: "inside", statusOfPayement: "", timeToTake: "Immédiat", toTake: false };
+    var order: OrderI = { preOrder: panierItem, inside: "", mandatory: this.authenticationService.userName, deleveryMode: "inside", statusOfPayement: "", timeToTake: "", toTake: false };
     this.serveurService.moveToOrder(order).pipe(take(1)).subscribe(t => {
       this.getTable();
-      const message: MessageI = { content: 'Item signalé à la cuisine', level: 'Info' };
+      const message: MessageI = { content: 'Item signalé', level: 'Info' };
       this.messageService.add(message);
     })
+  }
+
+  sendAllToCook():void
+  {
+    this.serveurService.moveManyToOrder(this.table,this.authenticationService.userName).pipe(take(1)).subscribe(t=>{
+      const message: MessageI = { content: 'Items signalés', level: 'Info' };
+      this.messageService.add(message);
+      this.getTable();
+    });
+  }
+
+  sendAllToTakeCook(category: ItemCategorieI)
+  {
+    this.serveurService.moveManyToTake(this.table,category.id).pipe(take(1)).subscribe(t=>{
+      const message: MessageI = { content: 'Items signalés', level: 'Info' };
+      this.messageService.add(message);
+      this.getTable();
+    });
   }
 
   addToPreorder(message: string): void {
