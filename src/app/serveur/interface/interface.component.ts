@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/app/environement/environement';
 import { Util } from 'src/app/environement/util';
@@ -10,6 +10,7 @@ import { PreOrderI } from 'src/app/interfaces/tracability/PreOrder';
 import { MessageService } from 'src/app/rootComponent/messages/message.service';
 import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { ServeurService } from 'src/app/services/serveur.service';
+import { Socket } from 'src/app/services/Socket';
 
 @Component({
   selector: 'app-interface',
@@ -23,6 +24,7 @@ export class InterfaceComponent implements OnInit {
   stocksAdd: StockI[] = [];
   preOrder: PreOrderI[] = [];
   orders: OrderI[] = [];
+  inProgress:boolean=false;
 
   currentAdd: StockI;
   table: string = "";
@@ -54,29 +56,36 @@ export class InterfaceComponent implements OnInit {
   }
 
   sendToCook(panierItem: PreOrderI) {
+    this.inProgress=true;
     var order: OrderI = { preOrder: panierItem, inside: "", mandatory: this.authenticationService.userName, deleveryMode: "inside", statusOfPayement: "", timeToTake: "", toTake: false };
     this.serveurService.moveToOrder(order).pipe(take(1)).subscribe(t => {
       this.getTable();
       const message: MessageI = { content: 'Item signalé', level: 'Info' };
       this.messageService.add(message);
+      this.inProgress=false;
     })
   }
 
   sendAllToCook():void
   {
+    this.inProgress=true;
     this.serveurService.moveManyToOrder(this.table,this.authenticationService.userName).pipe(take(1)).subscribe(t=>{
       const message: MessageI = { content: 'Items signalés', level: 'Info' };
       this.messageService.add(message);
       this.getTable();
+      this.inProgress=false;
     });
   }
 
   sendAllToTakeCook(category: ItemCategorieI)
   {
+
+    this.inProgress=true;
     this.serveurService.moveManyToTake(this.table,category.id).pipe(take(1)).subscribe(t=>{
       const message: MessageI = { content: 'Items signalés', level: 'Info' };
       this.messageService.add(message);
       this.getTable();
+      this.inProgress=false;
     });
   }
 
@@ -89,11 +98,13 @@ export class InterfaceComponent implements OnInit {
   }
 
   moveToTake(order: OrderI): void {
+    this.inProgress=true;
     this.serveurService.moveToTake(order).pipe(take(1)).subscribe(t => {
       this.serveurService.getOrder(this.table).pipe(take(1)).subscribe(orders => {
         this.orders = orders;
         const message: MessageI = { content: 'La demande d\'envoie a bien été réalisée', level: 'Info' };
         this.messageService.add(message);
+        this.inProgress=false;
       })
     })
   }
@@ -121,6 +132,31 @@ export class InterfaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var socket:Socket=new Socket(environment.socketServer);
+    var listener: EventEmitter<any> = new EventEmitter();
+    listener=socket.getEventListener();
+    listener.subscribe(event=>{
+      if(event.type=="message")
+      {
+        var txt:string=event.data;
+        var command:string=txt.split(":")[0];
+        var value:string=txt.split(":")[1];
+        if(command="call")
+        {
+          const message: MessageI = { content: value,level:"Attention"}
+          this.messageService.add(message);
+          window.navigator.vibrate([100,30,100,30,100,30,200,30,200,30,200,30,100,30,100,30,100]);
+        }
+      }
+      if(event.type=="open")
+      {
+        console.log("Connexion open");
+      }
+      if(event.type=="close")
+      {
+        console.log("Connexion close");
+      }
+    });
   }
 
 }

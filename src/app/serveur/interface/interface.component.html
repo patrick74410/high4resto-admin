@@ -6,14 +6,14 @@
         <mat-tab-group>
             <mat-tab label="Commande">
                 <mat-button-toggle-group [(ngModel)]="table" matPrefix aria-label="Default select" class="mt-3 col-12">
-                    <mat-button-toggle value="1">1</mat-button-toggle>
-                    <mat-button-toggle value="2">2</mat-button-toggle>
-                    <mat-button-toggle value="3">3</mat-button-toggle>
-                    <mat-button-toggle value="4">4</mat-button-toggle>
-                    <mat-button-toggle value="5">5</mat-button-toggle>
-                    <mat-button-toggle value="6">6</mat-button-toggle>
-                    <mat-button-toggle value="7">7</mat-button-toggle>
-                    <mat-button-toggle value="8">8</mat-button-toggle>
+                    <mat-button-toggle value="Alpha">Alpha</mat-button-toggle>
+                    <mat-button-toggle value="Bravo">Bravo</mat-button-toggle>
+                    <mat-button-toggle value="Charlie">Charlie</mat-button-toggle>
+                    <mat-button-toggle value="Delta">Delta</mat-button-toggle>
+                    <mat-button-toggle value="Echo">Echo</mat-button-toggle>
+                    <mat-button-toggle value="Foxtrot">Foxtrot</mat-button-toggle>
+                    <mat-button-toggle value="Golf">Golf</mat-button-toggle>
+                    <mat-button-toggle value="Hotel">Hotel</mat-button-toggle>
                 </mat-button-toggle-group>
                 <mat-tab-group (selectedTabChange)="getTable()">
                     <mat-tab label="Prise de commande" *ngIf="table.length>0">
@@ -97,6 +97,12 @@
                         </div>
                     </mat-tab>
                     <mat-tab *ngIf="table.length>0" label="Panier">
+                        <div *ngIf="inProgress" class="row">
+                            <div class="col-2">
+                                <mat-spinner [diameter]="20"></mat-spinner>
+                            </div>
+                            <h3 class="col-10">En cours d'annonce</h3>
+                        </div>
                         <button mat-stroked-button class="col-12 my-3" (click)="sendAllToCook()">Annoncer toute la
                             table</button>
                         <div *ngFor="let panierItem of preOrder;trackBy:util.trackById" class="card my-3">
@@ -124,6 +130,12 @@
                         </div>
                     </mat-tab>
                     <mat-tab *ngIf="table.length>0" label="En cours">
+                        <div *ngIf="inProgress" class="row">
+                            <div class="col-2">
+                                <mat-spinner [diameter]="20"></mat-spinner>
+                            </div>
+                            <h3 class="col-10">En cours d'annonce</h3>
+                        </div>
                         <mat-expansion-panel hideToggle class="mt-3">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>

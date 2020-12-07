@@ -17,6 +17,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -44,6 +45,7 @@ const DragConfig = {
     MatCheckboxModule,
     MatTabsModule,
     MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

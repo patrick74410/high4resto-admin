@@ -6,7 +6,7 @@ export class Socket {
     private listener: EventEmitter<any> = new EventEmitter();
 
     public constructor(url:string) {
-        this.socket = new WebSocket(environment.socketColdCook);
+        this.socket = new WebSocket(url);
         this.socket.onopen = event => {
             this.listener.emit({"type": "open", "data": event});
         }
