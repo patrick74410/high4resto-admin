@@ -10,7 +10,6 @@ const routes: Routes = [{ path: 'carte', loadChildren: () => import('./carte/car
 { path: 'config', loadChildren: () => import('./config/config.module').then(m => m.ConfigModule) },
 { path: 'login', component: LoginComponent },
 { path: 'gestion', loadChildren: () => import('./stock/stock.module').then(m => m.StockModule) },
-{ path: 'serveur', loadChildren: () => import('./serveur/serveur.module').then(m => m.ServeurModule) },
 ];
 
 @NgModule({
