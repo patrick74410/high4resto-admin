@@ -22,7 +22,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableFilterModule } from 'mat-table-filter';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
-import { ItemDisponibilityComponent } from './item-disponibility/item-disponibility.component';
 import { ItemToPreparationComponent } from './item-to-preparation/item-to-preparation.component';
 
 const DragConfig = {
@@ -32,7 +31,7 @@ const DragConfig = {
 };
 
 @NgModule({
-  declarations: [StockComponent, ItemDisponibilityComponent, ItemToPreparationComponent],
+  declarations: [StockComponent,ItemToPreparationComponent],
   imports: [
     CommonModule,
     StockRoutingModule,
