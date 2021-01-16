@@ -13,6 +13,7 @@ export class StockService {
   private stockMoveUrl = environment.apiUrl + '/stock/delete/';
   private stockAddUrl = environment.apiUrl + '/stock/insert/';
   private stockGrouppedUrl = environment.apiUrl + '/stock/grouped/find/';
+  private updateQtyUrl= environment.apiUrl + '/stock/updateQty/';
 
   private httpOptionsUpdate = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,6 +38,11 @@ export class StockService {
   deleteStock(stock: StockI): Observable<any> {
     var finalUrl = this.stockMoveUrl + stock.id + "/";
     return this.http.delete(finalUrl);
+  }
+  updateQty(username: string,itemId:string,qty: number): Observable<any>
+  {
+    var finalUrl = this.updateQtyUrl + username + "/"+itemId+"/"+qty+"/";
+    return  this.http.get(finalUrl);
   }
 
   constructor(private itemCarteService: ItemCarteService, private http: HttpClient) { }

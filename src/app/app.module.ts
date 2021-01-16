@@ -16,13 +16,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MessagesComponent,
     LoginComponent,
-    ComfirmDialogComponent
+    ComfirmDialogComponent,
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,

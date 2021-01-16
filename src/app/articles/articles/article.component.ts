@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { ImageCategorieI } from 'src/app/interfaces/ImageCategorie';
-import { UserI } from 'src/app/interfaces/UserI';
 import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
 import { environment } from '../../environement/environement';
 import { Util } from '../../environement/util';
@@ -102,7 +101,6 @@ export class ArticleComponent implements OnInit {
       author: new FormControl(''),
       onTop: new FormControl(''),
       visible: new FormControl(''),
-      categorie: new FormControl('', Validators.required)
     }
   )
 
@@ -120,7 +118,6 @@ export class ArticleComponent implements OnInit {
     if (this.addForm.valid) {
       this.addArticle.title = this.addForm.get("title").value;
       this.addArticle.resume = this.addForm.get("resume").value;
-      this.addArticle.categorie = (this.addForm.get("categorie").value) as ArticleCategorieI;
       this.addArticle.author = this.addForm.get("author").value;
       this.addArticle.content = this.addForm.get("content").value;
       this.addArticle.date = new Date().toDateString();
@@ -130,8 +127,7 @@ export class ArticleComponent implements OnInit {
         const message: MessageI = { content: 'Article enregistré', level: 'Info' };
         this.messageService.add(message); this.addModal.hide();
         this.articleService.resetList();
-        if (this.addArticle.categorie == item.categorie)
-          this.articles.push(item);
+        this.articles.push(item);
       });
       document.getElementById("closeAddModal").click();
       this.addForm.reset();
@@ -148,6 +144,7 @@ export class ArticleComponent implements OnInit {
 
     let that = this;
     this.alertService.confirmThis("Êtes-vous sur de vouloir supprimer l'article", function () {
+      that.articleService.resetList();
       that.articleService.deleteArticle(article).pipe(take(1)).subscribe(test => {
         var index = that.articles.indexOf(article);
         that.articles.splice(index, 1);

@@ -33,14 +33,6 @@
                                     <mat-slide-toggle formControlName="visible">Visible</mat-slide-toggle>
                                     <mat-slide-toggle formControlName="onTop">Mise en avant</mat-slide-toggle>
                                 </div>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Catégorie de l'article</mat-label>
-                                    <mat-select formControlName="categorie">
-                                        <mat-option *ngFor="let categorie of articleCategories;" [value]="categorie">
-                                            {{categorie.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
                             </div>
                         </div>
 

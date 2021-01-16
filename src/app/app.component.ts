@@ -12,9 +12,12 @@ export class AppComponent {
   title = 'high4RestoAdminNext';
   constructor(public authenticationService: AuthentificationService, public expireService: ExpireService, private router: Router) { }
 
+  disconnect():void{
+    this.authenticationService.logout();
+    this.expireService.check();
+  }
+
   ngOnInit() {
-    localStorage.removeItem('expire');
-    localStorage.removeItem("currentConnexionI");
 
   }
 }

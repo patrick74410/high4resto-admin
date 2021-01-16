@@ -67,25 +67,24 @@
                                 <a class="dropdown-item" routerLink="/config/meta-tag/">
                                     Données de référencement
                                 </a>
-                                <a *ngIf="authenticationService.admin" class="dropdown-item"
+                                <a class="dropdown-item"
                                     routerLink="/config/web-config/">
                                     Configuration du site web
                                 </a>
                                 <a class="dropdown-item" routerLink="/config/tva/">
                                     TVA
                                 </a>
-
                                 <a class="dropdown-item" routerLink="/infos/horaire">
                                     Horaires
                                 </a>
                                 <a class="dropdown-item" routerLink="/infos/mon-entreprise">
                                     Mon entreprise
                                 </a>
-                                <a *ngIf="authenticationService.admin" class="dropdown-item"
+                                <a class="dropdown-item"
                                     routerLink="/config/utilisateurs">Gestion des utilisateurs</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown" *ngIf="authenticationService.manager">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="stock" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 Stock & tracabilité
@@ -97,6 +96,9 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="d-flex">
+                        <button class="btn btn-primary" (click)="disconnect()">Déconnexion</button>
+                    </div>
                 </div>
             </nav>
         </div>

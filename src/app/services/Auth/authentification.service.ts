@@ -15,10 +15,33 @@ import { UserI } from 'src/app/interfaces/UserI';
 export class AuthentificationService {
   private currentConnexionISubject: BehaviorSubject<ConnexionI>;
   public currentConnexionI: Observable<ConnexionI>;
-  public admin: boolean = false;
-  public manager: boolean = false;
-  public editor: boolean = false;
-  public userName: string;
+
+
+  public admin(): boolean
+  {
+    if(localStorage.getItem("admin")=="1")
+      return true;
+    else
+      return false;
+  }
+  public manager(): boolean
+  {
+    if(localStorage.getItem("manager")=="1")
+      return true;
+    else
+      return false;
+  }
+  public editor(): boolean
+  {
+    if(localStorage.getItem("editor")=="1")
+      return true;
+    else
+      return false;
+  }
+  public userName(): string
+  {
+    return localStorage.getItem("userName");
+  }
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.currentConnexionISubject = new BehaviorSubject<ConnexionI>(JSON.parse(localStorage.getItem('currentConnexionI')));
@@ -38,10 +61,13 @@ export class AuthentificationService {
         localStorage.setItem('currentConnexionI', JSON.stringify(connexion));
         this.currentConnexionISubject.next(connexion);
         this.http.get<UserI>(environment.apiUrl + '/users/me').pipe(take(1)).subscribe(user => {
-          this.admin = user.roles.includes("ROLE_ADMIN");
-          this.manager = user.roles.includes("ROLE_MANAGER");
-          this.editor = user.roles.includes("ROLE_EDITOR");
-          this.userName = user.username;
+          if(user.roles.includes("ROLE_ADMIN"))
+            localStorage.setItem("admin","1");
+          if(user.roles.includes("ROLE_MANAGER"))
+            localStorage.setItem("manager","1");
+          if(user.roles.includes("ROLE_EDITOR"))
+            localStorage.setItem("editor","1");
+          localStorage.setItem("userName",user.username);
         })
 
         return connexion;
@@ -51,6 +77,11 @@ export class AuthentificationService {
 
   logout() {
     localStorage.removeItem('currentConnexionI');
+    localStorage.removeItem('expire');
+    localStorage.removeItem('admin');
+    localStorage.removeItem('manager');
+    localStorage.removeItem('editor');
+    localStorage.removeItem('userName')
     this.currentConnexionISubject.next(null);
   }
 }

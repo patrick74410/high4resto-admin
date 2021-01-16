@@ -100,33 +100,13 @@ export class StockComponent implements OnInit {
   }
 
   updateData(qty: number): void {
-
-    this.stockService.getStock().pipe(take(1)).subscribe(stocks => {
-      for (let stock of stocks) {
-
-        if (stock.item.id == this.stockItem.item.id) {
-          var preOrder: PreOrderI = { stock: stock, inside: "", idCustommer: "", messageToNext: "", orderNumber: "", destination: "" };
-          var order: OrderI = { preOrder: preOrder, inside: "", mandatory: "", deleveryMode: "", statusOfPayement: "", timeToTake: "", toTake: false };
-          var toPrepare: ToPrepareI = { order: order, inside: "", executor: "", messageToNext: "" }
-          var prepare: PrepareI = { toPrepare: toPrepare, inside: "" };
-          var toDelivery: ToDeliveryI = { prepare: prepare, inside: "", deleveryPerson: "", messageToNext: "" }
-          var delevery: DeleveryI = { toDelivery: toDelivery, inside: "" };
-          var trash: TrashI = { delevery: delevery, inside: "", causeMessage: "Définition d'une nouvelle quantité" }
-          this.trashService.addTrash(trash).pipe(take(1)).subscribe(f => {
-            this.stockService.deleteStock(stock).pipe(take(1)).subscribe(t => {
-            })
-          });
-        }
-      }
-
-      this.stockService.addManyStock(this.stockItem, qty, this.authenticationService.userName).pipe(take(1)).subscribe(t => {
-        this.stockItem = { item: { id: "", name: "",remarque:"", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } }
-        this.itemSelected = false;
-        const message: MessageI = { content: 'Les quantités de l\'item ont été mise à jour', level: 'Info' };
-        this.messageService.add(message);
-        this.filterUnique(this.categorie);
-        this.getGroupped();
-      })
+    this.stockService.updateQty(this.authenticationService.userName(),this.stockItem.item.id, qty).pipe(take(1)).subscribe(t=>{
+      this.stockItem = { item: { id: "", name: "",remarque:"", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } }
+      this.itemSelected = false;
+      const message: MessageI = { content: 'Les quantités de l\'item ont été mise à jour', level: 'Info' };
+      this.messageService.add(message);
+      this.filterUnique(this.categorie);
+      this.getGroupped();
     });
   }
 
@@ -200,8 +180,8 @@ export class Item implements ItemCarteI {
   id: string;
   name: string;
   description: string;
-  price: Number;
-  order: Number;
+  price: number;
+  order: number;
   sourceImage: ImageI;
   categorie: ItemCategorieI;
   allergenes: AllergeneI[];
