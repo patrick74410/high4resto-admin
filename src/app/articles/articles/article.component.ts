@@ -15,16 +15,18 @@ import { ArticleService } from '../../services/article.service';
 import { ArticleCategorieService } from '../../services/categorieArticle.service';
 import { ExpireService } from '../../services/expire.service';
 import { ImageService } from '../../services/image.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css']
+  styleUrls: ['./article.component.scss']
 })
 
 export class ArticleComponent implements OnInit {
+  editorConfig = Util.editorConfig;
   check = false;
   articleCategories: ArticleCategorieI[];
   articles: ArticleI[];

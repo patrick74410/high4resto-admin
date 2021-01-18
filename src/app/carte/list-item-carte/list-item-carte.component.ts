@@ -35,6 +35,7 @@ declare var bootstrap: any;
 })
 
 export class ListItemCarteComponent implements OnInit {
+  editorConfig = Util.editorConfig;
   itemCarte: ItemCarteI;
   selectedItem: ItemCarteI;
   itemsCarte: ItemCarteI[];
@@ -246,7 +247,7 @@ export class ListItemCarteComponent implements OnInit {
     this.selectedItem.description = this.updateForm.get("description").value;
     this.selectedItem.price = this.updateForm.get("price").value;
     this.selectedItem.tva = this.updateForm.get("tva").value;
-    this.selectedItem.remarque= this.updateForm.get("remarque").value;
+    this.selectedItem.remarque = this.updateForm.get("remarque").value;
     this.selectedItem.categorie = this.updateForm.get("categorie").value;
     this.itemCarteService.updateItem(this.selectedItem).pipe(take(1)).subscribe(item => {
       document.getElementById('closeUpdateModal').click();
@@ -289,7 +290,7 @@ export class ListItemCarteComponent implements OnInit {
         visible: this.addForm.get("visible").value,
         promotions: this.promotionsSelected,
         stock: 0,
-        remarque:this.addForm.get("remarque").value,
+        remarque: this.addForm.get("remarque").value,
       }
       this.allergeneService.getAllergenes().pipe(take(1)).subscribe(allergenes => { this.allergenes = allergenes });
       this.itemCarteService.addItemCarte(itemAdd).pipe(take(1)).subscribe(item => {

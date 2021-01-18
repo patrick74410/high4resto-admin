@@ -3,18 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { MediasRoutingModule } from './medias-routing.module';
 import { ImageComponent } from './image/image.component'
-import { EditorModule } from '@tinymce/tinymce-angular';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 import { CDK_DRAG_CONFIG, DragDropModule } from '@angular/cdk/drag-drop';
 import { ImageCategorieComponent } from './categorie/ImageCategorie.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatButtonModule } from '@angular/material/button';
 
 const DragConfig = {
   dragStartThreshold: 0,
@@ -27,18 +21,11 @@ const DragConfig = {
   imports: [
     CommonModule,
     MediasRoutingModule,
-    EditorModule,
     ReactiveFormsModule,
     FormsModule,
     NgxPicaModule,
     DragDropModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    SharedModule,
-    MatButtonToggleModule,
-    MatButtonModule
+    SharedModule
   ],
   providers: [{ provide: CDK_DRAG_CONFIG, useValue: DragConfig }]
 })

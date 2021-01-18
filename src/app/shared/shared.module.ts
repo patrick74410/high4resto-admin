@@ -33,9 +33,24 @@ import { MatTableFilterModule } from 'mat-table-filter';
     MatCheckboxModule,
     MatTableFilterModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+
   ],
   declarations: [ImageModalComponent, SelectItemComponent],
-  exports: [ImageModalComponent, SelectItemComponent]
+  exports: [ImageModalComponent,
+    SelectItemComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatTableFilterModule,
+    MatTabsModule,
+    MatIconModule]
 })
 export class SharedModule { }

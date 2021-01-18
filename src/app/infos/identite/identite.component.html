@@ -24,8 +24,7 @@
             <h3>Description</h3>
 
             <div class="col-8">
-                <editor [init]="{language: 'fr_FR',height:400}" formControlName="description"
-                    apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+                <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
             </div>
 
             <div class="col-4">

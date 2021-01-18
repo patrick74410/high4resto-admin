@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'high4RestoAdminNext';
   constructor(public authenticationService: AuthentificationService, public expireService: ExpireService, private router: Router) { }
 
-  disconnect():void{
+  disconnect(): void {
     this.authenticationService.logout();
     this.expireService.check();
   }

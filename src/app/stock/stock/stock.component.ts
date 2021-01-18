@@ -43,7 +43,7 @@ export class StockComponent implements OnInit {
   grouppedStock: StockI[] = [];
   items: ItemCarteI[] = [];
   itemCategories: ItemCategorieI[] = [];
-  stockItem: StockI = { item: { id: "", name: "",remarque:"", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } };
+  stockItem: StockI = { item: { id: "", name: "", remarque: "", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } };
   util = new Util();
   itemSelected: boolean = false;
   horaire: HoraireI;
@@ -90,7 +90,7 @@ export class StockComponent implements OnInit {
 
   addData(qty: number): void {
     this.stockService.addManyStock(this.stockItem, qty, this.authenticationService.userName).pipe(take(1)).subscribe(t => {
-      this.stockItem = { item: { id: "",remarque:"", name: "", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } }
+      this.stockItem = { item: { id: "", remarque: "", name: "", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } }
       this.itemSelected = false;
       const message: MessageI = { content: 'Les items ont été ajoutés', level: 'Info' };
       this.messageService.add(message);
@@ -100,8 +100,8 @@ export class StockComponent implements OnInit {
   }
 
   updateData(qty: number): void {
-    this.stockService.updateQty(this.authenticationService.userName(),this.stockItem.item.id, qty).pipe(take(1)).subscribe(t=>{
-      this.stockItem = { item: { id: "", name: "",remarque:"", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } }
+    this.stockService.updateQty(this.authenticationService.userName(), this.stockItem.item.id, qty).pipe(take(1)).subscribe(t => {
+      this.stockItem = { item: { id: "", name: "", remarque: "", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } }
       this.itemSelected = false;
       const message: MessageI = { content: 'Les quantités de l\'item ont été mise à jour', level: 'Info' };
       this.messageService.add(message);
@@ -190,7 +190,7 @@ export class Item implements ItemCarteI {
   visible: boolean;
   promotions: PromotionI[];
   stock: number;
-  remarque:string;
+  remarque: string;
 
 }
 

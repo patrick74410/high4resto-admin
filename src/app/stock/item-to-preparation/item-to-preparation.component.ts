@@ -15,15 +15,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./item-to-preparation.component.css']
 })
 export class ItemToPreparationComponent implements OnInit {
-  roles: string[]=[];
-  roleForAdd: string[] = ["ROLE_ADMIN","ROLE_MANAGER","ROLE_WINESTEWARD","ROLE_BARWAITER","ROLE_SERVER","ROLE_DELEVERYMAN","ROLE_HOTCOOK","ROLE_COLDCOOK","ROLE_COOK","ROLE_EDITOR"];
-  currentItem:ItemCarteI;
+  roles: string[] = [];
+  roleForAdd: string[] = ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_WINESTEWARD", "ROLE_BARWAITER", "ROLE_SERVER", "ROLE_DELEVERYMAN", "ROLE_HOTCOOK", "ROLE_COLDCOOK", "ROLE_COOK", "ROLE_EDITOR"];
+  currentItem: ItemCarteI;
   allItem: ItemCarteI[];
 
-  private addAll():void{
-    this.roleForAdd = ["ROLE_ADMIN","ROLE_MANAGER","ROLE_WINESTEWARD","ROLE_BARWAITER","ROLE_SERVER","ROLE_DELEVERYMAN","ROLE_HOTCOOK","ROLE_COLDCOOK","ROLE_COOK","ROLE_EDITOR"];
-    this.roleForAdd=this.roleForAdd.filter(a=>{
-      if(this.currentItem.roles.includes(a))
+  private addAll(): void {
+    this.roleForAdd = ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_WINESTEWARD", "ROLE_BARWAITER", "ROLE_SERVER", "ROLE_DELEVERYMAN", "ROLE_HOTCOOK", "ROLE_COLDCOOK", "ROLE_COOK", "ROLE_EDITOR"];
+    this.roleForAdd = this.roleForAdd.filter(a => {
+      if (this.currentItem.roles.includes(a))
         return false;
       else
         return true;
@@ -32,12 +32,11 @@ export class ItemToPreparationComponent implements OnInit {
 
   selectItem(item: ItemCarteI): void {
 
-      this.currentItem=item;
-      if(!this.currentItem.roles)
-      {
-        this.currentItem.roles=[];
-      }
-      this.addAll();
+    this.currentItem = item;
+    if (!this.currentItem.roles) {
+      this.currentItem.roles = [];
+    }
+    this.addAll();
 
   }
 
@@ -65,9 +64,9 @@ export class ItemToPreparationComponent implements OnInit {
       this.roles = roles;
     })
 
-      this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
-        this.allItem=items;
-      })
+    this.itemCarteService.getItemCartes().pipe(take(1)).subscribe(items => {
+      this.allItem = items;
+    })
   }
 
   ngOnInit(): void {

@@ -15,7 +15,7 @@ import { ItemCategorieService } from 'src/app/services/itemCategorie.service';
 })
 export class SelectItemComponent implements OnInit {
   itemCategories: ItemCategorieI[] = [];
-  stockItem: StockI = { item: { id: "",remarque:"", name: "", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } };
+  stockItem: StockI = { item: { id: "", remarque: "", name: "", description: "", price: 0, order: 0, sourceImage: null, categorie: null, allergenes: null, tva: null, options: null, visible: false, promotions: null, stock: 1 } };
   items: ItemCarteI[] = [];
   util = new Util();
 

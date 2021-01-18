@@ -26,8 +26,7 @@
 
             <div class="col-12">
               <label class="form-label">Description:</label>
-              <editor [init]="{language: 'fr_FR'}" formControlName="description"
-                apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+              <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
             </div>
 
             <div class="col-md-6 text-center">
@@ -77,8 +76,7 @@
 
           <div class="col-12">
             <label class="form-label">Description:</label>
-            <editor [init]="{language: 'fr_FR'}" formControlName="description"
-              apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+            <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
           </div>
 
           <div class="col-md-6 text-center">

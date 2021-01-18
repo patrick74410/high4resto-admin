@@ -1,4 +1,4 @@
-export interface Message{
-    type:string;
-    function:string;
+export interface Message {
+    type: string;
+    function: string;
 }

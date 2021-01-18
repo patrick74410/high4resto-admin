@@ -25,6 +25,7 @@ export class CategorieComponent implements OnInit {
   categories: ItemCategorieI[];
   selectedCategorie: ItemCategorieI;
   addCategorie: ItemCategorieI = { name: "", description: "" };
+  editorConfig = Util.editorConfig;
   util = new Util();
   urlDownload: string = environment.apiUrl + "/images/download/";
 

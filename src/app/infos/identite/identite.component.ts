@@ -10,7 +10,6 @@ import { KeyMapI } from '../../interfaces/KeymapI';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GpsI } from '../../interfaces/GpsI';
 import { ImageI } from '../../interfaces/ImageI';
-import { ImageService } from '../../services/image.service'
 import { environment } from '../../environement/environement';
 import { Util } from '../../environement/util'
 import { AuthentificationService } from 'src/app/services/Auth/authentification.service';
@@ -27,6 +26,7 @@ export class IdentiteComponent implements OnInit {
   identite: IdentiteI;
   util = new Util();
   selectImage: ImageI;
+  editorConfig = Util.editorConfig;
 
   updateForm = new FormGroup({
     nomEtablissement: new FormControl(''),

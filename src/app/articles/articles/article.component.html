@@ -7,7 +7,7 @@
 <!-- Modal add-->
 <div class="modal fade" id="addArticle" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="addArticleel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <form [formGroup]="addForm">
                 <div class="modal-header">
@@ -52,12 +52,7 @@
                     </mat-form-field>
                     <div class="mb-3">
                         <label class="form-label">Contenu:</label>
-                        <editor [init]="{language: 'fr_FR',height:500,   plugins: [ 'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste wordcount'],
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                image_list:image_list}" formControlName="content"
-                            apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+                        <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -72,7 +67,7 @@
 <!-- Modal update-->
 <div class="modal fade" id="updateArticle" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="updateArticleel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <form [formGroup]="updateForm" *ngIf="selectedArticle">
                 <div class="modal-header">
@@ -125,12 +120,7 @@
                     </mat-form-field>
                     <div class="mb-3">
                         <label class="form-label">Contenu:</label>
-                        <editor [init]="{language: 'fr_FR',height:500,   plugins: [ 'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste wordcount'],
-                toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                image_list:image_list}" formControlName="content"
-                            apiKey="csyycqknxvvmkijl5x4d4a8rea94efvt80jgsvz7uqi8tdb2"></editor>
+                        <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
                     </div>
                 </div>
                 <div class="modal-footer">

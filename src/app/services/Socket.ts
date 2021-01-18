@@ -5,17 +5,17 @@ export class Socket {
     private socket: WebSocket;
     private listener: EventEmitter<any> = new EventEmitter();
 
-    public constructor(url:string) {
+    public constructor(url: string) {
         this.socket = new WebSocket(url);
         this.socket.onopen = event => {
-            this.listener.emit({"type": "open", "data": event});
+            this.listener.emit({ "type": "open", "data": event });
         }
         this.socket.onclose = event => {
-            this.listener.emit({"type": "close", "data": event});
+            this.listener.emit({ "type": "close", "data": event });
         }
         this.socket.onmessage = event => {
 
-            this.listener.emit({"type": "message", "data": event.data});
+            this.listener.emit({ "type": "message", "data": event.data });
         }
     }
 
